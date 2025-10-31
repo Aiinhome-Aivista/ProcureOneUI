@@ -21,7 +21,6 @@ A modern, scalable Angular 20 application built with best practices and advanced
 ### Module Structure
 1. **Vendor Module**: Product management, orders, and analytics
 2. **Department Module**: Request management, approvals, and reporting
-3. **Admin Module**: System administration, user management, and settings
 
 ## 🔐 Authentication
 
@@ -31,7 +30,6 @@ A modern, scalable Angular 20 application built with best practices and advanced
 |------------|--------------------------|------------|
 | Vendor     | vendor@example.com       | vendor123  |
 | Department | department@example.com   | dept123    |
-| Admin      | admin@example.com        | admin123   |
 
 ## Development server
 

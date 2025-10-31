@@ -100,18 +100,6 @@ export class AuthService {
           createdAt: new Date(),
           lastLogin: new Date()
         }
-      },
-      'admin@example.com': {
-        password: 'admin123',
-        user: {
-          id: '3',
-          email: 'admin@example.com',
-          name: 'Admin User',
-          role: 'admin',
-          avatar: 'https://ui-avatars.com/api/?name=Admin+User',
-          createdAt: new Date(),
-          lastLogin: new Date()
-        }
       }
     };
     
@@ -174,8 +162,7 @@ export class AuthService {
   redirectToDefaultPage(role: UserRole): void {
     const defaultPages: Record<UserRole, string> = {
       vendor: '/vendor/dashboard',
-      department: '/department/dashboard',
-      admin: '/admin/dashboard'
+      department: '/department/dashboard'
     };
     
     this.router.navigate([defaultPages[role]]);

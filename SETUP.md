@@ -3,7 +3,7 @@
 ## Project Overview
 
 This is a professional-grade Angular 20 application with the following features:
-- **3 Role-Based Modules**: Vendor, Department, and Admin
+- **2 Role-Based Modules**: Vendor and Department
 - **Single Login Page** with automatic role-based redirection
 - **Advanced Angular Features**: Signals, Standalone Components, Lazy Loading
 - **Tailwind CSS** for styling
@@ -13,7 +13,7 @@ This is a professional-grade Angular 20 application with the following features:
 
 ✅ Project structure created  
 ✅ Authentication system implemented  
-✅ All 3 modules created (Vendor, Department, Admin)  
+✅ All 2 modules created (Vendor, Department)  
 ✅ Routing with lazy loading configured  
 ✅ Guards and interceptors implemented  
 ✅ Tailwind CSS configured  
@@ -58,7 +58,6 @@ The current build shows errors about not finding the `auth.service` module. This
 |------------|--------------------------|------------|
 | Vendor     | vendor@example.com       | vendor123  |
 | Department | department@example.com   | dept123    |
-| Admin      | admin@example.com        | admin123   |
 
 ## Project Structure
 
@@ -82,17 +81,11 @@ src/app/
 │   │   ├── products/            # Product management
 │   │   ├── orders/              # Order management
 │   │   └── analytics/           # Analytics
-│   ├── department/
-│   │   ├── dashboard/           # Department dashboard
-│   │   ├── requests/            # Request management
-│   │   ├── approvals/           # Approval workflow
-│   │   └── reports/             # Reports
-│   └── admin/
-│       ├── dashboard/           # Admin dashboard
-│       ├── users/               # User management
-│       ├── vendors/             # Vendor management
-│       ├── departments/         # Department management
-│       └── settings/            # System settings
+│   └── department/
+│       ├── dashboard/           # Department dashboard
+│       ├── requests/            # Request management
+│       ├── approvals/           # Approval workflow
+│       └── reports/             # Reports
 │
 └── shared/                        # Shared resources
     └── components/
@@ -270,7 +263,7 @@ The `LayoutComponent` dynamically generates navigation items based on the logged
 readonly navigationItems = computed(() => {
   const role = this.userRole();  // From auth service signal
   
-  const roleSpecificItems = {
+  const roleSpecificItems: Record<string, Array<{ label: string; icon: string; route: string }>> = {
     vendor: [
       { label: 'Products', icon: 'inventory', route: '/vendor/products' },
       { label: 'Orders', icon: 'shopping_cart', route: '/vendor/orders' }
@@ -278,10 +271,6 @@ readonly navigationItems = computed(() => {
     department: [
       { label: 'Requests', icon: 'assignment', route: '/department/requests' },
       { label: 'Approvals', icon: 'task_alt', route: '/department/approvals' }
-    ],
-    admin: [
-      { label: 'Users', icon: 'group', route: '/admin/users' },
-      { label: 'Settings', icon: 'settings', route: '/admin/settings' }
     ]
   };
   

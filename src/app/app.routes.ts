@@ -78,42 +78,6 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'admin',
-    component: LayoutComponent,
-    canActivate: [authGuard, roleGuard(['admin'])],
-    children: [
-      {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
-      },
-      {
-        path: 'dashboard',
-        loadComponent: () => import('./features/admin/dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent)
-      },
-      {
-        path: 'users',
-        loadComponent: () => import('./features/admin/users/users.component').then(m => m.UsersComponent)
-      },
-      {
-        path: 'vendors',
-        loadComponent: () => import('./features/admin/vendors/vendors.component').then(m => m.VendorsComponent)
-      },
-      {
-        path: 'departments',
-        loadComponent: () => import('./features/admin/departments/departments.component').then(m => m.DepartmentsComponent)
-      },
-      {
-        path: 'settings',
-        loadComponent: () => import('./features/admin/settings/settings.component').then(m => m.SettingsComponent)
-      },
-      {
-        path: 'profile',
-        loadComponent: () => import('./shared/components/profile/profile.component').then(m => m.ProfileComponent)
-      }
-    ]
-  },
-  {
     path: 'unauthorized',
     loadComponent: () => import('./shared/components/unauthorized/unauthorized.component').then(m => m.UnauthorizedComponent)
   },

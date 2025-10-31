@@ -96,11 +96,10 @@ export class LoginComponent {
   /**
    * Fill demo credentials
    */
-  fillDemoCredentials(role: 'vendor' | 'department' | 'admin'): void {
+  fillDemoCredentials(role: 'vendor' | 'department'): void {
     const demoCredentials = {
       vendor: { email: 'vendor@example.com', password: 'vendor123' },
-      department: { email: 'department@example.com', password: 'dept123' },
-      admin: { email: 'admin@example.com', password: 'admin123' }
+      department: { email: 'department@example.com', password: 'dept123' }
     };
     
     this.loginForm.patchValue(demoCredentials[role]);

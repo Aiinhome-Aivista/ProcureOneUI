@@ -39,7 +39,7 @@ export class LayoutComponent {
       { label: 'Profile', icon: 'person', route: `/${role}/profile` },
     ];
     
-    const roleSpecificItems = {
+    const roleSpecificItems: Record<string, Array<{ label: string; icon: string; route: string }>> = {
       vendor: [
         { label: 'Products', icon: 'inventory', route: '/vendor/products' },
         { label: 'Orders', icon: 'shopping_cart', route: '/vendor/orders' },
@@ -49,12 +49,6 @@ export class LayoutComponent {
         { label: 'Requests', icon: 'assignment', route: '/department/requests' },
         { label: 'Approvals', icon: 'task_alt', route: '/department/approvals' },
         { label: 'Reports', icon: 'description', route: '/department/reports' },
-      ],
-      admin: [
-        { label: 'Users', icon: 'group', route: '/admin/users' },
-        { label: 'Vendors', icon: 'store', route: '/admin/vendors' },
-        { label: 'Departments', icon: 'business', route: '/admin/departments' },
-        { label: 'Settings', icon: 'settings', route: '/admin/settings' },
       ]
     };
     
@@ -75,10 +69,9 @@ export class LayoutComponent {
   
   getRoleBadgeClass(): string {
     const role = this.userRole();
-    const classes = {
+    const classes: Record<string, string> = {
       vendor: 'bg-green-100 text-green-800',
-      department: 'bg-blue-100 text-blue-800',
-      admin: 'bg-purple-100 text-purple-800'
+      department: 'bg-blue-100 text-blue-800'
     };
     return role ? classes[role] : 'bg-gray-100 text-gray-800';
   }
