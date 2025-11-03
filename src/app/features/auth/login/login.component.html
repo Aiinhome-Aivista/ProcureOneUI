@@ -23,7 +23,7 @@
               <label for="vendorId" class="text-primary-600 font-medium text-sm mb-2 block">Vendor ID</label>
               <div class="relative">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span class="material-icons text-gray-400 text-sm">person_outline</span>
+                <span class="material-symbols-outlined text-gray-400 text-sm">person_outline</span>
               </span>
               <input id="vendorId" type="text" formControlName="vendorId" autocomplete="username"
                 placeholder="Enter your Vendor ID" [class]="
@@ -50,7 +50,7 @@
               </label>
             <div class="relative mb-2">
                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span class="material-icons text-gray-400 text-sm">lock_outline</span>
+                <span class="material-symbols-outlined text-gray-400 text-sm">lock_outline</span>
                </span>
               <input id="password" [type]="showPassword() ? 'text' : 'password'" formControlName="password"
                 autocomplete="current-password" placeholder="Enter your password" [class]="
@@ -65,7 +65,7 @@
 
               <!-- Keep Material Icon Eye Toggle -->
            <button type="button" (click)="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center" >
-             <span class="material-icons text-gray-400 text-sm hover:text-gray-600"> {{ showPassword() ? 'visibility' : 'visibility_off' }} </span> 
+             <span class="material-symbols-outlined text-gray-400 text-sm hover:text-gray-600"> {{ showPassword() ? 'visibility' : 'visibility_off' }} </span> 
             </button>
             </div>
 

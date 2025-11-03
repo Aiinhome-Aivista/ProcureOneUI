@@ -16,12 +16,12 @@
             <div class="flex items-center mt-2">
               @if (stat.change > 0) {
                 <span class="text-green-600 text-sm font-medium flex items-center">
-                  <span class="material-icons text-sm">trending_up</span>
+                  <span class="material-symbols-outlined text-sm">trending_up</span>
                   {{ stat.change }}%
                 </span>
               } @else {
                 <span class="text-red-600 text-sm font-medium flex items-center">
-                  <span class="material-icons text-sm">trending_down</span>
+                  <span class="material-symbols-outlined text-sm">trending_down</span>
                   {{ stat.change * -1 }}%
                 </span>
               }
@@ -29,7 +29,7 @@
             </div>
           </div>
           <div [class]="'h-12 w-12 rounded-full flex items-center justify-center text-white ' + getCardColorClass(stat.color)">
-            <span class="material-icons">{{ stat.icon }}</span>
+            <span class="material-symbols-outlined">{{ stat.icon }}</span>
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
         <h2 class="text-xl font-bold text-gray-900">Recent Orders</h2>
         <button class="text-primary-600 hover:text-primary-700 font-medium text-sm flex items-center">
           View All
-          <span class="material-icons text-sm ml-1">arrow_forward</span>
+          <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
         </button>
       </div>
     </div>
@@ -85,7 +85,7 @@
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <button class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-all text-left group">
       <div class="h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-        <span class="material-icons text-blue-600">add_box</span>
+        <span class="material-symbols-outlined text-blue-600">add_box</span>
       </div>
       <h3 class="font-semibold text-gray-900 mb-2">Add New Product</h3>
       <p class="text-sm text-gray-600">Add a new product to your inventory</p>
@@ -93,7 +93,7 @@
 
     <button class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-all text-left group">
       <div class="h-12 w-12 bg-green-100 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-        <span class="material-icons text-green-600">analytics</span>
+        <span class="material-symbols-outlined text-green-600">analytics</span>
       </div>
       <h3 class="font-semibold text-gray-900 mb-2">View Analytics</h3>
       <p class="text-sm text-gray-600">Check your sales and performance metrics</p>
@@ -101,7 +101,7 @@
 
     <button class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-all text-left group">
       <div class="h-12 w-12 bg-purple-100 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-        <span class="material-icons text-purple-600">support_agent</span>
+        <span class="material-symbols-outlined text-purple-600">support_agent</span>
       </div>
       <h3 class="font-semibold text-gray-900 mb-2">Contact Support</h3>
       <p class="text-sm text-gray-600">Get help from our support team</p>
