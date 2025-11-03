@@ -14,33 +14,25 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
-  
+
   // Signals
   readonly showPassword = signal(false);
   readonly isSubmitting = signal(false);
   readonly errorMessage = signal<string | null>(null);
-  readonly showDemoSection = signal(false);
-  
+
   // Form
   readonly loginForm: FormGroup = this.fb.group({
     vendorId: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
-  
+
   /**
    * Toggle password visibility
    */
   togglePasswordVisibility(): void {
     this.showPassword.update(value => !value);
   }
-  
-  /**
-   * Toggle demo section visibility
-   */
-  toggleDemoSection(): void {
-    this.showDemoSection.update(value => !value);
-  }
-  
+
   /**
    * Handle form submission
    */
@@ -49,13 +41,13 @@ export class LoginComponent {
       this.markFormGroupTouched(this.loginForm);
       return;
     }
-    
+
     this.isSubmitting.set(true);
     this.errorMessage.set(null);
-    
+
     const { vendorId, password } = this.loginForm.value;
-    const credentials = { email: vendorId, password };
-    
+    const credentials = { username: vendorId, password };
+
     this.authService.login(credentials).subscribe({
       next: () => {
         this.isSubmitting.set(false);
@@ -66,7 +58,7 @@ export class LoginComponent {
       }
     });
   }
-  
+
   /**
    * Mark all fields as touched to show validation errors
    */
@@ -76,43 +68,31 @@ export class LoginComponent {
       control?.markAsTouched();
     });
   }
-  
+
   /**
    * Get error message for a field
    */
   getErrorMessage(fieldName: string): string {
     const control = this.loginForm.get(fieldName);
-    
+
     if (!control || !control.touched || !control.errors) {
       return '';
     }
-    
+
     if (control.errors['required']) {
       if (fieldName === 'vendorId') {
         return 'Vendor ID is required';
       }
       return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
     }
-    
+
     if (control.errors['minlength']) {
       return `Password must be at least ${control.errors['minlength'].requiredLength} characters`;
     }
-    
+
     return 'Invalid input';
   }
-  
-  /**
-   * Fill demo credentials
-   */
-  fillDemoCredentials(role: 'vendor' | 'department'): void {
-    const demoCredentials = {
-      vendor: { email: 'vendor@example.com', password: 'vendor123' },
-      department: { email: 'department@example.com', password: 'dept123' }
-    };
-    
-    this.loginForm.patchValue(demoCredentials[role]);
-  }
-   
+
   isExpanded = false;
 
   toggleExpand(event?: MouseEvent) {
