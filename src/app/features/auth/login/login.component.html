@@ -1,8 +1,8 @@
-<div class="min-h-screen flex bg-white">
+<div class="min-h-screen grid lg:grid-cols-2 grid-cols-1 bg-white">
   <!-- Left Section - Login Form -->
-  <div class="relative w-full lg:w-1/2 flex items-center justify-center px-6 py-12 lg:px-16">
+  <div class="relative col-span-1  flex items-center justify-center px-6 py-12 lg:px-16">
     <div class="absolute -top-[73%] -left-[61%] w-[150%] opacity-30 pointer-events-none">
-      <img src="assets/icons/bg-art.svg" alt="">
+      <img src="assets/icons/bg-art.svg" alt="" />
     </div>
 
     <div class="w-full flex flex-col justify-between h-full">
@@ -183,30 +183,36 @@
   </div>
 
   <!-- Right Section - Dashboard Preview -->
-  <div
-    class="hidden lg:flex lg:w-1/2 bg-primary-600 relative overflow-hidden items-center justify-center p-12"
-  >
-    <!-- Content -->
-    <div class="relative z-10 max-w-2xl w-full">
-      <!-- Header Text -->
-      <div class="mb-8 text-white">
-        <h2 class="text-4xl font-bold mb-3">ProcureOne</h2>
-        <p class="text-lg text-purple-100 leading-relaxed">
-          "One Unified Procurement Ecosystem"<br />
-          <span class="text-sm"
-            >Represents a single integrated solution for all procurement types.</span
-          >
-        </p>
+  <div class="hidden lg:flex col-span-1 p-4 w-full">
+    <div
+      class="bg-linear-to-b from-primary-600 to-primary-900 rounded-3xl w-full h-full p-8 flex items-center justify-center relative overflow-hidden"
+    >
+      <!-- Background Pattern -->
+      <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
       </div>
 
-      <!-- Dashboard Preview Card -->
-      <div class="">
-        <img
-          src="login-page.svg"
-          alt="Dashboard Preview"
-          class="w-full"
-          onError="this.style.display='none'"
-        />
+      <div class="relative z-10 max-w-2xl w-full">
+        <!-- Header Text -->
+        <div class="mb-8 text-white">
+          <h2 class="text-4xl font-bold mb-3">ProcureOne</h2>
+          <p class="text-lg text-purple-100 leading-relaxed">
+            "One Unified Procurement Ecosystem"<br />
+            <span class="text-sm"
+              >Represents a single integrated solution for all procurement types.</span
+            >
+          </p>
+        </div>
+
+        <!-- Dashboard Preview Card -->
+        <div class="bg-white rounded-2xl shadow-2xl p-6 transform hover:scale-105 transition-transform duration-300">
+          <img
+            src="assets/images/Vendor Dashboard.svg"
+            alt="Dashboard Preview"
+            class="w-full h-auto rounded-lg"
+          />
+        </div>
       </div>
     </div>
   </div>
