@@ -1,121 +1,94 @@
-<div class="min-h-screen grid lg:grid-cols-2 grid-cols-1 bg-white">
+<div class="h-screen grid lg:grid-cols-2 grid-cols-1 bg-white">
   <!-- Left Section - Login Form -->
-  <div class="relative col-span-1  flex items-center justify-center px-6 py-12 lg:px-16">
-    <div class="absolute -top-[73%] -left-[61%] w-[150%] opacity-30 pointer-events-none">
+  <div class="relative col-span-1 flex items-center justify-center p-8 pb-0">
+    <div class="absolute -top-[70%] -left-[63%] w-[150%] opacity-30 pointer-events-none">
       <img src="assets/icons/bg-art.svg" alt="" />
     </div>
 
     <div class="w-full flex flex-col justify-between h-full">
-      <div class="flex items-center gap-2 mb-8 w-full">
-        <span class="text-xl font-semibold text-gray-900">Aiinhome | PO</span>
+      <div class="flex items-center w-full">
+        <h3 class="text-lg font-medium text-[#2C2E42] z-0">
+          A<span class="text-primary-600">ii</span>nhome<span class="font-bold px-1">|</span>
+          <span class="font-bold">PO</span>
+        </h3>
       </div>
 
-      <div class="max-w-md w-full mx-auto">
-        <h1 class="text-4xl font-bold text-gray-900 mb-2">Log in</h1>
+      <div class="max-w-md w-full mx-auto z-10">
+        <h1 class="text-3xl font-bold text-primary-600 mb-2 justify-center text-center">Log in</h1>
 
         <!-- Login Form -->
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5 z-10">
           <!-- Vendor ID Field -->
           <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-              Vendor ID
-            </label>
+            <label for="vendorId" class="text-primary-600 font-medium text-sm mb-2 block">Vendor ID</label>
             <div class="relative">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span class="material-icons text-gray-400 text-sm">person_outline</span>
+                <span class="material-symbols-outlined text-[#4319C245]">id_card</span>
               </span>
-              <input
-                id="email"
-                type="email"
-                formControlName="email"
-                autocomplete="email"
-                [class]="
-                  'appearance-none block w-full pl-10 pr-3 py-2.5 border rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm ' +
-                  (loginForm.get('email')?.touched && loginForm.get('email')?.invalid
+              <input id="vendorId" type="text" formControlName="vendorId" autocomplete="username"
+                placeholder="Enter your Vendor ID" [class]="
+                  'input-style-po pl-11 ' +
+                  (loginForm.get('vendorId')?.touched && loginForm.get('vendorId')?.invalid
                     ? 'border-red-300'
                     : 'border-gray-300')
-                "
-                placeholder="Enter your vendor ID"
-              />
+                " />
+              <!-- <img src="assets/icons/id_card.svg" class="absolute left-3 top-1/2 h-7 w-7" /> -->
             </div>
-            @if (getErrorMessage('email')) {
-            <p class="mt-1.5 text-xs text-red-600">{{ getErrorMessage('email') }}</p>
+
+            @if (getErrorMessage('vendorId')) {
+            <p class="mt-1 text-xs text-red-600">{{ getErrorMessage('vendorId') }}</p>
             }
           </div>
 
           <!-- Password Field -->
           <div>
-            <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="password" class="text-primary-600 font-medium text-sm mb-2 block">
               Password
             </label>
-            <div class="relative">
+            <div class="relative mb-2">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span class="material-icons text-gray-400 text-sm">lock_outline</span>
+                <span class="material-symbols-outlined text-[#4319C245]">encrypted</span>
               </span>
-              <input
-                id="password"
-                [type]="showPassword() ? 'text' : 'password'"
-                formControlName="password"
-                autocomplete="current-password"
-                [class]="
-                  'appearance-none block w-full pl-10 pr-10 py-2.5 border rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm ' +
+              <input id="password" [type]="showPassword() ? 'text' : 'password'" formControlName="password"
+                autocomplete="current-password" placeholder="Enter your password" [class]="
+                  'input-style-po pl-11 pr-10 ' +
                   (loginForm.get('password')?.touched && loginForm.get('password')?.invalid
                     ? 'border-red-300'
                     : 'border-gray-300')
-                "
-                placeholder="Enter your password"
-              />
-              <button
-                type="button"
-                (click)="togglePasswordVisibility()"
-                class="absolute inset-y-0 right-0 pr-3 flex items-center"
-              >
-                <span class="material-icons text-gray-400 text-sm hover:text-gray-600">
+                " />
+
+              <!-- Left Lock Icon -->
+              <!-- <img src="assets/icons/encrypted.svg" alt="" class="absolute left-3 top-1/2  h-7 w-7" /> -->
+
+              <!-- Keep Material Icon Eye Toggle -->
+              <button type="button" (click)="togglePasswordVisibility()"
+                class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                <span class="material-symbols-outlined text-gray-400 text-sm hover:text-gray-600">
                   {{ showPassword() ? 'visibility' : 'visibility_off' }}
                 </span>
               </button>
             </div>
+
             @if (getErrorMessage('password')) {
-            <p class="mt-1.5 text-xs text-red-600">{{ getErrorMessage('password') }}</p>
+            <p class="mt-1 text-xs text-red-600">{{ getErrorMessage('password') }}</p>
             }
           </div>
 
-          <!-- Error Message -->
-          @if (errorMessage()) {
-          <div class="bg-red-50 border border-red-200 rounded-lg p-3">
-            <div class="flex items-center">
-              <span class="material-icons text-red-500 text-sm mr-2">error_outline</span>
-              <p class="text-sm text-red-700">{{ errorMessage() }}</p>
-            </div>
-          </div>
-          }
-
           <!-- Submit Button -->
-          <button
-            type="submit"
-            [disabled]="isSubmitting()"
-            class="w-full flex justify-center items-center py-3 px-4 border border-transparent text-sm font-semibold rounded-lg text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200 shadow-sm hover:shadow-md"
-          >
+          <button type="submit" [disabled]="loginForm.invalid || isSubmitting()"
+            class="w-full flex justify-center items-center py-3 px-4 border border-transparent text-sm font-semibold rounded-lg mt-8 transition-colors duration-300"
+            [ngClass]="{
+              'bg-primary-600 text-white cursor-pointer hover:bg-primary-700': loginForm.valid,
+              'bg-[#D9D9D9] text-[#4319C245] cursor-not-allowed':
+                loginForm.invalid || isSubmitting()
+            }">
             @if (isSubmitting()) {
-            <svg
-              class="animate-spin h-5 w-5 text-white mr-2"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                class="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                stroke-width="4"
-              ></circle>
-              <path
-                class="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
+            <svg class="animate-spin h-5 w-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+              </path>
             </svg>
             <span>Authenticating...</span>
             } @else {
@@ -125,12 +98,9 @@
         </form>
         <!-- Register Link -->
         <div class="mt-6 text-center">
-          <p class="text-sm text-gray-600">
+          <p class="text-sm text-[#4319C280] font-medium">
             Don't have an account?
-            <a
-              routerLink="/register"
-              class="font-semibold text-primary-600 hover:text-primary-700 transition-colors cursor-pointer"
-            >
+            <a routerLink="/register" class="font-semibold text-primary-600 hover:text-primary-700 transition-colors">
               Register here
             </a>
           </p>
@@ -138,46 +108,43 @@
       </div>
 
       <!-- Demo Credentials -->
-      <div class="mt-8 pt-6 border-t border-gray-200 max-w-md w-full mx-auto">
-        <button
-          type="button"
-          (click)="toggleDemoSection()"
-          class="w-full flex items-center justify-between text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
-        >
-          <div class="flex items-center gap-2">
-            <span class="material-icons text-sm">info_outline</span>
-            <span>Know your Onboarding status</span>
-          </div>
-          <span class="material-icons text-sm">
-            {{ showDemoSection() ? 'expand_less' : 'expand_more' }}
-          </span>
-        </button>
+      <div class="mt-8 max-w-md w-full mx-auto bottom-0">
+        <div class="card-style-po rounded-2xl px-6 py-3 w-full">
+          <!-- Header -->
+          <div class="flex items-center justify-between cursor-pointer" (click)="toggleExpand()" role="button"
+            aria-expanded="{{ isExpanded }}" tabindex="0">
+            <span class="text-primary-600 font-semibold text-sm">
+              Know your Onboarding status
+            </span>
 
-        @if (showDemoSection()) {
-        <div class="mt-4 space-y-2">
-          <p class="text-xs text-gray-500 mb-3">Quick login with demo credentials:</p>
-          <button
-            type="button"
-            (click)="fillDemoCredentials('vendor')"
-            class="w-full text-left px-4 py-2.5 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors border border-green-200 text-sm font-medium"
-          >
-            <div class="flex items-center justify-between">
-              <span>Vendor Account</span>
-              <span class="material-icons text-sm">arrow_forward</span>
+            <button type="button" (click)="toggleExpand($event)" class="p-1 rounded-md focus:outline-none z-30"
+              aria-label="Toggle onboarding status panel">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary-600 transition-transform duration-300"
+                [class.rotate-180]="isExpanded" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Expandable section -->
+          @if (isExpanded) {
+          <div class="transition-all duration-500 overflow-hidden mt-3 max-h-40">
+            <!-- Vendor ID input box -->
+            <div class="flex items-center border border-[#C4B5FD] rounded-lg px-3 mb-3">
+                  <span class="material-symbols-outlined text-[#4319C245]">id_card</span>
+
+              <input type="text" class="flex-1 ml-3 py-2 text-sm placeholder-[#A78BFA] focus:outline-none"
+                placeholder="Enter your initial ID" />
+
+              <button aria-label="Submit initial id">
+                <img src="assets/icons/arrow_circle_down.svg" alt="" class="h-6 w-6" />
+              </button>
             </div>
-          </button>
-          <button
-            type="button"
-            (click)="fillDemoCredentials('department')"
-            class="w-full text-left px-4 py-2.5 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors border border-blue-200 text-sm font-medium"
-          >
-            <div class="flex items-center justify-between">
-              <span>Department Account</span>
-              <span class="material-icons text-sm">arrow_forward</span>
-            </div>
-          </button>
+
+            <!-- Demo Buttons -->
+          </div>
+          }
         </div>
-        }
       </div>
     </div>
   </div>
@@ -185,34 +152,37 @@
   <!-- Right Section - Dashboard Preview -->
   <div class="hidden lg:flex col-span-1 p-4 w-full">
     <div
-      class="bg-linear-to-b from-primary-600 to-primary-900 rounded-3xl w-full h-full p-8 flex items-center justify-center relative overflow-hidden"
-    >
-      <!-- Background Pattern -->
-      <div class="absolute inset-0 opacity-10">
-        <div class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
-        <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
-      </div>
-
-      <div class="relative z-10 max-w-2xl w-full">
+      class="bg-linear-to-b from-primary-600 to-primary-900 rounded-3xl w-full h-full p-8 pl-14 pr-0 flex items-center justify-end relative overflow-hidden">
+      <div class="max-w-4xl w-full flex flex-col gap-3">
         <!-- Header Text -->
         <div class="mb-8 text-white">
-          <h2 class="text-4xl font-bold mb-3">ProcureOne</h2>
-          <p class="text-lg text-purple-100 leading-relaxed">
-            "One Unified Procurement Ecosystem"<br />
-            <span class="text-sm"
-              >Represents a single integrated solution for all procurement types.</span
-            >
+          <h1 class="mb-5">
+            <span class="font-extrabold font-inter text-3xl text-white">Procure</span><span
+              class="text-white font-extralight font-inter text-3xl">One</span>
+          </h1>
+          <p class="text-sm font-inter text-[#D9D9D9]">
+            “One Unified Procurement Ecosystem.”
+            <span>
+              <p>
+                Represents a single integrated solution for all procurement types.
+              </p>
+            </span>
           </p>
         </div>
 
         <!-- Dashboard Preview Card -->
-        <div class="bg-white rounded-2xl shadow-2xl p-6 transform hover:scale-105 transition-transform duration-300">
-          <img
-            src="assets/images/Vendor Dashboard.svg"
-            alt="Dashboard Preview"
-            class="w-full h-auto rounded-lg"
-          />
+        <div class="flex mt-4">
+          <div class="                     
+                           rounded-t-3xl rounded-bl-3xl rounded-tl-3xl md:rounded-4xl
+                            border-l-[6px] border-t-[6px] border-b-[6px]
+                            md:border-l-8 md:border-t-8 md:border-b-8
+                            border-[#D9D9D9] card-style-po -mr-5 
+                            ">
+            <img src="assets/images/Vendor Dashboard.svg" alt="Dashboard Preview" class="rounded-3xl" />
+          </div>
         </div>
+
+
       </div>
     </div>
   </div>
