@@ -17,65 +17,67 @@
         <h1 class="text-3xl font-bold text-primary-600 mb-2 justify-center text-center">Log in</h1>
 
         <!-- Login Form -->
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5 z-10">
           <!-- Vendor ID Field -->
-          <div class="relative">
-            <label for="vendorId" class="text-primary-600 font-medium text-sm mb-2 block">Vendor ID</label>
-
-            <input id="vendorId" type="text" formControlName="vendorId" autocomplete="username"
-              placeholder="Enter your Vendor ID" [class]="
+          <div>
+              <label for="vendorId" class="text-primary-600 font-medium text-sm mb-2 block">Vendor ID</label>
+              <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span class="material-icons text-gray-400 text-sm">person_outline</span>
+              </span>
+              <input id="vendorId" type="text" formControlName="vendorId" autocomplete="username"
+                placeholder="Enter your Vendor ID" [class]="
       'input-style-po pl-11 ' +
       (loginForm.get('vendorId')?.touched && loginForm.get('vendorId')?.invalid
         ? 'border-red-300'
         : 'border-gray-300')
     " />
+              <!-- <img src="assets/icons/id_card.svg" class="absolute left-3 top-1/2 h-7 w-7" /> -->
 
-            <img src="assets/icons/id_card.svg" class="absolute left-3 top-1/2 h-7 w-7" />
+            </div>
+
+            @if (getErrorMessage('vendorId')) {
+            <p class="mt-1 text-xs text-red-600">{{ getErrorMessage('vendorId') }}</p>
+            }
           </div>
-
-          @if (getErrorMessage('vendorId')) {
-          <p class="mt-1 text-xs text-red-600">{{ getErrorMessage('vendorId') }}</p>
-          }
 
 
           <!-- Password Field -->
-          <div class="relative mb-2">
-            <label for="password" class="text-[#4319C2] font-medium text-sm mb-2 block">
-              Password
-            </label>
-
-            <input id="password" [type]="showPassword() ? 'text' : 'password'" formControlName="password"
-              autocomplete="current-password" placeholder="Enter your password" [class]="
+          <div>
+            
+              <label for="password" class="text-primary-600 font-medium text-sm mb-2 block">
+                Password
+              </label>
+            <div class="relative mb-2">
+               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span class="material-icons text-gray-400 text-sm">lock_outline</span>
+               </span>
+              <input id="password" [type]="showPassword() ? 'text' : 'password'" formControlName="password"
+                autocomplete="current-password" placeholder="Enter your password" [class]="
       'input-style-po pl-11 pr-10 ' +
       (loginForm.get('password')?.touched && loginForm.get('password')?.invalid
         ? 'border-red-300'
         : 'border-gray-300')
     " />
 
-            <!-- Left Lock Icon -->
-            <img src="assets/icons/encrypted.svg" alt="" class="absolute left-3 top-1/2  h-7 w-7" />
+              <!-- Left Lock Icon -->
+              <!-- <img src="assets/icons/encrypted.svg" alt="" class="absolute left-3 top-1/2  h-7 w-7" /> -->
 
-            <!-- Keep Material Icon Eye Toggle -->
-            <button type="button" (click)="togglePasswordVisibility()"
-              class="absolute right-3 top-1/2">
-              <span class="material-icons text-gray-400 text-sm hover:text-gray-600">
-                {{ showPassword() ? 'visibility' : 'visibility_off' }}
-              </span>
+              <!-- Keep Material Icon Eye Toggle -->
+           <button type="button" (click)="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center" >
+             <span class="material-icons text-gray-400 text-sm hover:text-gray-600"> {{ showPassword() ? 'visibility' : 'visibility_off' }} </span> 
             </button>
+            </div>
+
+            @if (getErrorMessage('password')) {
+            <p class="mt-1 text-xs text-red-600">{{ getErrorMessage('password') }}</p>
+            }
           </div>
 
-          @if (getErrorMessage('password')) {
-          <p class="mt-1 text-xs text-red-600">{{ getErrorMessage('password') }}</p>
-          }
-
-
           <!-- Submit Button -->
-          <button
-            type="submit"
-            [disabled]="loginForm.invalid || isSubmitting()"
+          <button type="submit" [disabled]="loginForm.invalid || isSubmitting()"
             class="w-full flex justify-center items-center py-3 px-4 border border-transparent text-sm font-semibold rounded-lg mt-8 transition-colors duration-300"
-            [ngClass]="{'bg-primary-600 text-white cursor-pointer hover:bg-primary-700': loginForm.valid, 'bg-[#D9D9D9] text-[#4319C245] cursor-not-allowed': loginForm.invalid || isSubmitting()}"
-          >
+            [ngClass]="{'bg-primary-600 text-white cursor-pointer hover:bg-primary-700': loginForm.valid, 'bg-[#D9D9D9] text-[#4319C245] cursor-not-allowed': loginForm.invalid || isSubmitting()}">
             @if (isSubmitting()) {
             <svg class="animate-spin h-5 w-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
               viewBox="0 0 24 24">
@@ -102,63 +104,49 @@
       </div>
 
       <!-- Demo Credentials -->
-<div class="mt-8 max-w-md w-full mx-auto bottom-0">
+      <div class="mt-8 max-w-md w-full mx-auto bottom-0">
 
-  <div class="card-style-po rounded-2xl px-6 py-3 w-full">
+        <div class="card-style-po rounded-2xl px-6 py-3 w-full">
 
-    <!-- Header -->
-    <div
-      class="flex items-center justify-between cursor-pointer"
-      (click)="toggleExpand()"
-      role="button"
-      aria-expanded="{{ isExpanded }}"
-      tabindex="0"
-    >
-      <span class="text-[#4319C2] font-semibold text-sm">
-        Know your Onboarding status
-      </span>
+          <!-- Header -->
+          <div class="flex items-center justify-between cursor-pointer" (click)="toggleExpand()" role="button"
+            aria-expanded="{{ isExpanded }}" tabindex="0">
+            <span class="text-primary-600 font-semibold text-sm">
+              Know your Onboarding status
+            </span>
 
-      <button
-        type="button"
-        (click)="toggleExpand($event)"
-        class="p-1 rounded-md focus:outline-none z-30"
-        aria-label="Toggle onboarding status panel"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg"
-          class="w-6 h-6 text-[#4319C2] transition-transform duration-300"
-          [class.rotate-180]="isExpanded"
-          fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-        </svg>
-      </button>
-    </div>
+            <button type="button" (click)="toggleExpand($event)" class="p-1 rounded-md focus:outline-none z-30"
+              aria-label="Toggle onboarding status panel">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary-600 transition-transform duration-300"
+                [class.rotate-180]="isExpanded" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+              </svg>
+            </button>
+          </div>
 
-    <!-- Expandable section -->
-    @if (isExpanded) {
-    <div class="transition-all duration-500 overflow-hidden mt-3 max-h-40">
+          <!-- Expandable section -->
+          @if (isExpanded) {
+          <div class="transition-all duration-500 overflow-hidden mt-3 max-h-40">
 
-      <!-- Vendor ID input box -->
-      <div class="flex items-center border border-[#C4B5FD] rounded-lg px-3 mb-3">
-        <img src="assets/icons/id_card.svg" alt="" class="h-6 w-6" />
+            <!-- Vendor ID input box -->
+            <div class="flex items-center border border-[#C4B5FD] rounded-lg px-3 mb-3">
+              <img src="assets/icons/id_card.svg" alt="" class="h-6 w-6" />
 
-        <input
-          type="text"
-          class="flex-1 ml-3 py-2 text-sm placeholder-[#A78BFA] focus:outline-none"
-          placeholder="Enter your initial ID"
-        />
+              <input type="text" class="flex-1 ml-3 py-2 text-sm placeholder-[#A78BFA] focus:outline-none"
+                placeholder="Enter your initial ID" />
 
-        <button aria-label="Submit initial id">
-          <img src="assets/icons/arrow_circle_down.svg" alt="" class="h-6 w-6" />
-        </button>
+              <button aria-label="Submit initial id">
+                <img src="assets/icons/arrow_circle_down.svg" alt="" class="h-6 w-6" />
+              </button>
+            </div>
+
+            <!-- Demo Buttons -->
+
+
+          </div>
+          }
+        </div>
       </div>
-
-      <!-- Demo Buttons -->
-      
-
-    </div>
-    }
-  </div>
-</div>
 
     </div>
   </div>
