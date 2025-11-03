@@ -1,3 +1,129 @@
-<div class="min-h-screen grid lg:grid-cols-2 grid-cols-1 bg-white">
-    works
+<div class="min-h-screen bg-gray-50">
+  <!-- Header -->
+  <div class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <a routerLink="/login" class="text-gray-600 hover:text-gray-900">
+            <span class="material-icons">arrow_back</span>
+          </a>
+          <div>
+            <h1 class="text-xl font-bold text-gray-900">Vendor Registration</h1>
+            <p class="text-xs text-gray-600">Become a Valued Vendor</p>
+          </div>
+        </div>
+        <div class="text-sm text-gray-600">
+          Step {{ currentStep() }} of {{ totalSteps }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-6 py-8 max-w-6xl">
+    <!-- Step Indicator -->
+    <div class="mb-8 bg-white rounded-xl shadow-sm p-6">
+      <app-step-indicator [currentStep]="currentStep()" />
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="bg-white rounded-xl shadow-sm p-8 min-h-[600px]">
+      <!-- Step 1: Basic Information -->
+      @if (currentStep() === 1) {
+        <app-step1-basic-info 
+          [data]="registrationData().basicInfo"
+          (dataChange)="updateStepData(1, $event)"
+        />
+      }
+
+      <!-- Step 2: Financial Verification -->
+      @if (currentStep() === 2) {
+        <app-step2-financial-verification 
+          [data]="registrationData().financialVerification"
+          (dataChange)="updateStepData(2, $event)"
+        />
+      }
+
+      <!-- Step 3: Risk Factor -->
+      @if (currentStep() === 3) {
+        <app-step3-risk-factor 
+          [data]="registrationData().riskFactor"
+          (dataChange)="updateStepData(3, $event)"
+        />
+      }
+
+      <!-- Step 4: Capability -->
+      @if (currentStep() === 4) {
+        <app-step4-capability 
+          [data]="registrationData().capability"
+          (dataChange)="updateStepData(4, $event)"
+        />
+      }
+
+      <!-- Step 5: Approved (Review & Submit) -->
+      @if (currentStep() === 5) {
+        <app-step5-approved 
+          [data]="registrationData().approved"
+          [termsAccepted]="registrationData().approved?.termsAccepted || false"
+          (dataChange)="updateStepData(5, $event)"
+        />
+      }
+
+      <!-- Navigation Buttons -->
+      <div class="flex justify-between mt-8 pt-6 border-t border-gray-200">
+        <!-- Previous Button -->
+        <button
+          type="button"
+          (click)="previousStep()"
+          [disabled]="currentStep() === 1"
+          class="flex items-center gap-2 px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          <span class="material-icons text-sm">arrow_back</span>
+          <span>Previous</span>
+        </button>
+
+        <!-- Reset Button (only on step 1) -->
+        @if (currentStep() === 1) {
+          <button
+            type="button"
+            (click)="resetForm()"
+            class="flex items-center gap-2 px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+          >
+            <span class="material-icons text-sm">refresh</span>
+            <span>Reset</span>
+          </button>
+        }
+        
+        <!-- Next/Submit Button -->
+        @if (currentStep() < totalSteps) {
+          <button
+            type="button"
+            (click)="nextStep()"
+            [disabled]="!isCurrentStepValid()"
+            class="flex items-center gap-2 px-6 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+          >
+            <span>Next Step</span>
+            <span class="material-icons text-sm">arrow_forward</span>
+          </button>
+        } @else {
+          <button
+            type="button"
+            (click)="submitRegistration()"
+            [disabled]="!isCurrentStepValid()"
+            class="flex items-center gap-2 px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+          >
+            <span>Submit Registration</span>
+            <span class="material-icons text-sm">send</span>
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Back to Login -->
+    <div class="text-center mt-6">
+      <a routerLink="/login" class="text-sm text-primary-600 hover:text-primary-700 font-medium">
+        <span class="material-icons text-sm align-middle">arrow_back</span>
+        Already have an account? Login here
+      </a>
+    </div>
+  </div>
 </div>
