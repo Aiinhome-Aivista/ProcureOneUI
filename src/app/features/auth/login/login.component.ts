@@ -23,7 +23,7 @@ export class LoginComponent {
   
   // Form
   readonly loginForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    vendorId: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
   
@@ -53,7 +53,8 @@ export class LoginComponent {
     this.isSubmitting.set(true);
     this.errorMessage.set(null);
     
-    const credentials = this.loginForm.value;
+    const { vendorId, password } = this.loginForm.value;
+    const credentials = { email: vendorId, password };
     
     this.authService.login(credentials).subscribe({
       next: () => {
@@ -87,11 +88,10 @@ export class LoginComponent {
     }
     
     if (control.errors['required']) {
+      if (fieldName === 'vendorId') {
+        return 'Vendor ID is required';
+      }
       return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
-    }
-    
-    if (control.errors['email']) {
-      return 'Please enter a valid email address';
     }
     
     if (control.errors['minlength']) {
@@ -111,5 +111,17 @@ export class LoginComponent {
     };
     
     this.loginForm.patchValue(demoCredentials[role]);
+  }
+   
+  isExpanded = false;
+
+  toggleExpand(event?: MouseEvent) {
+    // Prevent header's click from firing twice when clicking the button
+    if (event) {
+      event.stopPropagation();
+    }
+
+    this.isExpanded = !this.isExpanded;
+    console.log('toggleExpand ->', this.isExpanded);
   }
 }
