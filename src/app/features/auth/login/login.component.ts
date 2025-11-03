@@ -1,12 +1,12 @@
 import { Component, signal, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -19,6 +19,7 @@ export class LoginComponent {
   readonly showPassword = signal(false);
   readonly isSubmitting = signal(false);
   readonly errorMessage = signal<string | null>(null);
+  readonly showDemoSection = signal(false);
   
   // Form
   readonly loginForm: FormGroup = this.fb.group({
@@ -31,6 +32,13 @@ export class LoginComponent {
    */
   togglePasswordVisibility(): void {
     this.showPassword.update(value => !value);
+  }
+  
+  /**
+   * Toggle demo section visibility
+   */
+  toggleDemoSection(): void {
+    this.showDemoSection.update(value => !value);
   }
   
   /**
