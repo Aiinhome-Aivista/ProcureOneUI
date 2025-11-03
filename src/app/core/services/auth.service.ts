@@ -11,7 +11,7 @@ import type {
   ApiLoginResponse,
   ApiErrorResponse
 } from '../models/user.model';
-import { environment } from '../../../environments/environment';
+import { ApiEndpoints } from '../config/api-endpoints';
 
 @Injectable({
   providedIn: 'root'
@@ -36,10 +36,6 @@ export class AuthService {
   private readonly TOKEN_KEY = 'auth_token';
   private readonly REFRESH_TOKEN_KEY = 'refresh_token';
   private readonly USER_KEY = 'current_user';
-  
-  // API endpoints
-  private readonly API_URL = environment.apiUrl;
-  private readonly LOGIN_ENDPOINT = `${this.API_URL}/AuthMicroservices/login`;
   
   constructor() {
     this.loadUserFromStorage();
@@ -75,7 +71,7 @@ export class AuthService {
       password: credentials.password
     };
     
-    return this.http.post<ApiLoginResponse>(this.LOGIN_ENDPOINT, payload).pipe(
+    return this.http.post<ApiLoginResponse>(ApiEndpoints.AUTH.LOGIN, payload).pipe(
       map(apiResponse => this.transformApiResponse(apiResponse)),
       tap(response => {
         this.handleAuthSuccess(response);
