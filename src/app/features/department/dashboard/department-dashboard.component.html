@@ -15,12 +15,12 @@
               <div class="flex items-center mt-2">
                 @if (stat.change > 0) {
                   <span class="text-green-600 text-sm font-medium flex items-center">
-                    <span class="material-icons text-sm">trending_up</span>
+                    <span class="material-symbols-outlined text-sm">trending_up</span>
                     {{ stat.change }}%
                   </span>
                 } @else {
                   <span class="text-red-600 text-sm font-medium flex items-center">
-                    <span class="material-icons text-sm">trending_down</span>
+                    <span class="material-symbols-outlined text-sm">trending_down</span>
                     {{ stat.change * -1 }}%
                   </span>
                 }
@@ -28,7 +28,7 @@
             }
           </div>
           <div [class]="'h-12 w-12 rounded-full flex items-center justify-center text-white ' + getCardColorClass(stat.color)">
-            <span class="material-icons">{{ stat.icon }}</span>
+            <span class="material-symbols-outlined">{{ stat.icon }}</span>
           </div>
         </div>
       </div>

@@ -24,7 +24,7 @@
                 [routerLinkActiveOptions]="{exact: false}"
                 class="flex items-center py-3 px-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors group"
               >
-                <span class="material-icons text-xl">{{ item.icon }}</span>
+                <span class="material-symbols-outlined text-xl">{{ item.icon }}</span>
                 @if (isSidebarOpen()) {
                   <span class="ml-3 font-medium">{{ item.label }}</span>
                 }
@@ -59,7 +59,7 @@
         (click)="toggleSidebar()"
         class="p-2 rounded-lg hover:bg-gray-100 transition-colors"
       >
-        <span class="material-icons">menu</span>
+        <span class="material-symbols-outlined">menu</span>
       </button>
       
       <div class="flex items-center gap-4">
@@ -70,7 +70,7 @@
         
         <!-- Notifications -->
         <button class="p-2 rounded-lg hover:bg-gray-100 relative">
-          <span class="material-icons">notifications</span>
+          <span class="material-symbols-outlined">notifications</span>
           <span class="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
         </button>
         
@@ -83,7 +83,7 @@
             <div class="h-8 w-8 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm font-semibold">
               {{ userInitials() }}
             </div>
-            <span class="material-icons text-sm">expand_more</span>
+            <span class="material-symbols-outlined text-sm">expand_more</span>
           </button>
           
           @if (showUserMenu()) {
@@ -92,14 +92,14 @@
                 [routerLink]="'/' + userRole() + '/profile'"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
-                <span class="material-icons text-sm mr-2">person</span>
+                <span class="material-symbols-outlined text-sm mr-2">person</span>
                 Profile
               </a>
               <a
                 [routerLink]="'/' + userRole() + '/settings'"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
-                <span class="material-icons text-sm mr-2">settings</span>
+                <span class="material-symbols-outlined text-sm mr-2">settings</span>
                 Settings
               </a>
               <hr class="my-1">
@@ -107,7 +107,7 @@
                 (click)="logout()"
                 class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
               >
-                <span class="material-icons text-sm mr-2">logout</span>
+                <span class="material-symbols-outlined text-sm mr-2">logout</span>
                 Logout
               </button>
             </div>

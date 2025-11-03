@@ -1,6 +1,6 @@
 <div class="min-h-screen grid lg:grid-cols-2 grid-cols-1 bg-white">
   <!-- Left Section - Login Form -->
-  <div class="relative col-span-1  flex items-center justify-center px-6 py-12 lg:px-16">
+  <div class="relative col-span-1 flex items-center justify-center px-6 py-12 lg:px-16">
     <div class="absolute -top-[73%] -left-[61%] w-[150%] opacity-30 pointer-events-none">
       <img src="assets/icons/bg-art.svg" alt="" />
     </div>
@@ -22,7 +22,7 @@
             </label>
             <div class="relative">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span class="material-icons text-gray-400 text-sm">person_outline</span>
+                <span class="material-symbols-outlined text-gray-400 text-sm">id_card</span>
               </span>
               <input
                 id="email"
@@ -50,7 +50,7 @@
             </label>
             <div class="relative">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span class="material-icons text-gray-400 text-sm">lock_outline</span>
+                <span class="material-symbols-outlined text-gray-400 text-sm">lock_outline</span>
               </span>
               <input
                 id="password"
@@ -70,7 +70,7 @@
                 (click)="togglePasswordVisibility()"
                 class="absolute inset-y-0 right-0 pr-3 flex items-center"
               >
-                <span class="material-icons text-gray-400 text-sm hover:text-gray-600">
+                <span class="material-symbols-outlined text-gray-400 text-sm hover:text-gray-600">
                   {{ showPassword() ? 'visibility' : 'visibility_off' }}
                 </span>
               </button>
@@ -84,7 +84,7 @@
           @if (errorMessage()) {
           <div class="bg-red-50 border border-red-200 rounded-lg p-3">
             <div class="flex items-center">
-              <span class="material-icons text-red-500 text-sm mr-2">error_outline</span>
+              <span class="material-symbols-outlined text-red-500 text-sm mr-2">error_outline</span>
               <p class="text-sm text-red-700">{{ errorMessage() }}</p>
             </div>
           </div>
@@ -145,10 +145,10 @@
           class="w-full flex items-center justify-between text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
         >
           <div class="flex items-center gap-2">
-            <span class="material-icons text-sm">info_outline</span>
+            <span class="material-symbols-outlined text-sm">info_outline</span>
             <span>Know your Onboarding status</span>
           </div>
-          <span class="material-icons text-sm">
+          <span class="material-symbols-outlined text-sm">
             {{ showDemoSection() ? 'expand_less' : 'expand_more' }}
           </span>
         </button>
@@ -163,7 +163,7 @@
           >
             <div class="flex items-center justify-between">
               <span>Vendor Account</span>
-              <span class="material-icons text-sm">arrow_forward</span>
+              <span class="material-symbols-outlined text-sm">arrow_forward</span>
             </div>
           </button>
           <button
@@ -173,7 +173,7 @@
           >
             <div class="flex items-center justify-between">
               <span>Department Account</span>
-              <span class="material-icons text-sm">arrow_forward</span>
+              <span class="material-symbols-outlined text-sm">arrow_forward</span>
             </div>
           </button>
         </div>
@@ -189,8 +189,12 @@
     >
       <!-- Background Pattern -->
       <div class="absolute inset-0 opacity-10">
-        <div class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
-        <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
+        <div
+          class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"
+        ></div>
+        <div
+          class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"
+        ></div>
       </div>
 
       <div class="relative z-10 max-w-2xl w-full">
@@ -206,7 +210,9 @@
         </div>
 
         <!-- Dashboard Preview Card -->
-        <div class="bg-white rounded-2xl shadow-2xl p-6 transform hover:scale-105 transition-transform duration-300">
+        <div
+          class="bg-white rounded-2xl shadow-2xl p-6 transform hover:scale-105 transition-transform duration-300"
+        >
           <img
             src="assets/images/Vendor Dashboard.svg"
             alt="Dashboard Preview"
