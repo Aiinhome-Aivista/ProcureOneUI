@@ -7,7 +7,7 @@ import { Step2FinancialVerificationComponent } from './steps/step2-financial-ver
 import { Step3RiskFactorComponent } from './steps/step3-risk-factor/step3-risk-factor.component';
 import { Step4CapabilityComponent } from './steps/step4-capability/step4-capability.component';
 import { Step5ApprovedComponent } from './steps/step5-approved/step5-approved.component';
-
+import { Sidebar } from './components/sidebar/sidebar';
 
 export interface RegistrationData {
   // Step 1: Basic Information
@@ -53,7 +53,8 @@ export interface RegistrationData {
     Step2FinancialVerificationComponent,
     Step3RiskFactorComponent,
     Step4CapabilityComponent,
-    Step5ApprovedComponent
+    Step5ApprovedComponent,
+    Sidebar
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
