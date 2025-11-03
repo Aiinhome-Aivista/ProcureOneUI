@@ -19,6 +19,7 @@ export class LoginComponent {
   readonly showPassword = signal(false);
   readonly isSubmitting = signal(false);
   readonly errorMessage = signal<string | null>(null);
+  readonly showDemoSection = signal(false);
   
   // Form
   readonly loginForm: FormGroup = this.fb.group({
@@ -31,6 +32,13 @@ export class LoginComponent {
    */
   togglePasswordVisibility(): void {
     this.showPassword.update(value => !value);
+  }
+  
+  /**
+   * Toggle demo section visibility
+   */
+  toggleDemoSection(): void {
+    this.showDemoSection.update(value => !value);
   }
   
   /**
