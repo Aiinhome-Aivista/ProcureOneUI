@@ -165,7 +165,13 @@ export class AuthService {
       department: '/department/dashboard'
     };
     
-    this.router.navigate([defaultPages[role]]);
+    const targetPage = defaultPages[role];
+    if (targetPage) {
+      this.router.navigate([targetPage]);
+    } else {
+      console.error('Invalid role for redirect:', role);
+      this.router.navigate(['/login']);
+    }
   }
   
   /**
