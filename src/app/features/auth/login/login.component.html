@@ -23,7 +23,7 @@
             <label for="vendorId" class="text-primary-600 font-medium text-sm mb-2 block">Vendor ID</label>
             <div class="relative">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span class="material-symbols-outlined text-gray-400 text-sm">person_outline</span>
+                <span class="material-symbols-outlined text-[#4319C245]">id_card</span>
               </span>
               <input id="vendorId" type="text" formControlName="vendorId" autocomplete="username"
                 placeholder="Enter your Vendor ID" [class]="
@@ -47,7 +47,7 @@
             </label>
             <div class="relative mb-2">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span class="material-symbols-outlined text-gray-400 text-sm">lock_outline</span>
+                <span class="material-symbols-outlined text-[#4319C245]">encrypted</span>
               </span>
               <input id="password" [type]="showPassword() ? 'text' : 'password'" formControlName="password"
                 autocomplete="current-password" placeholder="Enter your password" [class]="
@@ -131,7 +131,7 @@
           <div class="transition-all duration-500 overflow-hidden mt-3 max-h-40">
             <!-- Vendor ID input box -->
             <div class="flex items-center border border-[#C4B5FD] rounded-lg px-3 mb-3">
-              <img src="assets/icons/id_card.svg" alt="" class="h-6 w-6" />
+                  <span class="material-symbols-outlined text-[#4319C245]">id_card</span>
 
               <input type="text" class="flex-1 ml-3 py-2 text-sm placeholder-[#A78BFA] focus:outline-none"
                 placeholder="Enter your initial ID" />
