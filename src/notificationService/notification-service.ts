@@ -1,12 +1,24 @@
 import { Injectable } from '@angular/core';
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import { firebaseEnv } from '../environments/environment';
+import { initializeApp } from 'firebase/app';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseNotification {
+
+   private appInitialized = false;
+
+  private initFirebase() {
+    if (!this.appInitialized) {
+      initializeApp(firebaseEnv.firebase);
+      this.appInitialized = true;
+      console.log('Firebase initialized manually');
+    }
+  }
    requestPermission() {
+    this.initFirebase();
     const messaging = getMessaging();
     Notification.requestPermission().then(permission => {
       if (permission === 'granted') {
