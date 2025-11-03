@@ -1,121 +1,156 @@
 <div class="min-h-screen bg-gray-100 flex">
   <!-- Sidebar -->
-  <aside
-    [class]="'bg-white shadow-lg transition-all duration-300 ease-in-out ' + (isSidebarOpen() ? 'w-64' : 'w-20')"
-  >
+  <!-- <aside [class]="'bg-white shadow-lg transition-all duration-300 ease-in-out ' + (isSidebarOpen() ? 'w-64' : 'w-20')">
     <div class="h-full flex flex-col">
-      <!-- Logo -->
+    
       <div class="h-16 flex items-center justify-center border-b border-gray-200 px-4">
         @if (isSidebarOpen()) {
-          <h1 class="text-xl font-bold text-primary-600">ProciourOne</h1>
+        <h1 class="text-xl font-bold text-primary-600">ProciourOne</h1>
         } @else {
-          <span class="text-2xl font-bold text-primary-600">P</span>
+        <span class="text-2xl font-bold text-primary-600">P</span>
         }
       </div>
-      
-      <!-- Navigation -->
+
+    
       <nav class="flex-1 py-4 overflow-y-auto">
         <ul class="space-y-1 px-3">
           @for (item of navigationItems(); track item.route) {
-            <li>
-              <a
-                [routerLink]="item.route"
-                routerLinkActive="bg-primary-50 text-primary-600 border-l-4 border-primary-600"
-                [routerLinkActiveOptions]="{exact: false}"
-                class="flex items-center py-3 px-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors group"
-              >
-                <span class="material-symbols-outlined text-xl">{{ item.icon }}</span>
-                @if (isSidebarOpen()) {
-                  <span class="ml-3 font-medium">{{ item.label }}</span>
-                }
-              </a>
-            </li>
+          <li>
+            <a [routerLink]="item.route" routerLinkActive="bg-primary-50 text-primary-600 border-l-4 border-primary-600"
+              [routerLinkActiveOptions]="{exact: false}"
+              class="flex items-center py-3 px-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors group">
+              <span class="material-symbols-outlined text-xl">{{ item.icon }}</span>
+              @if (isSidebarOpen()) {
+              <span class="ml-3 font-medium">{{ item.label }}</span>
+              }
+            </a>
+          </li>
           }
         </ul>
       </nav>
-      
-      <!-- User Section -->
+
       <div class="border-t border-gray-200 p-4">
         <div class="flex items-center">
           <div class="h-10 w-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-semibold">
             {{ userInitials() }}
           </div>
           @if (isSidebarOpen()) {
-            <div class="ml-3 flex-1">
-              <p class="text-sm font-medium text-gray-900">{{ currentUser()?.name }}</p>
-              <p class="text-xs text-gray-500 capitalize">{{ userRole() }}</p>
-            </div>
+          <div class="ml-3 flex-1">
+            <p class="text-sm font-medium text-gray-900">{{ currentUser()?.name }}</p>
+            <p class="text-xs text-gray-500 capitalize">{{ userRole() }}</p>
+          </div>
           }
         </div>
       </div>
     </div>
-  </aside>
-  
+  </aside> -->
+
   <!-- Main Content -->
   <div class="flex-1 flex flex-col">
     <!-- Header -->
     <header class="bg-white shadow-sm h-16 flex items-center justify-between px-6">
-      <button
-        (click)="toggleSidebar()"
-        class="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-      >
+      <button (click)="toggleSidebar()" class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
         <span class="material-symbols-outlined">menu</span>
       </button>
-      
+
       <div class="flex items-center gap-4">
         <!-- Role Badge -->
         <span [class]="'px-3 py-1 rounded-full text-xs font-semibold ' + getRoleBadgeClass()">
           {{ userRole()?.toUpperCase() }}
         </span>
-        
+
         <!-- Notifications -->
         <button class="p-2 rounded-lg hover:bg-gray-100 relative">
           <span class="material-symbols-outlined">notifications</span>
           <span class="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
         </button>
-        
+
         <!-- User Menu -->
         <div class="relative">
-          <button
-            (click)="toggleUserMenu()"
-            class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100"
-          >
-            <div class="h-8 w-8 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm font-semibold">
+          <button (click)="toggleUserMenu()" class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100">
+            <div
+              class="h-8 w-8 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm font-semibold">
               {{ userInitials() }}
             </div>
             <span class="material-symbols-outlined text-sm">expand_more</span>
           </button>
-          
+
           @if (showUserMenu()) {
-            <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50">
-              <a
-                [routerLink]="'/' + userRole() + '/profile'"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                <span class="material-symbols-outlined text-sm mr-2">person</span>
-                Profile
-              </a>
-              <a
-                [routerLink]="'/' + userRole() + '/settings'"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                <span class="material-symbols-outlined text-sm mr-2">settings</span>
-                Settings
-              </a>
-              <hr class="my-1">
-              <button
-                (click)="logout()"
-                class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
-              >
-                <span class="material-symbols-outlined text-sm mr-2">logout</span>
-                Logout
-              </button>
-            </div>
+          <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50">
+            <a [routerLink]="'/' + userRole() + '/profile'"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <span class="material-symbols-outlined text-sm mr-2">person</span>
+              Profile
+            </a>
+            <a [routerLink]="'/' + userRole() + '/settings'"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <span class="material-symbols-outlined text-sm mr-2">settings</span>
+              Settings
+            </a>
+            <hr class="my-1">
+            <button (click)="logout()" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+              <span class="material-symbols-outlined text-sm mr-2">logout</span>
+              Logout
+            </button>
+          </div>
           }
         </div>
       </div>
     </header>
-    
+
+    <!-- Floating Sidebar (Right Side) -->
+    <div class="fixed top-1/2 right-0 transform -translate-y-1/2 flex z-50 h-full items-center">
+
+      <!-- Compact Vertical Icon Bar -->
+      <div class="flex flex-col bg-white rounded-3xl shadow-lg p-2 space-y-3 transition-all duration-300">
+        <button (click)="toggleSidebarSecondary()"
+          class="w-10 h-10 flex items-center justify-center rounded-full text-purple-600 hover:bg-purple-50">
+          <span class="material-symbols-outlined text-lg">chevron_left</span>
+        </button>
+        <button class="w-10 h-10 flex items-center justify-center rounded-full text-purple-500 hover:bg-purple-100"
+          [ngClass]="{'bg-purple-100 text-purple-700': activeMenu === 'dashboard'}" (click)="setActive('dashboard')">
+          <span class="material-symbols-outlined text-lg">dashboard</span>
+        </button>
+        <button class="w-10 h-10 flex items-center justify-center rounded-full text-purple-500 hover:bg-purple-100"
+          [ngClass]="{'bg-purple-100 text-purple-700': activeMenu === 'bidding'}" (click)="setActive('bidding')">
+          <span class="material-symbols-outlined text-lg">gavel</span>
+        </button>
+        <button class="w-10 h-10 flex items-center justify-center rounded-full text-purple-500 hover:bg-purple-100"
+          [ngClass]="{'bg-purple-100 text-purple-700': activeMenu === 'support'}" (click)="setActive('support')">
+          <span class="material-symbols-outlined text-lg">lightbulb</span>
+        </button>
+        <button class="w-10 h-10 flex items-center justify-center rounded-full text-purple-500 hover:bg-purple-100"
+          [ngClass]="{'bg-purple-100 text-purple-700': activeMenu === 'settings'}" (click)="setActive('settings')">
+          <span class="material-symbols-outlined text-lg">settings</span>
+        </button>
+      </div>
+
+      <!-- Expanded Sidebar Menu Panel -->
+      <div *ngIf="isExpanded"
+        class="bg-white shadow-2xl rounded-2xl  p-5 w-64 animate-slideIn border border-gray-100 h-full">
+        <div class="flex items-center mb-4">
+          <div
+            class="w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center text-lg font-semibold">
+            {{ userInitials() }}
+          </div>
+          <div class="ml-3">
+            <p class="font-semibold text-gray-800">{{ currentUser()?.name }}</p>
+            <p class="text-xs text-gray-500 capitalize">{{ userRole() }}</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <button *ngFor="let item of menuItems"
+            class="flex flex-col items-center justify-center bg-purple-50 hover:bg-purple-100 text-gray-700 rounded-xl py-3 transition-all"
+            (click)="navigate(item)">
+            <span [class]="item.icon + ' material-symbols-outlined text-purple-600 text-xl'"></span>
+            <span class="text-xs mt-1 font-medium">{{ item.label }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
     <!-- Page Content -->
     <main class="flex-1 overflow-y-auto p-6">
       <router-outlet></router-outlet>

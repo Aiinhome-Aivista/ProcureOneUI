@@ -75,4 +75,30 @@ export class LayoutComponent {
     };
     return role ? classes[role] : 'bg-gray-100 text-gray-800';
   }
+
+  isExpanded = false;
+  activeMenu = 'dashboard';
+
+  menuItems = [
+    { label: 'Dashboard', icon: 'dashboard' },
+    { label: 'Profile', icon: 'person' },
+    { label: 'Reports', icon: 'description' },
+    { label: 'Support', icon: 'lightbulb' },
+    { label: 'Bidding', icon: 'gavel' },
+    { label: 'Contact', icon: 'groups' },
+    { label: 'Setting', icon: 'settings' },
+    { label: 'Requisitions', icon: 'inventory' },
+  ];
+
+  toggleSidebarSecondary() {
+    this.isExpanded = !this.isExpanded;
+  }
+
+  setActive(menu: string) {
+    this.activeMenu = menu;
+  }
+
+  navigate(item: any) {
+    console.log('Navigating to', item.label);
+  }
 }
