@@ -73,6 +73,13 @@ export class Step2FinancialVerificationComponent {
 
   this.dataChange.emit({ [controlName]: file });
 }
+  readonly incorporationTypes = [
+    { value: 'private', label: 'Private Limited Company' },
+    { value: 'public', label: 'Public Limited Company' },
+    { value: 'llp', label: 'Limited Liability Partnership (LLP)' },
+    { value: 'partnership', label: 'Partnership Firm' },
+  ];
+
 
   
 }

@@ -59,12 +59,15 @@
       <label class="font-bold text-[#0000008F]"
         >Certificate of Incorporation<span class="text-red-500">*</span></label
       >
-      <select
-        formControlName="incorp"
-        class="mt-1 w-full h-[32px] border border-[#CFCFCF] rounded-lg px-3 text-[9px] text-[#7C6FA2]"
-      >
-        <option value="">Legal proof of company existence</option>
-      </select>
+  <select
+  formControlName="incorp"
+  class="mt-1 w-full h-[32px] border border-[#CFCFCF] rounded-lg px-3 text-[9px] text-[#7C6FA2]"
+>
+  <option value="">Select company type</option>
+  <option *ngFor="let type of incorporationTypes" [value]="type.value">
+    {{ type.label }}
+  </option>
+</select>
 
       <div
         *ngIf="form.get('incorp')?.touched && form.get('incorp')?.invalid"
