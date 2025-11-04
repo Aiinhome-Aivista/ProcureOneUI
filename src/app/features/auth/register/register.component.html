@@ -19,18 +19,18 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-4 flex-1 overflow-y-auto">
-    <div class="col-span-1">
+  <div class="grid grid-cols-4 flex-1 h-[calc(100vh-4.8rem)]">
+    <div class="col-span-1 h-full">
       <app-sidebar [currentStep]="currentStep()" />
     </div>
-    <div class="col-span-3 px-6 py-8">
+    <div class="col-span-3 px-6 py-8 overflow-y-auto h-full">
       <!-- Step Indicator -->
       <div class="mb-8 bg-white rounded-xl shadow-sm p-6">
         <app-step-indicator [currentStep]="currentStep()" />
       </div>
 
       <!-- Main Content Area -->
-      <div class="min-h-[600px]">
+      <div class="">
         <!-- Step 1: Basic Information -->
         @if (currentStep() === 1) {
         <app-company-details [data]="registrationData().basicInfo" (dataChange)="updateStepData(1, $event)" />
