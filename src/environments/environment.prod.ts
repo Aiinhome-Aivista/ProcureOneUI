@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.prociour.com/api',
+  apiUrl: 'https://api.prociourone.com/v1',
   appName: 'ProciourOne',
   version: '1.0.0'
 };

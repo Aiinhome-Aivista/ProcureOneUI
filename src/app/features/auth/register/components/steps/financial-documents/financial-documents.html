@@ -1,0 +1,163 @@
+<div class="w-full">
+
+  <!-- title -->
+ 
+    <div class="relative">
+    <p class="text-[11px] font-semibold text-[#000000] mb-3">
+   Financial Performance Documents
+  </p>
+  <div class="left-0 bottom-0 w-[190px] h-[5px] bg-primary-600 rounded-tr-[13px] rounded-tl-[15px]"></div>
+  <div class="border-b border-[#E6E6E6] mb-3"></div>
+  </div>
+
+
+  <!-- row 1 -->
+  <div class="grid grid-cols-2 gap-4">
+
+    <!-- Cancelled Cheque -->
+    <div>
+      <label class="text-[11px] font-bold text-[#0000008F]">
+        Audited Balance Sheet (Last 2–3 Years)
+        <span class="text-red-500">*</span>
+      </label>
+
+      <div
+        class="mt-1 border border-dashed border-[#C8BFF8] rounded-xl min-h-60 flex items-center justify-center bg-[#FBF9FF]"
+        (click)="cancelCheque.click()">
+
+        <input type="file"
+          class="hidden"
+          #cancelCheque
+          accept="application/pdf"
+          (change)="onFileChange('cancelCheque',$event)" />
+
+        <div class="flex flex-col items-center justify-center text-center cursor-pointer text-[#7B51D3]">
+        <div class="">
+          <span class="material-symbols-outlined text-[#4319C245]"> cloud_upload </span>
+        </div>
+
+          <p class="text-[11px] text-[#7C6FA2]">
+            <span class="font-semibold">Click to upload</span><span> or drag and drop</span><br>
+            <span class="text-[10px] text-[#7C6FA2]">PDF(MAX 5MB)</span>
+          </p>
+        </div>
+      </div>
+
+      @if (uploadedFiles.cancelCheque) {
+        <div class="mt-2 text-[10px] text-green-600 flex items-center gap-2">
+          {{ uploadedFiles.cancelCheque.name }}
+          <button (click)="removeFile('cancelCheque')" class="text-red-500 text-[12px] font-bold">X</button>
+        </div>
+      }
+    </div>
+
+    <!-- Bank Statement -->
+    <div>
+      <label class="text-[11px] font-bold text-[#0000008F]">
+       Profit & Loss Statement
+        <span class="text-red-500">*</span>
+      </label>
+
+      <div
+        class="mt-1 border border-dashed border-[#C8BFF8] rounded-xl min-h-60 flex items-center justify-center bg-[#FBF9FF]"
+        (click)="bankStatement.click()">
+
+        <input type="file"
+          class="hidden"
+          #bankStatement
+          accept="application/pdf"
+          (change)="onFileChange('bankStatement',$event)" />
+
+        <div class="flex flex-col items-center justify-center text-center cursor-pointer text-[#7B51D3]">
+              <div class="">
+          <span class="material-symbols-outlined text-[#4319C245]"> cloud_upload </span>
+        </div>
+
+          <p class="text-[11px] text-[#7C6FA2]">
+            <span class="font-semibold">Click to upload</span><span> or drag and drop</span><br>
+            <span class="text-[10px] text-[#7C6FA2]">PDF(MAX 5MB)</span>
+          </p>
+        </div>
+      </div>
+
+      @if (uploadedFiles.bankStatement) {
+        <div class="mt-2 text-[10px] text-green-600 flex items-center gap-2">
+          {{ uploadedFiles.bankStatement.name }}
+          <button (click)="removeFile('bankStatement')" class="text-red-500 text-[12px] font-bold">X</button>
+        </div>
+      }
+    </div>
+
+  </div>
+
+  <!-- row 2 -->
+    <div class="grid grid-cols-2 gap-4 mb-4">
+  <div>
+    <label class="text-[11px] font-bold text-[#0000008F]">
+     Income Tax Return (ITR)
+       <span class="text-red-500">*</span>
+    </label>
+
+    <div
+      class="mt-1 border border-dashed border-[#C8BFF8] rounded-xl min-h-60 flex items-center justify-center bg-[#FBF9FF]"
+      (click)="verifyLetter.click()">
+
+      <input type="file"
+        class="hidden"
+        #verifyLetter
+        accept="application/pdf"
+        (change)="onFileChange('verifyLetter',$event)" />
+
+      <div class="flex flex-col items-center justify-center text-center cursor-pointer text-[#7B51D3]">
+           <div class="">
+          <span class="material-symbols-outlined text-[#4319C245]"> cloud_upload </span>
+        </div>
+
+         <p class="text-[11px] text-[#7C6FA2]">
+            <span class="font-semibold">Click to upload</span><span> or drag and drop</span><br>
+            <span class="text-[10px] text-[#7C6FA2]">PDF(MAX 5MB)</span>
+          </p>
+      </div>
+    </div>
+
+
+    @if (uploadedFiles.verifyLetter) {
+      <div class="mt-2 text-[10px] text-green-600 flex items-center gap-2">
+        {{ uploadedFiles.verifyLetter.name }}
+        <button (click)="removeFile('verifyLetter')" class="text-red-500 text-[12px] font-bold">X</button>
+      </div>
+    }
+  </div>
+
+  <div>
+    <label class="text-[11px] font-bold text-[#0000008F]">
+    Turnover Declaration (signed by CA)
+      <span class="text-red-500">*</span>
+    </label>
+
+    <div
+      class="mt-1 border border-dashed border-[#C8BFF8] rounded-xl min-h-60 flex items-center justify-center bg-[#FBF9FF]"
+      (click)="verifyLetter.click()">
+
+      <input type="file"
+        class="hidden"
+        #verifyLetter
+        accept="application/pdf"
+        (change)="onFileChange('verifyLetter',$event)" />
+
+      <div class="flex flex-col items-center justify-center text-center cursor-pointer text-[#7B51D3]">
+           <div class="">
+          <span class="material-symbols-outlined text-[#4319C245]"> cloud_upload </span>
+        </div>
+
+        <p class="text-[11px] text-[#7C6FA2]">
+            <span class="font-semibold">Click to upload</span><span> or drag and drop</span><br>
+            <span class="text-[10px] text-[#7C6FA2]">PDF(MAX 5MB)</span>
+          </p>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
