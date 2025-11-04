@@ -1,12 +1,12 @@
 <div class="w-full mx-auto" aria-label="Company Details Form">
   <!-- Tabs -->
   <nav
-    class="relative flex after:absolute after:bottom-0 after:left-3 after:right-3 after:border-b after:border-gray-300 mb-4"
+    class="relative flex after:absolute after:bottom-0 after:left-2 after:right-3 after:border-b after:border-gray-300 mb-4"
     role="tablist">
     <button type="button" role="tab" [attr.aria-selected]="activeTab() === 'identity'"
-      class="relative px-4 pb-3 pt-2 font-semibold focus:outline-none cursor-pointer transition-all duration-300"
+      class="relative px-4 pb-2 pt-2 text-[13px] font-bold focus:outline-none cursor-pointer transition-all duration-300"
       (click)="switchTab('identity')" [ngClass]="{
-    'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[90%] after:h-[6px] after:bg-[#4C1D95] after:rounded-[4px]':
+    'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[90%] after:h-[6px] after:bg-primary-600 after:rounded-tr-[13px] after:rounded-tl-[15px]':
       activeTab() === 'identity',
     'text-black hover:text-primary-600':
       activeTab() !== 'identity'
@@ -15,9 +15,9 @@
     </button>
 
     <button type="button" role="tab" [attr.aria-selected]="activeTab() === 'addresses'"
-      class="relative px-4 pb-3 pt-2 font-semibold focus:outline-none cursor-pointer transition-all duration-300"
+      class="relative px-4 pb-2 pt-2 text-[13px] font-bold focus:outline-none cursor-pointer transition-all duration-300"
       (click)="switchTab('addresses')" [ngClass]="{
-    'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[90%] after:h-[6px] after:bg-[#4C1D95] after:rounded-[4px]':
+    'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[90%] after:h-[6px] after:bg-primary-600 after:rounded-tr-[13px] after:rounded-tl-[15px]':
       activeTab() === 'addresses',
     'text-black hover:text-[#4C1D95]':
       activeTab() !== 'addresses'
@@ -34,7 +34,7 @@
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Company Name (Legal)<span
               class="text-red-500 mb-2">*</span></label>
           <input formControlName="companyName"
-            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[10px]"
             placeholder="e.g., ABC Infrastructure Pvt. Ltd." />
 
           <div *ngIf="companyName.touched && companyName.invalid" class="text-red-500 text-[12px] mt-1">
@@ -49,7 +49,7 @@
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Business Type<span
               class="text-red-500">*</span></label>
           <select formControlName="businessType" required
-            class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[#0000008F] text-[12px] invalid:text-[#7C6FA2]">
+            class="w-full h-10.5 rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[#0000008F] text-[10px] invalid:text-[#7C6FA2]">
             <option value="" disabled hidden>Select Type</option>
             <option value="partnership">Partnership</option>
             <option value="private">Private Limited</option>
@@ -64,7 +64,7 @@
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Registration Number<span
               class="text-red-500">*</span></label>
           <input formControlName="registrationNumber"
-            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[10px]"
             placeholder="e.g., CIN: U12345WB2015PTC123456" />
 
           <div *ngIf="registrationNumber.touched && registrationNumber.invalid" class="text-red-500 text-[12px] mt-1">
@@ -79,7 +79,7 @@
           <label class="block text-[12px] font-semibold text-[#0000008F]] mb-1">Date of Incorporation<span
               class="text-red-500">*</span></label>
           <input formControlName="dateOfIncorporation" type="date"
-            class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[#7C6FA2] text-[12px]" />
+            class="w-full h-10.5 rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[#7C6FA2] text-[12px]" />
 
           <div *ngIf="dateOfIncorporation.touched && dateOfIncorporation.invalid" class="text-red-500 text-[12px] mt-1">
             <div *ngIf="dateOfIncorporation.errors?.['required']">Date of incorporation is required.</div>
@@ -91,7 +91,7 @@
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Industry Category<span
               class="text-red-500">*</span></label>
           <select formControlName="industryCategory" required
-            class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[#0000008F] text-[12px] invalid:text-[#7C6FA2]">
+            class="w-full h-10.5 rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[#0000008F] text-[10px] invalid:text-[#7C6FA2]">
             <option value="" disabled hidden>Select Type</option>
             <option value="IT">IT</option>
             <option value="Construction">Construction</option>
@@ -107,7 +107,7 @@
         <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Nature of Business<span
             class="text-red-500">*</span></label>
         <textarea rows="4" formControlName="natureOfBusiness"
-          class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
+          class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[10px]"
           placeholder='Short description (e.g., "Supplier of construction materials")'></textarea>
 
         <div *ngIf="natureOfBusiness.touched && natureOfBusiness.invalid" class="text-red-500 text-[12px] mt-1">
@@ -126,7 +126,7 @@
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Registered Address<span
               class="text-red-500">*</span></label>
           <input formControlName="registeredAddress"
-            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[10px]"
             placeholder="Legal office as per incorporation certificate" />
           <div *ngIf="registeredAddress.touched && registeredAddress.invalid" class="text-red-500 text-[12px] mt-1">
             <div *ngIf="registeredAddress.errors?.['required']">Registered address is required.</div>
@@ -136,7 +136,7 @@
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Operational Address<span
               class="text-red-500">*</span></label>
           <input formControlName="operationalAddress"
-            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[10px]"
             placeholder="Where operations or supply chain is managed" />
           <div *ngIf="operationalAddress.touched && operationalAddress.invalid" class="text-red-500 text-[12px] mt-1">
             <div *ngIf="operationalAddress.errors?.['required']">Operational address is required.</div>
@@ -146,9 +146,9 @@
 
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div>
-          <label class="block text-[12px] font-semibold text-[#0000008F]mb-1">Country<span class="text-red-500">*</span></label>
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Country<span class="text-red-500">*</span></label>
           <select formControlName="country" required
-            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[#0000008F] text-[12px] invalid:text-[#7C6FA2]">
+            class="w-full h-10.5 rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[#0000008F] text-[10px] invalid:text-[#7C6FA2]">
             <option value="" disabled hidden>Select Country</option>
             <option value="India">India</option>
           </select>
@@ -159,7 +159,7 @@
         <div>
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">State<span class="text-red-500">*</span></label>
           <select formControlName="state" required
-            class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[#0000008F] text-[12px] invalid:text-[#7C6FA2]">
+            class="w-full h-10.5 rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[#0000008F] text-[10px] invalid:text-[#7C6FA2]">
             <option value="" disabled hidden>Select State</option>
             <option value="West Bengal">West Bengal</option>
           </select>
@@ -170,7 +170,7 @@
         <div>
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">City<span class="text-red-500">*</span></label>
           <select formControlName="city" required
-            class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[#0000008F] text-[12px] invalid:text-[#7C6FA2]">
+            class="w-full h-10.5 rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[#0000008F] text-[10px] invalid:text-[#7C6FA2]">
             <option value="" disabled hidden>Select City</option>
             <option value="Kolkata">Kolkata</option>
           </select>
@@ -179,9 +179,9 @@
           </div>
         </div>
         <div>
-          <label class="block text-[12px] font-semibold text-[#0000008F]mb-1">PIN<span class="text-red-500">*</span></label>
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">PIN<span class="text-red-500">*</span></label>
           <input formControlName="pin"
-            class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
+            class="w-full h-10.5 rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[10px]"
             placeholder="Enter Your PIN" />
           <div *ngIf="pin.touched && pin.invalid" class="text-red-500 text-[12px] mt-1">
             <div *ngIf="pin.errors?.['required']">PIN is required.</div>
@@ -195,7 +195,7 @@
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Contact Person (Authorized
             Representative)<span class="text-red-500">*</span></label>
           <input formControlName="contactPerson"
-            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[10px]"
             placeholder="e.g., Mr. Rajesh Singh" />
           <div *ngIf="contactPerson.touched && contactPerson.invalid" class="text-red-500 text-[12px] mt-1">
             <div *ngIf="contactPerson.errors?.['required']">Contact person is required.</div>
@@ -205,7 +205,7 @@
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Designation / Role<span
               class="text-red-500">*</span></label>
           <select formControlName="designation" required
-            class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[12px] invalid:text-[#7C6FA2]">
+            class="w-full h-10.5 rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[10px] invalid:text-[#7C6FA2]">
             <option value="" disabled hidden>Select Designation</option>
             <option value="Director">Director</option>
             <option value="Procurement Head">Procurement Head</option>
@@ -221,7 +221,7 @@
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Email Address (Official)<span
               class="text-red-500">*</span></label>
           <input formControlName="email" type="email"
-            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[10px]"
             placeholder="e.g., rajesh@abcinfra.com" />
           <div *ngIf="email.touched && email.invalid" class="text-red-500 text-[12px] mt-1">
             <div *ngIf="email.errors?.['required']">Email is required.</div>
@@ -232,7 +232,7 @@
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Phone Number (Official)<span
               class="text-red-500">*</span></label>
           <input formControlName="phone" type="tel"
-            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[10px]"
             placeholder="e.g., +91 9876543210" />
           <div *ngIf="phone.touched && phone.invalid" class="text-red-500 text-[12px] mt-1">
             <div *ngIf="phone.errors?.['required']">Phone is required.</div>
@@ -244,7 +244,7 @@
       <div>
         <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Alternate Contact (Optional)</label>
         <input formControlName="alternateContact"
-          class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
+          class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2] placeholder:text-[10px]"
           placeholder="Backup contact for emergencies" />
       </div>
     </form>
