@@ -1,0 +1,181 @@
+<div class="w-full mx-auto" aria-label="Company Details Form">
+  <!-- Tabs -->
+  <nav class="flex border-b mb-4" role="tablist">
+    <button type="button" role="tab" [attr.aria-selected]="activeTab() === 'identity'"
+      class="relative px-4 py-2 font-medium focus:outline-none -mb-px cursor-pointer" (click)="switchTab('identity')" [ngClass]="{
+      'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[90%] after:h-[4px] after:bg-indigo-600 after:rounded-full':
+        activeTab() === 'identity',
+      'text-gray-600 hover:text-indigo-600':
+        activeTab() !== 'identity'
+    }">
+      Company Identity Details
+    </button>
+
+    <button type="button" role="tab" [attr.aria-selected]="activeTab() === 'addresses'"
+      class="relative px-4 py-2 font-medium focus:outline-none -mb-px cursor-pointer" (click)="switchTab('addresses')" [ngClass]="{
+      'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[90%] after:h-[4px] after:bg-indigo-600 after:rounded-full':
+        activeTab() === 'addresses',
+      'text-gray-600 hover:text-indigo-600':
+        activeTab() !== 'addresses'
+    }">
+      Registered & Operational Addresses
+    </button>
+  </nav>
+
+
+
+
+  <!-- Identity Details Tab -->
+  <section *ngIf="activeTab() === 'identity'">
+    <form [formGroup]="identityForm" class="space-y-3" autocomplete="off">
+      <div class="grid grid-cols-1 md:grid-cols-1">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Company Name (Legal)<span
+              class="text-red-500 mb-2">*</span></label>
+          <input formControlName="companyName"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2]"
+            placeholder="e.g., ABC Infrastructure Pvt. Ltd." />
+        </div>
+
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Business Type<span
+              class="text-red-500">*</span></label>
+          <select formControlName="businessType" required
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-gray-700 invalid:text-[#7C6FA2]">
+            <option value="" disabled hidden>Select Type</option>
+            <option value="partnership">Partnership</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Registration Number<span
+              class="text-red-500">*</span></label>
+          <input formControlName="registrationNumber"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2]"
+            placeholder="e.g., CIN: U12345WB2015PTC123456" />
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Date of Incorporation<span
+              class="text-red-500">*</span></label>
+          <input formControlName="dateOfIncorporation" type="date"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-[#7C6FA2]" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Industry Category<span
+              class="text-red-500">*</span></label>
+          <select formControlName="industryCategory" required
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-gray-700 invalid:text-[#7C6FA2]">
+            <option value="" disabled hidden>Select Type</option>
+            <option value="IT">IT</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Nature of Business<span
+            class="text-red-500">*</span></label>
+        <textarea rows="4" formControlName="natureOfBusiness"
+          class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2]"
+          placeholder='Short description (e.g., "Supplier of construction materials")'></textarea>
+      </div>
+
+    </form>
+  </section>
+
+  <!-- Registered & Operational Addresses Tab -->
+  <section *ngIf="activeTab() === 'addresses'">
+    <form [formGroup]="addressForm" class="space-y-3" autocomplete="off">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Registered Address<span
+              class="text-red-500">*</span></label>
+          <input formControlName="registeredAddress"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2]"
+            placeholder="Legal office as per incorporation certificate" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Operational Address<span
+              class="text-red-500">*</span></label>
+          <input formControlName="operationalAddress"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2]"
+            placeholder="Where operations or supply chain is managed" />
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Country<span class="text-red-500">*</span></label>
+          <select formControlName="country" required
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-gray-700 invalid:text-[#7C6FA2]">
+            <option value="" disabled hidden>Select Country</option>
+            <option value="India">India</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">State<span class="text-red-500">*</span></label>
+          <select formControlName="state" required
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-gray-700 invalid:text-[#7C6FA2]">
+            <option value="" disabled hidden>Select State</option>
+            <option value="West Bengal">West Bengal</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">City<span class="text-red-500">*</span></label>
+          <select formControlName="city" required
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 text-gray-700 invalid:text-[#7C6FA2]">
+            <option value="" disabled hidden>Select City</option>
+            <option value="Kolkata">Kolkata</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">PIN<span class="text-red-500">*</span></label>
+          <input formControlName="pin"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2]"
+            placeholder="Enter Your PIN" />
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Contact Person (Authorized
+            Representative)<span class="text-red-500">*</span></label>
+          <input formControlName="contactPerson"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2]"
+            placeholder="e.g., Mr. Rajesh Singh" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Designation / Role<span
+              class="text-red-500">*</span></label>
+          <select formControlName="designation"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2]">
+            <option>e.g., Director / Procurement Head</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Email Address (Official)<span
+              class="text-red-500">*</span></label>
+          <input formControlName="email" type="email"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2]"
+            placeholder="e.g., rajesh@abcinfra.com" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number (Official)<span
+              class="text-red-500">*</span></label>
+          <input formControlName="phone" type="tel"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2]"
+            placeholder="e.g., +91 9876543210" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Alternate Contact (Optional)</label>
+        <input formControlName="alternateContact"
+          class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-indigo-500 placeholder:text-[#7C6FA2]"
+          placeholder="Backup contact for emergencies" />
+      </div>
+
+    </form>
+  </section>
+</div>
