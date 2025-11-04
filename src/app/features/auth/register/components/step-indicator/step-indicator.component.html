@@ -1,27 +1,60 @@
-<div class="flex items-center justify-between w-full">
-    @for (step of steps; track step.number) {
-    <div class="flex items-center" [class.flex-1]="!$last">
-        <!-- Step Circle -->
-        <div class="flex flex-col items-center">
-            <div [class]="getStepClass(step.number)"
-                class="w-12 h-12 rounded-full flex items-center justify-center font-semibold transition-all duration-300 relative">
-                @if (step.number < currentStep()) { <span class="material-symbols-outlined text-xl">check</span>
-                    } @else {
-                    <span class="material-symbols-outlined text-2xl">{{ step.icon }}</span>
-                    }
-            </div>
-
-            <!-- Step Label -->
-            <div class="mt-2 text-center">
-                <p class="text-xs font-medium text-gray-900">{{ step.label }}</p>
-            </div>
-        </div>
-
-        <!-- Connector Line -->
-        @if (!$last) {
-        <div [class]="step.number < currentStep() ? 'bg-primary-600' : 'bg-gray-300'"
-            class="flex-1 h-1 mx-2 transition-all duration-300"></div>
-        }
+<div class="w-full bg-[#F7F7F9] rounded-xl py-6 px-4 flex justify-between items-center">
+  <!-- STEP ITEM -->
+  <div class="flex flex-col items-center space-y-2">
+    <div class="relative">
+      <div
+        class="w-14 h-14 rounded-full border-[6px] border-[#5A3DF5] flex items-center justify-center bg-white"
+      >
+        <span class="material-symbols-outlined"> docs </span>
+      </div>
     </div>
-    }
+    <span class="text-xs font-semibold">Basic information</span>
+  </div>
+
+  <!-- dashed divider -->
+  <div class="flex-1 h-[2px] border-t-2 border-dashed border-[#CFCFD8] mx-2"></div>
+
+  <!-- STEP ITEM -->
+  <div class="flex flex-col items-center space-y-2">
+    <div
+      class="w-14 h-14 rounded-full border-[6px] border-[#5A3DF5] flex items-center justify-center bg-white"
+    >
+      <span class="material-symbols-outlined"> bid_landscape </span>
+    </div>
+    <span class="text-xs font-semibold">Financial Verification</span>
+  </div>
+
+  <div class="flex-1 h-[2px] border-t-2 border-dashed border-[#CFCFD8] mx-2"></div>
+
+  <!-- remaining not active -->
+  <div class="flex flex-col items-center space-y-2">
+    <div
+      class="w-14 h-14 rounded-full border-[6px] border-[#CFCFD8] flex items-center justify-center bg-white"
+    >
+      <span class="material-symbols-outlined"> flood </span>
+    </div>
+    <span class="text-xs font-semibold">Risk Factor</span>
+  </div>
+
+  <div class="flex-1 h-[2px] border-t-2 border-dashed border-[#CFCFD8] mx-2"></div>
+
+  <div class="flex flex-col items-center space-y-2">
+    <div
+      class="w-14 h-14 rounded-full border-[6px] border-[#CFCFD8] flex items-center justify-center bg-white"
+    >
+      <span class="material-symbols-outlined"> sports_mma </span>
+    </div>
+    <span class="text-xs font-semibold">Capability</span>
+  </div>
+
+  <div class="flex-1 h-[2px] border-t-2 border-dashed border-[#CFCFD8] mx-2"></div>
+
+  <div class="flex flex-col items-center space-y-2">
+    <div
+      class="w-14 h-14 rounded-full border-[6px] border-[#CFCFD8] flex items-center justify-center bg-white"
+    >
+      <span class="material-symbols-outlined"> verified_user </span>
+    </div>
+    <span class="text-xs font-semibold">Approved</span>
+  </div>
 </div>
