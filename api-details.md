@@ -21,12 +21,15 @@
 **Headers: Payload **
 
 ````json
+
+-payload-
+
 {
     "username": "vendor",
     "password": "vendor@123"
 }
 
-``` responce json
+-respoonce-
 
 {
   "data": {

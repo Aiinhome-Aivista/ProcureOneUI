@@ -1,123 +1,201 @@
-<div class="min-h-screen bg-gray-100 flex">
-  <!-- Sidebar -->
-  <aside
-    [class]="'bg-white shadow-lg transition-all duration-300 ease-in-out ' + (isSidebarOpen() ? 'w-64' : 'w-20')"
-  >
-    <div class="h-full flex flex-col">
-      <!-- Logo -->
-      <div class="h-16 flex items-center justify-center border-b border-gray-200 px-4">
-        @if (isSidebarOpen()) {
-          <h1 class="text-xl font-bold text-primary-600">ProciourOne</h1>
-        } @else {
-          <span class="text-2xl font-bold text-primary-600">P</span>
-        }
-      </div>
-      
-      <!-- Navigation -->
-      <nav class="flex-1 py-4 overflow-y-auto">
-        <ul class="space-y-1 px-3">
-          @for (item of navigationItems(); track item.route) {
-            <li>
-              <a
-                [routerLink]="item.route"
-                routerLinkActive="bg-primary-50 text-primary-600 border-l-4 border-primary-600"
-                [routerLinkActiveOptions]="{exact: false}"
-                class="flex items-center py-3 px-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors group"
-              >
-                <span class="material-symbols-outlined text-xl">{{ item.icon }}</span>
-                @if (isSidebarOpen()) {
-                  <span class="ml-3 font-medium">{{ item.label }}</span>
-                }
-              </a>
-            </li>
-          }
-        </ul>
-      </nav>
-      
-      <!-- User Section -->
-      <div class="border-t border-gray-200 p-4">
-        <div class="flex items-center">
-          <div class="h-10 w-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-semibold">
-            {{ userInitials() }}
-          </div>
-          @if (isSidebarOpen()) {
-            <div class="ml-3 flex-1">
-              <p class="text-sm font-medium text-gray-900">{{ currentUser()?.name }}</p>
-              <p class="text-xs text-gray-500 capitalize">{{ userRole() }}</p>
-            </div>
-          }
-        </div>
-      </div>
-    </div>
-  </aside>
-  
+<div class="h-screen bg-gray-100 flex">
   <!-- Main Content -->
   <div class="flex-1 flex flex-col">
     <!-- Header -->
     <header class="bg-white shadow-sm h-16 flex items-center justify-between px-6">
       <button
         (click)="toggleSidebar()"
-        class="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+        class="p-2 rounded-lg text-amber-300 hover:bg-gray-100 transition-colors"
       >
-        <span class="material-symbols-outlined">menu</span>
+        <img src="assets/icons/Aiinhome _ PO.svg" alt="" />
       </button>
-      
+
       <div class="flex items-center gap-4">
-        <!-- Role Badge -->
-        <span [class]="'px-3 py-1 rounded-full text-xs font-semibold ' + getRoleBadgeClass()">
-          {{ userRole()?.toUpperCase() }}
-        </span>
-        
-        <!-- Notifications -->
+       
         <button class="p-2 rounded-lg hover:bg-gray-100 relative">
-          <span class="material-symbols-outlined">notifications</span>
+          <span class="material-symbols-outlined text-gray-700">notifications</span>
           <span class="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
         </button>
-        
+
         <!-- User Menu -->
         <div class="relative">
           <button
             (click)="toggleUserMenu()"
             class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100"
           >
-            <div class="h-8 w-8 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm font-semibold">
-              {{ userInitials() }}
+            <div class="flex items-center gap-1 text-primary-600">
+              <div
+                class="h-10 w-10 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm font-semibold"
+              >
+                {{ userInitials() }}
+              </div>
+              <div class="hidden md:block ml-1 text-start">
+                <p class="font-semibold text-primary-800 text-sm">{{ currentUser()?.name }}</p>
+                <p class="text-xs text-primary-500 capitalize">{{ userRole() }}</p>
+              </div>
             </div>
+
             <span class="material-symbols-outlined text-sm">expand_more</span>
           </button>
-          
+
           @if (showUserMenu()) {
-            <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50">
-              <a
-                [routerLink]="'/' + userRole() + '/profile'"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                <span class="material-symbols-outlined text-sm mr-2">person</span>
-                Profile
-              </a>
-              <a
-                [routerLink]="'/' + userRole() + '/settings'"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                <span class="material-symbols-outlined text-sm mr-2">settings</span>
-                Settings
-              </a>
-              <hr class="my-1">
-              <button
-                (click)="logout()"
-                class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
-              >
-                <span class="material-symbols-outlined text-sm mr-2">logout</span>
-                Logout
-              </button>
-            </div>
+          <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50">
+            <a
+              [routerLink]="'/' + userRole() + '/profile'"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            >
+              <span class="material-symbols-outlined text-sm mr-2">person</span>
+              Profile
+            </a>
+            <a
+              [routerLink]="'/' + userRole() + '/settings'"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            >
+              <span class="material-symbols-outlined text-sm mr-2">settings</span>
+              Settings
+            </a>
+            <hr class="my-1" />
+            <button
+              (click)="logout()"
+              class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+            >
+              <span class="material-symbols-outlined text-sm mr-2">logout</span>
+              Logout
+            </button>
+          </div>
           }
         </div>
       </div>
     </header>
-    
-    <!-- Page Content -->
-    <main class="flex-1 overflow-y-auto p-6">
+
+
+    @if (isSidebarOpen()) {
+    <div class="fixed inset-0 bg-black/20 backdrop-blur-sm z-40" (click)="toggleSidebar()"></div>
+    }
+
+    <div class="fixed top-1/2 right-0 transform -translate-y-1/2 flex z-50 h-full items-center">
+      <!--Quick action Bar -->
+      <div
+        class="flex flex-col bg-white rounded-l-3xl shadow-2xl pr-2 pl-3 py-4 space-y-3 transition-all duration-300"
+        (dragover)="onDragOver($event)"
+        (drop)="onDropToQuickActions($event)"
+      >
+        <!-- Toggle Button -->
+        <button
+          (click)="toggleSidebar()"
+          class="w-10 h-10 flex items-center justify-center text-primary-600 hover:text-primary-800 pb-3 mb-1"
+        >
+          @if(isSidebarOpen()) {
+          <span class="material-symbols-outlined text-lg">chevron_right</span>
+          } @else {
+          <span class="material-symbols-outlined text-lg">chevron_left</span>
+          }
+        </button>
+
+        <!-- Quick Action Items (Dynamic) -->
+        @for (item of quickActionItems(); track item.id) {
+        <div class="relative group">
+          <button
+            class="w-10 h-10 flex items-center justify-center rounded-full text-primary-500 hover:bg-primary-100 transition-all"
+            [class.bg-primary-100]="activeMenu === item.id"
+            [class.text-primary-700]="activeMenu === item.id"
+            (click)="setActive(item.id)"
+            draggable="false"
+          >
+            <span class="material-symbols-outlined text-lg">{{ item.icon }}</span>
+          </button>
+          <!-- Remove button (appears on hover) -->
+          <button
+            (click)="removeFromQuickActions(item.id)"
+            class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-xs"
+            title="Remove from quick actions"
+          >
+            ×
+          </button>
+        </div>
+        }
+
+        <!-- Drop Zone Hint (when empty or sidebar open) -->
+        @if (quickActionItems().length === 0 || isSidebarOpen()) {
+        <div
+          class="text-center py-2 px-2 text-[8px] text-gray-400 border-2 border-dashed border-gray-300 rounded-lg"
+        >
+          Drag here
+        </div>
+        }
+      </div>
+
+      <!-- Expanded Sidebar Menu Panel -->
+      @if (isSidebarOpen()) {
+      <div
+        class="bg-white p-6 w-100 h-full animate-slideIn border border-gray-100 flex flex-col justify-between"
+      >
+        <div>
+          <!-- User Header -->
+          <div class="flex items-center mb-6">
+            <div
+              class="w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm font-semibold"
+            >
+              {{ userInitials() }}
+            </div>
+            <div class="ml-3">
+              <p class="font-semibold text-gray-800 text-sm">{{ currentUser()?.name }}</p>
+              <p class="text-xs text-gray-500 capitalize">{{ userRole() }}</p>
+            </div>
+          </div>
+
+          <!-- Menu Grid - 3x3 Layout -->
+          <div class="grid grid-cols-3 gap-3 mb-3">
+            @for (item of expandedMenuItems(); track item.id) {
+            <button
+              class="flex flex-col items-center justify-center text-gray-700 rounded-lg py-4 px-2 transition-all relative cursor-move"
+              [class.bg-primary-100]="activeMenu === item.id"
+              [class.bg-gray-50]="activeMenu !== item.id"
+              [class.hover:bg-primary-200]="activeMenu === item.id"
+              [class.hover:bg-gray-100]="activeMenu !== item.id"
+              [class.opacity-50]="isInQuickActions(item.id)"
+              (click)="setActive(item.id)"
+              draggable="true"
+              (dragstart)="onDragStart($event, item.id)"
+              [title]="
+                isInQuickActions(item.id) ? 'Already in quick actions' : 'Drag to quick actions bar'
+              "
+            >
+              <span
+                class="material-symbols-outlined text-2xl mb-1"
+                [class.text-primary-600]="activeMenu === item.id"
+                [class.text-gray-600]="activeMenu !== item.id"
+                >{{ item.icon }}
+                </span>
+              <span class="text-[10px] font-medium text-gray-700">{{ item.label }}</span>
+
+              <!-- Badge to indicate item is in quick actions -->
+              @if (isInQuickActions(item.id)) {
+              <span
+                class="absolute top-1 right-1 w-2 h-2 bg-green-500 rounded-full"
+                title="In quick actions"
+              ></span>
+              }
+            </button>
+            }
+          </div>
+        </div>
+
+        <!-- Bottom Navigation Icons -->
+        <div class="flex items-center justify-center gap-8 pt-4 border-t border-gray-200">
+          <button class="text-gray-400 hover:text-gray-600 transition-colors">
+            <span class="material-symbols-outlined text-xl">arrow_back</span>
+          </button>
+          <button class="text-gray-400 hover:text-gray-600 transition-colors">
+            <span class="material-symbols-outlined text-xl">info</span>
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+
+   
+    <main class="flex-1 overflow-y-auto p-6 h-[calc(100vh-4rem)]">
       <router-outlet></router-outlet>
     </main>
   </div>
