@@ -1,6 +1,24 @@
-import { ChangeDetectionStrategy, Component, signal, computed, inject, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  signal,
+  computed,
+  inject,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+  AbstractControl,
+  ValidationErrors
+} from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -11,7 +29,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   host: {
-    'role': 'main'
+    role: 'main'
   }
 })
 export class CompanyDetailsComponent implements OnInit, OnDestroy {
@@ -22,12 +40,17 @@ export class CompanyDetailsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Reset and patch both forms properly
-    if ('companyName' in value || 'registrationNumber' in value) {
+    // Patch / reset forms safely depending on incoming keys
+    const identityKeys = ['companyName', 'registrationNumber', 'businessType', 'industryCategory', 'dateOfIncorporation', 'natureOfBusiness'];
+    const addressKeys = ['registeredAddress', 'operationalAddress', 'country', 'state', 'city', 'pin', 'contactPerson', 'designation', 'email', 'phone', 'alternateContact'];
+
+    const hasIdentity = identityKeys.some(k => k in value);
+    const hasAddress = addressKeys.some(k => k in value);
+
+    if (hasIdentity) {
       this.identityForm.reset(value, { emitEvent: false });
     }
-
-    if ('registeredAddress' in value || 'operationalAddress' in value) {
+    if (hasAddress) {
       this.addressForm.reset(value, { emitEvent: false });
     }
   }
@@ -43,28 +66,54 @@ export class CompanyDetailsComponent implements OnInit, OnDestroy {
     this.tabSignal.set(tab);
   }
 
+  // Patterns
+  private readonly registrationPattern = /^[A-Za-z0-9:\/\-\s]+$/;
+  private readonly pinPattern = /^[0-9]{6}$/;
+  private readonly phonePattern = /^[0-9+\-\s]{7,20}$/;
+
+  // Forms
   readonly identityForm: FormGroup = inject(FormBuilder).group({
-    companyName: [''],
-    registrationNumber: [''],
-    businessType: [''],
-    industryCategory: [''],
-    dateOfIncorporation: [''],
-    natureOfBusiness: [''],
+    companyName: ['', [Validators.required, Validators.minLength(3)]],
+    registrationNumber: ['', [Validators.required, Validators.pattern(this.registrationPattern)]],
+    businessType: ['', Validators.required],
+    industryCategory: ['', Validators.required],
+    dateOfIncorporation: ['', [Validators.required, this.futureDateValidator]],
+    natureOfBusiness: ['', [Validators.required, Validators.maxLength(500)]],
   });
 
   readonly addressForm: FormGroup = inject(FormBuilder).group({
-    registeredAddress: [''],
-    operationalAddress: [''],
-    country: [''],
-    state: [''],
-    city: [''],
-    pin: [''],
-    contactPerson: [''],
-    designation: [''],
-    email: [''],
-    phone: [''],
+    registeredAddress: ['', Validators.required],
+    operationalAddress: ['', Validators.required],
+    country: ['', Validators.required],
+    state: ['', Validators.required],
+    city: ['', Validators.required],
+    pin: ['', [Validators.required, Validators.pattern(this.pinPattern)]],
+    contactPerson: ['', Validators.required],
+    designation: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required, Validators.pattern(this.phonePattern)]],
     alternateContact: [''],
   });
+
+  // Getters for template convenience
+  get companyName(): AbstractControl { return this.identityForm.get('companyName')!; }
+  get registrationNumber(): AbstractControl { return this.identityForm.get('registrationNumber')!; }
+  get businessType(): AbstractControl { return this.identityForm.get('businessType')!; }
+  get industryCategory(): AbstractControl { return this.identityForm.get('industryCategory')!; }
+  get dateOfIncorporation(): AbstractControl { return this.identityForm.get('dateOfIncorporation')!; }
+  get natureOfBusiness(): AbstractControl { return this.identityForm.get('natureOfBusiness')!; }
+
+  get registeredAddress(): AbstractControl { return this.addressForm.get('registeredAddress')!; }
+  get operationalAddress(): AbstractControl { return this.addressForm.get('operationalAddress')!; }
+  get country(): AbstractControl { return this.addressForm.get('country')!; }
+  get state(): AbstractControl { return this.addressForm.get('state')!; }
+  get city(): AbstractControl { return this.addressForm.get('city')!; }
+  get pin(): AbstractControl { return this.addressForm.get('pin')!; }
+  get contactPerson(): AbstractControl { return this.addressForm.get('contactPerson')!; }
+  get designation(): AbstractControl { return this.addressForm.get('designation')!; }
+  get email(): AbstractControl { return this.addressForm.get('email')!; }
+  get phone(): AbstractControl { return this.addressForm.get('phone')!; }
+  get alternateContact(): AbstractControl { return this.addressForm.get('alternateContact')!; }
 
   ngOnInit(): void {
     // emit when active form changes
@@ -87,10 +136,40 @@ export class CompanyDetailsComponent implements OnInit, OnDestroy {
   resetForm(): void {
     if (this.activeTab() === 'identity') {
       this.identityForm.reset();
+      this.identityForm.markAsPristine();
+      this.identityForm.markAsUntouched();
       this.dataChange.emit(this.identityForm.value);
     } else {
       this.addressForm.reset();
+      this.addressForm.markAsPristine();
+      this.addressForm.markAsUntouched();
       this.dataChange.emit(this.addressForm.value);
     }
+  }
+
+  onSubmit(): void {
+    if (this.activeTab() === 'identity') {
+      if (this.identityForm.invalid) {
+        this.identityForm.markAllAsTouched();
+        return;
+      }
+      this.dataChange.emit({ ...this.identityForm.value });
+    } else {
+      if (this.addressForm.invalid) {
+        this.addressForm.markAllAsTouched();
+        return;
+      }
+      this.dataChange.emit({ ...this.addressForm.value });
+    }
+  }
+
+  // Custom validator: no future dates
+  private futureDateValidator(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) return null;
+    const selected = new Date(control.value);
+    const today = new Date();
+    selected.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+    return selected > today ? { futureDate: true } : null;
   }
 }

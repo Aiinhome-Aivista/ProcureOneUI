@@ -20,6 +20,21 @@ export interface RegistrationData {
     natureOfBusiness: string;
   };
 
+  // Step 1b: Addresses (added)
+  addresses: {
+    registeredAddress: string;
+    operationalAddress: string;
+    country: string;
+    state: string;
+    city: string;
+    pin: string;
+    contactPerson: string;
+    designation: string;
+    email: string;
+    phone: string;
+    alternateContact?: string;
+  };
+
   // Step 2: Financial Verification
   financialVerification: {
     panCard: File | null;
@@ -69,11 +84,29 @@ export class RegisterComponent {
   // Registration data store
   readonly registrationData = signal<Partial<RegistrationData>>({
     basicInfo: { companyName: '', businessType: '', registrationNumber: '', dateOfIncorporation: '', industryCategory: '', natureOfBusiness: '' },
+    addresses: {
+      registeredAddress: '',
+      operationalAddress: '',
+      country: '',
+      state: '',
+      city: '',
+      pin: '',
+      contactPerson: '',
+      designation: '',
+      email: '',
+      phone: '',
+      alternateContact: ''
+    },
     financialVerification: { panCard: null, udyamMsme: null, businessLicense: null, supportDocument: null },
     riskFactor: { gstVatCertificate: null, incorporationCertificate: null },
     capability: {},
     approved: { termsAccepted: false }
   });
+
+  readonly step1Data = computed(() => ({
+    ...(this.registrationData().basicInfo || {}),
+    ...(this.registrationData().addresses || {})
+  }));
 
   // Computed: Check if current step is valid
   readonly isCurrentStepValid = computed(() => {
@@ -82,7 +115,7 @@ export class RegisterComponent {
 
     switch (step) {
       case 1:
-        return this.validateBasicInfo(data.basicInfo);
+        return this.validateBasicInfo(data.basicInfo) && this.validateAddresses(data.addresses);
       case 2:
         return this.validateFinancialVerification(data.financialVerification);
       case 3:
@@ -122,6 +155,19 @@ export class RegisterComponent {
     this.currentStep.set(1);
     this.registrationData.set({
       basicInfo: { companyName: '', businessType: '', registrationNumber: '', dateOfIncorporation: '', industryCategory: '', natureOfBusiness: '' },
+      addresses: {
+        registeredAddress: '',
+        operationalAddress: '',
+        country: '',
+        state: '',
+        city: '',
+        pin: '',
+        contactPerson: '',
+        designation: '',
+        email: '',
+        phone: '',
+        alternateContact: ''
+      },
       financialVerification: { panCard: null, udyamMsme: null, businessLicense: null, supportDocument: null },
       riskFactor: { gstVatCertificate: null, incorporationCertificate: null },
       capability: {},
@@ -129,13 +175,30 @@ export class RegisterComponent {
     });
   }
 
+
   // Update step data
   updateStepData(step: number, data: any): void {
     this.registrationData.update(current => {
       const updated = { ...current };
       switch (step) {
         case 1:
-          updated.basicInfo = { ...current.basicInfo, ...data };
+          const identityKeys = ['companyName', 'businessType', 'registrationNumber', 'dateOfIncorporation', 'industryCategory', 'natureOfBusiness'];
+          const addressKeys = ['registeredAddress', 'operationalAddress', 'country', 'state', 'city', 'pin', 'contactPerson', 'designation', 'email', 'phone', 'alternateContact'];
+
+          const hasIdentity = identityKeys.some(k => k in data);
+          const hasAddress = addressKeys.some(k => k in data);
+
+          if (hasIdentity) {
+            updated.basicInfo = { ...current.basicInfo, ...data };
+          }
+
+          if (hasAddress) {
+            updated.addresses = { ...(current as any).addresses || {}, ...data };
+          }
+
+          if (!hasIdentity && !hasAddress) {
+            updated.basicInfo = { ...current.basicInfo, ...data };
+          }
           break;
         case 2:
           updated.financialVerification = { ...current.financialVerification, ...data };
@@ -154,9 +217,14 @@ export class RegisterComponent {
     });
   }
 
+
   // Validation methods
   private validateBasicInfo(data: any): boolean {
     return !!(data?.companyName && data?.businessType && data?.registrationNumber && data?.dateOfIncorporation && data?.industryCategory && data?.natureOfBusiness);
+  }
+
+  private validateAddresses(data: any): boolean {
+    return !!(data?.registeredAddress && data?.city && data?.pin && data?.contactPerson && data?.email && data?.phone);
   }
 
   private validateFinancialVerification(data: any): boolean {
