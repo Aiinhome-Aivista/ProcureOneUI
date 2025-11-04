@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,14 +11,9 @@ import { CommonModule } from '@angular/common';
           <!-- Step Circle -->
           <div class="flex flex-col items-center">
             <div 
-              [class]="getStepClass(step.number)"
-              class="w-12 h-12 rounded-full flex items-center justify-center font-semibold transition-all duration-300 relative"
+              class="w-12 h-12 rounded-full flex items-center justify-center font-semibold transition-all duration-300 relative bg-gray-200 text-gray-600"
             >
-              @if (step.number < currentStep()) {
-                <span class="material-symbols-outlined text-xl">check</span>
-              } @else {
-                <span class="material-symbols-outlined text-2xl">{{ step.icon }}</span>
-              }
+              <span class="material-symbols-outlined text-2xl">{{ step.icon }}</span>
             </div>
             
             <!-- Step Label -->
@@ -30,8 +25,7 @@ import { CommonModule } from '@angular/common';
           <!-- Connector Line -->
           @if (!$last) {
             <div 
-              [class]="step.number < currentStep() ? 'bg-primary-600' : 'bg-gray-300'"
-              class="flex-1 h-1 mx-2 transition-all duration-300"
+              class="flex-1 h-1 mx-2 transition-all duration-300 bg-gray-300"
             ></div>
           }
         </div>
@@ -46,8 +40,7 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class StepIndicatorComponent {
-  currentStep = input<number>(1);
-  
+  // Static display - no dynamic step tracking
   steps = [
     { number: 1, label: 'Basic Information', icon: 'description' },
     { number: 2, label: 'Financial Verification', icon: 'verified' },
@@ -55,15 +48,4 @@ export class StepIndicatorComponent {
     { number: 4, label: 'Capability', icon: 'business_center' },
     { number: 5, label: 'Approved', icon: 'check_circle' }
   ];
-
-  getStepClass(stepNumber: number): string {
-    const current = this.currentStep();
-    if (stepNumber < current) {
-      return 'bg-primary-600 text-white';
-    } else if (stepNumber === current) {
-      return 'bg-primary-600 text-white ring-4 ring-primary-200';
-    } else {
-      return 'bg-gray-200 text-gray-600';
-    }
-  }
 }

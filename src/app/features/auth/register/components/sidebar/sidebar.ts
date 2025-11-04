@@ -1,4 +1,4 @@
-﻿import { Component, input, signal } from '@angular/core';
+﻿import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 
@@ -17,7 +17,6 @@ interface NavItem {
 
 
 export class Sidebar {
-  currentStep = input<number>(1);
 
 
 
