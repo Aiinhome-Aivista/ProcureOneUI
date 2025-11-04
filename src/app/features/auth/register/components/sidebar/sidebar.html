@@ -52,8 +52,8 @@
           >
             <div
               class="p-2 rounded-md transition-all duration-200"
-              [class.font-semibold]="selectedIndex() === i"
-              [class.bg-primary-100]="selectedIndex() === i"
+              [class.font-semibold]="currentStep() === item.stepNo"
+              [class.bg-primary-100]="currentStep() === item.stepNo"
             >
               <h2 class="text-[11px] font-semibold text-neutral-900 leading-4">
                 {{ item.title }}
@@ -66,8 +66,8 @@
             <!-- Right border indicator -->
             <span
               class="absolute -right-1 top-0 h-full w-0 transition-all duration-200 rounded-r-md rounded-l-md"
-              [class.w-2]="selectedIndex() === i"
-              [class.bg-primary-600]="selectedIndex() === i"
+              [class.w-2]="currentStep() === item.stepNo"
+              [class.bg-primary-600]="currentStep() === item.stepNo"
             ></span>
           </button>
         }

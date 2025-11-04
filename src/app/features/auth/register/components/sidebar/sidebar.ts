@@ -1,4 +1,4 @@
-﻿import { Component, signal } from '@angular/core';
+﻿import { Component, signal, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 
@@ -17,8 +17,11 @@ interface NavItem {
 
 
 export class Sidebar {
+  // Input: current step from parent
+  currentStep = input<number>(1);
 
-
+  // Output: emit step change to parent
+  stepChange = output<number>();
 
   readonly navItems = signal<NavItem[]>([
     {
@@ -46,11 +49,11 @@ export class Sidebar {
         'Used to assess solvency, working capital, and risk factor.',
     },
   ]);
-  public selectedIndex = signal<number>(0);
 
-
+  // Method to handle step selection
   public select(index: number): void {
-    this.selectedIndex.set(index);
+    const step = index + 1; // Convert 0-based index to 1-based step number
+    this.stepChange.emit(step);
   }
 
 
