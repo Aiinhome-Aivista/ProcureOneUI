@@ -32,8 +32,8 @@ export class Sidebar {
   isStepCompleted(stepNumber: number): boolean {
     return stepNumber < this.currentStep();
   }
-  selectorTop = '120px';    // initial position
-selectorHeight = '70px'; // height of purple bar
+selectorTop = '120px';    // initial position
+selectorHeight = '60px'; // height of purple bar
 
 select(index: number) {
   const start = 120;   // starting top offset
