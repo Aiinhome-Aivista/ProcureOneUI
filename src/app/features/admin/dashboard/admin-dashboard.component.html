@@ -14,14 +14,14 @@
             @if (stat.change !== 0) {
               <div class="flex items-center mt-2">
                 <span class="text-green-600 text-sm font-medium flex items-center">
-                  <span class="material-icons text-sm">trending_up</span>
+                  <span class="material-symbols-outlined text-sm">trending_up</span>
                   {{ stat.change }}%
                 </span>
               </div>
             }
           </div>
           <div [class]="'h-12 w-12 rounded-full flex items-center justify-center text-white ' + getCardColorClass(stat.color)">
-            <span class="material-icons">{{ stat.icon }}</span>
+            <span class="material-symbols-outlined">{{ stat.icon }}</span>
           </div>
         </div>
       </div>
@@ -39,7 +39,7 @@
           @for (activity of recentActivity(); track $index) {
             <div class="flex items-start space-x-3">
               <div [class]="'h-10 w-10 rounded-full flex items-center justify-center shrink-0 ' + getActivityColor(activity.type)">
-                <span class="material-icons text-sm">{{ getActivityIcon(activity.type) }}</span>
+                <span class="material-symbols-outlined text-sm">{{ getActivityIcon(activity.type) }}</span>
               </div>
               <div class="flex-1">
                 <p class="text-sm font-medium text-gray-900">{{ activity.action }}</p>
@@ -60,19 +60,19 @@
       <div class="p-6">
         <div class="grid grid-cols-2 gap-4">
           <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-all text-center group">
-            <span class="material-icons text-3xl text-gray-600 group-hover:text-primary-600 mb-2">person_add</span>
+            <span class="material-symbols-outlined text-3xl text-gray-600 group-hover:text-primary-600 mb-2">person_add</span>
             <p class="text-sm font-medium text-gray-900">Add User</p>
           </button>
           <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-all text-center group">
-            <span class="material-icons text-3xl text-gray-600 group-hover:text-primary-600 mb-2">store</span>
+            <span class="material-symbols-outlined text-3xl text-gray-600 group-hover:text-primary-600 mb-2">store</span>
             <p class="text-sm font-medium text-gray-900">Add Vendor</p>
           </button>
           <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-all text-center group">
-            <span class="material-icons text-3xl text-gray-600 group-hover:text-primary-600 mb-2">business</span>
+            <span class="material-symbols-outlined text-3xl text-gray-600 group-hover:text-primary-600 mb-2">business</span>
             <p class="text-sm font-medium text-gray-900">Add Department</p>
           </button>
           <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-all text-center group">
-            <span class="material-icons text-3xl text-gray-600 group-hover:text-primary-600 mb-2">settings</span>
+            <span class="material-symbols-outlined text-3xl text-gray-600 group-hover:text-primary-600 mb-2">settings</span>
             <p class="text-sm font-medium text-gray-900">System Settings</p>
           </button>
         </div>

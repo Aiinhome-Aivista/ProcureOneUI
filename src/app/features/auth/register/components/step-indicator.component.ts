@@ -15,9 +15,9 @@ import { CommonModule } from '@angular/common';
               class="w-12 h-12 rounded-full flex items-center justify-center font-semibold transition-all duration-300 relative"
             >
               @if (step.number < currentStep()) {
-                <span class="material-icons text-xl">check</span>
+                <span class="material-symbols-outlined text-xl">check</span>
               } @else {
-                <span class="material-icons text-2xl">{{ step.icon }}</span>
+                <span class="material-symbols-outlined text-2xl">{{ step.icon }}</span>
               }
             </div>
             

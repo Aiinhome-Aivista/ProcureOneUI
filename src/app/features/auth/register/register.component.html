@@ -5,7 +5,7 @@
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
           <a routerLink="/login" class="text-gray-600 hover:text-gray-900 flex items-center">
-            <span class="material-icons">arrow_back</span>
+            <span class="material-symbols-outlined">arrow_back</span>
           </a>
           <div>
             <img src="assets/icons/Aiinhome _ PO.svg" alt="Aiinhome PO Logo" />
@@ -20,7 +20,9 @@
   </div>
 
   <div class="grid grid-cols-4 flex-1 overflow-y-auto">
-    <div class="col-span-1"></div>
+    <div class="col-span-1">
+      <app-sidebar [currentStep]="currentStep()" />
+    </div>
     <div class="col-span-3 px-6 py-8">
       <!-- Step Indicator -->
       <div class="mb-8 bg-white rounded-xl shadow-sm p-6">
@@ -106,7 +108,7 @@
       <!-- Back to Login -->
       <!-- <div class="text-center mt-6">
         <a routerLink="/login" class="text-sm text-primary-600 hover:text-primary-700 font-medium">
-          <span class="material-icons text-sm align-middle">arrow_back</span>
+          <span class="material-symbols-outlined text-sm align-middle">arrow_back</span>
           Already have an account? Login here
         </a>
       </div> -->
