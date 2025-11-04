@@ -1,20 +1,5 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-/* @theme {
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
-  --color-primary-950: #172554;
-} */
-
-/* this is the new theme blue */
 
 @theme {
   --color-primary-50: #f5f3fb;
@@ -29,7 +14,6 @@
   --color-primary-900: #210c61;
   --color-primary-950: #170843;
 }
-
 
 /* Custom Theme Yellow */
 /* @theme {
@@ -49,46 +33,100 @@
 /* Global styles */
 body {
   font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #101010;
 }
-
 
 input:focus {
   transition: all 0.2s ease-in-out;
 }
 
+button {
+  cursor: pointer;
+}
 
-/* Polished scrollbar: WebKit/Chromium */
-*::-webkit-scrollbar { width: 10px; height: 10px; }
-*::-webkit-scrollbar-track {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default padding */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd,
+p {
+  margin: 0 !important;
+}
+
+body,
+::after,
+::before {
+  box-sizing: border-box !important;
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+  margin-top: 1em;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
   background: transparent;
-}
-*::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg,
-    color-mix(in oklab, var(--color-primary) 40%, #3a3f4b),
-    color-mix(in oklab, var(--color-accent) 28%, #3a3f4b)
-  );
-  border-radius: 10px;
-  border: 2px solid transparent; /* creates padding look */
-  background-clip: padding-box;
-}
-*::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg,
-    color-mix(in oklab, var(--color-primary) 55%, #3a3f4b),
-    color-mix(in oklab, var(--color-accent) 42%, #3a3f4b)
-  );
+  border-radius: 1rem;
+  background-color: #373737;
 }
 
-/* Firefox scrollbar */
-* {
-  scrollbar-width: thin;                       /* thin | auto */
-  scrollbar-color: color-mix(in oklab, var(--color-primary) 55%, #3a3f4b)
-                   transparent;                /* thumb track */
+::-webkit-scrollbar-track:horizontal {
+  background: #373737;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  background: #8a8a8a;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #8a8a8a;
+
+  border-radius: 1rem;
 }
 
-/* High-contrast and reduced motion care */
-@media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; animation: none !important; }
-}
-@media (forced-colors: active) {
-  *::-webkit-scrollbar-thumb { border-color: transparent; }
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #8a8a8a;
+  width: 0.5vw; /* Increase the width */
+  height: 1.6vh;
 }
