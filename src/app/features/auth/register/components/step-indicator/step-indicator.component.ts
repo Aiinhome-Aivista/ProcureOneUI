@@ -9,14 +9,7 @@ import { CommonModule } from '@angular/common';
 })
 export class StepIndicatorComponent {
   currentStep = input<number>(1);
-  
-  steps = [
-    { number: 1, label: 'Basic Information', icon: 'description' },
-    { number: 2, label: 'Financial Verification', icon: 'verified' },
-    { number: 3, label: 'Risk Factor', icon: 'shield' },
-    { number: 4, label: 'Capability', icon: 'business_center' },
-    { number: 5, label: 'Approved', icon: 'check_circle' }
-  ];
+
 
   getStepClass(stepNumber: number): string {
     const current = this.currentStep();
