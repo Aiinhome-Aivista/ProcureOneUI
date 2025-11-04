@@ -1,7 +1,7 @@
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { StepIndicatorComponent } from './components/step-indicator.component';
+import { StepIndicatorComponent } from './components/step-indicator/step-indicator.component';
 import { CompanyDetailsComponent } from './steps/step1-basic-info/step1-basic-info.component';
 import { Step2FinancialVerificationComponent } from './steps/step2-financial-verification/step2-financial-verification.component';
 import { Step3RiskFactorComponent } from './steps/step3-risk-factor/step3-risk-factor.component';
