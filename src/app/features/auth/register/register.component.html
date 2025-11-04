@@ -1,6 +1,6 @@
-<div class="min-h-screen bg-gray-50">
+<div class="h-screen bg-gray-50 flex flex-col">
   <!-- Header -->
-  <div class="bg-white border-b border-gray-200 sticky top-0 z-50">
+  <div class="bg-white border-b border-gray-200 shrink-0">
     <div class="px-6 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-4">
+  <div class="grid grid-cols-4 flex-1 overflow-y-auto">
     <div class="col-span-1"></div>
     <div class="col-span-3 px-6 py-8">
       <!-- Step Indicator -->
@@ -104,12 +104,12 @@
       </div>
 
       <!-- Back to Login -->
-      <div class="text-center mt-6">
+      <!-- <div class="text-center mt-6">
         <a routerLink="/login" class="text-sm text-primary-600 hover:text-primary-700 font-medium">
           <span class="material-icons text-sm align-middle">arrow_back</span>
           Already have an account? Login here
         </a>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

@@ -51,6 +51,9 @@ export const loginGuard: CanActivateFn = () => {
     const role = authService.userRole();
     if (role) {
       authService.redirectToDefaultPage(role);
+    } else {
+      // Fallback if role is undefined
+      router.navigate(['/']);
     }
     return false;
   }
