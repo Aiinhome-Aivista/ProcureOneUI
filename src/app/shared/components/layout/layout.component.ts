@@ -76,7 +76,7 @@ export class LayoutComponent {
     return role ? classes[role] : 'bg-gray-100 text-gray-800';
   }
 
-  isExpanded = false;
+
   activeMenu = 'dashboard';
 
   // Quick action bar items (can be customized by drag and drop)
