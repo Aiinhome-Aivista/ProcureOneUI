@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { StepIndicatorComponent } from './components/step-indicator/step-indicator.component';
@@ -62,6 +62,11 @@ export interface RegistrationData {
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+  // Live clock: current date/time
+  readonly now = signal(new Date());
+  readonly currentDate = computed(() => this.formatDate(this.now()));
+  readonly currentTime = computed(() => this.formatTime(this.now()));
+  private _timerId: any;
   // Step management
   readonly currentStep = signal(1);
   readonly totalSteps = 5;
@@ -102,6 +107,10 @@ export class RegisterComponent {
       this.currentStep.update(step => step + 1);
       this.scrollToTop();
     }
+  }
+
+  constructor() {
+    this.startClock();
   }
 
   previousStep(): void {
@@ -175,5 +184,48 @@ export class RegisterComponent {
 
   private scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // --- Clock helpers ---
+  private startClock(): void {
+    // update every second so time changes are reflected and date rolls over correctly
+    this._timerId = setInterval(() => this.now.set(new Date()), 1000);
+  }
+
+  private formatDate(d: Date): string {
+    const day = d.getDate();
+    const month = d.toLocaleString('en-GB', { month: 'long' });
+    const suffix = this.getDaySuffix(day);
+    return `${day}${suffix} ${month}`;
+  }
+
+  private formatTime(d: Date): string {
+    let hours = d.getHours();
+    const minutes = d.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const mins = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    return `${hours}:${mins} ${ampm}`;
+  }
+
+  private getDaySuffix(d: number): string {
+    if (d >= 11 && d <= 13) return 'th';
+    switch (d % 10) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this._timerId) {
+      clearInterval(this._timerId);
+    }
   }
 }

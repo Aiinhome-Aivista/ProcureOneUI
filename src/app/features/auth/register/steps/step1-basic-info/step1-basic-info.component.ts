@@ -2,6 +2,7 @@
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 import { IdentityDetails } from "../Basic Information/identity-details/identity-details";
 import { BusninessRegistrationDocuments } from "../Basic Information/busniness-registration-documents/busniness-registration-documents";
 import { Component, output, input } from '@angular/core';
