@@ -67,7 +67,7 @@
               @if (currentStep() === 1) {
               <button type="button" (click)="resetForm()"
                 class="w-full sm:w-auto flex items-center justify-center sm:justify-start gap-2 px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer">
-                <span class="material-icons text-sm">refresh</span>
+                <span class="material-symbols-outlined text-sm">refresh</span>
                 <span>Reset</span>
               </button>
               }
@@ -79,7 +79,7 @@
               <button type="button" (click)="previousStep()" [disabled]="currentStep() === 1" class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700
                hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 [ngClass]="{ 'cursor-pointer': currentStep() !== 1 }">
-                <span class="material-icons text-sm">arrow_back</span>
+                <span class="material-symbols-outlined text-sm">arrow_back</span>
                 <span>Previous</span>
               </button>
 
@@ -89,14 +89,14 @@
                bg-primary-600 text-white hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
                 [ngClass]="{ 'cursor-pointer': isCurrentStepValid() }">
                 <span>Next Step</span>
-                <span class="material-icons text-sm">arrow_forward</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </button>
                 } @else {
                 <button type="button" (click)="submitRegistration()" [disabled]="!isCurrentStepValid()"
                   class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
                   [ngClass]="{ 'cursor-pointer': isCurrentStepValid() }">
                   <span>Submit Registration</span>
-                  <span class="material-icons text-sm">send</span>
+                  <span class="material-symbols-outlined text-sm">send</span>
                 </button>
                 }
             </div>
