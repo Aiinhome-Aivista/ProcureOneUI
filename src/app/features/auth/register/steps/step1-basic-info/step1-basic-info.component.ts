@@ -16,16 +16,22 @@ import { Subscription } from 'rxjs';
 })
 export class CompanyDetailsComponent implements OnInit, OnDestroy {
   @Input() set data(value: any) {
-    if (!value) return;
-    // Patch forms when parent provides data
-    if (value.companyName || value.registrationNumber) {
-      this.identityForm.patchValue(value, { emitEvent: false });
+    if (!value) {
+      this.identityForm.reset({}, { emitEvent: false });
+      this.addressForm.reset({}, { emitEvent: false });
+      return;
     }
-    // also try addresses if shape matches
-    if (value.registeredAddress || value.operationalAddress) {
-      this.addressForm.patchValue(value, { emitEvent: false });
+
+    // Reset and patch both forms properly
+    if ('companyName' in value || 'registrationNumber' in value) {
+      this.identityForm.reset(value, { emitEvent: false });
+    }
+
+    if ('registeredAddress' in value || 'operationalAddress' in value) {
+      this.addressForm.reset(value, { emitEvent: false });
     }
   }
+
   @Output() dataChange = new EventEmitter<any>();
 
   private readonly tabSignal = signal<'identity' | 'addresses'>('identity');

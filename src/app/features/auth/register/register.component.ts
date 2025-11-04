@@ -13,11 +13,13 @@ export interface RegistrationData {
   // Step 1: Basic Information
   basicInfo: {
     companyName: string;
-    email: string;
-    phone: string;
-    address: string;
+    businessType: string;
+    registrationNumber: string;
+    dateOfIncorporation: string;
+    industryCategory: string;
+    natureOfBusiness: string;
   };
-  
+
   // Step 2: Financial Verification
   financialVerification: {
     panCard: File | null;
@@ -25,18 +27,18 @@ export interface RegistrationData {
     businessLicense: File | null;
     supportDocument: File | null;
   };
-  
+
   // Step 3: Risk Factor
   riskFactor: {
     gstVatCertificate: File | null;
     incorporationCertificate: File | null;
   };
-  
+
   // Step 4: Capability
   capability: {
     // Capability assessment data
   };
-  
+
   // Step 5: Approved (Final Review)
   approved: {
     termsAccepted: boolean;
@@ -46,7 +48,7 @@ export interface RegistrationData {
 @Component({
   selector: 'app-register',
   imports: [
-    CommonModule, 
+    CommonModule,
     RouterModule,
     StepIndicatorComponent,
     CompanyDetailsComponent,
@@ -62,22 +64,22 @@ export class RegisterComponent {
   // Step management
   readonly currentStep = signal(1);
   readonly totalSteps = 5;
-  
+
   // Registration data store
   readonly registrationData = signal<Partial<RegistrationData>>({
-    basicInfo: { companyName: '', email: '', phone: '', address: '' },
+    basicInfo: { companyName: '', businessType: '', registrationNumber: '', dateOfIncorporation: '', industryCategory: '', natureOfBusiness: '' },
     financialVerification: { panCard: null, udyamMsme: null, businessLicense: null, supportDocument: null },
     riskFactor: { gstVatCertificate: null, incorporationCertificate: null },
     capability: {},
     approved: { termsAccepted: false }
   });
-  
+
   // Computed: Check if current step is valid
   readonly isCurrentStepValid = computed(() => {
     const step = this.currentStep();
     const data = this.registrationData();
-    
-    switch(step) {
+
+    switch (step) {
       case 1:
         return this.validateBasicInfo(data.basicInfo);
       case 2:
@@ -92,7 +94,7 @@ export class RegisterComponent {
         return false;
     }
   });
-  
+
   // Navigation methods
   nextStep(): void {
     if (this.currentStep() < this.totalSteps && this.isCurrentStepValid()) {
@@ -100,37 +102,37 @@ export class RegisterComponent {
       this.scrollToTop();
     }
   }
-  
+
   previousStep(): void {
     if (this.currentStep() > 1) {
       this.currentStep.update(step => step - 1);
       this.scrollToTop();
     }
   }
-  
+
   goToStep(step: number): void {
     if (step >= 1 && step <= this.totalSteps) {
       this.currentStep.set(step);
       this.scrollToTop();
     }
   }
-  
+
   resetForm(): void {
     this.currentStep.set(1);
     this.registrationData.set({
-      basicInfo: { companyName: '', email: '', phone: '', address: '' },
+      basicInfo: { companyName: '', businessType: '', registrationNumber: '', dateOfIncorporation: '', industryCategory: '', natureOfBusiness: '' },
       financialVerification: { panCard: null, udyamMsme: null, businessLicense: null, supportDocument: null },
       riskFactor: { gstVatCertificate: null, incorporationCertificate: null },
       capability: {},
       approved: { termsAccepted: false }
     });
   }
-  
+
   // Update step data
   updateStepData(step: number, data: any): void {
     this.registrationData.update(current => {
       const updated = { ...current };
-      switch(step) {
+      switch (step) {
         case 1:
           updated.basicInfo = { ...current.basicInfo, ...data };
           break;
@@ -150,26 +152,26 @@ export class RegisterComponent {
       return updated;
     });
   }
-  
+
   // Validation methods
   private validateBasicInfo(data: any): boolean {
-    return !!(data?.companyName && data?.email && data?.phone && data?.address);
+    return !!(data?.companyName && data?.businessType && data?.registrationNumber && data?.dateOfIncorporation && data?.industryCategory && data?.natureOfBusiness);
   }
-  
+
   private validateFinancialVerification(data: any): boolean {
     return !!(data?.panCard && data?.udyamMsme && data?.businessLicense);
   }
-  
+
   private validateRiskFactor(data: any): boolean {
     return !!(data?.gstVatCertificate && data?.incorporationCertificate);
   }
-  
+
   // Submit registration
   submitRegistration(): void {
     console.log('Submitting registration:', this.registrationData());
     // TODO: Implement API call
   }
-  
+
   private scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
