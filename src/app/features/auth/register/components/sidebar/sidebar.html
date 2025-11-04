@@ -1,0 +1,57 @@
+<div class="w-full h-full bg-white px-12 py-10 relative">
+
+  <!-- right side vertical border -->
+  <div class="absolute right-[10px] top-0 h-full w-[2px] bg-[#E9E9E9]"></div>
+
+  <!-- purple selector -->
+  <div 
+    class="absolute right-[10px] w-[7px] bg-primary-600 rounded-full transition-all duration-300"
+    [style.height]="selectorHeight"
+    [style.top]="selectorTop"
+  ></div>
+
+  <h1 class="text-lg font-semibold text-[#000000] leading-tight">
+    Become a Valued Vendor
+  </h1>
+  <p class="text-xs text-[#0000008F] mt-1">
+    Join our network of trusted suppliers.
+  </p>
+
+  <div class="mt-10 max-w-[650px] space-y-2">
+
+    <div (click)="select(0)" class="cursor-pointer">
+      <h2 class="text-xs font-bold text-[#000000]">Identity Details</h2>
+      <p class="text-[8px] text-[#0000008F] leading-5 mt-1">
+        This section verifies the vendor’s identity, registration, ownership, and
+        communication details — legally required before financial or risk verification.
+      </p>
+    </div>
+
+    <div (click)="select(1)" class="cursor-pointer">
+      <h2 class="text-xs font-semibold text-[#000000]">
+        Basic Business & Tax Registration Documents
+      </h2>
+      <p class="text-[8px] text-[#0000008F] leading-5 mt-1">
+       This section is the foundation of vendor legal verification. It ensures the company is legally registered, authorized to operate, and eligible for taxation and procurement contracts.
+      </p>
+    </div>
+
+    <div (click)="select(2)" class="cursor-pointer bg-[#F7F7F9] border border-[#E4E4E4] py-3 px-4 rounded-xl">
+      <h2 class="text-xs font-semibold text-[#000000]">
+        Bank & Financial Identity Verification
+      </h2>
+      <p class="text-[8px] text-[#0000008F] leading-5 mt-1">
+        Used to confirm ownership, transaction capability, and financial soundness.
+      </p>
+    </div>
+
+    <div (click)="select(3)" class="cursor-pointer">
+      <h2 class="text-xs font-semibold text-[#000000]">
+        Financial Performance Documents
+      </h2>
+      <p class="text-[8px] text-[#0000008F] leading-5 mt-1">
+        Used to assess solvency, working capital, and risk factor.
+      </p>
+    </div>
+  </div>
+</div>
