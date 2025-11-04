@@ -14,9 +14,11 @@
         class="mt-1 w-full h-8 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
         placeholder="Confirms tax registration and identity" />
 
-      <div *ngIf="form.get('pan')?.touched && form.get('pan')?.invalid" class="text-red-500 text-[8px]">
-        PAN is required.
-      </div>
+      @if (form.get('pan')?.touched && form.get('pan')?.invalid) {
+        <div class="text-red-500 text-[8px]">
+          PAN is required.
+        </div>
+      }
     </div>
 
     <div>
@@ -26,9 +28,11 @@
         class="mt-1 w-full h-8 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
         placeholder="Validates indirect tax compliance" />
 
-      <div *ngIf="form.get('gst')?.touched && form.get('gst')?.invalid" class="text-red-500 text-[8px]">
-        GST is required.
-      </div>
+      @if (form.get('gst')?.touched && form.get('gst')?.invalid) {
+        <div class="text-red-500 text-[8px]">
+          GST is required.
+        </div>
+      }
     </div>
     <div>
       <label class="font-bold text-[#0000008F]">Udyam / MSME Registration (if applicable)<span
@@ -43,14 +47,18 @@
       <select formControlName="incorp"
         class="mt-1 w-full h-8 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]">
         <option value="">Select company type</option>
-        <option *ngFor="let type of incorporationTypes" [value]="type.value">
-          {{ type.label }}
-        </option>
+        @for (type of incorporationTypes; track type.value) {
+          <option [value]="type.value">
+            {{ type.label }}
+          </option>
+        }
       </select>
 
-      <div *ngIf="form.get('incorp')?.touched && form.get('incorp')?.invalid" class="text-red-500 text-[8px]">
-        Certificate is required.
-      </div>
+      @if (form.get('incorp')?.touched && form.get('incorp')?.invalid) {
+        <div class="text-red-500 text-[8px]">
+          Certificate is required.
+        </div>
+      }
     </div>
   </div>
 
@@ -62,9 +70,11 @@
       class="mt-1 w-full h-8 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
       placeholder="Confirms legal authorization to operate" />
 
-    <div *ngIf="form.get('tradeLicense')?.touched && form.get('tradeLicense')?.invalid" class="text-red-500 text-[8px]">
-      License is required.
-    </div>
+    @if (form.get('tradeLicense')?.touched && form.get('tradeLicense')?.invalid) {
+      <div class="text-red-500 text-[8px]">
+        License is required.
+      </div>
+    }
   </div>
 
   <!-- drag drop -->
@@ -91,13 +101,16 @@
     </div>
 
     <!-- filename -->
-    <div *ngIf="selectedFileName" class="text-[8px] text-[#7C6FA2] mt-2">
-      Selected: {{ selectedFileName }}
-    </div>
+    @if (selectedFileName) {
+      <div class="text-[8px] text-[#7C6FA2] mt-2">
+        Selected: {{ selectedFileName }}
+      </div>
+    }
 
-    <div *ngIf="form.get('supportedDocument')?.touched && form.get('supportedDocument')?.invalid"
-      class="text-[8px] text-red-500 mt-1">
-      Document required (PDF max 10MB)
-    </div>
+    @if (form.get('supportedDocument')?.touched && form.get('supportedDocument')?.invalid) {
+      <div class="text-[8px] text-red-500 mt-1">
+        Document required (PDF max 10MB)
+      </div>
+    }
   </div>
 </div>

@@ -22,7 +22,7 @@
       </label>
 
       <div
-        class="mt-1 border border-dashed border-[#C8BFF8] rounded-xl min-h-[240px] flex items-center justify-center bg-[#FBF9FF]"
+        class="mt-1 border border-dashed border-[#C8BFF8] rounded-xl min-h-60 flex items-center justify-center bg-[#FBF9FF]"
         (click)="cancelCheque.click()">
 
         <input type="file"
@@ -43,10 +43,12 @@
         </div>
       </div>
 
-      <div *ngIf="uploadedFiles.cancelCheque" class="mt-2 text-[10px] text-green-600 flex items-center gap-2">
-        {{ uploadedFiles.cancelCheque.name }}
-        <button (click)="removeFile('cancelCheque')" class="text-red-500 text-[12px] font-bold">X</button>
-      </div>
+      @if (uploadedFiles.cancelCheque) {
+        <div class="mt-2 text-[10px] text-green-600 flex items-center gap-2">
+          {{ uploadedFiles.cancelCheque.name }}
+          <button (click)="removeFile('cancelCheque')" class="text-red-500 text-[12px] font-bold">X</button>
+        </div>
+      }
     </div>
 
     <!-- Bank Statement -->
@@ -57,7 +59,7 @@
       </label>
 
       <div
-        class="mt-1 border border-dashed border-[#C8BFF8] rounded-xl min-h-[240px] flex items-center justify-center bg-[#FBF9FF]"
+        class="mt-1 border border-dashed border-[#C8BFF8] rounded-xl min-h-60 flex items-center justify-center bg-[#FBF9FF]"
         (click)="bankStatement.click()">
 
         <input type="file"
@@ -78,10 +80,12 @@
         </div>
       </div>
 
-      <div *ngIf="uploadedFiles.bankStatement" class="mt-2 text-[10px] text-green-600 flex items-center gap-2">
-        {{ uploadedFiles.bankStatement.name }}
-        <button (click)="removeFile('bankStatement')" class="text-red-500 text-[12px] font-bold">X</button>
-      </div>
+      @if (uploadedFiles.bankStatement) {
+        <div class="mt-2 text-[10px] text-green-600 flex items-center gap-2">
+          {{ uploadedFiles.bankStatement.name }}
+          <button (click)="removeFile('bankStatement')" class="text-red-500 text-[12px] font-bold">X</button>
+        </div>
+      }
     </div>
 
   </div>
@@ -117,10 +121,12 @@
     </div>
 
 
-    <div *ngIf="uploadedFiles.verifyLetter" class="mt-2 text-[10px] text-green-600 flex items-center gap-2">
-      {{ uploadedFiles.verifyLetter.name }}
-      <button (click)="removeFile('verifyLetter')" class="text-red-500 text-[12px] font-bold">X</button>
-    </div>
+    @if (uploadedFiles.verifyLetter) {
+      <div class="mt-2 text-[10px] text-green-600 flex items-center gap-2">
+        {{ uploadedFiles.verifyLetter.name }}
+        <button (click)="removeFile('verifyLetter')" class="text-red-500 text-[12px] font-bold">X</button>
+      </div>
+    }
   </div>
 
   <div>
