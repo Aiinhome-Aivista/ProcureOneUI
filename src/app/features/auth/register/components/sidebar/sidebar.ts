@@ -1,44 +1,60 @@
-import { Component, input } from '@angular/core';
+﻿import { Component, signal, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+
+interface NavItem {
+
+  stepNo: number;
+  title: string;
+  description: string;
+}
 @Component({
   selector: 'app-sidebar',
   imports: [CommonModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
+
+
 export class Sidebar {
+  // Input: current step from parent
   currentStep = input<number>(1);
 
-  readonly steps = [
-    { number: 1, label: 'Basic Information', icon: 'description' },
-    { number: 2, label: 'Financial Verification', icon: 'verified' },
-    { number: 3, label: 'Risk Factor', icon: 'shield' },
-    { number: 4, label: 'Capability', icon: 'business_center' },
-    { number: 5, label: 'Approved', icon: 'check_circle' },
-  ];
+  // Output: emit step change to parent
+  stepChange = output<number>();
 
-  getStepClass(stepNumber: number): string {
-    const current = this.currentStep();
-    if (stepNumber < current) {
-      return 'completed';
-    } else if (stepNumber === current) {
-      return 'active';
-    } else {
-      return 'pending';
-    }
+  readonly navItems = signal<NavItem[]>([
+    {
+      stepNo: 1,
+      title: 'Identity Details',
+      description:
+        'This section verifies the vendor\'s identity, registration, ownership, and communication details — legally required before financial or risk verification.',
+    },
+    {
+      stepNo: 2,
+      title: 'Basic Business & Tax Registration Documents',
+      description:
+        'This section is the foundation of vendor legal verification. It ensures the company is legally registered, authorized to operate, and eligible for taxation and procurement contracts.',
+    },
+    {
+      stepNo: 3,
+      title: 'Bank & Financial Identity Verification',
+      description:
+        'Used to confirm ownership, transaction capability, and financial soundness.',
+    },
+    {
+      stepNo: 4,
+      title: 'Financial Performance Documents',
+      description:
+        'Used to assess solvency, working capital, and risk factor.',
+    },
+  ]);
+
+  // Method to handle step selection
+  public select(index: number): void {
+    const step = index + 1; // Convert 0-based index to 1-based step number
+    this.stepChange.emit(step);
   }
 
-  isStepCompleted(stepNumber: number): boolean {
-    return stepNumber < this.currentStep();
-  }
-selectorTop = '120px';    // initial position
-selectorHeight = '60px'; // height of purple bar
 
-select(index: number) {
-  const start = 120;   // starting top offset
-  const gap = 75;      // gap between items (tweak if needed)
-
-  this.selectorTop = (start + index * gap) + 'px';
-}
 }

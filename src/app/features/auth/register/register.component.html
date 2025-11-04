@@ -19,99 +19,38 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-4 flex-1 overflow-y-auto">
-    <div class="col-span-1">
-      <app-sidebar [currentStep]="currentStep()" />
+  <div class="grid grid-cols-4 flex-1 h-[calc(100vh-4.8rem)]">
+    <div class="col-span-1 h-full">
+      <app-sidebar [currentStep]="currentStep()" (stepChange)="onStepChange($event)" />
     </div>
-    <div class="col-span-3 px-6 py-8">
-      <!-- Step Indicator -->
+    <div class="col-span-3 p-6 pl-3 overflow-y-auto h-full">
+      <!-- Step Indicator (Static for UI only) -->
       <div class="mb-8 bg-white rounded-xl shadow-sm p-6">
-        <app-step-indicator [currentStep]="currentStep()" />
+        <app-step-indicator />
       </div>
 
       <!-- Main Content Area -->
-      <div class="min-h-[600px]">
-        <!-- Step 1: Basic Information -->
+      <div class="">
+        <!-- Step 1: Identity Details -->
         @if (currentStep() === 1) {
-        <app-company-details [data]="registrationData().basicInfo" (dataChange)="updateStepData(1, $event)" />
+          <app-identity-details />
         }
 
-        <!-- Step 2: Financial Verification -->
+        <!-- Step 2: Business Tax Registration -->
         @if (currentStep() === 2) {
-        <app-step2-financial-verification [data]="registrationData().financialVerification"
-          (dataChange)="updateStepData(2, $event)" />
+          <app-business-tax-registration />
         }
 
-        <!-- Step 3: Risk Factor -->
+        <!-- Step 3: Bank Identity Verification -->
         @if (currentStep() === 3) {
-        <app-step3-risk-factor [data]="registrationData().riskFactor" (dataChange)="updateStepData(3, $event)" />
+          <app-bank-identity-verification />
         }
 
-        <!-- Step 4: Capability -->
+        <!-- Step 4: Financial Documents -->
         @if (currentStep() === 4) {
-        <app-step4-capability [data]="registrationData().capability" (dataChange)="updateStepData(4, $event)" />
+          <app-financial-documents />
         }
-
-        <!-- Step 5: Approved (Review & Submit) -->
-        @if (currentStep() === 5) {
-        <app-step5-approved [data]="registrationData().approved"
-          [termsAccepted]="registrationData().approved?.termsAccepted || false"
-          (dataChange)="updateStepData(5, $event)" />
-        }
-
-        <!-- Navigation Buttons -->
-        <div class="mt-8 pt-6">
-          <div class="flex flex-col sm:flex-row sm:justify-between gap-4">
-            <!-- (Reset) -->
-            <div class="flex justify-start">
-              @if (currentStep() === 1) {
-              <button type="button" (click)="resetForm()"
-                class="w-full sm:w-auto flex items-center justify-center sm:justify-start gap-2 px-6 py-2.5 border rounded-lg text-black transition-colors cursor-pointer">
-                <span class="material-symbols-outlined text-sm">refresh</span>
-                <span>Reset</span>
-              </button>
-              }
-            </div>
-
-            <!-- (Prev + Next/Submit) -->
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 justify-end">
-              <!-- Previous Button -->
-              <button type="button" (click)="previousStep()" [disabled]="currentStep() === 1" class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-[#D9D9D9] text-black rounded-lg
-              disabled:cursor-not-allowed transition-colors"
-                [ngClass]="{ 'cursor-pointer': currentStep() !== 1 }">
-                <span class="material-symbols-outlined text-sm">arrow_back</span>
-                <span>Previous</span>
-              </button>
-
-              <!-- Next / Submit Button -->
-              @if (currentStep() < totalSteps) { <button type="button" (click)="nextStep()"
-                [disabled]="!isCurrentStepValid()" class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg transition-colors
-                text-black  bg-[#D9D9D9] disabled:cursor-not-allowed"
-                [ngClass]="{ 'cursor-pointer': isCurrentStepValid() }">
-                <span>Next</span>
-               <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </button>
-                } @else {
-                <button type="button" (click)="submitRegistration()" [disabled]="!isCurrentStepValid()"
-                  class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
-                  [ngClass]="{ 'cursor-pointer': isCurrentStepValid() }">
-                  <span>Submit Registration</span>
-                  <span class="material-icons text-sm">send</span>
-                </button>
-                }
-            </div>
-          </div>
-        </div>
-
       </div>
-
-      <!-- Back to Login -->
-      <!-- <div class="text-center mt-6">
-        <a routerLink="/login" class="text-sm text-primary-600 hover:text-primary-700 font-medium">
-          <span class="material-symbols-outlined text-sm align-middle">arrow_back</span>
-          Already have an account? Login here
-        </a>
-      </div> -->
     </div>
   </div>
 </div>

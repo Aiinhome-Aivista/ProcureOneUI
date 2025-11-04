@@ -34,6 +34,7 @@
 body {
   font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #101010;
+  background-color: white;
 }
 
 input:focus {
