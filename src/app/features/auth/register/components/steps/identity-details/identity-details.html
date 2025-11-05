@@ -1,12 +1,12 @@
 <div class="w-full mx-auto" aria-label="Company Details Form">
   <!-- Tabs -->
   <nav
-    class="relative flex after:absolute after:bottom-0 after:left-2 after:right-3 after:border-b after:border-gray-300 mb-4"
+    class="relative flex after:absolute after:bottom-0 after:left-1 after:right-3 after:border-b after:border-[#D9D9D9] mb-4"
     role="tablist">
     <button type="button" role="tab" [attr.aria-selected]="activeTab() === 'identity'"
-      class="relative px-4 pb-2 pt-2 text-[13px] font-bold focus:outline-none cursor-pointer transition-all duration-300"
+      class="relative pb-2 pt-2 text-[13px] font-bold focus:outline-none cursor-pointer transition-all duration-300"
       (click)="switchTab('identity')" [ngClass]="{
-    'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[90%] after:h-1.5 after:bg-primary-600 after:rounded-tr-[13px] after:rounded-tl-[15px]':
+    'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[95%] after:h-1.5 after:bg-primary-600 after:rounded-tr-[13px] after:rounded-tl-[15px]':
       activeTab() === 'identity',
     'text-black hover:text-primary-600':
       activeTab() !== 'identity'
@@ -28,7 +28,7 @@
 
   <!-- Identity Details Tab -->
   @if (activeTab() === 'identity') {
-  <section class="px-4">
+  <section class="">
     <form [formGroup]="identityForm" (ngSubmit)="onSubmit()" class="space-y-3" autocomplete="off" novalidate>
       <div class="grid grid-cols-1 md:grid-cols-1">
         <div>
@@ -87,7 +87,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label class="block text-[12px] font-semibold text-[#0000008F]] mb-1">Date of Incorporation<span
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Date of Incorporation<span
               class="text-red-500">*</span></label>
           <input formControlName="dateOfIncorporation" type="date"
             class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-[#7C6FA2] text-[12px]" />
@@ -132,7 +132,7 @@
 
   <!-- Registered & Operational Addresses Tab -->
   @if(activeTab() === 'addresses'){
-  <section class="px-4">
+  <section class="">
     <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="space-y-3" autocomplete="off" novalidate>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
