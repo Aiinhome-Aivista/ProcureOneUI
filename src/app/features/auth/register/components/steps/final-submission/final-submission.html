@@ -1,164 +1,58 @@
 <div class="w-full py-3">
   <!-- Top Review Box -->
-<div class="relative rounded-xl p-8 mb-8 bg-[#F5F5F5] overflow-hidden">
-  <!-- Background SVG Pattern -->
-  <img
-    src="assets/icons/bg-art.svg"
-    alt="Background Art"
-    class="absolute top-2 right-0 -mr-150 w-full h-full opacity-30 pointer-events-none select-none z-0"
-    style="object-fit: cover;"
-  />
+  <div class="relative rounded-xl p-8 mb-8 bg-[#F5F5F5] overflow-hidden">
+    <!-- Background SVG Pattern -->
+    <img
+      src="assets/icons/bg-art.svg"
+      alt="Background Art"
+      class="absolute top-2 right-0 -mr-150 w-full h-full opacity-30 pointer-events-none select-none z-0"
+      style="object-fit: cover;"
+    />
 
-  <div class="relative z-10">
-    <div class="mb-2">
-      <h2 class="text-lg font-bold text-black">
-        Vendor Registration – Under Final Review
-      </h2>
-    </div>
+    <div class="relative z-10">
+      <div class="mb-2">
+        <h2 class="text-lg font-bold text-black">{{ submissionData.header.title }}</h2>
+      </div>
 
-    <div>
-      <p class="text-xs text-[#0000008F] font-bold">Congratulations!</p>
-    </div>
+      <div>
+        <p class="text-xs text-[#0000008F] font-bold">{{ submissionData.header.congratsText }}</p>
+      </div>
 
-    <div class="mb-3">
-      <p class="text-xs text-[#0000008F]">
-        Your registration process has been successfully completed, and all your
-        submitted documents have been verified. Our team has reviewed your
-        credentials, financial stability, and compliance information.
-      </p>
-    </div>
-
-    <div class="mb-3">
-      <p class="text-xs text-[#0000008F]">
-        We’re pleased to inform you that your financial verification is
-        complete, your risk factor is within the
-        <span class="font-semibold">safe range (≤ 40%)</span>, and your
-        <span class="font-semibold">operational capability stands at 70%</span>,
-        reflecting a strong potential for collaboration.
-      </p>
-    </div>
-
-    <div class="mb-3">
-      <p class="text-xs text-[#0000008F]">
-        Your profile is now in the final approval stage. Once approved, you'll
-        gain full access to participate in bids, receive requisitions, and
-        engage in future procurement opportunities with us.
-      </p>
-    </div>
-
-    <div>
-      <p class="text-xs text-[#0000008F]">
-        Thank you for your patience and for choosing to partner with us — you’re
-        just one step away from becoming an approved vendor in our network!
-      </p>
+      <div class="mb-3" *ngFor="let description of submissionData.header.descriptions">
+        <p class="text-xs text-[#0000008F]">{{ description }}</p>
+      </div>
     </div>
   </div>
-</div>
-
 
   <!-- Submitted Basic Info -->
   <div class="">
-    <h3 class="text-xl font-bold text-black">Submitted Basic Information</h3>
-   <div class="mb-4">
-     <p class="text-[10px] text-[#0000008F]">
-      This is the final step in completing your company’s basic registration process. Before
-      submitting, please carefully review all the information you have entered in the sections
-      including Company Profile, Business Address, Legal Structure, and Contact Details.
-    </p>
-   </div>
+    <h3 class="text-xl font-bold text-black">{{ submissionData.basicInfo.title }}</h3>
+    <div class="mb-4">
+      <p class="text-[10px] text-[#0000008F]">{{ submissionData.basicInfo.description }}</p>
+    </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <!-- Column 1 -->
       <div class="space-y-5">
-        <div>
-          <h4 class="font-bold text-black text-xs">Aiinhome–Aivista–Pvt. Ltd.</h4>
-          <p class="text-xs text-[#0000008F]">Company Name (Legal)</p>
-        </div>
-
-        <div>
-          <p class="font-bold text-black text-xs">Private Limited</p>
-          <p class="text-xs text-[#0000008F]">Business Type</p>
-        </div>
-
-        <div>
-          <p class="font-bold text-black text-xs">CIN: U12345WB2015PTC123456</p>
-          <p class="text-xs text-[#0000008F]">Registration No</p>
-        </div>
-
-        <div>
-          <p class="font-bold text-black text-xs">15-Mar-2015</p>
-          <p class="text-xs text-[#0000008F]">Date of incorporation</p>
-        </div>
-
-        <div>
-          <p class="font-bold text-black text-xs">Logistics</p>
-          <p class="text-xs text-[#0000008F]">Industry Category</p>
-        </div>
-         <div>
-          <p class="font-bold text-black text-xs">Logistics</p>
-          <p class="text-xs text-[#0000008F]">Industry Category</p>
-        </div>
-         <div>
-          <p class="font-bold text-black text-xs">Logistics</p>
-          <p class="text-xs text-[#0000008F]">Industry Category</p>
+        <div *ngFor="let item of submissionData.basicInfo.columns.column1">
+          <p class="font-bold text-black text-xs">{{ item.value }}</p>
+          <p class="text-xs text-[#0000008F]">{{ item.label }}</p>
         </div>
       </div>
 
       <!-- Column 2 -->
       <div class="space-y-5">
-        <div>
-          <p class="font-bold text-black text-xs">Legal office as per incorporation certificate</p>
-          <p class="text-xs text-[#0000008F]">Registered Address</p>
-        </div>
-
-        <div>
-          <p class="font-bold text-black text-xs">Where operations or supply chain is managed</p>
-          <p class="text-xs text-[#0000008F]">Operational Address</p>
-        </div>
-
-        <div>
-          <p class="font-bold text-black text-xs">CIN: U12345WB2015PTC123456</p>
-          <p class="text-xs text-[#0000008F]">Registration No</p>
-        </div>
-
-        <div>
-          <p class="font-bold text-black text-xs">15-Mar-2015</p>
-          <p class="text-xs text-[#0000008F]">Date of incorporation</p>
-        </div>
-
-        <div>
-          <p class="text-xs text-black leading-relaxed font-bold">
-          We are a national-level logistics service provider specializing in bulk material transportation, warehouse management, and supply chain optimization for industrial clients. Our fleet includes 50 heavy-duty vehicles equipped with GPS tracking, and we operate across all major metro and tier-2 cities in India. 
-          </p>
-          <p class="text-xs text-[#0000008F]">Nature of business</p>
+        <div *ngFor="let item of submissionData.basicInfo.columns.column2">
+          <p class="font-bold text-black text-xs">{{ item.value }}</p>
+          <p class="text-xs text-[#0000008F]">{{ item.label }}</p>
         </div>
       </div>
 
       <!-- Column 3 -->
       <div class="space-y-5">
-        <div>
-          <h4 class="font-bold text-black text-xs">Aiinhome–Aivista–Pvt. Ltd.</h4>
-          <p class="text-xs text-[#0000008F]">Company Name (Legal)</p>
-        </div>
-
-        <div>
-          <p class="font-bold text-black text-xs">Private Limited</p>
-          <p class="text-xs text-[#0000008F]">Business Type</p>
-        </div>
-
-        <div>
-          <p class="font-bold text-black text-xs">CIN: U12345WB2015PTC123456</p>
-          <p class="text-xs text-[#0000008F]">Registration No</p>
-        </div>
-
-        <div>
-          <p class="font-bold text-black text-xs">Procurement Head</p>
-          <p class="text-xs text-[#0000008F]">Designation</p>
-        </div>
-
-        <div>
-          <p class="font-bold text-black text-xs">+91 8542568329</p>
-          <p class="text-xs text-[#0000008F]">Phone Number</p>
+        <div *ngFor="let item of submissionData.basicInfo.columns.column3">
+          <p class="font-bold text-black text-xs">{{ item.value }}</p>
+          <p class="text-xs text-[#0000008F]">{{ item.label }}</p>
         </div>
       </div>
     </div>
@@ -166,16 +60,10 @@
     <!-- Footer Note -->
     <div class="mt-6 pt-6">
       <div class="flex items-center gap-2 text-[#0000008F]">
-        <span class="material-symbols-outlined text-[#0000008F]"> error </span>
-
-        <span class="font-bold text-[#0000008F] text-xs">Notable information:</span>
+        <span class="material-symbols-outlined text-[#0000008F]">error</span>
+        <span class="font-bold text-[#0000008F] text-xs">{{ submissionData.footer.title }}</span>
       </div>
-
-     
-        <p class="text-xs text-[#0000008F]">
-    At the time of initial entry, the system automatically generates a unique Initial Registration ID (IRID) for your company. This ID allows you to pause and resume your registration at any point, ensuring that your progress is securely saved. You can use this ID to log back in, upload pending documents, or communicate with the procurement team regarding your registration status.
-      </p>
-
+      <p class="text-xs text-[#0000008F]">{{ submissionData.footer.description }}</p>
     </div>
   </div>
 </div>
