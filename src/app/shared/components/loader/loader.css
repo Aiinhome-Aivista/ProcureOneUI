@@ -1,0 +1,15 @@
+@keyframes pulseLine {
+  0%, 80%, 100% {
+    transform: scaleY(0.75);
+    opacity: 0;
+  }
+  20% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.animate-pulseLine {
+  animation: pulseLine 1s ease-in-out infinite;
+  transform-origin: center bottom;
+}
