@@ -1,0 +1,45 @@
+
+<div class="flex items-center justify-between w-full">
+  @for (step of steps; track step.number; let last = $last) {
+    <div class="flex items-center" [class.flex-1]="!last">
+      <div class="flex flex-col items-center">
+        <!-- Outer ring via background -->
+        <div
+          class="relative w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300"
+          [ngClass]="getStepStateClass(step.number)"
+          [style.background]="getRingBackground(step)"
+        >
+          <!-- inner disc to create ring thickness -->
+          <div class="absolute inset-[3px] rounded-full bg-white"></div>
+
+          <!-- icon -->
+          <span class="relative z-1 material-symbols-outlined"
+            [ngClass]="getIconClass(step.number)">
+            {{ step.number < currentStep() ? 'check' : step.icon }}
+          </span>
+
+          <!-- percent badge (optional for any step with percent) -->
+          @if (step.percent != null) {
+            <span class="absolute text-[10px] bottom-0 translate-y-1/2 px-1 rounded bg-white shadow-sm"
+                  [ngClass]="step.number <= currentStep() ? 'text-primary-700' : 'text-gray-600'">
+              {{ step.percent }}%
+            </span>
+          }
+        </div>
+
+        <div class="mt-2 text-center">
+          <p class="text-xs font-medium text-gray-900">{{ step.label }}</p>
+        </div>
+      </div>
+
+      @if (!last) {
+        <div class="flex-1 h-0.5 mx-3 border-t-3 border-dashed"
+             [ngClass]="step.number < currentStep()
+               ? 'border-primary-600'
+               : step.number === currentStep()
+                 ? 'border-primary-300'
+                 : 'border-gray-300'"></div>
+      }
+    </div>
+  }
+</div>
