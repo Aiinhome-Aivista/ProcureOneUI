@@ -1,13 +1,10 @@
-/* Tailwind CSS v4 imports */
-@import 'tailwindcss';
+/* Tailwind CSS v4 + PrimeUI Plugin Integration */
+@import "tailwindcss";
+@import "tailwindcss-primeui";
 
-/* PrimeNG Theme Configuration */
-/* Use CSS layers to properly organize styles */
-@layer theme, base, components, utilities;
-
-/* Define custom theme colors for PrimeNG + Tailwind integration */
+/* Define custom theme colors using Tailwind v4 @theme */
 @theme {
-  /* Primary Color Palette (Purple) */
+  /* Primary Color Palette (Purple) - matches PrimeNG primary */
   --color-primary-50: #f5f3fb;
   --color-primary-100: #ece8f8;
   --color-primary-200: #d9d1f2;
@@ -20,19 +17,7 @@
   --color-primary-900: #210c61;
   --color-primary-950: #170843;
 
-  /* PrimeNG Semantic Color Tokens */
-  /* These will be automatically picked up by tailwindcss-primeui */
-  --p-primary-50: var(--color-primary-50);
-  --p-primary-100: var(--color-primary-100);
-  --p-primary-200: var(--color-primary-200);
-  --p-primary-300: var(--color-primary-300);
-  --p-primary-400: var(--color-primary-400);
-  --p-primary-500: var(--color-primary-500);
-  --p-primary-600: var(--color-primary-600);
-  --p-primary-700: var(--color-primary-700);
-  --p-primary-800: var(--color-primary-800);
-  --p-primary-900: var(--color-primary-900);
-  --p-primary-950: var(--color-primary-950);
+ 
 }
 
 /* Custom Theme Yellow */

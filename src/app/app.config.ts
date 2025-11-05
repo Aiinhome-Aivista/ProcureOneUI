@@ -16,11 +16,10 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: Aura,
         options: {
-          prefix: 'p',
           darkModeSelector: '.dark',
           cssLayer: {
             name: 'primeng',
-            order: 'tailwind-base, primeng, tailwind-utilities'
+            order: 'theme, base, primeng'
           }
         }
       }
