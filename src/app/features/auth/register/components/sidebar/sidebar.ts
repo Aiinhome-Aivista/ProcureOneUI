@@ -1,13 +1,9 @@
 ﻿import { Component, signal, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NavItem } from '../../../../../core/models';
 
 
-interface NavItem {
 
-  stepNo: number;
-  title: string;
-  description: string;
-}
 @Component({
   selector: 'app-sidebar',
   imports: [CommonModule],
