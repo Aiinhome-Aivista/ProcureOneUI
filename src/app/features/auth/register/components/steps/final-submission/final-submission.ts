@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { submissionData } from '../../../../../../../data/data';
+import { submissionData } from '../../../../../../data/data';
 
 @Component({
   selector: 'app-final-submission',
