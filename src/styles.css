@@ -50,6 +50,10 @@
   --color-primary-950: #713f12;
 } */
 
+:root {
+  --primary-color: #4319c2;
+}
+
 /* Global styles */
 body {
   font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
