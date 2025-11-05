@@ -1,17 +1,17 @@
-<div class="w-full bg-white" [formGroup]="form">
+<div class="w-full bg-white py-2" [formGroup]="form">
   <!-- section title with purple underline -->
-  <div class="border-b border-[#E6E6E6] relative mb-6">
-    <h2 class="text-[12px] font-bold text-[#000000]">Business & Tax Registration Documents</h2>
-    <div class="left-0 bottom-0 w-60 h-[5px] bg-primary-600 rounded-tr-[13px] rounded-tl-[15px]"></div>
+  <div class="border-b border-[#D9D9D9] relative mb-6">
+    <h2 class="text-[13px] pb-1 font-bold text-[#000000]">Business & Tax Registration Documents</h2>
+    <div class="left-0 bottom-0 w-65 h-[5px] bg-primary-600 rounded-tr-[13px] rounded-tl-[15px]"></div>
   </div>
 
   <!-- 2 column fields -->
-  <div class="grid grid-cols-2 gap-1 text-[11px]">
+  <div class="grid grid-cols-2 gap-4 text-[11px]">
     <div>
       <label class="font-bold text-[#0000008F]">PAN Card (or equivalent tax ID)<span
           class="text-red-500">*</span></label>
       <input formControlName="pan" type="text"
-        class="mt-1 w-full h-8 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
+        class="mt-1 w-full h-10.5 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
         placeholder="Confirms tax registration and identity" />
 
       @if (form.get('pan')?.touched && form.get('pan')?.invalid) {
@@ -25,7 +25,7 @@
       <label class="font-bold text-[#0000008F]">GST / VAT Registration Certificate<span
           class="text-red-500">*</span></label>
       <input formControlName="gst" type="text"
-        class="mt-1 w-full h-8 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
+        class="mt-1 w-full h-10.5 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
         placeholder="Validates indirect tax compliance" />
 
       @if (form.get('gst')?.touched && form.get('gst')?.invalid) {
@@ -38,14 +38,14 @@
       <label class="font-bold text-[#0000008F]">Udyam / MSME Registration (if applicable)<span
           class="text-red-500">*</span></label>
       <input type="text"
-        class="mt-1 w-full h-8 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
+        class="mt-1 w-full h-10.5 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
         placeholder="Confirms small/medium enterprise status" />
     </div>
 
     <div>
       <label class="font-bold text-[#0000008F]">Certificate of Incorporation<span class="text-red-500">*</span></label>
       <select formControlName="incorp"
-        class="mt-1 w-full h-8 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]">
+        class="mt-1 w-full h-10.5 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]">
         <option value="">Select company type</option>
         @for (type of incorporationTypes; track type.value) {
           <option [value]="type.value">
@@ -67,7 +67,7 @@
     <label class="text-[11px] font-semibold text-[#0000008F]">Business License / Trade License<span
         class="text-red-500">*</span></label>
     <input formControlName="tradeLicense" type="text"
-      class="mt-1 w-full h-8 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
+      class="mt-1 w-full h-10.5 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
       placeholder="Confirms legal authorization to operate" />
 
     @if (form.get('tradeLicense')?.touched && form.get('tradeLicense')?.invalid) {

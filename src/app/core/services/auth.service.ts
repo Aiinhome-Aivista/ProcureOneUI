@@ -2,16 +2,17 @@ import { Injectable, signal, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, tap, catchError, throwError, map } from 'rxjs';
-import type { 
-  User, 
-  LoginCredentials, 
-  AuthResponse, 
+
+import { ApiEndpoints } from '../config/api-endpoints';
+import {
+  User,
+  LoginCredentials,
+  AuthResponse,
   UserRole,
   ApiLoginRequest,
   ApiLoginResponse,
   ApiErrorResponse
-} from '../models/user.model';
-import { ApiEndpoints } from '../config/api-endpoints';
+} from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -19,28 +20,28 @@ import { ApiEndpoints } from '../config/api-endpoints';
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
-  
+
   // Signals for reactive state management
   private readonly currentUserSignal = signal<User | null>(null);
   private readonly isLoadingSignal = signal<boolean>(false);
   private readonly errorSignal = signal<string | null>(null);
-  
+
   // Computed signals
   readonly currentUser = this.currentUserSignal.asReadonly();
   readonly isLoading = this.isLoadingSignal.asReadonly();
   readonly error = this.errorSignal.asReadonly();
   readonly isAuthenticated = computed(() => this.currentUserSignal() !== null);
   readonly userRole = computed(() => this.currentUserSignal()?.role);
-  
+
   // Storage keys
   private readonly TOKEN_KEY = 'auth_token';
   private readonly REFRESH_TOKEN_KEY = 'refresh_token';
   private readonly USER_KEY = 'current_user';
-  
+
   constructor() {
     this.loadUserFromStorage();
   }
-  
+
   /**
    * Load user from local storage on initialization
    */
@@ -48,7 +49,7 @@ export class AuthService {
     try {
       const token = localStorage.getItem(this.TOKEN_KEY);
       const userStr = localStorage.getItem(this.USER_KEY);
-      
+
       if (token && userStr) {
         const user = JSON.parse(userStr);
         this.currentUserSignal.set(user);
@@ -58,19 +59,19 @@ export class AuthService {
       this.clearStorage();
     }
   }
-  
+
   /**
    * Login with credentials
    */
   login(credentials: LoginCredentials): Observable<AuthResponse> {
     this.isLoadingSignal.set(true);
     this.errorSignal.set(null);
-    
+
     const payload: ApiLoginRequest = {
       username: credentials.username,
       password: credentials.password
     };
-    
+
     return this.http.post<ApiLoginResponse>(ApiEndpoints.AUTH.LOGIN, payload).pipe(
       map(apiResponse => this.transformApiResponse(apiResponse)),
       tap(response => {
@@ -84,7 +85,7 @@ export class AuthService {
       })
     );
   }
-  
+
   /**
    * Transform API response to internal AuthResponse format
    */
@@ -92,9 +93,9 @@ export class AuthService {
     if (!apiResponse.isSuccess) {
       throw new Error(apiResponse.message || 'Login failed');
     }
-    
+
     const { data } = apiResponse;
-    
+
     // Map API role to internal role
     const roleMapping: Record<string, UserRole> = {
       'Vendor': 'vendor',
@@ -104,14 +105,14 @@ export class AuthService {
       'Admin': 'department',
       'admin': 'department'
     };
-    
+
     const role = roleMapping[data.role];
-    
+
     // If role is not mapped, throw error instead of defaulting
     if (!role) {
       throw new Error(`Unsupported user role: ${data.role}`);
     }
-    
+
     const user: User = {
       id: data.user_id.toString(),
       email: data.email,
@@ -120,7 +121,7 @@ export class AuthService {
       createdAt: new Date(),
       lastLogin: new Date()
     };
-    
+
     const authResponse: AuthResponse = {
       user,
       token: {
@@ -129,10 +130,10 @@ export class AuthService {
         expiresIn: 3600 // Default to 1 hour
       }
     };
-    
+
     return authResponse;
   }
-  
+
   /**
    * Handle HTTP errors
    */
@@ -149,7 +150,7 @@ export class AuthService {
           return errorMessages.join(', ');
         }
       }
-      
+
       // HTTP error status messages
       if (error.status === 0) {
         return 'Unable to connect to server. Please check your internet connection.';
@@ -166,18 +167,18 @@ export class AuthService {
       if (error.status >= 500) {
         return 'Server error. Please try again later.';
       }
-      
+
       return error.error?.message || error.message || 'An error occurred during login.';
     }
-    
+
     // Client-side error
     if (error instanceof Error) {
       return error.message;
     }
-    
+
     return 'An unexpected error occurred. Please try again.';
   }
-  
+
   /**
    * Handle successful authentication
    */
@@ -187,11 +188,11 @@ export class AuthService {
     localStorage.setItem(this.REFRESH_TOKEN_KEY, response.token.refreshToken);
     localStorage.setItem(this.USER_KEY, JSON.stringify(response.user));
     this.isLoadingSignal.set(false);
-    
+
     // Redirect based on role
     this.redirectToDefaultPage(response.user.role);
   }
-  
+
   /**
    * Logout user
    */
@@ -200,7 +201,7 @@ export class AuthService {
     this.clearStorage();
     this.router.navigate(['/login']);
   }
-  
+
   /**
    * Clear storage
    */
@@ -209,14 +210,14 @@ export class AuthService {
     localStorage.removeItem(this.REFRESH_TOKEN_KEY);
     localStorage.removeItem(this.USER_KEY);
   }
-  
+
   /**
    * Get refresh token
    */
   getRefreshToken(): string | null {
     return localStorage.getItem(this.REFRESH_TOKEN_KEY);
   }
-  
+
   /**
    * Redirect to default page based on user role
    */
@@ -225,7 +226,7 @@ export class AuthService {
       vendor: '/vendor/dashboard',
       department: '/department/dashboard'
     };
-    
+
     const targetPage = defaultPages[role];
     if (targetPage) {
       this.router.navigate([targetPage]);
@@ -234,21 +235,21 @@ export class AuthService {
       this.router.navigate(['/login']);
     }
   }
-  
+
   /**
    * Get authentication token
    */
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
   }
-  
+
   /**
    * Check if user has specific role
    */
   hasRole(role: UserRole): boolean {
     return this.currentUserSignal()?.role === role;
   }
-  
+
   /**
    * Check if user has any of the specified roles
    */
