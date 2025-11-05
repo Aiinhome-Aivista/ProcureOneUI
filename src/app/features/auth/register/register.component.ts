@@ -7,7 +7,7 @@ import { IdentityDetails } from './components/steps/identity-details/identity-de
 import { BusinessTaxRegistration } from './components/steps/business-tax-registration/business-tax-registration';
 import { BankIdentityVerification } from './components/steps/bank-identity-verification/bank-identity-verification';
 import { FinancialDocuments } from './components/steps/financial-documents/financial-documents';
-import { StepIndicatorComponent } from "./components/step-indicator/step-indicator.component";
+import { StepIndicatorComponent } from './components/step-indicator/step-indicator.component';
 
 @Component({
   selector: 'app-register',

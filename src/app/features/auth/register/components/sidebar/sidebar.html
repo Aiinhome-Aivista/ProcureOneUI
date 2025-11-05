@@ -17,7 +17,7 @@
           <button
             type="button"
             (click)="select(i)"
-            class="group text-left relative pr-3 rounded-md transition-all duration-200"
+            class="group text-left relative pr-3 rounded-md transition-colors duration-200 ease-out"
             
           >
             <div
@@ -35,7 +35,7 @@
 
             <!-- Right border indicator -->
             <span
-              class="absolute -right-1 top-0 h-full w-0 transition-all duration-200 rounded-r-md rounded-l-md"
+              class="absolute -right-1 top-0 h-full w-0 transition-all duration-200 ease-out rounded-r-md rounded-l-md"
               [class.w-2]="currentStep() === item.stepNo"
               [class.bg-primary-600]="currentStep() === item.stepNo"
             ></span>
