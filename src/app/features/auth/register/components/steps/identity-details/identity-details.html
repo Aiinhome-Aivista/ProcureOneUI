@@ -6,7 +6,7 @@
     <button type="button" role="tab" [attr.aria-selected]="activeTab() === 'identity'"
       class="relative px-4 pb-2 pt-2 text-[13px] font-bold focus:outline-none cursor-pointer transition-all duration-300"
       (click)="switchTab('identity')" [ngClass]="{
-    'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[90%] after:h-1.5 after:bg-[#4C1D95] after:rounded-sm':
+    'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[90%] after:h-1.5 after:bg-primary-600 after:rounded-tr-[13px] after:rounded-tl-[15px]':
       activeTab() === 'identity',
     'text-black hover:text-primary-600':
       activeTab() !== 'identity'
@@ -17,7 +17,7 @@
     <button type="button" role="tab" [attr.aria-selected]="activeTab() === 'addresses'"
       class="relative px-4 pb-2 pt-2 text-[13px] font-bold focus:outline-none cursor-pointer transition-all duration-300"
       (click)="switchTab('addresses')" [ngClass]="{
-    'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[90%] after:h-1.5 after:bg-[#4C1D95] after:rounded-sm':
+    'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[90%] after:h-1.5 after:bg-primary-600 after:rounded-tr-[13px] after:rounded-tl-[15px]':
       activeTab() === 'addresses',
     'text-black hover:text-[#4C1D95]':
       activeTab() !== 'addresses'
