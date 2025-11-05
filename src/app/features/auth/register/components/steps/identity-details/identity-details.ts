@@ -22,7 +22,7 @@ import {
 import { Subscription } from 'rxjs';
 import { SelectModule } from 'primeng/select';
 import { RegisterService } from '../../../../../../core/services';
-import { BusinessType } from '../../../../../../core/models';
+import { BusinessType, IndustryCategory } from '../../../../../../core/models';
 
 
 
@@ -62,9 +62,12 @@ export class IdentityDetails implements OnInit, OnDestroy {
 
   private readonly tabSignal = signal<'identity' | 'addresses'>('identity');
   readonly activeTab = computed(() => this.tabSignal());
-  // 🔹 signal to hold dropdown data
+  //  signal to hold dropdown data
   private readonly _businessTypes = signal<BusinessType[]>([]);
   readonly businessTypes = computed(() => this._businessTypes());
+
+  private readonly _industryCategories = signal<IndustryCategory[]>([]);
+  readonly industryCategories = computed(() => this._industryCategories());
 
   private subs = new Subscription();
 
@@ -123,6 +126,7 @@ export class IdentityDetails implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadDropdowns();
+    this.loadIndustryCategoriesDropdowns();
     // emit when active form changes
     this.subs.add(this.identityForm.valueChanges.subscribe(v => {
       if (this.activeTab() === 'identity') {
@@ -136,12 +140,23 @@ export class IdentityDetails implements OnInit, OnDestroy {
     }));
   }
 
-  // 🔹 Fetch dropdown data from API and store in signal
+  //  Fetch dropdown data from API and store in signal
   loadDropdowns(): void {
     this.apiService.businessTypes().subscribe({
       next: (res: any) => {
         if (res?.isSuccess && Array.isArray(res.data)) {
           this._businessTypes.set(res.data);
+        }
+      },
+      error: err => console.error('Error fetching dropdowns:', err)
+    });
+  }
+
+  loadIndustryCategoriesDropdowns(): void {
+    this.apiService.industryCategories().subscribe({
+      next: (res: any) => {
+        if (res?.isSuccess && Array.isArray(res.data)) {
+          this._industryCategories.set(res.data);
         }
       },
       error: err => console.error('Error fetching dropdowns:', err)

@@ -8,3 +8,7 @@ export interface BusinessType {
   id: number;
   name: string;
 }
+export interface IndustryCategory {
+  id: number;
+  name: string;
+}

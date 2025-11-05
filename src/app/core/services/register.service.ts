@@ -20,5 +20,9 @@ export class RegisterService {
     return this.http.get(ApiEndpoints.AUTH.BUSINESS_TYPES);
   }
 
+  industryCategories() {
+    return this.http.get(ApiEndpoints.AUTH.INDUSTRY_CATEGORIES);
+  }
+
   
 }
