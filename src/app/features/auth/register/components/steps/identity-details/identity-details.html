@@ -55,12 +55,30 @@
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Business Type<span
               class="text-red-500">*</span></label>
-          <select formControlName="businessType" required
+          <!-- <select formControlName="businessType" required
             class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-gray-700 text-[12px] invalid:text-[#7C6FA2]">
             <option value="" disabled hidden>Select Type</option>
             <option value="partnership">Partnership</option>
             <option value="private">Private Limited</option>
-          </select>
+          </select> -->
+          <p-select inputId="businessType" [options]="businessTypes()" optionLabel="name" optionValue="id"
+            placeholder="Select Type" formControlName="businessType" [filter]="true" filterBy="name" [showClear]="true"
+            [class]="'w-full text-[12px]'" aria-required="true"
+            [attr.aria-invalid]="businessType.invalid">
+            <ng-template #selectedItem let-option>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ option.name }}</span>
+              </div>
+            </ng-template>
+
+            <ng-template #item let-type>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ type.name }}</span>
+              </div>
+            </ng-template>
+          </p-select>
 
           @if (businessType.touched && businessType.invalid) {
           <div class="text-red-500 text-[12px] mt-1">

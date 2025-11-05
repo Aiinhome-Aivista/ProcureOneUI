@@ -20,15 +20,22 @@ import {
   ValidationErrors
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { SelectModule } from 'primeng/select';
+import { RegisterService } from '../../../../../../core/services';
+import { BusinessType } from '../../../../../../core/models';
+
 
 
 @Component({
   selector: 'app-identity-details',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, SelectModule],
   templateUrl: './identity-details.html',
   styleUrl: './identity-details.css',
 })
-export class IdentityDetails {
+export class IdentityDetails implements OnInit, OnDestroy {
+
+  constructor(private apiService: RegisterService) {}
+
   @Input() set data(value: any) {
     if (!value) {
       this.identityForm.reset({}, { emitEvent: false });
@@ -55,6 +62,9 @@ export class IdentityDetails {
 
   private readonly tabSignal = signal<'identity' | 'addresses'>('identity');
   readonly activeTab = computed(() => this.tabSignal());
+  // 🔹 signal to hold dropdown data
+  private readonly _businessTypes = signal<BusinessType[]>([]);
+  readonly businessTypes = computed(() => this._businessTypes());
 
   private subs = new Subscription();
 
@@ -112,6 +122,7 @@ export class IdentityDetails {
   get alternateContact(): AbstractControl { return this.addressForm.get('alternateContact')!; }
 
   ngOnInit(): void {
+    this.loadDropdowns();
     // emit when active form changes
     this.subs.add(this.identityForm.valueChanges.subscribe(v => {
       if (this.activeTab() === 'identity') {
@@ -125,9 +136,18 @@ export class IdentityDetails {
     }));
   }
 
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
+  // 🔹 Fetch dropdown data from API and store in signal
+  loadDropdowns(): void {
+    this.apiService.businessTypes().subscribe({
+      next: (res: any) => {
+        if (res?.isSuccess && Array.isArray(res.data)) {
+          this._businessTypes.set(res.data);
+        }
+      },
+      error: err => console.error('Error fetching dropdowns:', err)
+    });
   }
+
 
   resetForm(): void {
     if (this.activeTab() === 'identity') {
@@ -168,4 +188,9 @@ export class IdentityDetails {
     today.setHours(0, 0, 0, 0);
     return selected > today ? { futureDate: true } : null;
   }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
+
 }

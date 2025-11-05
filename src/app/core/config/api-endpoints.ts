@@ -13,6 +13,7 @@ export class ApiEndpoints {
     LOGOUT: `${ApiEndpoints.BASE_URL}/AuthMicroservices/logout`,
     REFRESH_TOKEN: `${ApiEndpoints.BASE_URL}/AuthMicroservices/refresh-token`,
     REGISTER: `${ApiEndpoints.BASE_URL}/AuthMicroservices/register`,
+    BUSINESS_TYPES: `${ApiEndpoints.BASE_URL}/VendorMicroservices/business_types`,
     FORGOT_PASSWORD: `${ApiEndpoints.BASE_URL}/AuthMicroservices/forgot-password`,
     RESET_PASSWORD: `${ApiEndpoints.BASE_URL}/AuthMicroservices/reset-password`
   } as const;
