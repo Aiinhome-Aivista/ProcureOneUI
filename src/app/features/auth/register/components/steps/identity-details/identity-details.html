@@ -206,11 +206,24 @@
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div>
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Country<span class="text-red-500">*</span></label>
-          <select formControlName="country" required
-            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-gray-700 text-[12px] invalid:text-[#7C6FA2]">
-            <option value="" disabled hidden>Select Country</option>
-            <option value="India">India</option>
-          </select>
+          <p-select inputId="country" [options]="countries()" optionLabel="name" optionValue="countryid"
+            placeholder="Select Country" formControlName="country" [filter]="true" filterBy="name"
+            [showClear]="true" [class]="'w-full text-[12px]'" aria-required="true"
+            [attr.aria-invalid]="country.invalid">
+            <ng-template #selectedItem let-option>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ option.name }}</span>
+              </div>
+            </ng-template>
+
+            <ng-template #item let-type>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ type.name }}</span>
+              </div>
+            </ng-template>
+          </p-select>
           @if (country.touched && country.invalid) {
           <div class="text-red-500 text-[12px] mt-1">
             @if (country.errors?.['required']) {
@@ -221,11 +234,30 @@
         </div>
         <div>
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">State<span class="text-red-500">*</span></label>
-          <select formControlName="state" required
+          <!-- <select formControlName="state" required
             class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-gray-700 text-[12px] invalid:text-[#7C6FA2]">
             <option value="" disabled hidden>Select State</option>
             <option value="West Bengal">West Bengal</option>
-          </select>
+          </select> -->
+          <p-select inputId="state" [options]="states()" optionLabel="name" optionValue="stateid"
+            placeholder="Select State" formControlName="state" [filter]="true" filterBy="name"
+            [showClear]="true" [class]="'w-full text-[12px]'" aria-required="true"
+            [attr.aria-invalid]="state.invalid">
+            <ng-template #selectedItem let-option>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ option.name }}</span>
+              </div>
+            </ng-template>
+
+            <ng-template #item let-type>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ type.name }}</span>
+              </div>
+            </ng-template>
+          </p-select>
+
           @if (state.touched && state.invalid) {
           <div class="text-red-500 text-[12px] mt-1">
             @if (state.errors?.['required']) {
@@ -236,11 +268,29 @@
         </div>
         <div>
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">City<span class="text-red-500">*</span></label>
-          <select formControlName="city" required
+          <!-- <select formControlName="city" required
             class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-gray-700 text-[12px] invalid:text-[#7C6FA2]">
             <option value="" disabled hidden>Select City</option>
             <option value="Kolkata">Kolkata</option>
-          </select>
+          </select> -->
+          <p-select inputId="city" [options]="cities()" optionLabel="name" optionValue="cityid"
+            placeholder="Select City" formControlName="city" [filter]="true" filterBy="name"
+            [showClear]="true" [class]="'w-full text-[12px]'" aria-required="true"
+            [attr.aria-invalid]="city.invalid">
+            <ng-template #selectedItem let-option>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ option.name }}</span>
+              </div>
+            </ng-template>
+
+            <ng-template #item let-type>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ type.name }}</span>
+              </div>
+            </ng-template>
+          </p-select>
           @if (city.touched && city.invalid) {
           <div class="text-red-500 text-[12px] mt-1">
             @if (city.errors?.['required']) {
@@ -292,7 +342,7 @@
             <option value="Procurement Head">Procurement Head</option>
           </select> -->
           <p-select inputId="designation" [options]="designations()" optionLabel="name" optionValue="id"
-            placeholder="Select Type" formControlName="designation" [filter]="true" filterBy="name"
+            placeholder="Select Designation" formControlName="designation" [filter]="true" filterBy="name"
             [showClear]="true" [class]="'w-full text-[12px]'" aria-required="true"
             [attr.aria-invalid]="designation.invalid">
             <ng-template #selectedItem let-option>
