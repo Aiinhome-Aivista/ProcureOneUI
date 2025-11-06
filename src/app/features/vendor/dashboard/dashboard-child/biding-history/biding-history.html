@@ -52,63 +52,125 @@
       </select>
     </div>
   </div>
-
-  <!-- Table Rows -->
- <!-- Scrollable Bidding History -->
 <div class="space-y-2 sm:space-y-3 max-h-52 sm:max-h-64 overflow-y-auto pr-2 hide-scrollbar">
-  <!-- Row 1 -->
-  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 sm:p-4 bg-[#F8F8F8] rounded-lg hover:bg-gray-100 transition">
-    <div class="mb-2 sm:mb-0">
-      <p class="text-xs sm:text-sm font-semibold text-[#1E1E1E]">All-REQ-00125-2025</p>
-      <p class="text-xs text-gray-500">Office Supplies</p>
+  <!-- Row -->
+  <div
+    class="grid grid-cols-12 items-center bg-[#F5F5F5] hover:bg-gray-200 transition rounded-lg px-3 sm:px-4 py-3 sm:py-4"
+  >
+    <!-- Left Section -->
+    <div class="col-span-5 sm:col-span-5">
+      <p class="text-xs sm:text-xs font-semibold text-[#000000] leading-tight">
+        All-REQ-00125-2025
+      </p>
+      <p class="text-xs text-[#0000008F] leading-tight">
+        Office Supplies
+      </p>
     </div>
-    <div class="flex items-center justify-between sm:justify-end gap-4 sm:gap-10">
-      <p class="text-xs sm:text-sm text-gray-700">12-09-2025</p>
-      <p class="text-xs sm:text-sm font-medium text-gray-800">$25,623</p>
-      <span class="px-2 sm:px-4 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">Awarded</span>
+
+    <!-- Date -->
+    <div class="col-span-3 sm:col-span-2 flex justify-start sm:justify-center">
+      <p class="text-xs text-[#0000008F]">12-09-2025</p>
+    </div>
+
+    <!-- Value -->
+    <div class="col-span-3 sm:col-span-3 flex justify-start sm:justify-center">
+      <p class="text-xs text-[#0000008F]">$25,623</p>
+    </div>
+
+    <!-- Status -->
+    <div class="col-span-12 sm:col-span-2 flex justify-start sm:justify-end mt-2 sm:mt-0">
+      <span
+        class="px-3 sm:px-4 py-1 text-xs bg-[#49C50636] text-[#49C506] rounded-full whitespace-nowrap"
+      >
+        Awarded
+      </span>
     </div>
   </div>
 
   <!-- Row 2 -->
-  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 sm:p-4 bg-[#F8F8F8] rounded-lg hover:bg-gray-100 transition">
-    <div class="mb-2 sm:mb-0">
-      <p class="text-xs sm:text-sm font-semibold text-[#1E1E1E]">All-REQ-00225-2025</p>
-      <p class="text-xs text-gray-500">IT Equipment</p>
+  <div
+    class="grid grid-cols-12 items-center bg-[#F5F5F5] hover:bg-gray-200 transition rounded-lg px-3 sm:px-4 py-3 sm:py-4"
+  >
+    <div class="col-span-5 sm:col-span-5">
+      <p class="text-xs font-semibold text-[#000000] leading-tight">
+        All-REQ-00225-2025
+      </p>
+      <p class="text-xs text-[#0000008F] leading-tight">IT Equipment</p>
     </div>
-    <div class="flex items-center justify-between sm:justify-end gap-4 sm:gap-10">
-      <p class="text-xs sm:text-sm text-gray-700">23-08-2025</p>
-      <p class="text-xs sm:text-sm font-medium text-gray-800">$15,623</p>
-      <span class="px-2 sm:px-4 py-1 text-xs font-medium bg-yellow-100 text-yellow-700 rounded-full">Pending</span>
+
+    <div class="col-span-3 sm:col-span-2 flex justify-start sm:justify-center">
+      <p class="text-xs sm:text-sm text-[#0000008F]">23-08-2025</p>
+    </div>
+
+    <div class="col-span-3 sm:col-span-3 flex justify-start sm:justify-center">
+      <p class="text-xs sm:text-sm font-medium text-[#0000008F]">$15,623</p>
+    </div>
+
+    <div class="col-span-12 sm:col-span-2 flex justify-start sm:justify-end mt-2 sm:mt-0">
+      <span
+        class="px-3 sm:px-4 py-1 text-[10px] sm:text-xs font-medium bg-[#C5C50636] text-[#C5C506] rounded-full whitespace-nowrap"
+      >
+        Pending
+      </span>
     </div>
   </div>
 
   <!-- Row 3 -->
-  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 sm:p-4 bg-[#F8F8F8] rounded-lg hover:bg-gray-100 transition">
-    <div class="mb-2 sm:mb-0">
-      <p class="text-xs sm:text-sm font-semibold text-[#1E1E1E]">All-REQ-0015-2025</p>
-      <p class="text-xs text-gray-500">Janitorial Service</p>
+  <div
+    class="grid grid-cols-12 items-center bg-[#F5F5F5] hover:bg-gray-200 transition rounded-lg px-3 sm:px-4 py-3 sm:py-4"
+  >
+    <div class="col-span-5 sm:col-span-5">
+      <p class="text-xs font-semibold text-[#000000] leading-tight">
+        All-REQ-0015-2025
+      </p>
+      <p class="text-xs text-[#0000008F] leading-tight">Janitorial Service</p>
     </div>
-    <div class="flex items-center justify-between sm:justify-end gap-4 sm:gap-10">
-      <p class="text-xs sm:text-sm text-gray-700">12-08-2025</p>
-      <p class="text-xs sm:text-sm font-medium text-gray-800">$8,000</p>
-      <span class="px-2 sm:px-4 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">Lost</span>
+
+    <div class="col-span-3 sm:col-span-2 flex justify-start sm:justify-center">
+      <p class="text-xs text-[#0000008F]">12-08-2025</p>
+    </div>
+
+    <div class="col-span-3 sm:col-span-3 flex justify-start sm:justify-center">
+      <p class="text-xs text-[#0000008F]">$8,000</p>
+    </div>
+
+    <div class="col-span-12 sm:col-span-2 flex justify-start sm:justify-end mt-2 sm:mt-0">
+      <span
+        class="px-3 sm:px-4 py-1 text-[10px] sm:text-xs font-medium bg-[#C2191921] text-[#C21919] rounded-full whitespace-nowrap"
+      >
+        Lost
+      </span>
     </div>
   </div>
 
   <!-- Row 4 -->
-  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 sm:p-4 bg-[#F8F8F8] rounded-lg hover:bg-gray-100 transition">
-    <div class="mb-2 sm:mb-0">
-      <p class="text-xs sm:text-sm font-semibold text-[#1E1E1E]">All-REQ-0077-2025</p>
-      <p class="text-xs text-gray-500">Office Supplies</p>
+  <div
+    class="grid grid-cols-12 items-center bg-[#F5F5F5] hover:bg-gray-200 transition rounded-lg px-3 sm:px-4 py-3 sm:py-4"
+  >
+    <div class="col-span-5 sm:col-span-5">
+      <p class="text-xs font-semibold text-[#000000] leading-tight">
+        All-REQ-0077-2025
+      </p>
+      <p class="text-[10px] sm:text-xs text-[#0000008F] leading-tight">Office Supplies</p>
     </div>
-    <div class="flex items-center justify-between sm:justify-end gap-4 sm:gap-10">
-      <p class="text-xs sm:text-sm text-gray-700">07-07-2025</p>
-      <p class="text-xs sm:text-sm font-medium text-gray-800">$35,253</p>
-      <span class="px-2 sm:px-4 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">Awarded</span>
+
+    <div class="col-span-3 sm:col-span-2 flex justify-start sm:justify-center">
+      <p class="text-xs sm:text-sm text-[#0000008F]">07-07-2025</p>
+    </div>
+
+    <div class="col-span-3 sm:col-span-3 flex justify-start sm:justify-center">
+      <p class="text-xs sm:text-sm font-medium text-[#0000008F]">$35,253</p>
+    </div>
+
+    <div class="col-span-12 sm:col-span-2 flex justify-start sm:justify-end mt-2 sm:mt-0">
+     <span
+        class="px-3 sm:px-4 py-1 text-xs bg-[#49C50636] text-[#49C506] rounded-full whitespace-nowrap"
+      >
+        Awarded
+      </span>
     </div>
   </div>
-
-  <!-- Add more rows if needed -->
 </div>
+
 
 </div>
