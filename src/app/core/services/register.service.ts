@@ -3,10 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ApiEndpoints } from '../config/api-endpoints';
 import { LegalProofResponse } from '../models';
-
-// import { Router } from '@angular/router';
-// import { POSTurl } from '../../config';
-
+import { DropdownModel } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -17,15 +14,19 @@ export class RegisterService {
   constructor(private http: HttpClient) { }
 
 
-  businessTypes() {
-    return this.http.get(ApiEndpoints.AUTH.BUSINESS_TYPES);
+  businessTypes(): Observable<DropdownModel>{
+    return this.http.get<DropdownModel>(ApiEndpoints.AUTH.BUSINESS_TYPES);
   }
 
-  industryCategories() {
-    return this.http.get(ApiEndpoints.AUTH.INDUSTRY_CATEGORIES);
+  industryCategories(): Observable<DropdownModel> {
+    return this.http.get<DropdownModel>(ApiEndpoints.AUTH.INDUSTRY_CATEGORIES);
   }
 
-  certificateIncorporation() {
+  designations(): Observable<DropdownModel> {
+    return this.http.get<DropdownModel>(ApiEndpoints.AUTH.DESIGNATIONS);
+  }
+
+  certificateIncorporation(): Observable<LegalProofResponse> {
     return this.http.get<LegalProofResponse>(ApiEndpoints.AUTH.CERTIFICATE_iNCORPORATION)
   }
 

@@ -4,11 +4,15 @@ export interface NavItem {
   description: string;
 }
 
-export interface BusinessType {
+export interface DropdownData {
   id: number;
   name: string;
 }
-export interface IndustryCategory {
-  id: number;
-  name: string;
+export interface DropdownModel {
+  data: DropdownData[];
+  isSuccess: boolean;
+  message: string;
+  statusCode: number;
 }
+
+
