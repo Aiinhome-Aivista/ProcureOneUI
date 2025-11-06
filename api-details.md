@@ -45,3 +45,38 @@
   "statusCode": 200
 }
 ````
+
+### Dropdown(business_types)
+
+**Endpoint:**  
+`GET /VendorMicroservices/business_types`
+
+
+````json
+
+-respoonce-
+
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Private Limited"
+    },
+    {
+      "id": 2,
+      "name": "Public Limited"
+    },
+    {
+      "id": 3,
+      "name": "Partnership"
+    },
+    {
+      "id": 4,
+      "name": "Sole Proprietorship"
+    }
+  ],
+  "isSuccess": true,
+  "message": "Business types fetched successfully.",
+  "statusCode": 200
+}
+````
