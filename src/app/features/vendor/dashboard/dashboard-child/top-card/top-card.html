@@ -1,25 +1,86 @@
 <div class="grid grid-cols-4 gap-4">
-  <div class="bg-white p-4 rounded-2xl shadow-sm">
-    <p class="text-sm text-gray-500">Total Bid Submitted</p>
-    <h2 class="text-2xl font-bold mt-1">25</h2>
-    <div class="flex gap-3 mt-2 text-xs">
-      <span class="text-green-600">Approved</span>
-      <span class="text-red-500">Rejected</span>
+  <div class="bg-[#F5F5F5] p-4 rounded-2xl shadow-sm">
+    <p class="text-base text-[#000000] font-semibold">Total Bid Submitted</p>
+    <h2 class="text-2xl font-extralight mt-1">25</h2>
+    <div class="flex gap-3 mt-3 text-sm">
+      <div class="flex items-center bg-gray-200 rounded-full px-3 py-1.5">
+        <span class="text-[#00000066] font-medium">Approved</span>
+        <span
+          class="ml-2 flex items-center justify-center w-5 h-5 text-[11px] font-semibold text-[#4B1DB1] bg-[#D8D3F7] rounded-full"
+          >7</span
+        >
+      </div>
+      <div class="flex items-center bg-gray-200 rounded-full px-3 py-1.5">
+        <span class="text-[#00000066] font-medium">Rejected</span>
+        <span
+          class="ml-2 flex items-center justify-center w-5 h-5 text-[11px] font-semibold text-[#B91C1C] bg-[#EFCFCF] rounded-full"
+          >18</span
+        >
+      </div>
     </div>
   </div>
 
-  <div class="bg-white p-4 rounded-2xl shadow-sm">
-    <p class="text-sm text-gray-500">Average Bid Value</p>
-    <h2 class="text-2xl font-bold mt-1">$15,400</h2>
+  <div class="relative bg-[#F5F5F5] p-5 rounded-2xl shadow-sm">
+    <!-- Title -->
+    <p class="text-base font-semibold text-[#000000] mb-1">Average Bid value</p>
+
+    <!-- Main Value -->
+    <h2 class="text-2xl font-light text-[#000000] mb-4">$15,400</h2>
+
+    <!-- Last Bid Value -->
+    <div class="flex items-center justify-between">
+      <div class="mt-2">
+        <p class="text-xs font-bold text-black">$25,400</p>
+        <p class="text-xs text-gray-500">Last bid value</p>
+      </div>
+
+      <!-- Up Arrow Icon -->
+      <div class="mt-2">
+        <span class="material-symbols-outlined text-[#49C506]"> trending_up </span>
+      </div>
+    </div>
   </div>
 
-  <div class="bg-white p-4 rounded-2xl shadow-sm">
-    <p class="text-sm text-gray-500">Average Response Time</p>
-    <h2 class="text-2xl font-bold mt-1">2.5 Days</h2>
+  <div class="relative bg-[#F5F5F5] p-5 rounded-2xl shadow-sm">
+    <!-- Title -->
+    <p class="text-base font-semibold text-[#000000] mb-1">Average Response Time</p>
+
+    <!-- Main Value -->
+    <h2 class="text-2xl font-light text-[#000000] mb-4">2.5 Days</h2>
+
+    <!-- Last Bid Value -->
+    <div class="flex items-center justify-between">
+      <div class="mt-2">
+        <p class="text-xs font-bold text-[#000000]">3 Days</p>
+        <p class="text-xs text-[#0000008F]">Last bid response time</p>
+      </div>
+
+      <!-- Up Arrow Icon -->
+      <div class="mt-2">
+        <span class="material-symbols-outlined text-[#49C506]"> trending_down </span>
+      </div>
+    </div>
   </div>
 
-  <div class="bg-white p-4 rounded-2xl shadow-sm">
-    <p class="text-sm text-gray-500">Active Bid</p>
-    <h2 class="text-2xl font-bold mt-1">12</h2>
+
+ <div class="relative bg-[#F5F5F5] p-5 rounded-2xl shadow-sm">
+    <!-- Title -->
+    <p class="text-base font-semibold text-[#000000] mb-1">Active Bid</p>
+
+    <!-- Main Value -->
+    <h2 class="text-2xl font-light text-[#000000] mb-4">12</h2>
+
+    <!-- Last Bid Value -->
+    <div class="flex items-center justify-between">
+      <div class="mt-2">
+        <p class="text-xs font-bold text-[#000000]">2 Days</p>
+        <p class="text-xs text-[#0000008F]">Nearest Deadline</p>
+      </div>
+      <div class="mt-2">
+        <p class="text-xs font-bold text-[#000000]">$45,200</p>
+        <p class="text-xs text-[#0000008F]">Highest Bid</p>
+      </div>
+    </div>
   </div>
+
 </div>
