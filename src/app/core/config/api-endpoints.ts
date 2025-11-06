@@ -16,7 +16,8 @@ export class ApiEndpoints {
     BUSINESS_TYPES: `${ApiEndpoints.BASE_URL}/VendorMicroservices/business_types`,
     INDUSTRY_CATEGORIES: `${ApiEndpoints.BASE_URL}/VendorMicroservices/industry_categories`,
     FORGOT_PASSWORD: `${ApiEndpoints.BASE_URL}/AuthMicroservices/forgot-password`,
-    RESET_PASSWORD: `${ApiEndpoints.BASE_URL}/AuthMicroservices/reset-password`
+    RESET_PASSWORD: `${ApiEndpoints.BASE_URL}/AuthMicroservices/reset-password`,
+    CERTIFICATE_iNCORPORATION: `${ApiEndpoints.BASE_URL}/VendorMicroservices/legal_proofs`
   } as const;
 
   // Vendor endpoints
