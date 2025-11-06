@@ -21,7 +21,7 @@ import {
 import { catchError, forkJoin, of, Subscription } from 'rxjs';
 import { SelectModule } from 'primeng/select';
 import { RegisterService } from '../../../../../../core/services';
-import { DropdownCityModel, DropdownCountryModel, DropdownModel, DropdownStateModel } from '../../../../../../core/models';
+import { DropdownModel} from '../../../../../../core/models';
 
 @Component({
   selector: 'app-identity-details',
@@ -87,13 +87,13 @@ export class IdentityDetails implements OnInit, OnDestroy {
   private readonly _designations = signal<DropdownModel['data']>([]);
   readonly designations = computed(() => this._designations());
 
-  private readonly _countries = signal<DropdownCountryModel['data']>([]);
+  private readonly _countries = signal<DropdownModel['data']>([]);
   readonly countries = computed(() => this._countries());
 
-  private readonly _states = signal<DropdownStateModel['data']>([]);
+  private readonly _states = signal<DropdownModel['data']>([]);
   readonly states = computed(() => this._states());
 
-  private readonly _cities = signal<DropdownCityModel['data']>([]);
+  private readonly _cities = signal<DropdownModel['data']>([]);
   readonly cities = computed(() => this._cities());
 
   private subs = new Subscription();
@@ -268,7 +268,7 @@ export class IdentityDetails implements OnInit, OnDestroy {
         .countries()
         .pipe(
           catchError(() =>
-            of<DropdownCountryModel>({ status: 'error', data: [], message: '', statusCode: 500 })
+            of<DropdownModel>({ status: 'error', data: [], message: '', statusCode: 500 })
           )
         ),
     }).subscribe({

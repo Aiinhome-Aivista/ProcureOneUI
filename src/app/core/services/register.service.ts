@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiEndpoints } from '../config/api-endpoints';
-import { DropdownCityModel, DropdownCountryModel, DropdownModel, DropdownStateModel } from '../models';
+import { DropdownModel } from '../models';
 import { LegalProofResponse } from '../models';
 
 @Injectable({
@@ -26,16 +26,16 @@ export class RegisterService {
     return this.http.get<DropdownModel>(ApiEndpoints.AUTH.DESIGNATIONS);
   }
 
-  countries(): Observable<DropdownCountryModel> {
-    return this.http.get<DropdownCountryModel>(ApiEndpoints.AUTH.COUNTRIES);
+  countries(): Observable<DropdownModel> {
+    return this.http.get<DropdownModel>(ApiEndpoints.AUTH.COUNTRIES);
   }
 
-  states(body: any): Observable<DropdownStateModel> {
-    return this.http.post<DropdownStateModel>(ApiEndpoints.AUTH.STATES, body);
+  states(body: any): Observable<DropdownModel> {
+    return this.http.post<DropdownModel>(ApiEndpoints.AUTH.STATES, body);
   }
 
-  cities(body: any): Observable<DropdownCityModel> {
-    return this.http.post<DropdownCityModel>(ApiEndpoints.AUTH.CITIES, body);
+  cities(body: any): Observable<DropdownModel> {
+    return this.http.post<DropdownModel>(ApiEndpoints.AUTH.CITIES, body);
   }
   
   certificateIncorporation(): Observable<LegalProofResponse> {
