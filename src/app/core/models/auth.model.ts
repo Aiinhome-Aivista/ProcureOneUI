@@ -41,7 +41,7 @@ export interface ApiLoginResponse {
         email: string;
         refresh_token: string;
         role: string;
-        user_id: number;
+        user_id: number | null; // Can be null
         username: string;
     };
     isSuccess: boolean;

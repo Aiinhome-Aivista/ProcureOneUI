@@ -55,12 +55,23 @@
         <div>
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Business Type<span
               class="text-red-500">*</span></label>
-          <select formControlName="businessType" required
-            class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-gray-700 text-[12px] invalid:text-[#7C6FA2]">
-            <option value="" disabled hidden>Select Type</option>
-            <option value="partnership">Partnership</option>
-            <option value="private">Private Limited</option>
-          </select>
+          <p-select inputId="businessType" [options]="businessTypes()" optionLabel="name" optionValue="id"
+            placeholder="Select Type" formControlName="businessType" [filter]="true" filterBy="name" [showClear]="true"
+            [class]="'w-full text-[12px]'"  aria-required="true" [attr.aria-invalid]="businessType.invalid" appendTo="body">
+            <ng-template #selectedItem let-option>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ option.name }}</span>
+              </div>
+            </ng-template>
+
+            <ng-template #item let-type>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ type.name }}</span>
+              </div>
+            </ng-template>
+          </p-select>
 
           @if (businessType.touched && businessType.invalid) {
           <div class="text-red-500 text-[12px] mt-1">
@@ -78,10 +89,16 @@
             class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
             placeholder="e.g., CIN: U12345WB2015PTC123456" />
 
-          <div *ngIf="registrationNumber.touched && registrationNumber.invalid" class="text-red-500 text-[12px] mt-1">
-            <div *ngIf="registrationNumber.errors?.['required']">Registration number is required.</div>
-            <div *ngIf="registrationNumber.errors?.['pattern']">Registration number format is invalid.</div>
+          @if (registrationNumber.touched && registrationNumber.invalid) {
+          <div class="text-red-500 text-[12px] mt-1">
+            @if (registrationNumber.errors?.['required']) {
+            <div>Registration number is required.</div>
+            }
+            @if (registrationNumber.errors?.['pattern']) {
+            <div>Registration number format is invalid.</div>
+            }
           </div>
+          }
         </div>
       </div>
 
@@ -101,16 +118,38 @@
         <div>
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Industry Category<span
               class="text-red-500">*</span></label>
-          <select formControlName="industryCategory" required
+          <!-- <select formControlName="industryCategory" required
             class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-gray-700 text-[12px] invalid:text-[#7C6FA2]">
             <option value="" disabled hidden>Select Type</option>
             <option value="IT">IT</option>
             <option value="Construction">Construction</option>
-          </select>
+          </select> -->
+          <p-select inputId="industryCategory" [options]="industryCategories()" optionLabel="name" optionValue="id"
+            placeholder="Select Type" formControlName="industryCategory" [filter]="true" filterBy="name"
+            [showClear]="true" [class]="'w-full text-[12px]'" aria-required="true"
+            [attr.aria-invalid]="industryCategory.invalid" appendTo="body">
+            <ng-template #selectedItem let-option>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ option.name }}</span>
+              </div>
+            </ng-template>
 
-          <div *ngIf="industryCategory.touched && industryCategory.invalid" class="text-red-500 text-[12px] mt-1">
-            <div *ngIf="industryCategory.errors?.['required']">Industry category is required.</div>
+            <ng-template #item let-type>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ type.name }}</span>
+              </div>
+            </ng-template>
+          </p-select>
+
+          @if (industryCategory.touched && industryCategory.invalid) {
+          <div class="text-red-500 text-[12px] mt-1">
+            @if (industryCategory.errors?.['required']) {
+            <div>Industry category is required.</div>
+            }
           </div>
+          }
         </div>
       </div>
 
