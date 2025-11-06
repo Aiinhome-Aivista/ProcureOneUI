@@ -1,6 +1,6 @@
-<div class="w-full py-3">
+<div class="w-full">
   <!-- Top Review Box -->
-  <div class="relative rounded-xl p-8 mb-8 bg-[#F5F5F5] overflow-hidden">
+  <div class="relative rounded-xl p-8 mb-4 bg-[#F5F5F5] overflow-hidden">
     <!-- Background SVG Pattern -->
     <img
       src="assets/icons/bg-art.svg"
@@ -18,9 +18,11 @@
         <p class="text-xs text-[#0000008F] font-bold">{{ submissionData.header.congratsText }}</p>
       </div>
 
-      <div class="mb-3" *ngFor="let description of submissionData.header.descriptions">
+      @for (description of submissionData.header.descriptions; track description) {
+      <div class="mb-3">
         <p class="text-xs text-[#0000008F]">{{ description }}</p>
       </div>
+      }
     </div>
   </div>
 
@@ -34,26 +36,32 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <!-- Column 1 -->
       <div class="space-y-5">
-        <div *ngFor="let item of submissionData.basicInfo.columns.column1">
+        @for (item of submissionData.basicInfo.columns.column1; track $index) {
+        <div>
           <p class="font-bold text-black text-xs">{{ item.value }}</p>
           <p class="text-xs text-[#0000008F]">{{ item.label }}</p>
         </div>
+        }
       </div>
 
       <!-- Column 2 -->
       <div class="space-y-5">
-        <div *ngFor="let item of submissionData.basicInfo.columns.column2">
+        @for (item of submissionData.basicInfo.columns.column2; track $index) {
+        <div>
           <p class="font-bold text-black text-xs">{{ item.value }}</p>
           <p class="text-xs text-[#0000008F]">{{ item.label }}</p>
         </div>
+        }
       </div>
 
       <!-- Column 3 -->
       <div class="space-y-5">
-        <div *ngFor="let item of submissionData.basicInfo.columns.column3">
+        @for (item of submissionData.basicInfo.columns.column3; track $index) {
+        <div>
           <p class="font-bold text-black text-xs">{{ item.value }}</p>
           <p class="text-xs text-[#0000008F]">{{ item.label }}</p>
         </div>
+        }
       </div>
     </div>
 
