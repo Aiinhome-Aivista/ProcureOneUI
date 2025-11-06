@@ -55,3 +55,18 @@ export interface ApiErrorResponse {
     statusCode: number;
     errors?: Record<string, string[]>;
 }
+
+//for Business & tax registration 
+
+export interface LegalProof {
+    id: number;
+    name: string;
+}
+
+export interface LegalProofResponse {
+    data: LegalProof[];
+    isSuccess: boolean;
+    message: string;
+    statusCode: number;
+}
+

@@ -20,7 +20,8 @@ export class ApiEndpoints {
     STATES: `${ApiEndpoints.BASE_URL}/VendorMicroservices/states`,
     CITIES: `${ApiEndpoints.BASE_URL}/VendorMicroservices/cities`,
     FORGOT_PASSWORD: `${ApiEndpoints.BASE_URL}/AuthMicroservices/forgot-password`,
-    RESET_PASSWORD: `${ApiEndpoints.BASE_URL}/AuthMicroservices/reset-password`
+    RESET_PASSWORD: `${ApiEndpoints.BASE_URL}/AuthMicroservices/reset-password`,
+    CERTIFICATE_iNCORPORATION: `${ApiEndpoints.BASE_URL}/VendorMicroservices/legal_proofs`
   } as const;
 
   // Vendor endpoints

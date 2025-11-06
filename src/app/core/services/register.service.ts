@@ -1,12 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ApiEndpoints } from '../config/api-endpoints';
 import { DropdownCityModel, DropdownCountryModel, DropdownModel, DropdownStateModel } from '../models';
-
-// import { Router } from '@angular/router';
-// import { POSTurl } from '../../config';
-
+import { LegalProofResponse } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +36,10 @@ export class RegisterService {
 
   cities(body: any): Observable<DropdownCityModel> {
     return this.http.post<DropdownCityModel>(ApiEndpoints.AUTH.CITIES, body);
+  }
+  
+  certificateIncorporation(): Observable<LegalProofResponse> {
+    return this.http.get<LegalProofResponse>(ApiEndpoints.AUTH.CERTIFICATE_iNCORPORATION)
   }
 
   
