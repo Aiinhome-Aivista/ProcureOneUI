@@ -5,14 +5,19 @@ export interface NavItem {
 }
 
 export interface DropdownData {
-  id: number;
+  id?: number;
+  countryid?: number;
+  stateid?: number;
+  cityid?: number;
   name: string;
 }
 export interface DropdownModel {
   data: DropdownData[];
-  isSuccess: boolean;
+  isSuccess?: boolean;
   message: string;
+  status?: string;
   statusCode: number;
 }
+
 
 

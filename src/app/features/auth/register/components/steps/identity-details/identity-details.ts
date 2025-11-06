@@ -21,7 +21,7 @@ import {
 import { catchError, forkJoin, of, Subscription } from 'rxjs';
 import { SelectModule } from 'primeng/select';
 import { RegisterService } from '../../../../../../core/services';
-import { DropdownModel } from '../../../../../../core/models';
+import { DropdownModel} from '../../../../../../core/models';
 
 @Component({
   selector: 'app-identity-details',
@@ -86,6 +86,15 @@ export class IdentityDetails implements OnInit, OnDestroy {
 
   private readonly _designations = signal<DropdownModel['data']>([]);
   readonly designations = computed(() => this._designations());
+
+  private readonly _countries = signal<DropdownModel['data']>([]);
+  readonly countries = computed(() => this._countries());
+
+  private readonly _states = signal<DropdownModel['data']>([]);
+  readonly states = computed(() => this._states());
+
+  private readonly _cities = signal<DropdownModel['data']>([]);
+  readonly cities = computed(() => this._cities());
 
   private subs = new Subscription();
 
@@ -178,6 +187,31 @@ export class IdentityDetails implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadDropdowns();
+
+    // When country changes, fetch states
+    this.subs.add(
+      this.addressForm.get('country')!.valueChanges.subscribe((countryId: number) => {
+        if (countryId) {
+          this.fetchStates(countryId);
+        } else {
+          this._states.set([]);
+          this.addressForm.get('state')!.reset();
+        }
+      })
+    );
+    
+    // When state changes, fetch cities
+    this.subs.add(
+      this.addressForm.get('state')!.valueChanges.subscribe((stateId: number) => {
+        if (stateId) {
+          this.fetchCities(stateId);
+        } else {
+          this._cities.set([]);
+          this.addressForm.get('city')!.reset();
+        }
+      })
+    );
+    
     // emit when active form changes
     this.subs.add(
       this.identityForm.valueChanges.subscribe((v) => {
@@ -230,6 +264,13 @@ export class IdentityDetails implements OnInit, OnDestroy {
             of<DropdownModel>({ isSuccess: false, data: [], message: '', statusCode: 500 })
           )
         ),
+      countries: this.apiService
+        .countries()
+        .pipe(
+          catchError(() =>
+            of<DropdownModel>({ status: 'error', data: [], message: '', statusCode: 500 })
+          )
+        ),
     }).subscribe({
       next: (res) => {
         if (res.businessTypes.isSuccess) {
@@ -241,9 +282,46 @@ export class IdentityDetails implements OnInit, OnDestroy {
         if (res.designations.isSuccess) {
           this._designations.set(res.designations.data);
         }
+        if (res.countries) {
+          this._countries.set(res.countries.data);
+        }
       },
       error: (err) => {
         console.error('Error loading dropdowns:', err);
+      },
+    });
+  }
+
+  private fetchStates(countryId: number): void {
+    const body = { countryid: countryId };
+    this.apiService.states(body).subscribe({
+      next: (res: any) => {
+        if (res?.data && Array.isArray(res.data)) {
+          this._states.set(res.data);
+        } else {
+          this._states.set([]);
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching states:', err);
+        this._states.set([]);
+      },
+    });
+  }
+
+  private fetchCities(stateId: number): void {
+    const body = { stateid: stateId };
+    this.apiService.cities(body).subscribe({
+      next: (res: any) => {
+        if (res?.data && Array.isArray(res.data)) {
+          this._cities.set(res.data);
+        } else {
+          this._cities.set([]);
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching cities:', err);
+        this._cities.set([]);
       },
     });
   }
