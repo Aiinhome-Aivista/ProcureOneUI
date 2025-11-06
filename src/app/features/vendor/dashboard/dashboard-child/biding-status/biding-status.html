@@ -1,10 +1,35 @@
-<div class="bg-[#F5F5F5] rounded-2xl p-3 sm:p-4 shadow-sm mt-4 sm:mt-5">
-  <h3 class="font-semibold text-xs sm:text-sm mb-2">Bid Request Vs Approved</h3>
-  <div
-    class="h-40 sm:h-48 flex flex-col items-center justify-center text-[]"
-  >
-    Donut Chart
+<div class="bg-[#F5F5F5] rounded-2xl p-3 sm:p-4 mt-4 sm:mt-5 flex flex-col items-center justify-start shadow-sm">
+
+  <!-- Title -->
+  <div class="w-full mb-2">
+    <p class="text-sm font-semibold text-black">Bid Request Vs Approved</p>
+  </div>
+
+  <!-- Numbers -->
+  <div class="flex flex-col items-center justify-center mb-1">
+    <div class="text-2xl font-light text-black leading-none">{{ approvedCount }}</div>
+    <div class="text-xs text-gray-500">/{{ totalCount }}</div>
+  </div>
+
+  <!-- Donut Chart -->
+  <div class="relative w-[140px] h-[140px] mt-1">
+    <p-chart
+      type="doughnut"
+      [data]="data"
+      [options]="options"
+      styleClass="w-full h-full"
+    ></p-chart>
+  </div>
+
+  <!-- Custom Legend -->
+  <div class="flex justify-center gap-6 mt-2 text-xs text-gray-600">
+    <div class="flex items-center gap-1">
+      <span class="w-2.5 h-2.5 bg-[#D9D9D9] rounded-full"></span>
+      <span>Requested Bid</span>
+    </div>
+    <div class="flex items-center gap-1">
+      <span class="w-2.5 h-2.5 bg-[#4B1DB1] rounded-full"></span>
+      <span>Approved Bid</span>
+    </div>
   </div>
 </div>
-
-
