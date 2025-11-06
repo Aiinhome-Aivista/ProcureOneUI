@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   signal,
   computed,
@@ -8,7 +7,7 @@ import {
   Output,
   EventEmitter,
   OnInit,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -17,14 +16,12 @@ import {
   ReactiveFormsModule,
   Validators,
   AbstractControl,
-  ValidationErrors
+  ValidationErrors,
 } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { catchError, forkJoin, of, Subscription } from 'rxjs';
 import { SelectModule } from 'primeng/select';
 import { RegisterService } from '../../../../../../core/services';
-import { BusinessType, IndustryCategory } from '../../../../../../core/models';
-
-
+import { DropdownModel } from '../../../../../../core/models';
 
 @Component({
   selector: 'app-identity-details',
@@ -33,7 +30,6 @@ import { BusinessType, IndustryCategory } from '../../../../../../core/models';
   styleUrl: './identity-details.css',
 })
 export class IdentityDetails implements OnInit, OnDestroy {
-
   constructor(private apiService: RegisterService) {}
 
   @Input() set data(value: any) {
@@ -44,11 +40,30 @@ export class IdentityDetails implements OnInit, OnDestroy {
     }
 
     // Patch / reset forms safely depending on incoming keys
-    const identityKeys = ['companyName', 'registrationNumber', 'businessType', 'industryCategory', 'dateOfIncorporation', 'natureOfBusiness'];
-    const addressKeys = ['registeredAddress', 'operationalAddress', 'country', 'state', 'city', 'pin', 'contactPerson', 'designation', 'email', 'phone', 'alternateContact'];
+    const identityKeys = [
+      'companyName',
+      'registrationNumber',
+      'businessType',
+      'industryCategory',
+      'dateOfIncorporation',
+      'natureOfBusiness',
+    ];
+    const addressKeys = [
+      'registeredAddress',
+      'operationalAddress',
+      'country',
+      'state',
+      'city',
+      'pin',
+      'contactPerson',
+      'designation',
+      'email',
+      'phone',
+      'alternateContact',
+    ];
 
-    const hasIdentity = identityKeys.some(k => k in value);
-    const hasAddress = addressKeys.some(k => k in value);
+    const hasIdentity = identityKeys.some((k) => k in value);
+    const hasAddress = addressKeys.some((k) => k in value);
 
     if (hasIdentity) {
       this.identityForm.reset(value, { emitEvent: false });
@@ -63,11 +78,14 @@ export class IdentityDetails implements OnInit, OnDestroy {
   private readonly tabSignal = signal<'identity' | 'addresses'>('identity');
   readonly activeTab = computed(() => this.tabSignal());
   //  signal to hold dropdown data
-  private readonly _businessTypes = signal<BusinessType[]>([]);
+  private readonly _businessTypes = signal<DropdownModel['data']>([]);
   readonly businessTypes = computed(() => this._businessTypes());
 
-  private readonly _industryCategories = signal<IndustryCategory[]>([]);
+  private readonly _industryCategories = signal<DropdownModel['data']>([]);
   readonly industryCategories = computed(() => this._industryCategories());
+
+  private readonly _designations = signal<DropdownModel['data']>([]);
+  readonly designations = computed(() => this._designations());
 
   private subs = new Subscription();
 
@@ -105,66 +123,132 @@ export class IdentityDetails implements OnInit, OnDestroy {
   });
 
   // Getters for template convenience
-  get companyName(): AbstractControl { return this.identityForm.get('companyName')!; }
-  get registrationNumber(): AbstractControl { return this.identityForm.get('registrationNumber')!; }
-  get businessType(): AbstractControl { return this.identityForm.get('businessType')!; }
-  get industryCategory(): AbstractControl { return this.identityForm.get('industryCategory')!; }
-  get dateOfIncorporation(): AbstractControl { return this.identityForm.get('dateOfIncorporation')!; }
-  get natureOfBusiness(): AbstractControl { return this.identityForm.get('natureOfBusiness')!; }
+  get companyName(): AbstractControl {
+    return this.identityForm.get('companyName')!;
+  }
+  get registrationNumber(): AbstractControl {
+    return this.identityForm.get('registrationNumber')!;
+  }
+  get businessType(): AbstractControl {
+    return this.identityForm.get('businessType')!;
+  }
+  get industryCategory(): AbstractControl {
+    return this.identityForm.get('industryCategory')!;
+  }
+  get dateOfIncorporation(): AbstractControl {
+    return this.identityForm.get('dateOfIncorporation')!;
+  }
+  get natureOfBusiness(): AbstractControl {
+    return this.identityForm.get('natureOfBusiness')!;
+  }
 
-  get registeredAddress(): AbstractControl { return this.addressForm.get('registeredAddress')!; }
-  get operationalAddress(): AbstractControl { return this.addressForm.get('operationalAddress')!; }
-  get country(): AbstractControl { return this.addressForm.get('country')!; }
-  get state(): AbstractControl { return this.addressForm.get('state')!; }
-  get city(): AbstractControl { return this.addressForm.get('city')!; }
-  get pin(): AbstractControl { return this.addressForm.get('pin')!; }
-  get contactPerson(): AbstractControl { return this.addressForm.get('contactPerson')!; }
-  get designation(): AbstractControl { return this.addressForm.get('designation')!; }
-  get email(): AbstractControl { return this.addressForm.get('email')!; }
-  get phone(): AbstractControl { return this.addressForm.get('phone')!; }
-  get alternateContact(): AbstractControl { return this.addressForm.get('alternateContact')!; }
+  get registeredAddress(): AbstractControl {
+    return this.addressForm.get('registeredAddress')!;
+  }
+  get operationalAddress(): AbstractControl {
+    return this.addressForm.get('operationalAddress')!;
+  }
+  get country(): AbstractControl {
+    return this.addressForm.get('country')!;
+  }
+  get state(): AbstractControl {
+    return this.addressForm.get('state')!;
+  }
+  get city(): AbstractControl {
+    return this.addressForm.get('city')!;
+  }
+  get pin(): AbstractControl {
+    return this.addressForm.get('pin')!;
+  }
+  get contactPerson(): AbstractControl {
+    return this.addressForm.get('contactPerson')!;
+  }
+  get designation(): AbstractControl {
+    return this.addressForm.get('designation')!;
+  }
+  get email(): AbstractControl {
+    return this.addressForm.get('email')!;
+  }
+  get phone(): AbstractControl {
+    return this.addressForm.get('phone')!;
+  }
+  get alternateContact(): AbstractControl {
+    return this.addressForm.get('alternateContact')!;
+  }
 
   ngOnInit(): void {
     this.loadDropdowns();
-    this.loadIndustryCategoriesDropdowns();
     // emit when active form changes
-    this.subs.add(this.identityForm.valueChanges.subscribe(v => {
-      if (this.activeTab() === 'identity') {
-        this.dataChange.emit({ ...v });
-      }
-    }));
-    this.subs.add(this.addressForm.valueChanges.subscribe(v => {
-      if (this.activeTab() === 'addresses') {
-        this.dataChange.emit({ ...v });
-      }
-    }));
+    this.subs.add(
+      this.identityForm.valueChanges.subscribe((v) => {
+        if (this.activeTab() === 'identity') {
+          this.dataChange.emit({ ...v });
+        }
+      })
+    );
+    this.subs.add(
+      this.addressForm.valueChanges.subscribe((v) => {
+        if (this.activeTab() === 'addresses') {
+          this.dataChange.emit({ ...v });
+        }
+      })
+    );
   }
 
-  //  Fetch dropdown data from API and store in signal
-  loadDropdowns(): void {
-    this.apiService.businessTypes().subscribe({
-      next: (res: any) => {
-        if (res?.isSuccess && Array.isArray(res.data)) {
-          this._businessTypes.set(res.data);
+  // //  Fetch dropdown data from API and store in signal
+  // loadDropdowns(): void {
+  //   this.apiService.businessTypes().subscribe({
+  //     next: (res: any) => {
+  //       if (res?.isSuccess && Array.isArray(res.data)) {
+  //         this._businessTypes.set(res.data);
+  //       }
+  //     },
+  //     error: err => console.error('Error fetching dropdowns:', err)
+  //   });
+  // }
+
+  public loadDropdowns(): void {
+    forkJoin({
+      businessTypes: this.apiService
+        .businessTypes()
+        .pipe(
+          catchError(() =>
+            of<DropdownModel>({ isSuccess: false, data: [], message: '', statusCode: 500 })
+          )
+        ),
+      industryCategories: this.apiService
+        .industryCategories()
+        .pipe(
+          catchError(() =>
+            of<DropdownModel>({ isSuccess: false, data: [], message: '', statusCode: 500 })
+          )
+        ),
+      designations: this.apiService
+        .designations()
+        .pipe(
+          catchError(() =>
+            of<DropdownModel>({ isSuccess: false, data: [], message: '', statusCode: 500 })
+          )
+        ),
+    }).subscribe({
+      next: (res) => {
+        if (res.businessTypes.isSuccess) {
+          this._businessTypes.set(res.businessTypes.data);
+        }
+        if (res.industryCategories.isSuccess) {
+          this._industryCategories.set(res.industryCategories.data);
+        }
+        if (res.designations.isSuccess) {
+          this._designations.set(res.designations.data);
         }
       },
-      error: err => console.error('Error fetching dropdowns:', err)
+      error: (err) => {
+        console.error('Error loading dropdowns:', err);
+      },
     });
   }
 
-  loadIndustryCategoriesDropdowns(): void {
-    this.apiService.industryCategories().subscribe({
-      next: (res: any) => {
-        if (res?.isSuccess && Array.isArray(res.data)) {
-          this._industryCategories.set(res.data);
-        }
-      },
-      error: err => console.error('Error fetching dropdowns:', err)
-    });
-  }
-
-
-  resetForm(): void {
+  public resetForm(): void {
     if (this.activeTab() === 'identity') {
       this.identityForm.reset();
       this.identityForm.markAsPristine();
@@ -178,7 +262,7 @@ export class IdentityDetails implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.activeTab() === 'identity') {
       if (this.identityForm.invalid) {
         this.identityForm.markAllAsTouched();
@@ -207,5 +291,4 @@ export class IdentityDetails implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
-
 }

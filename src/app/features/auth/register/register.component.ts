@@ -14,13 +14,13 @@ import { StepIndicatorComponent } from './components/step-indicator/step-indicat
   imports: [
     CommonModule,
     RouterModule,
-    StepIndicatorComponent,
     Sidebar,
     IdentityDetails,
     BusinessTaxRegistration,
     BankIdentityVerification,
-    FinancialDocuments
-  ],
+    FinancialDocuments,
+    StepIndicatorComponent
+],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })

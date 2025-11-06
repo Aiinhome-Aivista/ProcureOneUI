@@ -1,17 +1,17 @@
-<div class="w-full">
+<div class="w-full py-2">
 
     <!-- title -->
 
-    <div class="border-b border-[#E6E6E6] relative mb-3">
-        <p class="text-[11px] font-semibold text-[#000000] mb-3">
+    <div class="border-b border-[#D9D9D9] relative mb-3">
+        <p class="text-[13px] pb-1 font-bold text-[#000000] mb-3">
             Bank & Financial Identity Verification
         </p>
-        <div class="left-0 bottom-0 w-[200px] h-[5px] bg-primary-600 rounded-tr-[13px] rounded-tl-[15px]"></div>
+        <div class="left-0 bottom-0 w-[230px] h-[5px] bg-primary-600 rounded-tr-[13px] rounded-tl-[15px]"></div>
     </div>
 
 
     <!-- row 1 -->
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-2 gap-6">
 
         <!-- Cancelled Cheque -->
         <div>
@@ -20,7 +20,7 @@
                 <span class="text-red-500">*</span>
             </label>
 
-            <div class="mt-1 border border-dashed border-[#C8BFF8] rounded-xl min-h-60 flex items-center justify-center bg-[#FBF9FF]"
+            <div class="mt-1 border border-dashed border-[#C8BFF8] rounded-xl min-h-55 flex items-center justify-center bg-[#FBF9FF]"
                 (click)="cancelCheque.click()">
 
                 <input type="file" class="hidden" #cancelCheque accept="application/pdf"
@@ -53,7 +53,7 @@
                 <span class="text-red-500">*</span>
             </label>
 
-            <div class="mt-1 border border-dashed border-[#C8BFF8] rounded-xl min-h-60 flex items-center justify-center bg-[#FBF9FF]"
+            <div class="mt-1 border border-dashed border-[#C8BFF8] rounded-xl min-h-55 flex items-center justify-center bg-[#FBF9FF]"
                 (click)="bankStatement.click()">
 
                 <input type="file" class="hidden" #bankStatement accept="application/pdf"
@@ -82,13 +82,13 @@
     </div>
 
     <!-- row 2 -->
-    <div class="grid grid-cols-2 gap-4 mb-4">
+    <div class="grid grid-cols-2 gap-6 mb-4">
         <div>
             <label class="text-[11px] font-bold text-[#0000008F]">
                 Bank Verification Letter (Optional)
             </label>
 
-            <div class="mt-1 border border-dashed border-[#C8BFF8] rounded-xl min-h-60 flex items-center justify-center bg-[#FBF9FF]"
+            <div class="mt-1 border border-dashed border-[#C8BFF8] rounded-xl min-h-55 flex items-center justify-center bg-[#FBF9FF]"
                 (click)="verifyLetter.click()">
 
                 <input type="file" class="hidden" #verifyLetter accept="application/pdf"
