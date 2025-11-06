@@ -1,3 +1,73 @@
+export interface BidStats {
+  approved: number;
+  rejected: number;
+}
+
+export interface TopCardData {
+  id: string;
+  title: string;
+  mainValue: string | number;
+  mainValuePrefix?: string;
+  stats?: BidStats;
+  lastValue?: {
+    value: string | number;
+    label: string;
+    trend?: 'up' | 'down';
+  };
+  additionalValue?: {
+    value: string | number;
+    label: string;
+  };
+}
+
+export const dashboardData = {
+  topCards: [
+    {
+      id: 'total-bids',
+      title: 'Total Bid Submitted',
+      mainValue: 25,
+      stats: {
+        approved: 7,
+        rejected: 18
+      }
+    },
+    {
+      id: 'avg-bid',
+      title: 'Average Bid value',
+      mainValue: 15400,
+      mainValuePrefix: '$',
+      lastValue: {
+        value: '$25,400',
+        label: 'Last bid value',
+        trend: 'up' as const
+      }
+    },
+    {
+      id: 'response-time',
+      title: 'Average Response Time',
+      mainValue: '2.5 Days',
+      lastValue: {
+        value: '3 Days',
+        label: 'Last bid response time',
+        trend: 'down' as const
+      }
+    },
+    {
+      id: 'active-bids',
+      title: 'Active Bid',
+      mainValue: 12,
+      lastValue: {
+        value: '2 Days',
+        label: 'Nearest Deadline'
+      },
+      additionalValue: {
+        value: '$45,200',
+        label: 'Highest Bid'
+      }
+    }
+  ] satisfies TopCardData[]
+};
+
 export const submissionData = {
   header: {
     title: "Vendor Registration – Under Final Review",

@@ -1,84 +1,87 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  <!-- Total Bid Submitted Card -->
   <div class="bg-[#F5F5F5] p-4 rounded-2xl shadow-sm">
-    <p class="text-base text-[#000000] font-semibold">Total Bid Submitted</p>
-    <h2 class="text-2xl font-extralight mt-1">25</h2>
+    <p class="text-base text-[#000000] font-semibold">{{ topCards[0].title }}</p>
+    <h2 class="text-2xl font-extralight mt-1">{{ topCards[0].mainValue }}</h2>
     <div class="flex gap-3 mt-3 text-sm">
-      <div class="flex items-center bg-gray-200 rounded-full px-3 py-1.5">
+      <div class="flex items-center bg-[#D9D9D9] rounded-full px-3 py-1.5">
         <span class="text-[#00000066] font-medium">Approved</span>
         <span
-          class="ml-2 flex items-center justify-center w-5 h-5 text-[11px] font-semibold text-[#4B1DB1] bg-[#D8D3F7] rounded-full"
-          >7</span
+          class="ml-2 flex items-center justify-center w-5 h-5 text-[11px] font-semibold text-[#4B1DB1] bg-[#4319C221] rounded-full"
+          >{{ topCards[0].stats?.approved }}</span
         >
       </div>
-      <div class="flex items-center bg-gray-200 rounded-full px-3 py-1.5">
+      <div class="flex items-center bg-[#D9D9D9] rounded-full px-3 py-1.5">
         <span class="text-[#00000066] font-medium">Rejected</span>
         <span
-          class="ml-2 flex items-center justify-center w-5 h-5 text-[11px] font-semibold text-[#B91C1C] bg-[#EFCFCF] rounded-full"
-          >18</span
+          class="ml-2 flex items-center justify-center w-5 h-5 text-[11px] font-semibold text-[#B91C1C] bg-[#C2191921] rounded-full"
+          >{{ topCards[0].stats?.rejected }}</span
         >
       </div>
     </div>
   </div>
 
+  <!-- Average Bid Value Card -->
   <div class="relative bg-[#F5F5F5] p-5 rounded-2xl shadow-sm">
     <!-- Title -->
-    <p class="text-base font-semibold text-[#000000] mb-1">Average Bid value</p>
+    <p class="text-base font-semibold text-[#000000] mb-1">{{ topCards[1].title }}</p>
 
     <!-- Main Value -->
-    <h2 class="text-2xl font-light text-[#000000] mb-4">$15,400</h2>
+    <h2 class="text-2xl font-light text-[#000000] mb-4">{{ topCards[1].mainValuePrefix }}{{ topCards[1].mainValue }}</h2>
 
     <!-- Last Bid Value -->
     <div class="flex items-center justify-between">
       <div class="mt-2">
-        <p class="text-xs font-bold text-black">$25,400</p>
-        <p class="text-xs text-gray-500">Last bid value</p>
+        <p class="text-xs font-bold text-black">{{ topCards[1].lastValue?.value }}</p>
+        <p class="text-xs text-gray-500">{{ topCards[1].lastValue?.label }}</p>
       </div>
 
       <!-- Up Arrow Icon -->
       <div class="mt-2">
-        <span class="material-symbols-outlined text-[#49C506]"> trending_up </span>
+        <span class="material-symbols-outlined text-[#49C506]"> trending_{{ topCards[1].lastValue?.trend }} </span>
       </div>
     </div>
   </div>
 
+  <!-- Average Response Time Card -->
   <div class="relative bg-[#F5F5F5] p-5 rounded-2xl shadow-sm">
     <!-- Title -->
-    <p class="text-base font-semibold text-[#000000] mb-1">Average Response Time</p>
+    <p class="text-base font-semibold text-[#000000] mb-1">{{ topCards[2].title }}</p>
 
     <!-- Main Value -->
-    <h2 class="text-2xl font-light text-[#000000] mb-4">2.5 Days</h2>
+    <h2 class="text-2xl font-light text-[#000000] mb-4">{{ topCards[2].mainValue }}</h2>
 
     <!-- Last Bid Value -->
     <div class="flex items-center justify-between">
       <div class="mt-2">
-        <p class="text-xs font-bold text-[#000000]">3 Days</p>
-        <p class="text-xs text-[#0000008F]">Last bid response time</p>
+        <p class="text-xs font-bold text-[#000000]">{{ topCards[2].lastValue?.value }}</p>
+        <p class="text-xs text-[#0000008F]">{{ topCards[2].lastValue?.label }}</p>
       </div>
 
-      <!-- Up Arrow Icon -->
+      <!-- Down Arrow Icon -->
       <div class="mt-2">
-        <span class="material-symbols-outlined text-[#49C506]"> trending_down </span>
+        <span class="material-symbols-outlined text-[#49C506]"> trending_{{ topCards[2].lastValue?.trend }} </span>
       </div>
     </div>
   </div>
 
-
- <div class="relative bg-[#F5F5F5] p-5 rounded-2xl shadow-sm">
+  <!-- Active Bid Card -->
+  <div class="relative bg-[#F5F5F5] p-5 rounded-2xl shadow-sm">
     <!-- Title -->
-    <p class="text-base font-semibold text-[#000000] mb-1">Active Bid</p>
+    <p class="text-base font-semibold text-[#000000] mb-1">{{ topCards[3].title }}</p>
 
     <!-- Main Value -->
-    <h2 class="text-2xl font-light text-[#000000] mb-4">12</h2>
+    <h2 class="text-2xl font-light text-[#000000] mb-4">{{ topCards[3].mainValue }}</h2>
 
     <!-- Last Bid Value -->
     <div class="flex items-center justify-between">
       <div class="mt-2">
-        <p class="text-xs font-bold text-[#000000]">2 Days</p>
-        <p class="text-xs text-[#0000008F]">Nearest Deadline</p>
+        <p class="text-xs font-bold text-[#000000]">{{ topCards[3].lastValue?.value }}</p>
+        <p class="text-xs text-[#0000008F]">{{ topCards[3].lastValue?.label }}</p>
       </div>
       <div class="mt-2">
-        <p class="text-xs font-bold text-[#000000]">$45,200</p>
-        <p class="text-xs text-[#0000008F]">Highest Bid</p>
+        <p class="text-xs font-bold text-[#000000]">{{ topCards[3].additionalValue?.value }}</p>
+        <p class="text-xs text-[#0000008F]">{{ topCards[3].additionalValue?.label }}</p>
       </div>
     </div>
   </div>
