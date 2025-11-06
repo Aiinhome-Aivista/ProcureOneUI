@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -27,9 +27,32 @@ import { StepIndicatorComponent } from './components/step-indicator/step-indicat
 export class RegisterComponent {
   // Current step signal - connected to sidebar
   readonly currentStep = signal<number>(1);
+  private readonly totalSteps = 4;
+  readonly isFirstStep = computed(() => this.currentStep() === 1);
+  readonly isLastStep = computed(() => this.currentStep() === this.totalSteps);
 
   // Method to handle step changes from sidebar
   onStepChange(step: number): void {
     this.currentStep.set(step);
+  }
+
+  nextStep(): void {
+    if (this.isLastStep()) {
+      return;
+    }
+
+    this.currentStep.update((step) => Math.min(this.totalSteps, step + 1));
+  }
+
+  previousStep(): void {
+    if (this.isFirstStep()) {
+      return;
+    }
+
+    this.currentStep.update((step) => Math.max(1, step - 1));
+  }
+
+  resetSteps(): void {
+    this.currentStep.set(1);
   }
 }

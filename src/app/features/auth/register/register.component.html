@@ -20,9 +20,13 @@
   </div>
 
   <div class="grid grid-cols-4 flex-1 h-[calc(100vh-4.8rem)]">
+
     <div class="col-span-1 h-full">
       <app-sidebar [currentStep]="currentStep()" (stepChange)="onStepChange($event)" />
     </div>
+
+
+
     <div class="col-span-3 p-6 pl-3 overflow-y-auto h-full">
       <!-- Step Indicator (Static for UI only) -->
       <div class="mb-8">
@@ -51,6 +55,41 @@
           <app-financial-documents />
         }
       </div>
+
+      <div class="mt-10 flex items-center justify-between border-t border-gray-200 pt-6">
+        <button
+          type="button"
+          class="inline-flex items-center gap-2 rounded-full border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
+          (click)="resetSteps()"
+          [disabled]="isFirstStep()"
+        >
+          <span class="material-symbols-outlined text-base">autorenew</span>
+          Reset
+        </button>
+
+        <div class="flex items-center gap-3">
+          <button
+            type="button"
+            class="inline-flex items-center gap-2 rounded-full border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
+            (click)="previousStep()"
+            [disabled]="isFirstStep()"
+          >
+            Previous
+          </button>
+
+          <button
+            type="button"
+            class="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:cursor-not-allowed disabled:bg-indigo-300"
+            (click)="nextStep()"
+            [disabled]="isLastStep()"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+
+
+
     </div>
   </div>
 </div>
