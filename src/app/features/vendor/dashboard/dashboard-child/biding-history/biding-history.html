@@ -1,32 +1,32 @@
 <div class="col-span-2 rounded-2xl mt-4">
   <!-- Header -->
-  <div class="flex justify-between items-center mb-4">
-    <h3 class="font-semibold text-lg text-[#1E1E1E]">Bidding History</h3>
+  <div class="flex justify-between items-center mb-3 sm:mb-4">
+    <h3 class="font-semibold text-base sm:text-lg text-[#1E1E1E]">Bidding History</h3>
   </div>
 
   <!-- Filter Section -->
-  <div class="grid grid-cols-4 gap-3 mb-5">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mb-4 sm:mb-5">
     <div class="relative">
       <input
         type="text"
         placeholder="Requisition ID"
-        class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-2 text-sm text-[#4319C2] placeholder-[#4319C2]/60 focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
+        class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-[#4319C2] placeholder-[#4319C2]/60 focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
       />
       <span
-        class="material-symbols-outlined w-4 h-4 absolute right-3 top-2.5 opacity-60 text-[#4319C245]"
+        class="material-symbols-outlined w-4 h-4 absolute right-3 top-1.5 sm:top-2.5 opacity-60 text-[#4319C245]"
       >
         search
       </span>
     </div>
 
-    <div>
+    <div class="relative">
       <input
         type="text"
         placeholder="Submission Date"
-        class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-2 text-sm text-[#4319C2] placeholder-[#4319C2]/60 focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
+        class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-[#4319C2] placeholder-[#4319C2]/60 focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
       />
         <span
-        class="material-symbols-outlined w-4 h-4 absolute right-3 top-2.5 opacity-60 text-[#4319C245]"
+        class="material-symbols-outlined w-4 h-4 absolute right-3 top-1.5 sm:top-2.5 opacity-60 text-[#4319C245]"
       >
         event_note
       </span>
@@ -36,14 +36,14 @@
       <input
         type="text"
         placeholder="Bid Value"
-        class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-2 text-sm text-[#4319C2] placeholder-[#4319C2]/60 focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
+        class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-[#4319C2] placeholder-[#4319C2]/60 focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
       />
-      <span class="absolute right-3 top-2.5 text-[#4319C2] text-sm opacity-60">$</span>
+      <span class="absolute right-3 top-1.5 sm:top-2.5 text-[#4319C2] text-xs sm:text-sm opacity-60">$</span>
     </div>
 
     <div>
       <select
-        class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-2 text-sm text-[#4319C2] focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
+        class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-[#4319C2] focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
       >
         <option>Status</option>
         <option>Awarded</option>
@@ -55,56 +55,56 @@
 
   <!-- Table Rows -->
  <!-- Scrollable Bidding History -->
-<div class="space-y-3 max-h-64 overflow-y-auto pr-2 hide-scrollbar">
+<div class="space-y-2 sm:space-y-3 max-h-52 sm:max-h-64 overflow-y-auto pr-2 hide-scrollbar">
   <!-- Row 1 -->
-  <div class="flex justify-between items-center p-4 bg-[#F8F8F8] rounded-lg hover:bg-gray-100 transition">
-    <div>
-      <p class="text-sm font-semibold text-[#1E1E1E]">All-REQ-00125-2025</p>
+  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 sm:p-4 bg-[#F8F8F8] rounded-lg hover:bg-gray-100 transition">
+    <div class="mb-2 sm:mb-0">
+      <p class="text-xs sm:text-sm font-semibold text-[#1E1E1E]">All-REQ-00125-2025</p>
       <p class="text-xs text-gray-500">Office Supplies</p>
     </div>
-    <div class="flex items-center gap-10">
-      <p class="text-sm text-gray-700">12-09-2025</p>
-      <p class="text-sm font-medium text-gray-800">$25,623</p>
-      <span class="px-4 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">Awarded</span>
+    <div class="flex items-center justify-between sm:justify-end gap-4 sm:gap-10">
+      <p class="text-xs sm:text-sm text-gray-700">12-09-2025</p>
+      <p class="text-xs sm:text-sm font-medium text-gray-800">$25,623</p>
+      <span class="px-2 sm:px-4 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">Awarded</span>
     </div>
   </div>
 
   <!-- Row 2 -->
-  <div class="flex justify-between items-center p-4 bg-[#F8F8F8] rounded-lg hover:bg-gray-100 transition">
-    <div>
-      <p class="text-sm font-semibold text-[#1E1E1E]">All-REQ-00225-2025</p>
+  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 sm:p-4 bg-[#F8F8F8] rounded-lg hover:bg-gray-100 transition">
+    <div class="mb-2 sm:mb-0">
+      <p class="text-xs sm:text-sm font-semibold text-[#1E1E1E]">All-REQ-00225-2025</p>
       <p class="text-xs text-gray-500">IT Equipment</p>
     </div>
-    <div class="flex items-center gap-10">
-      <p class="text-sm text-gray-700">23-08-2025</p>
-      <p class="text-sm font-medium text-gray-800">$15,623</p>
-      <span class="px-4 py-1 text-xs font-medium bg-yellow-100 text-yellow-700 rounded-full">Pending</span>
+    <div class="flex items-center justify-between sm:justify-end gap-4 sm:gap-10">
+      <p class="text-xs sm:text-sm text-gray-700">23-08-2025</p>
+      <p class="text-xs sm:text-sm font-medium text-gray-800">$15,623</p>
+      <span class="px-2 sm:px-4 py-1 text-xs font-medium bg-yellow-100 text-yellow-700 rounded-full">Pending</span>
     </div>
   </div>
 
   <!-- Row 3 -->
-  <div class="flex justify-between items-center p-4 bg-[#F8F8F8] rounded-lg hover:bg-gray-100 transition">
-    <div>
-      <p class="text-sm font-semibold text-[#1E1E1E]">All-REQ-0015-2025</p>
+  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 sm:p-4 bg-[#F8F8F8] rounded-lg hover:bg-gray-100 transition">
+    <div class="mb-2 sm:mb-0">
+      <p class="text-xs sm:text-sm font-semibold text-[#1E1E1E]">All-REQ-0015-2025</p>
       <p class="text-xs text-gray-500">Janitorial Service</p>
     </div>
-    <div class="flex items-center gap-10">
-      <p class="text-sm text-gray-700">12-08-2025</p>
-      <p class="text-sm font-medium text-gray-800">$8,000</p>
-      <span class="px-4 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">Lost</span>
+    <div class="flex items-center justify-between sm:justify-end gap-4 sm:gap-10">
+      <p class="text-xs sm:text-sm text-gray-700">12-08-2025</p>
+      <p class="text-xs sm:text-sm font-medium text-gray-800">$8,000</p>
+      <span class="px-2 sm:px-4 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">Lost</span>
     </div>
   </div>
 
   <!-- Row 4 -->
-  <div class="flex justify-between items-center p-4 bg-[#F8F8F8] rounded-lg hover:bg-gray-100 transition">
-    <div>
-      <p class="text-sm font-semibold text-[#1E1E1E]">All-REQ-0077-2025</p>
+  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 sm:p-4 bg-[#F8F8F8] rounded-lg hover:bg-gray-100 transition">
+    <div class="mb-2 sm:mb-0">
+      <p class="text-xs sm:text-sm font-semibold text-[#1E1E1E]">All-REQ-0077-2025</p>
       <p class="text-xs text-gray-500">Office Supplies</p>
     </div>
-    <div class="flex items-center gap-10">
-      <p class="text-sm text-gray-700">07-07-2025</p>
-      <p class="text-sm font-medium text-gray-800">$35,253</p>
-      <span class="px-4 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">Awarded</span>
+    <div class="flex items-center justify-between sm:justify-end gap-4 sm:gap-10">
+      <p class="text-xs sm:text-sm text-gray-700">07-07-2025</p>
+      <p class="text-xs sm:text-sm font-medium text-gray-800">$35,253</p>
+      <span class="px-2 sm:px-4 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">Awarded</span>
     </div>
   </div>
 
