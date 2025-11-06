@@ -1,235 +1,31 @@
-<div class="p-6 grid grid-cols-12 gap-6 bg-[#FAFAFA] min-h-screen">
+<div class="p-6 grid grid-cols-12 gap-6 min-h-screen">
   <!-- Left Sidebar -->
   <div class="col-span-3 space-y-4">
-    <div class="p-4 rounded-2xl bg-white shadow-sm">
-      <h3 class="font-bold text-lg">Requisition Bidding</h3>
-      <p class="text-sm text-[#6B7280] mt-1">
-        View and bid on open requisition that match your category
-      </p>
-
-      <div class="mt-4">
-        <input
-          type="text"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
-          placeholder="Search notification"
-        />
-        <div class="mt-3 flex gap-2 text-sm">
-          <button class="px-3 py-1 rounded-lg border bg-white">All</button>
-          <button class="px-3 py-1 rounded-lg border bg-white">Open</button>
-          <button class="px-3 py-1 rounded-lg border bg-white">Closed</button>
-          <button class="px-3 py-1 rounded-lg border bg-white">Awarded</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Open Bid Card -->
-    <div class="space-y-3">
-      <div class="border rounded-2xl p-4 bg-white shadow-sm">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs text-gray-500">All-REQ-015-2025</p>
-            <p class="font-semibold text-sm">IT Equipment</p>
-            <p class="text-xs text-gray-500">Closing Date: 28th October 2025</p>
-          </div>
-          <span class="px-3 py-1 text-xs bg-indigo-50 text-indigo-600 rounded-lg">
-            Open
-          </span>
-        </div>
-        <button
-          class="mt-4 w-full py-2 bg-[#5D21D6] hover:bg-[#4B1DB1] text-white rounded-lg text-sm font-medium"
-        >
-          View & Bid
-        </button>
-      </div>
-
-      <!-- More Cards -->
-      <div class="border rounded-2xl p-4 bg-white shadow-sm">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs text-gray-500">All-REQ-008-2025</p>
-            <p class="font-semibold text-sm">IT Equipment</p>
-            <p class="text-xs text-gray-500">Closing Date: 28th October 2025</p>
-          </div>
-          <span class="px-3 py-1 text-xs border border-gray-300 rounded-lg">
-            Open
-          </span>
-        </div>
-        <button class="mt-4 w-full py-2 border border-gray-300 rounded-lg text-sm">
-          View & Bid
-        </button>
-      </div>
-
-      <div class="border rounded-2xl p-4 bg-white shadow-sm">
-        <div class="flex justify-between items-start">
-          <div>
-            <p class="text-xs text-gray-500">All-REQ-005-2025</p>
-            <p class="font-semibold text-sm">Resource Required</p>
-            <p class="text-xs text-gray-500">Closing Date: 28th October 2025</p>
-          </div>
-          <span class="px-3 py-1 text-xs border border-gray-300 rounded-lg">
-            Closed
-          </span>
-        </div>
-        <button class="mt-4 w-full py-2 border border-gray-300 rounded-lg text-sm">
-          View
-        </button>
-      </div>
-    </div>
+    <app-left-sidebar></app-left-sidebar>
   </div>
 
   <!-- Right Main Section -->
   <div class="col-span-9 space-y-4">
     <!-- KPI Cards -->
-    <div class="grid grid-cols-4 gap-4">
-      <div class="bg-white p-4 rounded-2xl shadow-sm">
-        <p class="text-sm text-gray-500">Total Bid Submitted</p>
-        <h2 class="text-2xl font-bold mt-1">25</h2>
-        <div class="flex gap-3 mt-2 text-xs">
-          <span class="text-green-600">Approved</span>
-          <span class="text-red-500">Rejected</span>
-        </div>
-      </div>
-      <div class="bg-white p-4 rounded-2xl shadow-sm">
-        <p class="text-sm text-gray-500">Average Bid Value</p>
-        <h2 class="text-2xl font-bold mt-1">$15,400</h2>
-      </div>
-      <div class="bg-white p-4 rounded-2xl shadow-sm">
-        <p class="text-sm text-gray-500">Average Response Time</p>
-        <h2 class="text-2xl font-bold mt-1">2.5 Days</h2>
-      </div>
-      <div class="bg-white p-4 rounded-2xl shadow-sm">
-        <p class="text-sm text-gray-500">Active Bid</p>
-        <h2 class="text-2xl font-bold mt-1">12</h2>
-      </div>
-    </div>
+    <app-top-card></app-top-card>
 
     <!-- Bidding Performance Chart Placeholder -->
-    <div class="bg-white rounded-2xl p-4 shadow-sm">
-      <div class="flex justify-between items-center">
-        <div>
-          <h3 class="font-semibold text-lg">Bidding Performance Over Time</h3>
-          <p class="text-gray-400 text-sm">$256,000</p>
-        </div>
-        <select class="border rounded-lg text-sm px-3 py-1 text-gray-600">
-          <option>Quarterly</option>
-        </select>
-      </div>
-      <div
-        class="h-56 flex items-center justify-center text-gray-400 border border-dashed border-gray-200 rounded-lg mt-4"
-      >
-        Chart Placeholder
-      </div>
-    </div>
+    <app-biding-performance-graph></app-biding-performance-graph>
 
     <!-- Bottom Row -->
     <div class="grid grid-cols-3 gap-4">
       <!-- Donut Placeholder -->
-      <div class="bg-white rounded-2xl p-4 shadow-sm">
-        <h4 class="font-semibold text-base mb-2">Bid Request Vs Approved</h4>
-        <div
-          class="h-48 flex flex-col items-center justify-center text-gray-400 border border-dashed border-gray-200 rounded-lg"
-        >
-          Donut Chart Placeholder
-        </div>
+      <div>
+        <app-biding-status></app-biding-status>
       </div>
 
       <!-- Table Section -->
-      <div class="col-span-2 bg-white rounded-2xl p-4 shadow-sm">
-        <div class="flex justify-between items-center">
-          <h4 class="font-semibold text-base">Bidding History</h4>
-          <div class="flex gap-2">
-            <input
-              type="text"
-              placeholder="Requisition ID"
-              class="border rounded-lg px-2 py-1 text-sm"
-            />
-            <input
-              type="text"
-              placeholder="Submission Date"
-              class="border rounded-lg px-2 py-1 text-sm"
-            />
-            <input
-              type="text"
-              placeholder="Bid Value"
-              class="border rounded-lg px-2 py-1 text-sm"
-            />
-            <select class="border rounded-lg px-2 py-1 text-sm">
-              <option>Status</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="mt-4 space-y-3">
-          <!-- Table Rows -->
-          <div
-            class="flex justify-between items-center p-3 rounded-lg border border-gray-100 hover:bg-gray-50"
-          >
-            <div>
-              <p class="text-xs text-gray-500">All-REQ-00125-2025</p>
-              <p class="font-semibold text-sm">Office Supplies</p>
-              <p class="text-xs text-gray-500">12-09-2025</p>
-            </div>
-            <div class="text-right">
-              <p class="font-semibold text-sm">$25,623</p>
-              <span
-                class="px-3 py-1 text-xs bg-green-50 text-green-700 rounded-lg"
-                >Awarded</span
-              >
-            </div>
-          </div>
-
-          <div
-            class="flex justify-between items-center p-3 rounded-lg border border-gray-100 hover:bg-gray-50"
-          >
-            <div>
-              <p class="text-xs text-gray-500">All-REQ-00225-2025</p>
-              <p class="font-semibold text-sm">IT Equipment</p>
-              <p class="text-xs text-gray-500">23-08-2025</p>
-            </div>
-            <div class="text-right">
-              <p class="font-semibold text-sm">$15,623</p>
-              <span
-                class="px-3 py-1 text-xs bg-yellow-50 text-yellow-700 rounded-lg"
-                >Pending</span
-              >
-            </div>
-          </div>
-
-          <div
-            class="flex justify-between items-center p-3 rounded-lg border border-gray-100 hover:bg-gray-50"
-          >
-            <div>
-              <p class="text-xs text-gray-500">All-REQ-0015-2025</p>
-              <p class="font-semibold text-sm">Janitorial Service</p>
-              <p class="text-xs text-gray-500">12-08-2025</p>
-            </div>
-            <div class="text-right">
-              <p class="font-semibold text-sm">$8,000</p>
-              <span
-                class="px-3 py-1 text-xs bg-red-50 text-red-700 rounded-lg"
-                >Lost</span
-              >
-            </div>
-          </div>
-
-          <div
-            class="flex justify-between items-center p-3 rounded-lg border border-gray-100 hover:bg-gray-50"
-          >
-            <div>
-              <p class="text-xs text-gray-500">All-REQ-0077-2025</p>
-              <p class="font-semibold text-sm">Office Supplies</p>
-              <p class="text-xs text-gray-500">07-07-2025</p>
-            </div>
-            <div class="text-right">
-              <p class="font-semibold text-sm">$35,253</p>
-              <span
-                class="px-3 py-1 text-xs bg-green-50 text-green-700 rounded-lg"
-                >Awarded</span
-              >
-            </div>
-          </div>
-        </div>
+      <div class="col-span-2">
+        <app-biding-history></app-biding-history>
       </div>
     </div>
   </div>
 </div>
+
+
+
