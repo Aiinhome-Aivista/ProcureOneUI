@@ -46,8 +46,8 @@ export class BidingStatus implements AfterViewInit {
           data: [remaining, approved],
           backgroundColor: ['#D9D9D9', '#4319C2'],
           borderWidth: 0,
-          cutout: '75%',
-          hoverOffset: 6,
+          cutout: '67%',
+          cornerRadius: 15,
         },
       ],
     };
