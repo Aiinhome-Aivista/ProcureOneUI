@@ -56,7 +56,7 @@ export class BidingPerformanceGraph {
         tension: 0.5, // smooth curve
         pointBackgroundColor: '#FFFFFF',
         pointBorderColor: '#4319C2',
-        pointBorderWidth: 2,
+        pointBorderWidth: 3,
         pointRadius: 5,
         pointHoverRadius: 6,
         pointHoverBackgroundColor: '#4319C2',
@@ -72,7 +72,7 @@ export class BidingPerformanceGraph {
     scales: {
       x: {
         grid: { display: false },
-        ticks: { color: '#000000CC', font: { size: 11 } },
+        // ticks: { color: '#000000CC', font: { size: 11 } },
       },
       y: {
         display: false,
