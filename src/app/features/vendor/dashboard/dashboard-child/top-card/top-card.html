@@ -3,8 +3,22 @@
   <div class="bg-[#F5F5F5] p-4 rounded-2xl shadow-sm">
     <p class="text-sm text-[#000000] font-semibold">{{ topCards[0].title }}</p>
     <h2 class="text-2xl font-extralight mt-1">{{ topCards[0].mainValue }}</h2>
-<div class="flex gap-3 mt-3 text-sm"> <div class="flex items-center bg-[#D9D9D9] rounded-full px-3 py-1.5"> <span class="text-[#00000066] font-medium">Approved</span> <span class="ml-2 flex items-center justify-center w-5 h-5 text-[11px] font-semibold text-[#4B1DB1] bg-[#4319C221] rounded-full" >{{ topCards[0].stats?.approved }}</span > </div> <div class="flex items-center bg-[#D9D9D9] rounded-full px-3 py-1.5"> <span class="text-[#00000066] font-medium">Rejected</span> <span class="ml-2 flex items-center justify-center w-5 h-5 text-[11px] font-semibold text-[#B91C1C] bg-[#C2191921] rounded-full" >{{ topCards[0].stats?.rejected }}</span > </div> </div>
-
+    <div class="flex gap-3 mt-3 text-sm">
+      <div class="flex items-center bg-[#D9D9D9] rounded-full px-3 py-1.5">
+        <span class="text-[#00000066] font-medium">Approved</span>
+        <span
+          class="ml-2 flex items-center justify-center w-5 h-5 text-[11px] font-semibold text-[#4B1DB1] bg-[#4319C221] rounded-full"
+          >{{ topCards[0].stats?.approved }}</span
+        >
+      </div>
+      <div class="flex items-center bg-[#D9D9D9] rounded-full px-3 py-1.5">
+        <span class="text-[#00000066] font-medium">Rejected</span>
+        <span
+          class="ml-2 flex items-center justify-center w-5 h-5 text-[11px] font-semibold text-[#B91C1C] bg-[#C2191921] rounded-full"
+          >{{ topCards[0].stats?.rejected }}</span
+        >
+      </div>
+    </div>
   </div>
 
   <!-- Average Bid Value Card -->
@@ -13,7 +27,9 @@
     <p class="text-sm font-semibold text-[#000000] mb-1">{{ topCards[1].title }}</p>
 
     <!-- Main Value -->
-    <h2 class="text-2xl font-light text-[#000000] mb-4">{{ topCards[1].mainValuePrefix }}{{ topCards[1].mainValue }}</h2>
+    <h2 class="text-2xl font-light text-[#000000] mb-4">
+      {{ topCards[1].mainValuePrefix }}{{ topCards[1].mainValue }}
+    </h2>
 
     <!-- Last Bid Value -->
     <div class="flex items-center justify-between">
@@ -24,7 +40,9 @@
 
       <!-- Up Arrow Icon -->
       <div class="mt-2">
-        <span class="material-symbols-outlined text-[#49C506]"> trending_{{ topCards[1].lastValue?.trend }} </span>
+        <span class="material-symbols-outlined text-[#49C506]">
+          trending_{{ topCards[1].lastValue?.trend }}
+        </span>
       </div>
     </div>
   </div>
@@ -46,7 +64,9 @@
 
       <!-- Down Arrow Icon -->
       <div class="mt-2">
-        <span class="material-symbols-outlined text-[#49C506]"> trending_{{ topCards[2].lastValue?.trend }} </span>
+        <span class="material-symbols-outlined text-[#49C506]">
+          trending_{{ topCards[2].lastValue?.trend }}
+        </span>
       </div>
     </div>
   </div>
@@ -71,5 +91,4 @@
       </div>
     </div>
   </div>
-
 </div>
