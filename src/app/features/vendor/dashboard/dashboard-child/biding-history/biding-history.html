@@ -10,6 +10,7 @@
       <input
         type="text"
         placeholder="Requisition ID"
+        [ngModel]="requisitionIdFilter()" (ngModelChange)="requisitionIdFilter.set($event)"
         class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-[#4319C2] placeholder-[#4319C2]/60 focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
       />
       <span
@@ -23,6 +24,7 @@
       <input
         type="text"
         placeholder="Submission Date"
+        [ngModel]="submissionDateFilter()" (ngModelChange)="submissionDateFilter.set($event)"
         class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-[#4319C2] placeholder-[#4319C2]/60 focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
       />
         <span
@@ -36,6 +38,7 @@
       <input
         type="text"
         placeholder="Bid Value"
+        [ngModel]="bidValueFilter()" (ngModelChange)="onBidValueChange($event)"
         class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-[#4319C2] placeholder-[#4319C2]/60 focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
       />
       <span class="absolute right-3 top-1.5 sm:top-2.5 text-[#4319C2] text-xs sm:text-sm opacity-60">$</span>
@@ -44,8 +47,9 @@
     <div>
       <select
         class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-[#4319C2] focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
+        [ngModel]="statusFilter()" (ngModelChange)="statusFilter.set($event)"
       >
-        <option>Status</option>
+        <option value="Status">Status</option>
         <option>Awarded</option>
         <option>Pending</option>
         <option>Lost</option>
@@ -53,123 +57,38 @@
     </div>
   </div>
 <div class="space-y-2 sm:space-y-3 max-h-52 sm:max-h-64 overflow-y-auto pr-2 hide-scrollbar">
-  <!-- Row -->
-  <div
-    class="grid grid-cols-12 items-center bg-[#F5F5F5] hover:bg-gray-200 transition rounded-lg px-3 sm:px-4 py-3 sm:py-4"
-  >
-    <!-- Left Section -->
-    <div class="col-span-5 sm:col-span-5">
-      <p class="text-xs sm:text-xs font-semibold text-[#000000] leading-tight">
-        All-REQ-00125-2025
-      </p>
-      <p class="text-xs text-[#0000008F] leading-tight">
-        Office Supplies
-      </p>
-    </div>
+  @for (item of filteredBiddingHistory(); track item.id) {
+    <div class="grid grid-cols-12 items-center bg-[#F5F5F5] hover:bg-gray-200 transition rounded-lg px-3 sm:px-4 py-3 sm:py-4">
+      <!-- Left Section -->
+      <div class="col-span-5 sm:col-span-5">
+        <p class="text-xs sm:text-xs font-semibold text-[#000000] leading-tight">
+          {{ item.id }}
+        </p>
+        <p class="text-xs text-[#0000008F] leading-tight">
+          {{ item.description }}
+        </p>
+      </div>
 
-    <!-- Date -->
-    <div class="col-span-3 sm:col-span-2 flex justify-start sm:justify-center">
-      <p class="text-xs text-[#0000008F]">12-09-2025</p>
-    </div>
+      <!-- Date -->
+      <div class="col-span-3 sm:col-span-2 flex justify-start sm:justify-center">
+        <p class="text-xs text-[#0000008F]">{{ item.submissionDate }}</p>
+      </div>
 
-    <!-- Value -->
-    <div class="col-span-3 sm:col-span-3 flex justify-start sm:justify-center">
-      <p class="text-xs text-[#0000008F]">$25,623</p>
-    </div>
+      <!-- Value -->
+      <div class="col-span-3 sm:col-span-3 flex justify-start sm:justify-center">
+        <p class="text-xs text-[#0000008F]">{{ item.bidValue | number }}</p>
+      </div>
 
-    <!-- Status -->
-    <div class="col-span-12 sm:col-span-2 flex justify-start sm:justify-end mt-2 sm:mt-0">
-      <span
-        class="px-3 sm:px-4 py-1 text-xs bg-[#49C50636] text-[#49C506] rounded-full whitespace-nowrap"
-      >
-        Awarded
-      </span>
+      <!-- Status -->
+      <div class="col-span-12 sm:col-span-2 flex justify-start sm:justify-end mt-2 sm:mt-0">
+        <span class="px-3 sm:px-4 py-1 text-xs rounded-full whitespace-nowrap" [class]="getStatusClass(item.status)">
+          {{ item.status }}
+        </span>
+      </div>
     </div>
-  </div>
-
-  <!-- Row 2 -->
-  <div
-    class="grid grid-cols-12 items-center bg-[#F5F5F5] hover:bg-gray-200 transition rounded-lg px-3 sm:px-4 py-3 sm:py-4"
-  >
-    <div class="col-span-5 sm:col-span-5">
-      <p class="text-xs font-semibold text-[#000000] leading-tight">
-        All-REQ-00225-2025
-      </p>
-      <p class="text-xs text-[#0000008F] leading-tight">IT Equipment</p>
-    </div>
-
-    <div class="col-span-3 sm:col-span-2 flex justify-start sm:justify-center">
-      <p class="text-xs sm:text-sm text-[#0000008F]">23-08-2025</p>
-    </div>
-
-    <div class="col-span-3 sm:col-span-3 flex justify-start sm:justify-center">
-      <p class="text-xs sm:text-sm font-medium text-[#0000008F]">$15,623</p>
-    </div>
-
-    <div class="col-span-12 sm:col-span-2 flex justify-start sm:justify-end mt-2 sm:mt-0">
-      <span
-        class="px-3 sm:px-4 py-1 text-[10px] sm:text-xs font-medium bg-[#C5C50636] text-[#C5C506] rounded-full whitespace-nowrap"
-      >
-        Pending
-      </span>
-    </div>
-  </div>
-
-  <!-- Row 3 -->
-  <div
-    class="grid grid-cols-12 items-center bg-[#F5F5F5] hover:bg-gray-200 transition rounded-lg px-3 sm:px-4 py-3 sm:py-4"
-  >
-    <div class="col-span-5 sm:col-span-5">
-      <p class="text-xs font-semibold text-[#000000] leading-tight">
-        All-REQ-0015-2025
-      </p>
-      <p class="text-xs text-[#0000008F] leading-tight">Janitorial Service</p>
-    </div>
-
-    <div class="col-span-3 sm:col-span-2 flex justify-start sm:justify-center">
-      <p class="text-xs text-[#0000008F]">12-08-2025</p>
-    </div>
-
-    <div class="col-span-3 sm:col-span-3 flex justify-start sm:justify-center">
-      <p class="text-xs text-[#0000008F]">$8,000</p>
-    </div>
-
-    <div class="col-span-12 sm:col-span-2 flex justify-start sm:justify-end mt-2 sm:mt-0">
-      <span
-        class="px-3 sm:px-4 py-1 text-[10px] sm:text-xs font-medium bg-[#C2191921] text-[#C21919] rounded-full whitespace-nowrap"
-      >
-        Lost
-      </span>
-    </div>
-  </div>
-
-  <!-- Row 4 -->
-  <div
-    class="grid grid-cols-12 items-center bg-[#F5F5F5] hover:bg-gray-200 transition rounded-lg px-3 sm:px-4 py-3 sm:py-4"
-  >
-    <div class="col-span-5 sm:col-span-5">
-      <p class="text-xs font-semibold text-[#000000] leading-tight">
-        All-REQ-0077-2025
-      </p>
-      <p class="text-[10px] sm:text-xs text-[#0000008F] leading-tight">Office Supplies</p>
-    </div>
-
-    <div class="col-span-3 sm:col-span-2 flex justify-start sm:justify-center">
-      <p class="text-xs sm:text-sm text-[#0000008F]">07-07-2025</p>
-    </div>
-
-    <div class="col-span-3 sm:col-span-3 flex justify-start sm:justify-center">
-      <p class="text-xs sm:text-sm font-medium text-[#0000008F]">$35,253</p>
-    </div>
-
-    <div class="col-span-12 sm:col-span-2 flex justify-start sm:justify-end mt-2 sm:mt-0">
-     <span
-        class="px-3 sm:px-4 py-1 text-xs bg-[#49C50636] text-[#49C506] rounded-full whitespace-nowrap"
-      >
-        Awarded
-      </span>
-    </div>
-  </div>
+  } @empty {
+    <div class="text-center text-gray-500 py-4">No bidding history found.</div>
+  }
 </div>
 
 
