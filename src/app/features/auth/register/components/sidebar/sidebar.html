@@ -1,45 +1,40 @@
-
 <div class="w-full h-full p-6 pr-3 flex flex-col gap-8">
   <div class="header">
-    <h1 class="text-lg font-semibold text-neutral-900 leading-tight">
-      Become a Valued Vendor
-    </h1>
-    <p class="text-xs text-neutral-500 mt-1">
-      Join our network of trusted suppliers.
-    </p>
+    <h1 class="text-lg font-semibold text-neutral-900 leading-tight">Become a Valued Vendor</h1>
+    <p class="text-xs text-neutral-500 mt-1">Join our network of trusted suppliers.</p>
   </div>
 
   <div class="flex-1 flex">
     <!-- Left nav column -->
     <div class="w-full border-r border-neutral-200">
-      <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-2">
         @for (item of navItems(); track $index; let i = $index) {
-          <button
-            type="button"
-            (click)="select(i)"
-            class="group text-left relative pr-3 rounded-md transition-colors duration-200 ease-out"
-            
+        <button
+          type="button"
+          (click)="select(i)"
+          class="group text-left relative pr-3 rounded-md transition-colors duration-200 ease-out"
+        >
+          <div
+            class="p-2 rounded-md transition-all duration-200"
+            [class.font-semibold]="currentStep() === item.stepNo"
+            [class.bg-primary-100]="currentStep() === item.stepNo"
           >
-            <div
-              class="p-2 rounded-md transition-all duration-200"
-              [class.font-semibold]="currentStep() === item.stepNo"
-              [class.bg-primary-100]="currentStep() === item.stepNo"
-            >
-              <h2 class="text-[11px] font-semibold text-neutral-900 leading-4">
-                {{ item.title }}
-              </h2>
-              <p class="text-[10px] text-neutral-500 leading-5 mt-1">
-                {{ item.description }}
-              </p>
-            </div>
+            <h2 class="text-[11px] font-semibold text-neutral-900 leading-4">
+              {{ item.title }}
+            </h2>
+            <p class="text-[10px] text-neutral-500 leading-5 mt-1 hidden xl:block">
+              {{ item.description }}
+            
+            </p>
+          </div>
 
-            <!-- Right border indicator -->
-            <span
-              class="absolute -right-1 top-0 h-full w-0 transition-all duration-200 ease-out rounded-r-md rounded-l-md"
-              [class.w-2]="currentStep() === item.stepNo"
-              [class.bg-primary-600]="currentStep() === item.stepNo"
-            ></span>
-          </button>
+          <!-- Right border indicator -->
+          <span
+            class="absolute -right-1 top-0 h-full w-0 transition-all duration-200 ease-out rounded-r-md rounded-l-md"
+            [class.w-2]="currentStep() === item.stepNo"
+            [class.bg-primary-600]="currentStep() === item.stepNo"
+          ></span>
+        </button>
         }
       </div>
     </div>
@@ -48,4 +43,3 @@
     <div class="flex-1"></div>
   </div>
 </div>
-
