@@ -1,0 +1,54 @@
+@if (errors().length > 0) {
+  <div class="pointer-events-none fixed inset-x-0 top-0 flex justify-center px-4 pt-6 sm:justify-end sm:px-6 sm:pt-8">
+    <div class="flex w-full max-w-sm flex-col gap-3" aria-live="assertive">
+      @for (error of errors(); track error.id) {
+        <div
+          role="alert"
+          class="pointer-events-auto rounded-2xl border border-gray-100 border-l-4 bg-white px-4 py-4 shadow-lg transition"
+          [class.border-l-rose-500]="error.variant === 'danger'"
+          [class.border-l-amber-500]="error.variant === 'warning'"
+          [class.border-l-sky-500]="error.variant === 'info'"
+        >
+          <div class="flex items-start gap-3">
+            <div
+              class="flex h-10 w-10 items-center justify-center rounded-xl"
+              [class.bg-rose-100]="error.variant === 'danger'"
+              [class.bg-amber-100]="error.variant === 'warning'"
+              [class.bg-sky-100]="error.variant === 'info'"
+            >
+              <span
+                class="material-symbols-outlined text-2xl"
+                [class.text-rose-600]="error.variant === 'danger'"
+                [class.text-amber-600]="error.variant === 'warning'"
+                [class.text-sky-600]="error.variant === 'info'"
+              >
+                error
+              </span>
+            </div>
+
+            <div class="flex-1">
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <p class="text-sm font-semibold text-gray-900">{{ error.title }}</p>
+                  <p class="mt-1 text-sm text-gray-600">{{ error.description }}</p>
+                  <p class="mt-2 text-xs font-medium text-gray-400">
+                    {{ error.status === 0 ? 'No response received' : ('Status ' + error.status) }}
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  class="rounded-full p-1 text-gray-400 transition hover:text-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
+                  (click)="dismiss(error.id)"
+                  aria-label="Dismiss error notification"
+                >
+                  <span class="material-symbols-outlined text-lg">close</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}
