@@ -1,50 +1,78 @@
-import { Component,OnInit } from '@angular/core';
-import { ChartData, ChartOptions } from 'chart.js';
-import { ChartModule } from 'primeng/chart';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Signal,
+  ViewChild,
+  computed,
+  signal,
+} from '@angular/core';
+import {
+  Chart,
+  ChartConfiguration,
+  ChartData,
+  ChartOptions,
+  registerables,
+} from 'chart.js';
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-biding-status',
   standalone: true,
-  imports: [ChartModule],
+  imports: [],
   templateUrl: './biding-status.html',
   styleUrl: './biding-status.css',
 })
-export class BidingStatus implements OnInit {
-    data!: ChartData<'doughnut'>;
-  options!: ChartOptions<'doughnut'>;
-  approvedCount = 7;
-  totalCount = 35;
+export class BidingStatus implements AfterViewInit {
+   @ViewChild('donutChart', { static: true })
+  private readonly donutChartRef!: ElementRef<HTMLCanvasElement>;
 
-  ngOnInit(): void {
-    const approved = this.approvedCount;
-    const requested = this.totalCount - approved;
+  private chart: Chart<'doughnut'> | null = null;
 
-    this.data = {
+  // Reactive data
+  readonly totalBids = signal(35);
+  readonly approvedBids = signal(7);
+
+  readonly chartData: Signal<ChartData<'doughnut'>> = computed(() => {
+    const approved = this.approvedBids();
+    const total = this.totalBids();
+    const remaining = total - approved;
+
+    return {
       labels: ['Requested Bid', 'Approved Bid'],
       datasets: [
         {
-          data: [requested, approved],
-          backgroundColor: ['#D9D9D9', '#4B1DB1'],
-          hoverBackgroundColor: ['#D9D9D9', '#4B1DB1'],
+          data: [remaining, approved],
+          backgroundColor: ['#D9D9D9', '#4319C2'],
           borderWidth: 0,
-         
-          borderRadius: 50,
-          spacing: 3
-        }
-      ]
+          cutout: '75%',
+          hoverOffset: 6,
+        },
+      ],
+    };
+  });
+
+  readonly chartOptions: ChartOptions<'doughnut'> = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false },
+    },
+  };
+
+  ngAfterViewInit(): void {
+    const ctx = this.donutChartRef.nativeElement.getContext('2d');
+    if (!ctx) return;
+
+    const config: ChartConfiguration<'doughnut'> = {
+      type: 'doughnut',
+      data: this.chartData(),
+      options: this.chartOptions,
     };
 
-    this.options = {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: { enabled: false }
-      },
-      animation: {
-        animateRotate: true,
-        duration: 1200
-      }
-    };
+    this.chart = new Chart(ctx, config);
   }
+
 }
