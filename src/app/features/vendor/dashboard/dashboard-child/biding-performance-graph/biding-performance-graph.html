@@ -1,16 +1,39 @@
-<div class="bg-[#F5F5F5] rounded-2xl p-3 sm:p-4 sm:mt-7 h-48 sm:h-60">
-  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
+<!-- <div class="bg-[#F5F5F5] rounded-2xl p-3 sm:p-4 sm:mt-7 h-48 sm:h-60"> -->
+ <div
+  class="bg-[#F5F5F5] rounded-2xl p-3 sm:p-4 sm:mt-7 h-65 sm:h-70"
+  role="region"
+  aria-label="Bidding Performance Over Time Chart"
+>
+  <!-- Header -->
+  <div class="flex justify-between items-start mb-2 sm:mb-3">
     <div>
-      <p class="font-semibold text-sm text-black">Bidding Performance Over Time</p>
-      <p class="text-sm text-black mt-2 sm:mt-0">$256,000</p>
+      <p class="text-sm sm:text-base font-bold text-[#000000CC]">
+        Bidding Performance Over Time
+      </p>
+      <p class="text-2xl sm:text-3xl font-semibold text-black">
+        ${{ totalValue() | number }}
+      </p>
     </div>
-    <select class="border border-[#4319C245] bg-white rounded-2xl text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 text-primary-600 cursor-pointer">
-      <option>Quarterly</option>
-    </select>
+
+    <div class="relative">
+      <select
+        class="border border-[#4319C245] text-[#4319C2] bg-white rounded-xl px-3 py-1 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
+        aria-label="Select performance period"
+      >
+        <option>Quarterly</option>
+        <option>Monthly</option>
+        <option>Yearly</option>
+      </select>
+    </div>
   </div>
-  <div
-    class="h-24 sm:h-30 flex items-center justify-center text-gray-400 mt-3 sm:mt-4"
-  >
-    under development
+
+  <!-- Chart -->
+  <div class="relative w-full h-30 sm:h-40">
+    <canvas
+      #biddingChart
+      class="w-full h-full"
+      aria-hidden="true"
+    ></canvas>
   </div>
 </div>
+
