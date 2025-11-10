@@ -1,25 +1,25 @@
 <div class="w-full mx-auto" aria-label="Company Details Form">
   <!-- Tabs -->
   <nav
-    class="relative flex after:absolute after:bottom-0 after:left-3 after:right-3 after:border-b after:border-gray-300 mb-4"
+    class="relative flex after:absolute after:bottom-0 after:left-1 after:right-3 after:border-b after:border-[#D9D9D9] mb-4"
     role="tablist">
     <button type="button" role="tab" [attr.aria-selected]="activeTab() === 'identity'"
-      class="relative px-4 pb-3 pt-2 font-semibold focus:outline-none cursor-pointer transition-all duration-300"
+      class="relative pb-2 pt-2 text-[13px] font-bold focus:outline-none cursor-pointer transition-all duration-300"
       (click)="switchTab('identity')" [ngClass]="{
-    'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[90%] after:h-1.5 after:bg-[#4C1D95] after:rounded-sm':
+    'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[95%] after:h-1.5 after:bg-primary-600 after:rounded-tr-[13px] after:rounded-tl-[15px]':
       activeTab() === 'identity',
-    'text-gray-600 hover:text-[#4C1D95]':
+    'text-black hover:text-primary-600':
       activeTab() !== 'identity'
     }">
       Company Identity Details
     </button>
 
     <button type="button" role="tab" [attr.aria-selected]="activeTab() === 'addresses'"
-      class="relative px-4 pb-3 pt-2 font-semibold focus:outline-none cursor-pointer transition-all duration-300"
+      class="relative px-4 pb-2 pt-2 text-[13px] font-bold focus:outline-none cursor-pointer transition-all duration-300"
       (click)="switchTab('addresses')" [ngClass]="{
-    'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[90%] after:h-1.5 after:bg-[#4C1D95] after:rounded-sm':
+    'after:content-[\'\'] after:absolute after:left-1/2 after:bottom-0 after:-translate-x-1/2 after:w-[90%] after:h-1.5 after:bg-primary-600 after:rounded-tr-[13px] after:rounded-tl-[15px]':
       activeTab() === 'addresses',
-    'text-gray-600 hover:text-[#4C1D95]':
+    'text-black hover:text-[#4C1D95]':
       activeTab() !== 'addresses'
     }">
       Registered & Operational Addresses
@@ -28,11 +28,11 @@
 
   <!-- Identity Details Tab -->
   @if (activeTab() === 'identity') {
-  <section class="px-4">
+  <section class="">
     <form [formGroup]="identityForm" (ngSubmit)="onSubmit()" class="space-y-3" autocomplete="off" novalidate>
       <div class="grid grid-cols-1 md:grid-cols-1">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Company Name (Legal)<span
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Company Name (Legal)<span
               class="text-red-500 mb-2">*</span></label>
           <input formControlName="companyName"
             class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
@@ -53,14 +53,25 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Business Type<span
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Business Type<span
               class="text-red-500">*</span></label>
-          <select formControlName="businessType" required
-            class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-gray-700 text-[12px] invalid:text-[#7C6FA2]">
-            <option value="" disabled hidden>Select Type</option>
-            <option value="partnership">Partnership</option>
-            <option value="private">Private Limited</option>
-          </select>
+          <p-select inputId="businessType" [options]="businessTypes()" optionLabel="name" optionValue="id"
+            placeholder="Select Type" formControlName="businessType" [filter]="true" filterBy="name" [showClear]="true"
+            [class]="'w-full text-[12px]'" aria-required="true" [attr.aria-invalid]="businessType.invalid">
+            <ng-template #selectedItem let-option>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ option.name }}</span>
+              </div>
+            </ng-template>
+
+            <ng-template #item let-type>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ type.name }}</span>
+              </div>
+            </ng-template>
+          </p-select>
 
           @if (businessType.touched && businessType.invalid) {
           <div class="text-red-500 text-[12px] mt-1">
@@ -72,22 +83,28 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Registration Number<span
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Registration Number<span
               class="text-red-500">*</span></label>
           <input formControlName="registrationNumber"
             class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
             placeholder="e.g., CIN: U12345WB2015PTC123456" />
 
-          <div *ngIf="registrationNumber.touched && registrationNumber.invalid" class="text-red-500 text-[12px] mt-1">
-            <div *ngIf="registrationNumber.errors?.['required']">Registration number is required.</div>
-            <div *ngIf="registrationNumber.errors?.['pattern']">Registration number format is invalid.</div>
+          @if (registrationNumber.touched && registrationNumber.invalid) {
+          <div class="text-red-500 text-[12px] mt-1">
+            @if (registrationNumber.errors?.['required']) {
+            <div>Registration number is required.</div>
+            }
+            @if (registrationNumber.errors?.['pattern']) {
+            <div>Registration number format is invalid.</div>
+            }
           </div>
+          }
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Date of Incorporation<span
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Date of Incorporation<span
               class="text-red-500">*</span></label>
           <input formControlName="dateOfIncorporation" type="date"
             class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-[#7C6FA2] text-[12px]" />
@@ -99,23 +116,45 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Industry Category<span
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Industry Category<span
               class="text-red-500">*</span></label>
-          <select formControlName="industryCategory" required
+          <!-- <select formControlName="industryCategory" required
             class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-gray-700 text-[12px] invalid:text-[#7C6FA2]">
             <option value="" disabled hidden>Select Type</option>
             <option value="IT">IT</option>
             <option value="Construction">Construction</option>
-          </select>
+          </select> -->
+          <p-select inputId="industryCategory" [options]="industryCategories()" optionLabel="name" optionValue="id"
+            placeholder="Select Type" formControlName="industryCategory" [filter]="true" filterBy="name"
+            [showClear]="true" [class]="'w-full text-[12px]'" aria-required="true"
+            [attr.aria-invalid]="industryCategory.invalid">
+            <ng-template #selectedItem let-option>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ option.name }}</span>
+              </div>
+            </ng-template>
 
-          <div *ngIf="industryCategory.touched && industryCategory.invalid" class="text-red-500 text-[12px] mt-1">
-            <div *ngIf="industryCategory.errors?.['required']">Industry category is required.</div>
+            <ng-template #item let-type>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ type.name }}</span>
+              </div>
+            </ng-template>
+          </p-select>
+
+          @if (industryCategory.touched && industryCategory.invalid) {
+          <div class="text-red-500 text-[12px] mt-1">
+            @if (industryCategory.errors?.['required']) {
+            <div>Industry category is required.</div>
+            }
           </div>
+          }
         </div>
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Nature of Business<span
+        <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Nature of Business<span
             class="text-red-500">*</span></label>
         <textarea rows="4" formControlName="natureOfBusiness"
           class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
@@ -132,11 +171,11 @@
 
   <!-- Registered & Operational Addresses Tab -->
   @if(activeTab() === 'addresses'){
-  <section class="px-4">
+  <section class="">
     <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="space-y-3" autocomplete="off" novalidate>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Registered Address<span
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Registered Address<span
               class="text-red-500">*</span></label>
           <input formControlName="registeredAddress"
             class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
@@ -149,7 +188,7 @@
           </div>}
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Operational Address<span
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Operational Address<span
               class="text-red-500">*</span></label>
           <input formControlName="operationalAddress"
             class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
@@ -166,12 +205,25 @@
 
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Country<span class="text-red-500">*</span></label>
-          <select formControlName="country" required
-            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-gray-700 text-[12px] invalid:text-[#7C6FA2]">
-            <option value="" disabled hidden>Select Country</option>
-            <option value="India">India</option>
-          </select>
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Country<span class="text-red-500">*</span></label>
+          <p-select inputId="country" [options]="countries()" optionLabel="name" optionValue="countryid"
+            placeholder="Select Country" formControlName="country" [filter]="true" filterBy="name"
+            [showClear]="true" [class]="'w-full text-[12px]'" aria-required="true"
+            [attr.aria-invalid]="country.invalid">
+            <ng-template #selectedItem let-option>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ option.name }}</span>
+              </div>
+            </ng-template>
+
+            <ng-template #item let-type>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ type.name }}</span>
+              </div>
+            </ng-template>
+          </p-select>
           @if (country.touched && country.invalid) {
           <div class="text-red-500 text-[12px] mt-1">
             @if (country.errors?.['required']) {
@@ -181,12 +233,31 @@
           }
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">State<span class="text-red-500">*</span></label>
-          <select formControlName="state" required
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">State<span class="text-red-500">*</span></label>
+          <!-- <select formControlName="state" required
             class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-gray-700 text-[12px] invalid:text-[#7C6FA2]">
             <option value="" disabled hidden>Select State</option>
             <option value="West Bengal">West Bengal</option>
-          </select>
+          </select> -->
+          <p-select inputId="state" [options]="states()" optionLabel="name" optionValue="stateid"
+            placeholder="Select State" formControlName="state" [filter]="true" filterBy="name"
+            [showClear]="true" [class]="'w-full text-[12px]'" aria-required="true"
+            [attr.aria-invalid]="state.invalid">
+            <ng-template #selectedItem let-option>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ option.name }}</span>
+              </div>
+            </ng-template>
+
+            <ng-template #item let-type>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ type.name }}</span>
+              </div>
+            </ng-template>
+          </p-select>
+
           @if (state.touched && state.invalid) {
           <div class="text-red-500 text-[12px] mt-1">
             @if (state.errors?.['required']) {
@@ -196,12 +267,30 @@
           }
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">City<span class="text-red-500">*</span></label>
-          <select formControlName="city" required
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">City<span class="text-red-500">*</span></label>
+          <!-- <select formControlName="city" required
             class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-gray-700 text-[12px] invalid:text-[#7C6FA2]">
             <option value="" disabled hidden>Select City</option>
             <option value="Kolkata">Kolkata</option>
-          </select>
+          </select> -->
+          <p-select inputId="city" [options]="cities()" optionLabel="name" optionValue="cityid"
+            placeholder="Select City" formControlName="city" [filter]="true" filterBy="name"
+            [showClear]="true" [class]="'w-full text-[12px]'" aria-required="true"
+            [attr.aria-invalid]="city.invalid">
+            <ng-template #selectedItem let-option>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ option.name }}</span>
+              </div>
+            </ng-template>
+
+            <ng-template #item let-type>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ type.name }}</span>
+              </div>
+            </ng-template>
+          </p-select>
           @if (city.touched && city.invalid) {
           <div class="text-red-500 text-[12px] mt-1">
             @if (city.errors?.['required']) {
@@ -211,7 +300,7 @@
           }
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">PIN<span class="text-red-500">*</span></label>
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">PIN<span class="text-red-500">*</span></label>
           <input formControlName="pin"
             class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
             placeholder="Enter Your PIN" />
@@ -230,7 +319,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Contact Person (Authorized
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Contact Person (Authorized
             Representative)<span class="text-red-500">*</span></label>
           <input formControlName="contactPerson"
             class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
@@ -244,14 +333,33 @@
           }
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Designation / Role<span
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Designation / Role<span
               class="text-red-500">*</span></label>
-          <select formControlName="designation" required
+          <!-- <select formControlName="designation" required
             class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-[12px] invalid:text-[#7C6FA2]">
             <option value="" disabled hidden>Select Designation</option>
             <option value="Director">Director</option>
             <option value="Procurement Head">Procurement Head</option>
-          </select>
+          </select> -->
+          <p-select inputId="designation" [options]="designations()" optionLabel="name" optionValue="id"
+            placeholder="Select Designation" formControlName="designation" [filter]="true" filterBy="name"
+            [showClear]="true" [class]="'w-full text-[12px]'" aria-required="true"
+            [attr.aria-invalid]="designation.invalid">
+            <ng-template #selectedItem let-option>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ option.name }}</span>
+              </div>
+            </ng-template>
+
+            <ng-template #item let-type>
+              <div class="flex items-center gap-2">
+                <i class="pi pi-briefcase text-primary-600"></i>
+                <span>{{ type.name }}</span>
+              </div>
+            </ng-template>
+          </p-select>
+
           @if (designation.touched && designation.invalid) {
           <div class="text-red-500 text-[12px] mt-1">
             @if (designation.errors?.['required']) {
@@ -264,7 +372,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Email Address (Official)<span
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Email Address (Official)<span
               class="text-red-500">*</span></label>
           <input formControlName="email" type="email"
             class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
@@ -281,7 +389,7 @@
           }
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number (Official)<span
+          <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Phone Number (Official)<span
               class="text-red-500">*</span></label>
           <input formControlName="phone" type="tel"
             class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
@@ -300,7 +408,7 @@
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Alternate Contact (Optional)</label>
+        <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Alternate Contact (Optional)</label>
         <input formControlName="alternateContact"
           class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
           placeholder="Backup contact for emergencies" />
