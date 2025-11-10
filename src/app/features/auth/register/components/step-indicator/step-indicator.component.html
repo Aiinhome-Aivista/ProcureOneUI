@@ -1,4 +1,4 @@
-<div class="flex items-center justify-between w-full p-4 bg-gray-100 rounded-md">
+<div class="flex items-center justify-between w-full p-4 rounded-md" style="background-color: var(--bg-surface)">
   @for (step of steps; track step.number; let last = $last) {
   <div class="flex items-center" [class.flex-1]="!last">
     <div class="flex flex-col items-center">
@@ -9,7 +9,7 @@
         [style.background]="getRingBackground(step)"
       >
         <!-- inner disc to create ring thickness -->
-        <div class="absolute inset-[3px] rounded-full bg-white"></div>
+        <div class="absolute inset-[3px] rounded-full" style="background-color: var(--bg-card)"></div>
 
         <!-- icon -->
         <span class="relative z-1 material-symbols-outlined" [ngClass]="getIconClass(step.number)">
@@ -19,8 +19,9 @@
         <!-- percent badge (optional for any step with percent) -->
         @if (step.percent != null) {
         <span
-          class="absolute text-[10px] bottom-0 translate-y-1/2 px-1 rounded bg-white shadow-sm"
-          [ngClass]="step.number <= currentStep() ? 'text-primary-700' : 'text-gray-600'"
+          class="absolute text-[10px] bottom-0 translate-y-1/2 px-1 rounded shadow-sm"
+          [style.background-color]="'var(--bg-card)'"
+          [style.color]="step.number <= currentStep() ? 'var(--primary-700)' : 'var(--text-secondary)'"
         >
           {{ step.percent }}%
         </span>
@@ -28,19 +29,19 @@
       </div>
 
       <div class="mt-2 text-center">
-        <p class="text-xs font-medium text-gray-900">{{ step.label }}</p>
+        <p class="text-xs font-medium" style="color: var(--text-primary)">{{ step.label }}</p>
       </div>
     </div>
 
     @if (!last) {
     <div
       class="flex-1 h-0.5 mx-3 border-t-3 border-dashed"
-      [ngClass]="
+      [style.border-color]="
         step.number < currentStep()
-          ? 'border-primary-600'
+          ? 'var(--primary-600)'
           : step.number === currentStep()
-          ? 'border-primary-300'
-          : 'border-gray-300'
+          ? 'var(--primary-300)'
+          : 'var(--border-light)'
       "
     ></div>
     }

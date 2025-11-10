@@ -1,7 +1,10 @@
-/* Registration Component Styles */
+/* Registration Component Styles using CSS Variables */
 
 .step-content {
   min-height: 400px;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
 }
 
 /* Step indicator styles */
@@ -9,11 +12,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: var(--text-primary);
 }
 
 /* Animation for step transitions */
 .step-content {
-  animation: fadeIn 0.3s ease-in-out;
+  animation: fadeIn var(--transition-normal) ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -25,4 +29,23 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Button hover states using CSS variables */
+button {
+  transition: all var(--transition-fast);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Links */
+a {
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--primary-600);
 }

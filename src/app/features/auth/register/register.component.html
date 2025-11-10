@@ -1,17 +1,19 @@
-<div class="h-screen bg-white flex flex-col">
+<div class="h-screen flex flex-col" style="background-color: var(--bg-body)">
   <!-- Header -->
-  <div class="bg-white border-b border-gray-200 shrink-0">
+  <div class="border-b shrink-0" style="background-color: var(--bg-card); border-color: var(--border-light)">
     <div class="px-6 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <a routerLink="/login" class="text-gray-600 hover:text-gray-900 flex items-center">
+          <a routerLink="/login" class="flex items-center transition" style="color: var(--text-secondary)" 
+             onmouseover="this.style.color='var(--text-primary)'" 
+             onmouseout="this.style.color='var(--text-secondary)'">
             <span class="material-symbols-outlined">arrow_back</span>
           </a>
           <div>
             <img src="assets/icons/Aiinhome _ PO.svg" alt="Aiinhome PO Logo" />
           </div>
         </div>
-        <div class="text-sm text-gray-600">
+        <div class="text-sm" style="color: var(--text-secondary)">
           <h3>28th October</h3>
           <small>12:15 PM</small>
         </div>
@@ -58,12 +60,20 @@
         }
       </div>
 
-      <div class="flex items-center justify-between border-t border-gray-200 py-3">
+      <div class="flex items-center justify-between border-t py-3" style="border-color: var(--border-light)">
         <button
           type="button"
-          class="inline-flex items-center gap-2 rounded-full border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
+          class="inline-flex items-center gap-2 rounded-full border px-5 py-2 text-sm font-medium transition focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed"
+          style="
+            border-color: var(--border-light);
+            color: var(--text-secondary);
+            background-color: transparent;
+          "
+          onmouseover="if(!this.disabled) this.style.backgroundColor='var(--bg-hover)'"
+          onmouseout="this.style.backgroundColor='transparent'"
           (click)="resetSteps()"
           [disabled]="isFirstStep()"
+          [style.opacity]="isFirstStep() ? '0.5' : '1'"
         >
           <span class="material-symbols-outlined text-base">autorenew</span>
           Reset
@@ -72,18 +82,32 @@
         <div class="flex items-center gap-3">
           <button
             type="button"
-            class="inline-flex items-center gap-2 rounded-full border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
+            class="inline-flex items-center gap-2 rounded-full border px-5 py-2 text-sm font-medium transition focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed"
+            style="
+              border-color: var(--border-light);
+              color: var(--text-secondary);
+              background-color: transparent;
+            "
+            onmouseover="if(!this.disabled) this.style.backgroundColor='var(--bg-hover)'"
+            onmouseout="this.style.backgroundColor='transparent'"
             (click)="previousStep()"
             [disabled]="isFirstStep()"
+            [style.opacity]="isFirstStep() ? '0.5' : '1'"
           >
             Previous
           </button>
 
           <button
             type="button"
-            class="inline-flex items-center gap-2 rounded-full bg-primary-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-primary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:bg-primary-300"
+            class="inline-flex items-center gap-2 rounded-full px-6 py-2 text-sm font-semibold text-white transition focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed"
+            style="
+              background-color: var(--primary-600);
+            "
+            onmouseover="if(!this.disabled) this.style.backgroundColor='var(--primary-500)'"
+            onmouseout="if(!this.disabled) this.style.backgroundColor='var(--primary-600)'"
             (click)="nextStep()"
             [disabled]="isLastStep()"
+            [style.opacity]="isLastStep() ? '0.5' : '1'"
           >
             Next
           </button>

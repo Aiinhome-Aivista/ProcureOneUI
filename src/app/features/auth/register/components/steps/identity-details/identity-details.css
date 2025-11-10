@@ -1,0 +1,49 @@
+/* Form Labels */
+.form-label {
+  color: var(--text-secondary);
+}
+
+/* Form Inputs */
+.form-input {
+  border-color: var(--border-light);
+  color: var(--text-primary);
+  background-color: var(--bg-card);
+}
+
+.form-input:focus {
+  border-color: var(--primary-500);
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.form-input.ng-invalid.ng-touched {
+  border-color: var(--error);
+}
+
+/* Tab Navigation */
+.tab-button {
+  color: var(--text-primary);
+  transition: all 0.3s;
+}
+
+.tab-button:hover {
+  color: var(--primary-600);
+}
+
+.tab-button.active::after {
+  background-color: var(--primary-600);
+}
+
+/* Tab Border */
+.tab-nav::after {
+  border-color: var(--border-light);
+}
+
+/* PrimeNG Select Icons */
+::ng-deep .pi-briefcase,
+::ng-deep .form-icon-primary {
+  color: var(--primary-600) !important;
+}
