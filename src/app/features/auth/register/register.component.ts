@@ -8,6 +8,7 @@ import { BusinessTaxRegistration } from './components/steps/business-tax-registr
 import { BankIdentityVerification } from './components/steps/bank-identity-verification/bank-identity-verification';
 import { FinancialDocuments } from './components/steps/financial-documents/financial-documents';
 import { StepIndicatorComponent } from './components/step-indicator/step-indicator.component';
+import { FinalSubmission } from "./components/steps/final-submission/final-submission";
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,8 @@ import { StepIndicatorComponent } from './components/step-indicator/step-indicat
     BusinessTaxRegistration,
     BankIdentityVerification,
     FinancialDocuments,
-    StepIndicatorComponent
+    StepIndicatorComponent,
+    FinalSubmission
 ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
