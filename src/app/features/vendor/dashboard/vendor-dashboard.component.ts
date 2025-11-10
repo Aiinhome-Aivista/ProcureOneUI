@@ -1,11 +1,12 @@
 import { Component, signal, computed, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
-import { LeftSidebar } from "./dashboard-child/left-sidebar/left-sidebar";
+import { LeftSidebar } from "./dashboard-child/left-sidebar-dashboard/left-sidebar/left-sidebar";
 import { TopCard } from "./dashboard-child/top-card/top-card";
 import { BidingPerformanceGraph } from "./dashboard-child/biding-performance-graph/biding-performance-graph";
 import { BidingStatus } from "./dashboard-child/biding-status/biding-status";
 import { BidingHistory } from "./dashboard-child/biding-history/biding-history";
+import { RequisitionBiddingViewpage } from "./dashboard-child/left-sidebar-dashboard/requisition-bidding-viewpage/requisition-bidding-viewpage";
 
 interface StatCard {
   title: string;
@@ -17,7 +18,7 @@ interface StatCard {
 
 @Component({
   selector: 'app-vendor-dashboard',
-  imports: [CommonModule, LeftSidebar, TopCard, BidingPerformanceGraph, BidingStatus, BidingHistory],
+  imports: [CommonModule, LeftSidebar, TopCard, BidingPerformanceGraph, BidingStatus, BidingHistory, RequisitionBiddingViewpage],
   templateUrl: './vendor-dashboard.component.html',
   styleUrls: ['./vendor-dashboard.component.css']
 })
