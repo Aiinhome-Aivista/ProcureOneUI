@@ -114,7 +114,7 @@ export class AuthService {
     }
 
     const user: User = {
-      id: data.user_id.toString(),
+      id: data.user_id ? data.user_id.toString() : data.username, // Use username as fallback if user_id is null
       email: data.email,
       name: data.username,
       role: role,
@@ -131,6 +131,7 @@ export class AuthService {
       }
     };
 
+    console.log('Auth successful, redirecting to:', role, 'dashboard');
     return authResponse;
   }
 
@@ -183,6 +184,7 @@ export class AuthService {
    * Handle successful authentication
    */
   private handleAuthSuccess(response: AuthResponse): void {
+    console.log('Handling auth success for user:', response.user);
     this.currentUserSignal.set(response.user);
     localStorage.setItem(this.TOKEN_KEY, response.token.accessToken);
     localStorage.setItem(this.REFRESH_TOKEN_KEY, response.token.refreshToken);
@@ -190,6 +192,7 @@ export class AuthService {
     this.isLoadingSignal.set(false);
 
     // Redirect based on role
+    console.log('Redirecting user with role:', response.user.role);
     this.redirectToDefaultPage(response.user.role);
   }
 
@@ -228,8 +231,15 @@ export class AuthService {
     };
 
     const targetPage = defaultPages[role];
+    console.log('Target page for role', role, ':', targetPage);
+    
     if (targetPage) {
-      this.router.navigate([targetPage]);
+      console.log('Navigating to:', targetPage);
+      this.router.navigate([targetPage]).then(success => {
+        console.log('Navigation successful:', success);
+      }).catch(err => {
+        console.error('Navigation failed:', err);
+      });
     } else {
       console.error('Invalid role for redirect:', role);
       this.router.navigate(['/login']);

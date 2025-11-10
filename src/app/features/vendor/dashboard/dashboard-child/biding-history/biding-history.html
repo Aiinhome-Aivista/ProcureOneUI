@@ -1,0 +1,78 @@
+<div class="col-span-2 rounded-2xl mt-7">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-3 sm:mb-4">
+    <p class="font-semibold text-sm text-[#000000]">Bidding History</p>
+  </div>
+
+  <!-- Filter Section -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mb-4 sm:mb-5">
+    <div class="relative">
+      <input type="text" placeholder="Requisition ID" [ngModel]="requisitionIdFilter()"
+        (ngModelChange)="requisitionIdFilter.set($event)"
+        class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-[#4319C2] placeholder-[#4319C2]/60 focus:outline-none focus:ring-1 focus:ring-[#4319C2]" />
+      <span class="material-symbols-outlined w-4 h-4 absolute right-3 top-1.5 sm:top-2.5 opacity-60 text-[#4319C245]">
+        search
+      </span>
+    </div>
+
+    <div class="relative">
+      <input type="text" placeholder="Submission Date" [ngModel]="submissionDateFilter()"
+        (ngModelChange)="submissionDateFilter.set($event)"
+        class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-[#4319C2] placeholder-[#4319C2]/60 focus:outline-none focus:ring-1 focus:ring-[#4319C2]" />
+      <span class="material-symbols-outlined w-4 h-4 absolute right-3 top-2 opacity-60 text-[#4319C245]">
+        event_note
+      </span>
+    </div>
+
+    <div class="relative">
+      <input type="text" placeholder="Bid Value" [ngModel]="bidValueFilter()" (ngModelChange)="onBidValueChange($event)"
+        class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-[#4319C2] placeholder-[#4319C2]/60 focus:outline-none focus:ring-1 focus:ring-[#4319C2]" />
+      <span class="absolute right-3 top-1.5 sm:top-2.5 text-[#4319C2] text-xs sm:text-sm opacity-60">$</span>
+    </div>
+
+    <div>
+      <select
+        class="w-full border border-[#4319C245] bg-[#FFFFFF] rounded-xl px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-[#4319C2] focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
+        [ngModel]="statusFilter()" (ngModelChange)="statusFilter.set($event)">
+        <option value="Status">Status</option>
+        <option>Awarded</option>
+        <option>Pending</option>
+        <option>Lost</option>
+      </select>
+    </div>
+  </div>
+  <div class="space-y-2 sm:space-y-3 max-h-52 sm:max-h-64 overflow-y-auto pr-2 hide-scrollbar">
+    @for (item of filteredBiddingHistory(); track item.id) {
+    <div
+      class="grid grid-cols-12 items-center bg-[#F5F5F5] hover:bg-gray-200 transition rounded-lg px-3 sm:px-4 py-3 sm:py-4">
+      <!-- Left Section -->
+      <div class="col-span-5 sm:col-span-5">
+        <p class="text-xs sm:text-xs font-semibold text-[#000000] leading-tight">
+          {{ item.id }}
+        </p>
+        <p class="text-xs text-[#0000008F] leading-tight">
+          {{ item.description }}
+        </p>
+      </div>
+
+      <!-- Date -->
+      <div class="col-span-3 sm:col-span-2 flex justify-start sm:justify-center">
+        <p class="text-xs text-[#0000008F]">{{ item.submissionDate }}</p>
+      </div>
+
+      <!-- Value -->
+      <div class="col-span-3 sm:col-span-3 flex justify-start sm:justify-center">
+        <p class="text-xs text-[#0000008F]">{{ item.bidValue | number }}</p>
+      </div>
+
+      <!-- Status -->
+      <div class="col-span-12 sm:col-span-2 flex justify-start sm:justify-end mt-2 sm:mt-0">
+        <span class="px-3 sm:px-4 py-1 text-xs rounded-full whitespace-nowrap" [class]="getStatusClass(item.status)">
+          {{ item.status }}
+        </span>
+      </div>
+    </div>
+    } @empty {
+    <div class="text-center text-gray-500 py-4">No bidding history found.</div>
+    }
+  </div>

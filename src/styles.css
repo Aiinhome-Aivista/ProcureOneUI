@@ -1,7 +1,10 @@
-@import 'tailwindcss';
+/* Tailwind CSS v4 + PrimeUI Plugin Integration */
+@import "tailwindcss";
+@import "tailwindcss-primeui";
 
-
+/* Define custom theme colors using Tailwind v4 @theme */
 @theme {
+  /* Primary Color Palette (Purple) - matches PrimeNG primary */
   --color-primary-50: #f5f3fb;
   --color-primary-100: #ece8f8;
   --color-primary-200: #d9d1f2;
@@ -13,6 +16,8 @@
   --color-primary-800: #2e1187;
   --color-primary-900: #210c61;
   --color-primary-950: #170843;
+
+ 
 }
 
 /* Custom Theme Yellow */

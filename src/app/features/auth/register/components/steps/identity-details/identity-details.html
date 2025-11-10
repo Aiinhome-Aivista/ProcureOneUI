@@ -57,7 +57,7 @@
               class="text-red-500">*</span></label>
           <p-select inputId="businessType" [options]="businessTypes()" optionLabel="name" optionValue="id"
             placeholder="Select Type" formControlName="businessType" [filter]="true" filterBy="name" [showClear]="true"
-            [class]="'w-full text-[12px]'" aria-required="true" [attr.aria-invalid]="businessType.invalid">
+            [class]="'w-full text-[12px]'"  aria-required="true" [attr.aria-invalid]="businessType.invalid" appendTo="body">
             <ng-template #selectedItem let-option>
               <div class="flex items-center gap-2">
                 <i class="pi pi-briefcase text-primary-600"></i>
@@ -127,7 +127,7 @@
           <p-select inputId="industryCategory" [options]="industryCategories()" optionLabel="name" optionValue="id"
             placeholder="Select Type" formControlName="industryCategory" [filter]="true" filterBy="name"
             [showClear]="true" [class]="'w-full text-[12px]'" aria-required="true"
-            [attr.aria-invalid]="industryCategory.invalid">
+            [attr.aria-invalid]="industryCategory.invalid" appendTo="body">
             <ng-template #selectedItem let-option>
               <div class="flex items-center gap-2">
                 <i class="pi pi-briefcase text-primary-600"></i>

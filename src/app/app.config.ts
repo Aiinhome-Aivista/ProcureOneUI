@@ -12,11 +12,18 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideAnimationsAsync(),
-        providePrimeNG({
-            theme: {
-                preset: Aura
-            }
-        }),
+    providePrimeNG({
+      theme: {
+        preset: Aura,
+        options: {
+          darkModeSelector: '.dark',
+          cssLayer: {
+            name: 'primeng',
+            order: 'theme, base, primeng'
+          }
+        }
+      }
+    }),
     provideRouter(
       routes,
       withComponentInputBinding(),

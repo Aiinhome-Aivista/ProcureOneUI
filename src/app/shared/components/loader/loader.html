@@ -1,0 +1,19 @@
+﻿<div 
+  class="relative flex items-center justify-center" 
+  [style.height.rem]="loaderSize()" 
+  [style.width.rem]="loaderSize()"
+>
+  @for (i of lines; track $index) {
+    <div 
+      class="absolute top-0 left-1/2 flex items-start h-full w-0.5"
+      [style.transform]="'rotate(' + (i * 30) + 'deg)'"
+    >
+      <div 
+        class="h-[28%] w-full rounded-full animate-pulseLine"
+        [class]="color()"
+        [style.animationDuration]="speed() + 's'"
+        [style.animationDelay]="(i * -1 / 12) + 's'"
+      ></div>
+    </div>
+  }
+</div>
