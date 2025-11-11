@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RequisitionBiddingViewpage } from "../requisition-bidding-viewpage/requisition-bidding-viewpage";
 
@@ -10,6 +10,7 @@ import { RequisitionBiddingViewpage } from "../requisition-bidding-viewpage/requ
   styleUrls: ['./left-sidebar.css'],
 })
 export class LeftSidebar {
+  @Output() cardClicked = new EventEmitter<void>();
   selectedCard: number | null = null;
 
   bidCards = [
@@ -24,6 +25,7 @@ export class LeftSidebar {
   selectCard(index: number) {
     console.log('card clicked', index);
     this.selectedCard = index;
+    this.cardClicked.emit();
   }
 
   // Called from the button to avoid click propagation issues

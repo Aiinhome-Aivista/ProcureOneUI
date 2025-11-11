@@ -2,8 +2,9 @@
     <!-- Header Section -->
     <div class="bg-neutral-100 rounded-2xl p-5 sm:p-6 mb-6 lg:flex-row lg:justify-between lg:items-center">
         <div class="flex justify-between items-start mb-4">
-            <div class="flex items-start gap-2 ">
-                <span class="material-symbols-outlined cursor-pointer">
+            <div class="flex items-start gap-2">
+                <span class="material-symbols-outlined cursor-pointer" (click)="backClicked.emit()">
+
                     arrow_back
                 </span>
                 <div>
@@ -145,7 +146,7 @@
                                     save a draft bid to continue later before the deadline or finalize your submission
                                     to officially participate in the evaluation.
 
-                                
+
                                 </p>
 
                                 <p class="mt-4 text-xs text-gray-700 pt-4">
@@ -162,7 +163,8 @@
                 <!-- Terms & Conditions Content -->
                 <div *ngIf="activeTab === 'terms'" class="p-5 h-150" role="tabpanel">
                     <h3 class="font-bold text-black text-xs mb-2">Terms & Conditions</h3>
-                    <p class="text-xs text-gray-600">Terms and conditions content goes here. This section is currently under development.</p>
+                    <p class="text-xs text-gray-600">Terms and conditions content goes here. This section is currently
+                        under development.</p>
                 </div>
             </div>
         </div>
