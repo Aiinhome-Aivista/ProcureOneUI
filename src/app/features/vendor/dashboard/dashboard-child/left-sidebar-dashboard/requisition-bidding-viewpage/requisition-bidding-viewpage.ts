@@ -3,9 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BidSubmissionModal } from '../../../../../../modal/components/bid-submission-modal/bid-submission-modal';
 
+import { RequisitionHeader } from "./requisition-header/requisition-header";
+import { RequisitionDetails } from "./requisition-details/requisition-details";
+import { BidParticipation } from "./bid-participation/bid-participation";
+
 @Component({
   selector: 'app-requisition-bidding-viewpage',
-  imports: [CommonModule, BidSubmissionModal, FormsModule],
+  imports: [CommonModule, BidSubmissionModal, FormsModule, RequisitionHeader, RequisitionDetails, BidParticipation],
   templateUrl: './requisition-bidding-viewpage.html',
   styleUrls: ['./requisition-bidding-viewpage.css'],
 })

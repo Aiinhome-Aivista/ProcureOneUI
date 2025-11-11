@@ -1,0 +1,48 @@
+<div class="bg-neutral-100 rounded-2xl p-5 sm:p-6 mb-6 lg:flex-row lg:justify-between lg:items-center">
+    <div class="flex justify-between items-start mb-4">
+        <div class="flex items-start gap-2">
+            <button (click)="backClicked.emit()" class="p-0 m-0 bg-transparent border-none cursor-pointer"
+                aria-label="Go back">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <div>
+                <p class="text-xs sm:text-xl font-semibold text-black">{{ requisitionTitle }}</p>
+                <p class="text-xs text-gray-500">
+                    Requisition ID: <span class="font-semibold">{{ requisitionId }}</span>
+                </p>
+            </div>
+        </div>
+        <div class="gap-2 flex">
+            <div>
+                <span class="bg-green-200 text-green-700 px-4 py-2 rounded-full text-xs">Open</span>
+            </div>
+            <div>
+                <span class="text-red-700 px-4 py-2 rounded-full text-xs border border-red-700">closes in <span
+                        class="font-semibold text-xs text-red-700">3d 12h 45m</span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="lg:mt-0 flex flex-wrap items-center justify-between">
+        <div>
+            <p class="font-bold text-black text-xs">IT & Technology</p>
+            <p class="text-gray-500 text-xs">Departments</p>
+        </div>
+        <div>
+            <p class="font-bold text-black text-xs">July 15, 2025-Oct 28, 2025</p>
+            <p class="text-gray-500 text-xs">$250,000</p>
+        </div>
+        <div>
+            <p class="font-bold text-black text-xs">$250,000</p>
+            <p class="text-gray-500 text-xs">Estimated Value</p>
+        </div>
+        <div>
+            <p class="font-bold text-black text-xs">Hardware & Software</p>
+            <p class="text-gray-500 text-xs">Category</p>
+        </div>
+        <div>
+            <p class="font-bold text-black text-xs">Location</p>
+            <p class="text-gray-500 text-xs">Corporate HQ, New York</p>
+        </div>
+    </div>
+</div>
