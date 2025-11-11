@@ -27,15 +27,39 @@ Chart.register(...registerables);
   styleUrl: './biding-performance-graph.css',
 })
 export class BidingPerformanceGraph {
-  private readonly chartRef = viewChild.required<ElementRef<HTMLCanvasElement>>('biddingChart');
+  private readonly chartRef =
+    viewChild.required<ElementRef<HTMLCanvasElement>>('biddingChart');
 
   private chart?: Chart<'line'>;
 
-  // Reactive data
-  readonly totalValue = signal(256000);
-  readonly timeLabels = signal(['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6']);
-  readonly bidValues = signal([12000, 15400, 9000, 2500, 9800, 13500]);
+  //  Period selection (dropdown value)
+  readonly selectedPeriod = signal<'quarterly' | 'halfyear' | 'yearly'>('quarterly');
 
+  //  Hardcoded JSON data (requested)
+  readonly dataSource = {
+    quarterly: {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      values: [12000, 15400, 9000, 13500],
+      total: 256000,
+    },
+    halfyear: {
+      labels: ['H1', 'H2', 'H3', 'H4'],
+      values: [18000, 26000, 15000, 20000],
+      total: 79000,
+    },
+    yearly: {
+      labels: ['2021', '2022', '2023', '2024'],
+      values: [95000, 89000, 102000, 120000],
+      total: 406000,
+    },
+  };
+
+  // Reactive signals based on dropdown
+  readonly timeLabels = computed(() => this.dataSource[this.selectedPeriod()].labels);
+  readonly bidValues = computed(() => this.dataSource[this.selectedPeriod()].values);
+  readonly totalValue = computed(() => this.dataSource[this.selectedPeriod()].total);
+
+  // ChartJS dataset
   readonly chartData: Signal<ChartData<'line'>> = computed(() => ({
     labels: this.timeLabels(),
     datasets: [
@@ -44,6 +68,7 @@ export class BidingPerformanceGraph {
         data: this.bidValues(),
         fill: true,
         borderColor: '#4319C2',
+        tension: 0.5,
         backgroundColor: (context) => {
           const chart = context.chart;
           const { ctx, chartArea } = chart;
@@ -53,7 +78,6 @@ export class BidingPerformanceGraph {
           gradient.addColorStop(1, 'rgba(67,25,194,0.02)');
           return gradient;
         },
-        tension: 0.5, // smooth curve
         pointBackgroundColor: '#FFFFFF',
         pointBorderColor: '#4319C2',
         pointBorderWidth: 3,
@@ -69,17 +93,6 @@ export class BidingPerformanceGraph {
   readonly chartOptions: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
-    scales: {
-      x: {
-        grid: { display: false },
-        // ticks: { color: '#000000CC', font: { size: 11 } },
-      },
-      y: {
-        display: false,
-        grid: { display: false },
-        border: { display: false },
-      },
-    },
     plugins: {
       legend: { display: false },
       tooltip: {
@@ -87,38 +100,44 @@ export class BidingPerformanceGraph {
         displayColors: false,
         backgroundColor: '#EDE7F6',
         titleColor: '#000',
-        titleFont: { size: 12, weight: 'bold' },
         bodyColor: '#000',
-        bodyFont: { size: 12 },
         callbacks: {
           title: () => '',
           label: (ctx) => `$${ctx.formattedValue} Average`,
         },
       },
     },
-    elements: {
-      line: { borderWidth: 2 },
+    scales: {
+      x: { grid: { display: false } },
+      y: { display: false },
     },
   };
 
   constructor() {
     effect(() => {
-      const chartData = this.chartData(); // Depend on chartData signal
       const ctx = this.chartRef().nativeElement.getContext('2d');
       if (!ctx) return;
 
       if (this.chart) {
-        // If chart exists, update its data and refresh
-        this.chart.data = chartData;
+        this.chart.data = this.chartData();
         this.chart.update();
       } else {
-        // Otherwise, create a new chart
         this.chart = new Chart(ctx, {
           type: 'line',
-          data: chartData,
+          data: this.chartData(),
           options: this.chartOptions,
         });
       }
     });
+  }
+
+  //  Called when dropdown changes
+  handlePeriodChange(event: Event) {
+    const newValue = (event.target as HTMLSelectElement).value as
+      | 'quarterly'
+      | 'halfyear'
+      | 'yearly';
+
+    this.selectedPeriod.set(newValue);
   }
 }
