@@ -129,23 +129,27 @@
 <div class="grid grid-cols-12 gap-6 pl-2">
   <!-- Left Sidebar -->
   <div class="col-span-3 space-y-4">
-    <app-left-sidebar></app-left-sidebar>
+    <app-left-sidebar (cardClicked)="handleCardClick()"></app-left-sidebar>
   </div>
 
   <!-- Right Main Section -->
-  <!-- <div class="col-span-9 space-y-4">
-    <app-top-card></app-top-card>
-    <app-biding-performance-graph></app-biding-performance-graph>
-    <div class="grid grid-cols-3 gap-8">
-      <div>
-        <app-biding-status></app-biding-status>
-      </div>
-      <div class="col-span-2">
-        <app-biding-history></app-biding-history>
+  <ng-container *ngIf="!showBiddingView; else biddingView">
+    <div class="col-span-9 space-y-4">
+      <app-top-card></app-top-card>
+      <app-biding-performance-graph></app-biding-performance-graph>
+      <div class="grid grid-cols-3 gap-8">
+        <div>
+          <app-biding-status></app-biding-status>
+        </div>
+        <div class="col-span-2">
+          <app-biding-history></app-biding-history>
+        </div>
       </div>
     </div>
-  </div> -->
-  <div class="col-span-9 space-y-4">
-    <app-requisition-bidding-viewpage></app-requisition-bidding-viewpage>
+  </ng-container>
+  <ng-template #biddingView>
+    <div class="col-span-9 space-y-4">
+    <app-requisition-bidding-viewpage (backClicked)="handleBackClick()"></app-requisition-bidding-viewpage>
   </div>
+  </ng-template>
 </div>

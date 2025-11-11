@@ -1,5 +1,4 @@
-
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BidSubmissionModal } from '../../../../../../modal/components/bid-submission-modal/bid-submission-modal';
@@ -9,7 +8,7 @@ import { BidSubmissionModal } from '../../../../../../modal/components/bid-submi
   standalone: true,
   imports: [CommonModule, BidSubmissionModal, FormsModule],
   templateUrl: './requisition-bidding-viewpage.html',
-  styleUrl: './requisition-bidding-viewpage.css',
+  styleUrls: ['./requisition-bidding-viewpage.css'],
 })
 export class RequisitionBiddingViewpage {
   activeTab: 'details' | 'terms' = 'details';
@@ -21,12 +20,8 @@ export class RequisitionBiddingViewpage {
   agreeToTerms = false;
   selectedFile: File | null = null;
   isDragging = false;
-
-  requisitions = [
-    { id: 'REQ-001', title: 'Office Supplies', vendor: 'ABC Traders', status: 'Approved', date: '2025-11-09' },
-    { id: 'REQ-002', title: 'Laptop Purchase', vendor: 'TechMart', status: 'Pending', date: '2025-11-08' },
-    { id: 'REQ-003', title: 'Furniture', vendor: 'HomeLine', status: 'Rejected', date: '2025-11-07' },
-  ];
+  @Output() backClicked = new EventEmitter<void>();
+  
 
   selectTab(tab: 'details' | 'terms') {
     this.activeTab = tab;
@@ -80,3 +75,4 @@ export class RequisitionBiddingViewpage {
     return !!this.bidAmount && !!this.deliveryTime && this.agreeToTerms && !!this.selectedFile;
   }
 }
+

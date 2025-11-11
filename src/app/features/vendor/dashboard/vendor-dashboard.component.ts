@@ -26,6 +26,8 @@ export class VendorDashboardComponent implements OnInit {
   private readonly authService = inject(AuthService);
   
   readonly currentUser = this.authService.currentUser;
+  showBiddingView = false;
+
   readonly isLoading = signal(false);
   
   readonly stats = signal<StatCard[]>([
@@ -52,7 +54,15 @@ export class VendorDashboardComponent implements OnInit {
       this.isLoading.set(false);
     }, 500);
   }
+
+  handleCardClick(): void {
+    this.showBiddingView = true;
+  }
   
+  handleBackClick(): void {
+    this.showBiddingView = false;
+  }
+
   getStatusClass(status: string): string {
     const classes: Record<string, string> = {
       'Delivered': 'bg-green-100 text-green-800',
