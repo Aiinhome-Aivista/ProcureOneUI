@@ -133,7 +133,7 @@
   </div>
 
   <!-- Right Main Section -->
-  <ng-container *ngIf="!showBiddingView; else biddingView">
+  @if (!showBiddingView()) {
     <div class="col-span-9 space-y-4">
       <app-top-card></app-top-card>
       <app-biding-performance-graph></app-biding-performance-graph>
@@ -146,10 +146,9 @@
         </div>
       </div>
     </div>
-  </ng-container>
-  <ng-template #biddingView>
+  } @else {
     <div class="col-span-9 space-y-4">
-    <app-requisition-bidding-viewpage (backClicked)="handleBackClick()"></app-requisition-bidding-viewpage>
-  </div>
-  </ng-template>
+      <app-requisition-bidding-viewpage (backClicked)="handleBackClick()"></app-requisition-bidding-viewpage>
+    </div>
+  }
 </div>

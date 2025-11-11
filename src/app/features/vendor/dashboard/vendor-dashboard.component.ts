@@ -26,7 +26,7 @@ export class VendorDashboardComponent implements OnInit {
   private readonly authService = inject(AuthService);
   
   readonly currentUser = this.authService.currentUser;
-  showBiddingView = false;
+  readonly showBiddingView = signal(false);
 
   readonly isLoading = signal(false);
   
@@ -56,11 +56,11 @@ export class VendorDashboardComponent implements OnInit {
   }
 
   handleCardClick(): void {
-    this.showBiddingView = true;
+    this.showBiddingView.set(true);
   }
   
   handleBackClick(): void {
-    this.showBiddingView = false;
+    this.showBiddingView.set(false);
   }
 
   getStatusClass(status: string): string {
