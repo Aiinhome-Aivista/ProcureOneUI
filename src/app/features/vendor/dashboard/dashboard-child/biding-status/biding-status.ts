@@ -19,7 +19,6 @@ Chart.register(...registerables);
 
 @Component({
   selector: 'app-biding-status',
-  standalone: true,
   imports: [],
   templateUrl: './biding-status.html',
   styleUrl: './biding-status.css',

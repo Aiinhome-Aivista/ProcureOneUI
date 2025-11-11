@@ -7,7 +7,6 @@ import { TopCardData, dashboardData } from '../../../../../data/data';
   imports: [CommonModule],
   templateUrl: './top-card.html',
   styleUrl: './top-card.css',
-  standalone: true
 })
 export class TopCard {
   topCards: TopCardData[] = dashboardData.topCards;

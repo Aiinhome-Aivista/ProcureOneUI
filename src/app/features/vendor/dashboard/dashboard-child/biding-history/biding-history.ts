@@ -12,7 +12,6 @@ interface BiddingHistoryItem {
 
 @Component({
   selector: 'app-biding-history',
-  standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './biding-history.html',
   styleUrl: './biding-history.css',

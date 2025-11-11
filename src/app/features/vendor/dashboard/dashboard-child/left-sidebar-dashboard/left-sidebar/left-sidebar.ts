@@ -4,7 +4,6 @@ import { RequisitionBiddingViewpage } from "../requisition-bidding-viewpage/requ
 
 @Component({
   selector: 'app-left-sidebar',
-  standalone: true,
   imports: [CommonModule, RequisitionBiddingViewpage],
   templateUrl: './left-sidebar.html',
   styleUrls: ['./left-sidebar.css'],

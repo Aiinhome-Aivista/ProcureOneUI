@@ -5,7 +5,6 @@ import { BidSubmissionModal } from '../../../../../../modal/components/bid-submi
 
 @Component({
   selector: 'app-requisition-bidding-viewpage',
-  standalone: true,
   imports: [CommonModule, BidSubmissionModal, FormsModule],
   templateUrl: './requisition-bidding-viewpage.html',
   styleUrls: ['./requisition-bidding-viewpage.css'],

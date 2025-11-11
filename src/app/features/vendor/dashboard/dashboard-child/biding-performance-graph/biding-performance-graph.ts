@@ -20,7 +20,6 @@ Chart.register(...registerables);
 
 @Component({
   selector: 'app-biding-performance-graph',
-  standalone: true,
   imports: [DecimalPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './biding-performance-graph.html',
