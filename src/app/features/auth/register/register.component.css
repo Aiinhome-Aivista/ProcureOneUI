@@ -26,3 +26,23 @@
     transform: translateY(0);
   }
 }
+
+::ng-deep .p-dialog-header-actions {
+    display: none !important;
+  }
+
+::ng-deep .p-dialog-header {
+    padding: 0 !important;
+}
+
+::ng-deep .p-dialog {
+    border: none !important;
+}
+
+::ng-deep .p-dialog-content {
+    padding: 1.5rem !important;
+}
+
+::ng-deep .p-dialog-footer {
+    padding: 0 0 1rem 0 !important;
+}

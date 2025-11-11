@@ -109,10 +109,14 @@
           <input formControlName="dateOfIncorporation" type="date"
             class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-[#7C6FA2] text-[12px]" />
 
-          <div *ngIf="dateOfIncorporation.touched && dateOfIncorporation.invalid" class="text-red-500 text-[12px] mt-1">
-            <div *ngIf="dateOfIncorporation.errors?.['required']">Date of incorporation is required.</div>
-            <div *ngIf="dateOfIncorporation.errors?.['futureDate']">Date cannot be in the future.</div>
+          @if (dateOfIncorporation.touched && dateOfIncorporation.invalid) {
+            <div class="text-red-500 text-[12px] mt-1">
+              @if (dateOfIncorporation.errors?.['required']) {
+            <div>Date of incorporation is required.</div>}
+            @if (dateOfIncorporation.errors?.['futureDate']) {
+            <div>Date cannot be in the future.</div>}
           </div>
+        }
         </div>
 
         <div>
@@ -160,10 +164,14 @@
           class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 placeholder:text-[#7C6FA2] placeholder:text-[12px]"
           placeholder='Short description (e.g., "Supplier of construction materials")'></textarea>
 
-        <div *ngIf="natureOfBusiness.touched && natureOfBusiness.invalid" class="text-red-500 text-[12px] mt-1">
-          <div *ngIf="natureOfBusiness.errors?.['required']">Nature of business is required.</div>
-          <div *ngIf="natureOfBusiness.errors?.['maxlength']">Description cannot exceed 500 characters.</div>
+        @if (natureOfBusiness.touched && natureOfBusiness.invalid) {
+          <div class="text-red-500 text-[12px] mt-1">
+            @if (natureOfBusiness.errors?.['required']) {
+          <div>Nature of business is required.</div>}
+          @if (natureOfBusiness.errors?.['maxlength']) {
+          <div>Description cannot exceed 500 characters.</div>}
         </div>
+      }
       </div>
     </form>
   </section>
