@@ -340,6 +340,21 @@ export class IdentityDetails implements OnInit, OnDestroy {
     }
   }
 
+  public resetAllForms(): void {
+    this.identityForm.reset();
+    this.identityForm.markAsPristine();
+    this.identityForm.markAsUntouched();
+
+    this.addressForm.reset();
+    this.addressForm.markAsPristine();
+    this.addressForm.markAsUntouched();
+
+    this._states.set([]);
+    this._cities.set([]);
+    this.tabSignal.set('identity');
+    this.dataChange.emit({ ...this.identityForm.value, ...this.addressForm.value });
+  }
+
   public onSubmit(): void {
     if (this.activeTab() === 'identity') {
       if (this.identityForm.invalid) {

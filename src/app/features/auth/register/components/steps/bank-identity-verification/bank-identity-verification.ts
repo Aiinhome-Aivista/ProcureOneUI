@@ -36,4 +36,12 @@ export class BankIdentityVerification {
     this.uploadedFiles[field] = null;
   }
 
+  public resetForm(): void {
+    this.uploadedFiles = {
+      cancelCheque: null,
+      bankStatement: null,
+      verifyLetter: null,
+    };
+  }
+
 }

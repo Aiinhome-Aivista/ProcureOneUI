@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -31,6 +31,10 @@ import { ButtonModule } from 'primeng/button';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
+  @ViewChild('identityDetails') private identityDetailsComponent?: IdentityDetails;
+  @ViewChild('businessTaxRegistration') private businessTaxRegistrationComponent?: BusinessTaxRegistration;
+  @ViewChild('bankIdentityVerification') private bankIdentityVerificationComponent?: BankIdentityVerification;
+
   // Current step signal - connected to sidebar
   readonly currentStep = signal<number>(1);
   private readonly totalSteps = 4;
@@ -105,6 +109,24 @@ export class RegisterComponent {
   }
 
   resetSteps(): void {
-    this.currentStep.set(1);
+    this.resetActiveStepForm();
+    this.showDialog = false;
+  }
+
+  private resetActiveStepForm(): void {
+    const step = this.currentStep();
+    if (step === 1) {
+      this.identityDetailsComponent?.resetAllForms();
+      return;
+    }
+
+    if (step === 2) {
+      this.businessTaxRegistrationComponent?.resetForm();
+      return;
+    }
+
+    if (step === 3) {
+      this.bankIdentityVerificationComponent?.resetForm();
+    }
   }
 }

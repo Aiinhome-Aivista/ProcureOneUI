@@ -80,5 +80,13 @@ export class BusinessTaxRegistration {
     return this.form.get('incorp');
   }
 
+  public resetForm(): void {
+    this.form.reset();
+    this.form.markAsPristine();
+    this.form.markAsUntouched();
+    this.selectedFileName = null;
+    this.dataChange.emit({ ...this.form.value });
+  }
+
 
 }

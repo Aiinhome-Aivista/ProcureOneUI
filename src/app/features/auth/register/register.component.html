@@ -34,25 +34,20 @@
       <div class="flex-1 overflow-y-auto">
         <!-- Step 1: Identity Details -->
         @if (currentStep() === 1) {
-        <app-identity-details />
+        <app-identity-details #identityDetails />
         }
 
         <!-- Step 2: Business Tax Registration -->
         @if (currentStep() === 2) {
-        <app-business-tax-registration />
-        }
-
-<!--       
+        <app-business-tax-registration #businessTaxRegistration />
+        } 
         @if (currentStep() === 3) {
-        <app-bank-identity-verification />
-        }
+        <app-bank-identity-verification #bankIdentityVerification />
+        } @if (currentStep() === 4) {
 
-      
-        @if (currentStep() === 4) {
-       
         <app-final-submission />
 
-        } -->
+        }
       </div>
 
       <div class="flex items-center justify-between border-t border-gray-200 py-3">
@@ -60,7 +55,7 @@
           type="button"
           class="inline-flex items-center gap-2 rounded-full border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
           (click)="resetSteps()"
-          [disabled]="isFirstStep()"
+          
         >
           <span class="material-symbols-outlined text-base">autorenew</span>
           Reset
