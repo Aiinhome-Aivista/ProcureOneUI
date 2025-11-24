@@ -39,7 +39,7 @@
 
   <!-- Scrollable Container -->
   <div
-    class="space-y-3 sm:space-y-4 max-h-[calc(100vh-300px)] sm:max-h-115 overflow-y-auto pr-1 sm:pr-2 hide-scrollbar">
+    class="space-y-3 sm:space-y-4 max-h-[calc(100vh-100px) overflow-y-auto  hide-scrollbar">
     <div *ngFor="let card of bidCards; let i = index" (click)="selectCard(i)" [ngClass]="{
         'bg-[#4319C221] border-2 border-primary-600': selectedCard === i,
         'bg-[#F5F5F5]': selectedCard !== i
