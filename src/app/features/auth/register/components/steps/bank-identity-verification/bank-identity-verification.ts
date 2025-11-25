@@ -44,4 +44,11 @@ export class BankIdentityVerification {
     };
   }
 
+  public isValid(): boolean {
+    return !!(
+      this.uploadedFiles.cancelCheque &&
+      this.uploadedFiles.bankStatement &&
+      this.uploadedFiles.verifyLetter
+    );
+  }
 }

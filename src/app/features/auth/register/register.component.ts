@@ -83,8 +83,31 @@ export class RegisterComponent {
 
   nextStep(): void {
     if (this.isLastStep()) return;
+
+    // Validate the current step before proceeding
+    const currentStepNumber = this.currentStep();
+    let isValid = false;
+
+    switch (currentStepNumber) {
+      case 1:
+        isValid = this.validateStep1();
+        break;
+      case 2:
+        isValid = this.validateStep2();
+        break;
+      case 3:
+        isValid = this.validateStep3();
+        break;
+      default:
+        isValid = true;
+    }
+
+    if (!isValid) {
+      return;
+    }
+
     // If it's the first step, open dialog instead of going next immediately
-    if (this.currentStep() === 1) {
+    if (currentStepNumber === 1) {
       console.log('Opening dialog for step 1');
       this.openDialog();
     } else {
@@ -92,13 +115,54 @@ export class RegisterComponent {
     }
   }
 
-  // nextStep(): void {
-  //   if (this.isLastStep()) {
-  //     return;
-  //   }
+  private validateStep1(): boolean {
+    if (!this.identityDetailsComponent) {
+      return false;
+    }
 
-  //   this.currentStep.update((step) => Math.min(this.totalSteps, step + 1));
-  // }
+    const identityForm = this.identityDetailsComponent.identityForm;
+    const addressForm = this.identityDetailsComponent.addressForm;
+
+    // Check if identity form is valid
+    if (identityForm.invalid) {
+      identityForm.markAllAsTouched();
+      this.identityDetailsComponent.switchTab('identity');
+      return false;
+    }
+
+    // Check if address form is valid
+    if (addressForm.invalid) {
+      addressForm.markAllAsTouched();
+      this.identityDetailsComponent.switchTab('addresses');
+      return false;
+    }
+
+    return true;
+  }
+
+  private validateStep2(): boolean {
+    if (!this.businessTaxRegistrationComponent) {
+      return false;
+    }
+
+    const form = this.businessTaxRegistrationComponent.form;
+    if (form?.invalid) {
+      form.markAllAsTouched();
+      return false;
+    }
+
+    return true;
+  }
+
+  private validateStep3(): boolean {
+    if (!this.bankIdentityVerificationComponent) {
+      return false;
+    }
+
+    return this.bankIdentityVerificationComponent.isValid();
+  }
+
+ 
 
   previousStep(): void {
     if (this.isFirstStep()) {

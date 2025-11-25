@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiEndpoints } from '../config/api-endpoints';
-import { DropdownModel } from '../models';
+import { BasicInfo, DropdownModel } from '../models';
 import { LegalProofResponse } from '../models';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class RegisterService {
   constructor(private http: HttpClient) { }
 
 
-  businessTypes(): Observable<DropdownModel>{
+  businessTypes(): Observable<DropdownModel> {
     return this.http.get<DropdownModel>(ApiEndpoints.AUTH.BUSINESS_TYPES);
   }
 
@@ -30,6 +30,14 @@ export class RegisterService {
     return this.http.get<DropdownModel>(ApiEndpoints.AUTH.COUNTRIES);
   }
 
+  certificateIncorporation(): Observable<LegalProofResponse> {
+    return this.http.get<LegalProofResponse>(ApiEndpoints.AUTH.CERTIFICATE_iNCORPORATION)
+  }
+
+
+
+
+
   states(body: any): Observable<DropdownModel> {
     return this.http.post<DropdownModel>(ApiEndpoints.AUTH.STATES, body);
   }
@@ -37,10 +45,9 @@ export class RegisterService {
   cities(body: any): Observable<DropdownModel> {
     return this.http.post<DropdownModel>(ApiEndpoints.AUTH.CITIES, body);
   }
-  
-  certificateIncorporation(): Observable<LegalProofResponse> {
-    return this.http.get<LegalProofResponse>(ApiEndpoints.AUTH.CERTIFICATE_iNCORPORATION)
+
+  postBasicInfo(body: any): Observable<BasicInfo> {
+    return this.http.post<BasicInfo>(ApiEndpoints.AUTH.BASIC_INFO, body);
   }
 
-  
 }

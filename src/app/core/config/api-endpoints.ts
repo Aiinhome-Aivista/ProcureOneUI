@@ -10,18 +10,16 @@ export class ApiEndpoints {
   // Authentication endpoints
   static readonly AUTH = {
     LOGIN: `${ApiEndpoints.BASE_URL}/AuthMicroservices/login`,
-    LOGOUT: `${ApiEndpoints.BASE_URL}/AuthMicroservices/logout`,
+
     REFRESH_TOKEN: `${ApiEndpoints.BASE_URL}/AuthMicroservices/refresh-token`,
-    REGISTER: `${ApiEndpoints.BASE_URL}/AuthMicroservices/register`,
     BUSINESS_TYPES: `${ApiEndpoints.BASE_URL}/VendorMicroservices/business_types`,
     INDUSTRY_CATEGORIES: `${ApiEndpoints.BASE_URL}/VendorMicroservices/industry_categories`,
     DESIGNATIONS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/designations`,
     COUNTRIES: `${ApiEndpoints.BASE_URL}/VendorMicroservices/countries`,
     STATES: `${ApiEndpoints.BASE_URL}/VendorMicroservices/states`,
     CITIES: `${ApiEndpoints.BASE_URL}/VendorMicroservices/cities`,
-    FORGOT_PASSWORD: `${ApiEndpoints.BASE_URL}/AuthMicroservices/forgot-password`,
-    RESET_PASSWORD: `${ApiEndpoints.BASE_URL}/AuthMicroservices/reset-password`,
-    CERTIFICATE_iNCORPORATION: `${ApiEndpoints.BASE_URL}/VendorMicroservices/legal_proofs`
+    CERTIFICATE_iNCORPORATION: `${ApiEndpoints.BASE_URL}/VendorMicroservices/legal_proofs`,
+    BASIC_INFO: `${ApiEndpoints.BASE_URL}/VendorMicroservices/basic-info`,
   } as const;
 
   // Vendor endpoints
