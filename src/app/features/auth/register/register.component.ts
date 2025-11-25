@@ -54,7 +54,7 @@ export class RegisterComponent {
 
   companyData = {
 
-   
+
     headerdescription: `This is the final step in completing your company's basic registration process. Before submitting, please carefully review all the information you have entered in the sections including Company Profile, Business Address, Legal Structure, and Contact Details.`,
     footertitle: "Notable information:",
     footerdescription: "At the time of initial entry, the system automatically generates a unique Initial Registration ID (IRID) for your company. This ID allows you to pause and resume your registration at any point, ensuring that your progress is securely saved. You can use this ID to log back in, upload pending documents, or communicate with the procurement team regarding your registration status."
@@ -228,8 +228,8 @@ export class RegisterComponent {
       next: (response) => {
         if (response.isSuccess === 'True' || response.status === 'success') {
           this.vendorId = response.vendor_id;
+          sessionStorage.setItem('vendorId', this.vendorId);
           console.log('Step 1 submitted successfully. Vendor ID:', this.vendorId);
-
           this.showDialog = false;
           this.currentStep.update((step) => Math.min(this.totalSteps, step + 1));
         } else {
