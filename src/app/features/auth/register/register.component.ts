@@ -1,6 +1,7 @@
-import { Component, computed, signal, ViewChild } from '@angular/core';
+import { Component, computed, signal, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { inject } from '@angular/core';
 
 import { Sidebar } from './components/sidebar/sidebar';
 import { IdentityDetails } from './components/steps/identity-details/identity-details';
@@ -11,6 +12,7 @@ import { StepIndicatorComponent } from './components/step-indicator/step-indicat
 import { FinalSubmission } from './components/steps/final-submission/final-submission';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { RegisterService } from '../../../core/services';
 
 @Component({
   selector: 'app-register',
@@ -31,12 +33,16 @@ import { ButtonModule } from 'primeng/button';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  @ViewChild('identityDetails') private identityDetailsComponent?: IdentityDetails;
-  @ViewChild('businessTaxRegistration') private businessTaxRegistrationComponent?: BusinessTaxRegistration;
-  @ViewChild('bankIdentityVerification') private bankIdentityVerificationComponent?: BankIdentityVerification;
+  private readonly registerService = inject(RegisterService);
+  
+  private readonly identityDetailsComponent = viewChild<IdentityDetails>('identityDetails');
+  private readonly businessTaxRegistrationComponent = viewChild<BusinessTaxRegistration>('businessTaxRegistration');
+  private readonly bankIdentityVerificationComponent = viewChild<BankIdentityVerification>('bankIdentityVerification');
 
   // Current step signal - connected to sidebar
   readonly currentStep = signal<number>(1);
+  readonly isLoading = signal<boolean>(false);
+  private vendorId: string | null = null;
   private readonly totalSteps = 4;
   readonly isFirstStep = computed(() => this.currentStep() === 1);
   readonly isLastStep = computed(() => this.currentStep() === this.totalSteps);
@@ -44,6 +50,7 @@ export class RegisterComponent {
   public showDialog = false; // control dialog visibility
 
   companyData = {
+    
     name: 'Airlift-Avistas-Pvt. Ltd.',
     type: 'Private Limited',
     cin: 'U12345WB2015PTC123456',
@@ -51,7 +58,7 @@ export class RegisterComponent {
     category: 'Logistics',
     addressLegal: 'Registered Address',
     addressOperational: 'Operational Address',
-    headerdescription: `This is the final step in completing your company’s basic registration process. Before submitting, please carefully review all the information you have entered in the sections including Company Profile, Business Address, Legal Structure, and Contact Details.`,
+    headerdescription: `This is the final step in completing your company's basic registration process. Before submitting, please carefully review all the information you have entered in the sections including Company Profile, Business Address, Legal Structure, and Contact Details.`,
     description: `We are a national-level logistics service provider specializing in bulk material 
     transport, warehousing management, and supply chain optimization for industrial clients. 
     Our fleet includes 100 heavy-duty vehicles equipped with GPS tracking, and we operate across 
@@ -74,11 +81,7 @@ export class RegisterComponent {
   }
 
   confirmAndNext(): void {
-    console.log('Confirming and moving to next step');
-    this.showDialog = false;
-
-    // Manually advance to step 2
-    this.currentStep.update((step) => Math.min(this.totalSteps, step + 1));
+    this.submitStep1Data();
   }
 
   nextStep(): void {
@@ -116,24 +119,25 @@ export class RegisterComponent {
   }
 
   private validateStep1(): boolean {
-    if (!this.identityDetailsComponent) {
+    const component = this.identityDetailsComponent();
+    if (!component) {
       return false;
     }
 
-    const identityForm = this.identityDetailsComponent.identityForm;
-    const addressForm = this.identityDetailsComponent.addressForm;
+    const identityForm = component.identityForm;
+    const addressForm = component.addressForm;
 
     // Check if identity form is valid
     if (identityForm.invalid) {
       identityForm.markAllAsTouched();
-      this.identityDetailsComponent.switchTab('identity');
+      component.switchTab('identity');
       return false;
     }
 
     // Check if address form is valid
     if (addressForm.invalid) {
       addressForm.markAllAsTouched();
-      this.identityDetailsComponent.switchTab('addresses');
+      component.switchTab('addresses');
       return false;
     }
 
@@ -141,11 +145,12 @@ export class RegisterComponent {
   }
 
   private validateStep2(): boolean {
-    if (!this.businessTaxRegistrationComponent) {
+    const component = this.businessTaxRegistrationComponent();
+    if (!component) {
       return false;
     }
 
-    const form = this.businessTaxRegistrationComponent.form;
+    const form = component.form;
     if (form?.invalid) {
       form.markAllAsTouched();
       return false;
@@ -155,11 +160,12 @@ export class RegisterComponent {
   }
 
   private validateStep3(): boolean {
-    if (!this.bankIdentityVerificationComponent) {
+    const component = this.bankIdentityVerificationComponent();
+    if (!component) {
       return false;
     }
 
-    return this.bankIdentityVerificationComponent.isValid();
+    return component.isValid();
   }
 
  
@@ -180,17 +186,75 @@ export class RegisterComponent {
   private resetActiveStepForm(): void {
     const step = this.currentStep();
     if (step === 1) {
-      this.identityDetailsComponent?.resetAllForms();
+      this.identityDetailsComponent()?.resetAllForms();
       return;
     }
 
     if (step === 2) {
-      this.businessTaxRegistrationComponent?.resetForm();
+      this.businessTaxRegistrationComponent()?.resetForm();
       return;
     }
 
     if (step === 3) {
-      this.bankIdentityVerificationComponent?.resetForm();
+      this.bankIdentityVerificationComponent()?.resetForm();
     }
+  }
+
+  private submitStep1Data(): void {
+    const component = this.identityDetailsComponent();
+    if (!component) {
+      return;
+    }
+
+    this.isLoading.set(true);
+
+    const identityData = component.identityForm.value;
+    const addressData = component.addressForm.value;
+
+    // Map form data to API payload structure
+    const payload = {
+      company_name: identityData.companyName,
+      registration_number: identityData.registrationNumber,
+      business_type: identityData.businessType,
+      date_of_incorporation: identityData.dateOfIncorporation,
+      industry_category: identityData.industryCategory,
+      nature_of_business: identityData.natureOfBusiness,
+      registered_address: addressData.registeredAddress,
+      operational_address: addressData.operationalAddress,
+      country: addressData.country,
+      state: addressData.state,
+      city: addressData.city,
+      pin: addressData.pin,
+      contact_person: addressData.contactPerson,
+      designation_role: addressData.designation,
+      email_official: addressData.email,
+      phone_number_official: addressData.phone,
+      alternate_contact: addressData.alternateContact || '',
+    };
+
+    this.registerService.postBasicInfo(payload).subscribe({
+      next: (response) => {
+        if (response.isSuccess === 'True' || response.status === 'success') {
+          this.vendorId = response.vendor_id;
+          console.log('Step 1 submitted successfully. Vendor ID:', this.vendorId);
+          
+          this.showDialog = false;
+          this.currentStep.update((step) => Math.min(this.totalSteps, step + 1));
+        } else {
+          this.handleError(response.message || 'Failed to submit basic information');
+        }
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        this.handleError(error?.error?.message || 'An error occurred while submitting basic information');
+        this.isLoading.set(false);
+      },
+    });
+  }
+
+  private handleError(message: string): void {
+    console.error('API Error:', message);
+    // TODO: Show toast/notification to user
+    // alert(message);
   }
 }

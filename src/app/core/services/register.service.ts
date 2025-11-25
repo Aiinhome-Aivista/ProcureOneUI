@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiEndpoints } from '../config/api-endpoints';
-import { BasicInfo, DropdownModel } from '../models';
+import { BasicInfo, BasicInfoResponse, DropdownModel } from '../models';
 import { LegalProofResponse } from '../models';
 
 @Injectable({
@@ -46,8 +46,8 @@ export class RegisterService {
     return this.http.post<DropdownModel>(ApiEndpoints.AUTH.CITIES, body);
   }
 
-  postBasicInfo(body: any): Observable<BasicInfo> {
-    return this.http.post<BasicInfo>(ApiEndpoints.AUTH.BASIC_INFO, body);
+  postBasicInfo(body: BasicInfo): Observable<BasicInfoResponse> {
+    return this.http.post<BasicInfoResponse>(ApiEndpoints.AUTH.BASIC_INFO, body);
   }
 
 }

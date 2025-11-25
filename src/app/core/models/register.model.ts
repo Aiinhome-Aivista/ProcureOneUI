@@ -40,4 +40,13 @@ export interface BasicInfo {
   alternate_contact: string;
 }
 
+export interface BasicInfoResponse {
+  current_step: string;
+  isSuccess: string;
+  message: string;
+  status: string;
+  statusCode: number;
+  vendor_id: string;
+}
+
 
