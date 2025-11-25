@@ -1,0 +1,93 @@
+<section class="flex justify-center text-[#101010]">
+  <div class="w-full rounded-2xl bg-[#f6f6f6] p-4 flex flex-col gap-3 ring-1 ring-black/5">
+    <header class="space-y-2">
+      <h1 class="text-2xl font-semibold text-[#1d1d1f]">{{ summary.title }}</h1>
+      <p class="text-sm leading-relaxed text-black/70">
+        {{ summary.intro }}
+      </p>
+      <p class="text-sm leading-relaxed text-black/70">
+        {{ summary.followUp }}
+      </p>
+    </header>
+
+    <dl class="space-y-4 text-sm">
+      @for (detail of details; track detail.label) {
+      <div>
+        <dt class="text-xs font-semibold uppercase tracking-wide text-black">{{ detail.label }}</dt>
+        <dd class="mt-1 text-xs font-medium text-black/45">{{ detail.value }}</dd>
+      </div>
+      }
+    </dl>
+
+    <div class="rounded-2xl border border-black/10 bg-white px-4 py-3">
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="material-symbols-outlined text-2xl text-primary-600" aria-hidden="true"
+          >picture_as_pdf</span
+        >
+        <div class="flex-1">
+          <p class="text-sm font-medium text-[#1d1d1f]">{{ attachment.name }}</p>
+          <p class="text-xs text-black/55">{{ attachment.meta }}</p>
+        </div>
+        <button
+          type="button"
+          class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/15 text-primary-600 transition hover:border-primary-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
+          [attr.aria-label]="'Download ' + attachment.name"
+        >
+          <span class="material-symbols-outlined" aria-hidden="true">download</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div
+    class="rounded-2xl mt-4 bg-[#f6f6f6] p-6 shadow-[0px_15px_45px_rgba(15,23,42,0.08)] ring-1 ring-black/5"
+  >
+    <h2 class="text-lg font-semibold text-[#1d1d1f]">Status</h2>
+    <div class="mt-6 space-y-5" aria-label="Bid progress timeline">
+      @for (checkpoint of statusTimeline; track checkpoint.label; let isLast = $last) {
+      <div class="relative pl-10">
+        @if (checkpoint.state === 'completed') {
+          <span
+            class="absolute left-0 top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-black"
+            aria-hidden="true"
+          >
+            <span class="h-2 w-2 rounded-full bg-white"></span>
+          </span>
+        } @else if (checkpoint.state === 'current') {
+          <span
+            class="absolute left-0 top-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-black bg-white"
+            aria-hidden="true"
+          >
+            <span class="h-2 w-2 rounded-full bg-black"></span>
+          </span>
+        } @else {
+          <span
+            class="absolute left-0 top-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-black/20 bg-white"
+            aria-hidden="true"
+          >
+            <span class="h-2 w-2 rounded-full bg-black/20"></span>
+          </span>
+        }
+        @if (!isLast) {
+          <span
+            class="absolute left-2.5 top-6 h-8 w-px border-2 border-dashed"
+            [class.border-gray-600]="checkpoint.state === 'upcoming'"
+            [class.border-gray-500]="checkpoint.state !== 'upcoming'"
+            aria-hidden="true"
+          ></span>
+        }
+        <div>
+          <p class="text-sm font-semibold text-[#1d1d1f]" [class.text-black]="checkpoint.state === 'upcoming'">
+            {{ checkpoint.label }}
+          </p>
+          <p class="text-xs text-black/60" [class.text-black]="checkpoint.state === 'upcoming'">
+            {{ checkpoint.timestamp }}
+          </p>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>

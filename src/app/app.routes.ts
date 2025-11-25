@@ -31,18 +31,7 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./features/vendor/dashboard/vendor-dashboard.component').then(m => m.VendorDashboardComponent)
       },
-      {
-        path: 'products',
-        loadComponent: () => import('./features/vendor/products/products.component').then(m => m.ProductsComponent)
-      },
-      {
-        path: 'orders',
-        loadComponent: () => import('./features/vendor/orders/orders.component').then(m => m.OrdersComponent)
-      },
-      {
-        path: 'analytics',
-        loadComponent: () => import('./features/vendor/analytics/analytics.component').then(m => m.AnalyticsComponent)
-      },
+    
       {
         path: 'profile',
         loadComponent: () => import('./shared/components/profile/profile.component').then(m => m.ProfileComponent)
