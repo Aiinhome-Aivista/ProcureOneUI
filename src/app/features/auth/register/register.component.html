@@ -40,8 +40,7 @@
         <!-- Step 2: Business Tax Registration -->
         @if (currentStep() === 2) {
         <app-business-tax-registration #businessTaxRegistration />
-        } 
-        @if (currentStep() === 3) {
+        } @if (currentStep() === 3) {
         <app-bank-identity-verification #bankIdentityVerification />
         } @if (currentStep() === 4) {
 
@@ -55,7 +54,6 @@
           type="button"
           class="inline-flex items-center gap-2 rounded-full border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
           (click)="resetSteps()"
-          
         >
           <span class="material-symbols-outlined text-base">autorenew</span>
           Reset
@@ -114,23 +112,27 @@
       <!-- Left Column -->
       <div class="space-y-4">
         <div>
-          <p class="font-semibold">{{ companyData.name }}</p>
+          <p class="font-semibold">{{ step1Identity.companyName }}</p>
           <p>Company Name (Legal)</p>
         </div>
+
         <div>
-          <p>{{ companyData.type }}</p>
+          <p>{{ step1Identity.businessType }}</p>
           <p class="text-gray-500">Business Type</p>
         </div>
+
         <div>
-          <p>{{ companyData.cin }}</p>
-          <p class="text-gray-500">CIN / Registration No</p>
+          <p>{{ step1Identity.registrationNumber }}</p>
+          <p class="text-gray-500">Registration No / CIN</p>
         </div>
+
         <div>
-          <p>{{ companyData.incorporationDate }}</p>
+          <p>{{ step1Identity.dateOfIncorporation }}</p>
           <p class="text-gray-500">Date of Incorporation</p>
         </div>
+
         <div>
-          <p>{{ companyData.category }}</p>
+          <p>{{ step1Identity.industryCategory }}</p>
           <p class="text-gray-500">Industry Category</p>
         </div>
       </div>
@@ -138,23 +140,27 @@
       <!-- Middle Column -->
       <div class="space-y-4">
         <div>
-          <p class="font-semibold">Legal office as per incorporation certificate</p>
-          <p>{{ companyData.addressLegal }}</p>
+          <p class="font-semibold">Registered Address</p>
+          <p>{{ step1Address.registeredAddress }}</p>
         </div>
+
         <div>
-          <p class="font-semibold">Where operations or supply chain is managed</p>
-          <p>{{ companyData.addressOperational }}</p>
+          <p class="font-semibold">Operational Address</p>
+          <p>{{ step1Address.operationalAddress }}</p>
         </div>
+
         <div>
-          <p class="font-semibold">CIN</p>
-          <p>{{ companyData.cin }}</p>
+          <p class="font-semibold">Country / State / City</p>
+          <p>{{ step1Address.country }}, {{ step1Address.state }}, {{ step1Address.city }}</p>
         </div>
+
         <div>
-          <p class="font-semibold">Date of incorporation</p>
-          <p>{{ companyData.incorporationDate }}</p>
+          <p class="font-semibold">PIN</p>
+          <p>{{ step1Address.pin }}</p>
         </div>
+
         <div>
-          <p class="text-justify leading-5">{{ companyData.description }}</p>
+          <p class="text-justify leading-5">{{ step1Identity.natureOfBusiness }}</p>
           <p class="text-gray-500 mt-1">Nature of business</p>
         </div>
       </div>
@@ -162,24 +168,28 @@
       <!-- Right Column -->
       <div class="space-y-4">
         <div>
-          <p class="font-semibold">{{ companyData.name }}</p>
-          <p>Company Name (Legal)</p>
+          <p class="font-semibold">{{ step1Address.contactPerson }}</p>
+          <p>Contact Person</p>
         </div>
+
         <div>
-          <p>{{ companyData.type }}</p>
-          <p class="text-gray-500">Business Type</p>
-        </div>
-        <div>
-          <p>{{ companyData.cin }}</p>
-          <p class="text-gray-500">CIN</p>
-        </div>
-        <div>
-          <p>{{ companyData.contact.name }}</p>
+          <p>{{ step1Address.designation }}</p>
           <p class="text-gray-500">Designation</p>
         </div>
+
         <div>
-          <p>{{ companyData.contact.phone }}</p>
+          <p>{{ step1Address.email }}</p>
+          <p class="text-gray-500">Official Email</p>
+        </div>
+
+        <div>
+          <p>{{ step1Address.phone }}</p>
           <p class="text-gray-500">Phone Number</p>
+        </div>
+
+        <div *ngIf="step1Address.alternateContact">
+          <p>{{ step1Address.alternateContact }}</p>
+          <p class="text-gray-500">Alternate Contact</p>
         </div>
       </div>
     </div>

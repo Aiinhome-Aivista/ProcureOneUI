@@ -23,7 +23,7 @@ import { RegisterService } from '../../../core/services';
     IdentityDetails,
     BusinessTaxRegistration,
     BankIdentityVerification,
-  
+
     StepIndicatorComponent,
     FinalSubmission,
     DialogModule,
@@ -34,7 +34,7 @@ import { RegisterService } from '../../../core/services';
 })
 export class RegisterComponent {
   private readonly registerService = inject(RegisterService);
-  
+
   private readonly identityDetailsComponent = viewChild<IdentityDetails>('identityDetails');
   private readonly businessTaxRegistrationComponent = viewChild<BusinessTaxRegistration>('businessTaxRegistration');
   private readonly bankIdentityVerificationComponent = viewChild<BankIdentityVerification>('bankIdentityVerification');
@@ -46,27 +46,16 @@ export class RegisterComponent {
   private readonly totalSteps = 4;
   readonly isFirstStep = computed(() => this.currentStep() === 1);
   readonly isLastStep = computed(() => this.currentStep() === this.totalSteps);
+  step1Identity: any = {};
+  step1Address: any = {};
+
 
   public showDialog = false; // control dialog visibility
 
   companyData = {
-    
-    name: 'Airlift-Avistas-Pvt. Ltd.',
-    type: 'Private Limited',
-    cin: 'U12345WB2015PTC123456',
-    incorporationDate: '15-Mar-2015',
-    category: 'Logistics',
-    addressLegal: 'Registered Address',
-    addressOperational: 'Operational Address',
+
+   
     headerdescription: `This is the final step in completing your company's basic registration process. Before submitting, please carefully review all the information you have entered in the sections including Company Profile, Business Address, Legal Structure, and Contact Details.`,
-    description: `We are a national-level logistics service provider specializing in bulk material 
-    transport, warehousing management, and supply chain optimization for industrial clients. 
-    Our fleet includes 100 heavy-duty vehicles equipped with GPS tracking, and we operate across 
-    all major metro and tier-2 cities in India.`,
-    contact: {
-      name: 'Procurement Head',
-      phone: '+91 8542658230'
-    },
     footertitle: "Notable information:",
     footerdescription: "At the time of initial entry, the system automatically generates a unique Initial Registration ID (IRID) for your company. This ID allows you to pause and resume your registration at any point, ensuring that your progress is securely saved. You can use this ID to log back in, upload pending documents, or communicate with the procurement team regarding your registration status."
   };
@@ -112,6 +101,9 @@ export class RegisterComponent {
     // If it's the first step, open dialog instead of going next immediately
     if (currentStepNumber === 1) {
       console.log('Opening dialog for step 1');
+      const component = this.identityDetailsComponent();
+      this.step1Identity = component?.identityForm.value;
+      this.step1Address = component?.addressForm.value;
       this.openDialog();
     } else {
       this.currentStep.update((step) => Math.min(this.totalSteps, step + 1));
@@ -168,7 +160,7 @@ export class RegisterComponent {
     return component.isValid();
   }
 
- 
+
 
   previousStep(): void {
     if (this.isFirstStep()) {
@@ -237,7 +229,7 @@ export class RegisterComponent {
         if (response.isSuccess === 'True' || response.status === 'success') {
           this.vendorId = response.vendor_id;
           console.log('Step 1 submitted successfully. Vendor ID:', this.vendorId);
-          
+
           this.showDialog = false;
           this.currentStep.update((step) => Math.min(this.totalSteps, step + 1));
         } else {
