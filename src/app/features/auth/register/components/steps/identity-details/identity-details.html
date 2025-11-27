@@ -106,8 +106,19 @@
         <div>
           <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Date of Incorporation<span
               class="text-red-500">*</span></label>
-          <input formControlName="dateOfIncorporation" type="date"
-            class="w-full h-10.5 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-[#7C6FA2] text-[12px]" />
+          <p-datepicker 
+            formControlName="dateOfIncorporation" 
+            [iconDisplay]="'input'" 
+            [showIcon]="true" 
+            inputId="icondisplay"
+            dateFormat="yy-mm-dd"
+            [maxDate]="maxDate"
+            placeholder="Select date"
+            [showButtonBar]="true"
+            [styleClass]="'w-full'"
+            [inputStyleClass]="'w-full rounded-md border border-gray-300 px-3 py-2 text-base focus:outline-none focus:border-primary-500'"
+            appendTo="body"
+          />
 
           @if (dateOfIncorporation.touched && dateOfIncorporation.invalid) {
             <div class="text-red-500 text-[12px] mt-1">

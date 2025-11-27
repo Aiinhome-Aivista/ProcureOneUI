@@ -20,7 +20,8 @@ export class ApiEndpoints {
     CITIES: `${ApiEndpoints.BASE_URL}/VendorMicroservices/cities`,
     CERTIFICATE_iNCORPORATION: `${ApiEndpoints.BASE_URL}/VendorMicroservices/legal_proofs`,
     BASIC_INFO: `${ApiEndpoints.BASE_URL}/VendorMicroservices/basic-info`,
-    GET_BASIC_INFO: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-basic-info`
+    GET_BASIC_INFO: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-basic-info`,
+    POST_BUSINESS_TAX_DOC: `${ApiEndpoints.BASE_URL}/VendorMicroservices/registration-tax-docs`,
   } as const;
 
   // Vendor endpoints

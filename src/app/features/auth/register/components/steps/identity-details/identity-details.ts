@@ -18,6 +18,7 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
 import { catchError, forkJoin, of, Subscription } from 'rxjs';
 import { SelectModule } from 'primeng/select';
 import { RegisterService } from '../../../../../../core/services';
@@ -25,7 +26,7 @@ import { DropdownModel, VendorInfoResponse} from '../../../../../../core/models'
 
 @Component({
   selector: 'app-identity-details',
-  imports: [ReactiveFormsModule, CommonModule, SelectModule],
+  imports: [ReactiveFormsModule, CommonModule, SelectModule,DatePickerModule],
   templateUrl: './identity-details.html',
   styleUrl: './identity-details.css',
 })
@@ -95,6 +96,8 @@ export class IdentityDetails implements OnInit, OnDestroy {
 
   private readonly _cities = signal<DropdownModel['data']>([]);
   readonly cities = computed(() => this._cities());
+
+  readonly maxDate = new Date(); // Prevent future dates
 
   private subs = new Subscription();
 

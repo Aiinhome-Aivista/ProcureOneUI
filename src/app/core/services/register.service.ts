@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiEndpoints } from '../config/api-endpoints';
-import { BasicInfo, BasicInfoResponse, DropdownModel, VendorInfoResponse } from '../models';
+import { BasicInfo, BasicInfoResponse, BusinessTaxInfo, BusinessTaxResponse, DropdownModel, VendorInfoResponse } from '../models';
 import { LegalProofResponse } from '../models';
 
 @Injectable({
@@ -36,7 +36,7 @@ export class RegisterService {
 
   getBasicInfo(): Observable<VendorInfoResponse> {
     const vendorId = sessionStorage.getItem('vendorId');
-    const url = vendorId 
+    const url = vendorId
       ? `${ApiEndpoints.AUTH.GET_BASIC_INFO}?vendor_id=${vendorId}`
       : ApiEndpoints.AUTH.GET_BASIC_INFO;
     return this.http.get<VendorInfoResponse>(url);
@@ -56,6 +56,10 @@ export class RegisterService {
 
   postBasicInfo(body: BasicInfo): Observable<BasicInfoResponse> {
     return this.http.post<BasicInfoResponse>(ApiEndpoints.AUTH.BASIC_INFO, body);
+  }
+
+  postBusinessTax(body: BusinessTaxInfo): Observable<BusinessTaxResponse> {
+    return this.http.post<BusinessTaxResponse>(ApiEndpoints.AUTH. POST_BUSINESS_TAX_DOC, body);
   }
 
 }

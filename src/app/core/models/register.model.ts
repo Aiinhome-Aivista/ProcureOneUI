@@ -81,3 +81,26 @@ export interface VendorInfo {
   vendor_id: string;
 }
 
+
+
+export interface BusinessTaxInfo {
+  vendor_id: string;
+  pan_number: string;
+  gst_vat_number: string;
+  msme_udyam_number: string;
+  certificate_of_incorporation_number: string;
+  legal_authorization_type: string;
+  documents: string[];  // array of file names
+}
+
+
+export interface BusinessTaxResponse {
+  current_step: 'TAX_DOCS' | string;
+  isSuccess: boolean;
+  message: string;
+  operation: 'inserted' | 'updated' | string;
+  status: 'success' | 'error' | string;
+  statusCode: number;
+  uploaded_files: string[];   // array of file paths
+  vendor_id: string;
+}
