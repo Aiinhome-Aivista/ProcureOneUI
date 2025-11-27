@@ -35,7 +35,11 @@ export class RegisterService {
   }
 
   getBasicInfo(): Observable<VendorInfoResponse> {
-    return this.http.get<VendorInfoResponse>(ApiEndpoints.AUTH.GET_BASIC_INFO)
+    const vendorId = sessionStorage.getItem('vendorId');
+    const url = vendorId 
+      ? `${ApiEndpoints.AUTH.GET_BASIC_INFO}?vendor_id=${vendorId}`
+      : ApiEndpoints.AUTH.GET_BASIC_INFO;
+    return this.http.get<VendorInfoResponse>(url);
   }
 
 

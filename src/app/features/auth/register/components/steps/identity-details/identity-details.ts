@@ -186,7 +186,10 @@ export class IdentityDetails implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadDropdowns();
+    // Load dropdowns first, then get identity details
+    this.loadDropdowns(() => {
+      this.getIdentityDetails();
+    });
 
     // When country changes, fetch states
     this.subs.add(
@@ -229,29 +232,89 @@ export class IdentityDetails implements OnInit, OnDestroy {
     );
   }
 
-  private getIdentityDetails(): void { 
-     
-     
-   
+  private getIdentityDetails(): void {
+    // Get vendor ID from session storage
+    const vendorId = sessionStorage.getItem('vendorId');
     
+    if (!vendorId) {
+      console.log('No vendor ID found in session storage');
+      return;
+    }
 
-   }
+    this.apiService.getBasicInfo().subscribe({
+      next: (response: VendorInfoResponse) => {
+        if (response.isSuccess && response.data && response.data.length > 0) {
+          const vendorData = response.data[0];
+          
+          // Populate identity form with IDs (convert string IDs to numbers)
+          this.identityForm.patchValue({
+            companyName: vendorData.company_name || '',
+            registrationNumber: vendorData.registration_number || '',
+            businessType: vendorData.business_type ? Number(vendorData.business_type) : '',
+            industryCategory: vendorData.industry_category ? Number(vendorData.industry_category) : '',
+            dateOfIncorporation: this.formatDateForInput(vendorData.date_of_incorporation),
+            natureOfBusiness: vendorData.nature_of_business || '',
+          }, { emitEvent: false });
+
+          // Populate address form with IDs (convert string IDs to numbers)
+          this.addressForm.patchValue({
+            registeredAddress: vendorData.registered_address || '',
+            operationalAddress: vendorData.operational_address || '',
+            pin: vendorData.pin || '',
+            contactPerson: vendorData.contact_person || '',
+            designation: vendorData.designation_role ? Number(vendorData.designation_role) : '',
+            email: vendorData.email_official || '',
+            phone: vendorData.phone_number_official || '',
+            alternateContact: vendorData.alternate_contact || '',
+          }, { emitEvent: false });
+
+          // Set country and fetch states
+          const countryId = vendorData.country ? Number(vendorData.country) : null;
+          if (countryId) {
+            this.addressForm.patchValue({ country: countryId }, { emitEvent: false });
+            
+            // Fetch states, then set state and fetch cities
+            const stateId = vendorData.state ? Number(vendorData.state) : null;
+            this.fetchStates(countryId, () => {
+              if (stateId) {
+                this.addressForm.patchValue({ state: stateId }, { emitEvent: false });
+                
+                // Fetch cities, then set city
+                const cityId = vendorData.city ? Number(vendorData.city) : null;
+                this.fetchCities(stateId, () => {
+                  if (cityId) {
+                    this.addressForm.patchValue({ city: cityId }, { emitEvent: false });
+                  }
+                });
+              }
+            });
+          }
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching vendor basic info:', err);
+      },
+    });
+  }
+
+  // Helper to format date from GMT string to YYYY-MM-DD
+  private formatDateForInput(dateString: string): string {
+    if (!dateString) return '';
+    try {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    } catch {
+      return '';
+    }
+  }
 
    
 
-  // //  Fetch dropdown data from API and store in signal
-  // loadDropdowns(): void {
-  //   this.apiService.businessTypes().subscribe({
-  //     next: (res: any) => {
-  //       if (res?.isSuccess && Array.isArray(res.data)) {
-  //         this._businessTypes.set(res.data);
-  //       }
-  //     },
-  //     error: err => console.error('Error fetching dropdowns:', err)
-  //   });
-  // }
 
-  public loadDropdowns(): void {
+  public loadDropdowns(callback?: () => void): void {
     forkJoin({
       businessTypes: this.apiService
         .businessTypes()
@@ -295,6 +358,11 @@ export class IdentityDetails implements OnInit, OnDestroy {
         if (res.countries) {
           this._countries.set(res.countries.data);
         }
+        
+        // Call callback after dropdowns are loaded
+        if (callback) {
+          callback();
+        }
       },
       error: (err) => {
         console.error('Error loading dropdowns:', err);
@@ -302,7 +370,7 @@ export class IdentityDetails implements OnInit, OnDestroy {
     });
   }
 
-  private fetchStates(countryId: number): void {
+  private fetchStates(countryId: number, callback?: () => void): void {
     const body = { countryid: countryId };
     this.apiService.states(body).subscribe({
       next: (res: any) => {
@@ -310,6 +378,9 @@ export class IdentityDetails implements OnInit, OnDestroy {
           this._states.set(res.data);
         } else {
           this._states.set([]);
+        }
+        if (callback) {
+          callback();
         }
       },
       error: (err) => {
@@ -319,7 +390,7 @@ export class IdentityDetails implements OnInit, OnDestroy {
     });
   }
 
-  private fetchCities(stateId: number): void {
+  private fetchCities(stateId: number, callback?: () => void): void {
     const body = { stateid: stateId };
     this.apiService.cities(body).subscribe({
       next: (res: any) => {
@@ -327,6 +398,9 @@ export class IdentityDetails implements OnInit, OnDestroy {
           this._cities.set(res.data);
         } else {
           this._cities.set([]);
+        }
+        if (callback) {
+          callback();
         }
       },
       error: (err) => {

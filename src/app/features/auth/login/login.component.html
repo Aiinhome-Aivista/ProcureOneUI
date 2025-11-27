@@ -134,11 +134,12 @@
             <div class="flex items-center border border-[#C4B5FD] rounded-lg px-3 mb-3">
                   <span class="material-symbols-outlined text-[#4319C245]">id_card</span>
 
-              <input type="text" class="flex-1 ml-3 py-2 text-sm placeholder-[#A78BFA] focus:outline-none"
-                placeholder="Enter your initial ID" />
+              <input type="text" name="initialId" class="flex-1 ml-3 py-2 text-sm placeholder-primary-300 focus:outline-none"
+                placeholder="Enter your initial ID" [(ngModel)]="initialId" />
 
-              <button aria-label="Submit initial id">
+              <button aria-label="Submit initial id" (click)="checkStatus(initialId())" >
                 <img src="assets/icons/arrow_circle_down.svg" alt="" class="h-6 w-6" />
+
               </button>
             </div>
 

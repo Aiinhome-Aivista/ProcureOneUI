@@ -1,12 +1,12 @@
 import { Component, signal, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule,FormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -14,6 +14,7 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
+  public initialId = signal('');
 
   // Signals
   readonly showPassword = signal(false);
@@ -103,5 +104,11 @@ export class LoginComponent {
 
     this.isExpanded = !this.isExpanded;
     console.log('toggleExpand ->', this.isExpanded);
+  }
+
+
+  checkStatus(initialId: string) {
+    sessionStorage.setItem('vendorId', initialId);
+    this.router.navigateByUrl('/register')
   }
 }

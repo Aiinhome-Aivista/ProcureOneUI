@@ -1,4 +1,14 @@
-<div class="h-screen bg-white flex flex-col">
+<div class="h-screen bg-white flex flex-col relative">
+  <!-- Loader Overlay -->
+  @if (isLoading()) {
+  <div class="absolute inset-0 bg-black/50 z-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg p-8 flex flex-col items-center gap-4">
+      <app-loader [size]="'lg'" [color]="'bg-primary-600'" [speed]="1"></app-loader>
+      <p class="text-gray-700 font-medium">Submitting your information...</p>
+    </div>
+  </div>
+  }
+
   <!-- Header -->
   <div class="bg-white border-b border-gray-200 shrink-0">
     <div class="px-6 py-4">
@@ -52,17 +62,17 @@
       <div class="flex items-center justify-between border-t border-gray-200 py-3">
         <button
           type="button"
-          class="inline-flex items-center gap-2 rounded-lg border border-gray-300 p-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
+          class="inline-flex items-center gap-2 rounded-full border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
           (click)="resetSteps()"
         >
-          Reset
           <span class="material-symbols-outlined text-base">autorenew</span>
+          Reset
         </button>
 
         <div class="flex items-center gap-3">
           <button
             type="button"
-            class="inline-flex items-center gap-2 rounded-lg border border-gray-300 p-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visile:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
+            class="inline-flex items-center gap-2 rounded-full border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
             (click)="previousStep()"
             [disabled]="isFirstStep()"
           >
@@ -72,7 +82,7 @@
 
           <button
             type="button"
-            class="inline-flex items-center gap-2 rounded-lg bg-primary-600 p-2 text-sm font-semibold text-white transition hover:bg-primary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:bg-primary-300"
+            class="inline-flex items-center gap-2 rounded-full bg-primary-600 px-6 py-2 text-sm font-semibold text-white transition hover:bg-primary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:bg-primary-300"
             (click)="nextStep()"
             [disabled]="isLastStep()"
           >
@@ -91,7 +101,7 @@
     [style]="{ width: '90vw', maxWidth: '1100px' }"
     [draggable]="false"
     [resizable]="false"
-    header="Basic Information - Final Submission & Review"
+    header="Basic Information – Final Submission & Review"
   >
     <ng-template pTemplate="header">
       <div class="bg-black p-4 w-full rounded-t-lg flex justify-end">

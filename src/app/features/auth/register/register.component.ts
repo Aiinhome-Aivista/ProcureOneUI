@@ -13,6 +13,7 @@ import { FinalSubmission } from './components/steps/final-submission/final-submi
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { RegisterService } from '../../../core/services';
+import { Loader } from '../../../shared/components/loader/loader';
 
 @Component({
   selector: 'app-register',
@@ -28,6 +29,7 @@ import { RegisterService } from '../../../core/services';
     FinalSubmission,
     DialogModule,
     ButtonModule,
+    Loader,
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],

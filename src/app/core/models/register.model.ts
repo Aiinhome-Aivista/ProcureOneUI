@@ -62,22 +62,22 @@ export interface VendorInfo {
   UpdatedAt: string;
   UpdatedBy: string | null;
   alternate_contact: string;
-  business_type: string;
-  city: string;
+  business_type: string; // numeric ID as string
+  city: string; // numeric ID as string
   company_name: string;
   contact_person: string;
-  country: string;
+  country: string; // numeric ID as string
   date_of_incorporation: string;
-  designation_role: string;
+  designation_role: string; // numeric ID as string
   email_official: string;
-  industry_category: string;
+  industry_category: string; // numeric ID as string
   nature_of_business: string;
   operational_address: string;
   phone_number_official: string;
   pin: string;
   registered_address: string;
   registration_number: string;
-  state: string;
+  state: string; // numeric ID as string
   vendor_id: string;
 }
 
