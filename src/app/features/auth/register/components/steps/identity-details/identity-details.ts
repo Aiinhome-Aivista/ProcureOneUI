@@ -21,7 +21,7 @@ import {
 import { catchError, forkJoin, of, Subscription } from 'rxjs';
 import { SelectModule } from 'primeng/select';
 import { RegisterService } from '../../../../../../core/services';
-import { DropdownModel} from '../../../../../../core/models';
+import { DropdownModel, VendorInfoResponse} from '../../../../../../core/models';
 
 @Component({
   selector: 'app-identity-details',
@@ -228,6 +228,16 @@ export class IdentityDetails implements OnInit, OnDestroy {
       })
     );
   }
+
+  private getIdentityDetails(): void { 
+     
+     
+   
+    
+
+   }
+
+   
 
   // //  Fetch dropdown data from API and store in signal
   // loadDropdowns(): void {

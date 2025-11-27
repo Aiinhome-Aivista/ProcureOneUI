@@ -49,4 +49,35 @@ export interface BasicInfoResponse {
   vendor_id: string;
 }
 
+export interface VendorInfoResponse {
+  data: VendorInfo[];
+  isSuccess: boolean;
+  message: string;
+  statusCode: number;
+}
+
+export interface VendorInfo {
+  CreatedAt: string;
+  CreatedBy: string | null;
+  UpdatedAt: string;
+  UpdatedBy: string | null;
+  alternate_contact: string;
+  business_type: string;
+  city: string;
+  company_name: string;
+  contact_person: string;
+  country: string;
+  date_of_incorporation: string;
+  designation_role: string;
+  email_official: string;
+  industry_category: string;
+  nature_of_business: string;
+  operational_address: string;
+  phone_number_official: string;
+  pin: string;
+  registered_address: string;
+  registration_number: string;
+  state: string;
+  vendor_id: string;
+}
 

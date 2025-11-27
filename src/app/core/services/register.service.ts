@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiEndpoints } from '../config/api-endpoints';
-import { BasicInfo, BasicInfoResponse, DropdownModel } from '../models';
+import { BasicInfo, BasicInfoResponse, DropdownModel, VendorInfoResponse } from '../models';
 import { LegalProofResponse } from '../models';
 
 @Injectable({
@@ -32,6 +32,10 @@ export class RegisterService {
 
   certificateIncorporation(): Observable<LegalProofResponse> {
     return this.http.get<LegalProofResponse>(ApiEndpoints.AUTH.CERTIFICATE_iNCORPORATION)
+  }
+
+  getBasicInfo(): Observable<VendorInfoResponse> {
+    return this.http.get<VendorInfoResponse>(ApiEndpoints.AUTH.GET_BASIC_INFO)
   }
 
 

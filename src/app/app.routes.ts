@@ -52,18 +52,7 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./features/department/dashboard/department-dashboard.component').then(m => m.DepartmentDashboardComponent)
       },
-      {
-        path: 'requests',
-        loadComponent: () => import('./features/department/requests/requests.component').then(m => m.RequestsComponent)
-      },
-      {
-        path: 'approvals',
-        loadComponent: () => import('./features/department/approvals/approvals.component').then(m => m.ApprovalsComponent)
-      },
-      {
-        path: 'reports',
-        loadComponent: () => import('./features/department/reports/reports.component').then(m => m.ReportsComponent)
-      },
+     
       {
         path: 'profile',
         loadComponent: () => import('./shared/components/profile/profile.component').then(m => m.ProfileComponent)
