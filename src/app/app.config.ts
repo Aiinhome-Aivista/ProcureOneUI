@@ -2,7 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import { provideRouter, withComponentInputBinding, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { routes } from './app.routes';
-import { authInterceptor, httpErrorInterceptor } from './core/interceptors';
+import { authInterceptor, httpErrorInterceptor, loaderInterceptor } from './core/interceptors';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import { MessageService } from 'primeng/api';
@@ -36,7 +36,7 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     provideHttpClient(
-      withInterceptors([authInterceptor, httpErrorInterceptor]),
+      withInterceptors([loaderInterceptor, authInterceptor, httpErrorInterceptor]),
       withFetch()
     )
   ]

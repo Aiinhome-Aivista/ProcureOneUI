@@ -1,14 +1,4 @@
-<div class="h-screen bg-white flex flex-col relative">
-  <!-- Loader Overlay -->
-  @if (isLoading()) {
-  <div class="absolute inset-0 bg-black/50 z-50 flex items-center justify-center">
-    <div class="bg-white rounded-lg p-8 flex flex-col items-center gap-4">
-      <app-loader [size]="'lg'" [color]="'bg-primary-600'" [speed]="1"></app-loader>
-      <p class="text-gray-700 font-medium">Submitting your information...</p>
-    </div>
-  </div>
-  }
-
+<div class="h-screen bg-white flex flex-col">
   <!-- Header -->
   <div class="bg-white border-b border-gray-200 shrink-0">
     <div class="px-6 py-4">

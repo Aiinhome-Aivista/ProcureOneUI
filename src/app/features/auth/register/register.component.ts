@@ -13,7 +13,6 @@ import { FinalSubmission } from './components/steps/final-submission/final-submi
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { RegisterService } from '../../../core/services';
-import { Loader } from '../../../shared/components/loader/loader';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +28,6 @@ import { Loader } from '../../../shared/components/loader/loader';
     FinalSubmission,
     DialogModule,
     ButtonModule,
-    Loader,
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
@@ -43,7 +41,6 @@ export class RegisterComponent {
 
   // Current step signal - connected to sidebar
   readonly currentStep = signal<number>(1);
-  readonly isLoading = signal<boolean>(false);
   private vendorId: string | null = null;
   private readonly totalSteps = 4;
   readonly isFirstStep = computed(() => this.currentStep() === 1);
@@ -200,8 +197,6 @@ export class RegisterComponent {
       return;
     }
 
-    this.isLoading.set(true);
-
     const identityData = component.identityForm.value;
     const addressData = component.addressForm.value;
 
@@ -237,11 +232,9 @@ export class RegisterComponent {
         } else {
           this.handleError(response.message || 'Failed to submit basic information');
         }
-        this.isLoading.set(false);
       },
       error: (error) => {
         this.handleError(error?.error?.message || 'An error occurred while submitting basic information');
-        this.isLoading.set(false);
       },
     });
   }
