@@ -101,6 +101,5 @@ export interface BusinessTaxResponse {
   operation: 'inserted' | 'updated' | string;
   status: 'success' | 'error' | string;
   statusCode: number;
-  uploaded_files: string[];   // array of file paths
   vendor_id: string;
 }

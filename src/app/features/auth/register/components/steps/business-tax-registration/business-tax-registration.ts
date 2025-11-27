@@ -23,7 +23,7 @@ export class BusinessTaxRegistration {
     this.form = this.fb.group({
       pan: ['', Validators.required],
       gst: ['', Validators.required],
-      udyam: ['', Validators.required],
+      msmeUdyam: ['', Validators.required],
       incorp: ['', Validators.required],
       tradeLicense: ['', Validators.required],
       supportedDocument: [null, Validators.required]

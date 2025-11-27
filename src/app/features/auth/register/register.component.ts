@@ -47,6 +47,7 @@ export class RegisterComponent {
   readonly isLastStep = computed(() => this.currentStep() === this.totalSteps);
   step1Identity: any = {};
   step1Address: any = {};
+  step2Data: any = {};
 
 
   public showDialog = false; // control dialog visibility
@@ -104,6 +105,9 @@ export class RegisterComponent {
       this.step1Identity = component?.identityForm.value;
       this.step1Address = component?.addressForm.value;
       this.openDialog();
+    } else if (currentStepNumber === 2) {
+      // Submit step 2 data
+      this.submitStep2Data();
     } else {
       this.currentStep.update((step) => Math.min(this.totalSteps, step + 1));
     }
@@ -235,6 +239,49 @@ export class RegisterComponent {
       },
       error: (error) => {
         this.handleError(error?.error?.message || 'An error occurred while submitting basic information');
+      },
+    });
+  }
+
+  private submitStep2Data(): void {
+    const component = this.businessTaxRegistrationComponent();
+    if (!component) {
+      return;
+    }
+
+    const formData = component.form.value;
+    const vendorId = sessionStorage.getItem('vendorId');
+
+    if (!vendorId) {
+      this.handleError('Vendor ID not found. Please complete step 1 first.');
+      return;
+    }
+
+    // Create FormData object to match Postman's form-data format
+    const formDataPayload = new FormData();
+    formDataPayload.append('vendor_id', vendorId);
+    formDataPayload.append('pan_number', formData.pan || '');
+    formDataPayload.append('gst_vat_number', formData.gst || '');
+    formDataPayload.append('msme_udyam_number', formData.msmeUdyam || '');
+    formDataPayload.append('certificate_of_incorporation_number', formData.incorp || '');
+    formDataPayload.append('legal_authorization_type', formData.tradeLicense || '');
+    
+    // Append the actual file if exists
+    if (formData.supportedDocument && formData.supportedDocument instanceof File) {
+      formDataPayload.append('documents', formData.supportedDocument, formData.supportedDocument.name);
+    }
+
+    this.registerService.postBusinessTax(formDataPayload).subscribe({
+      next: (response) => {
+        if (response.isSuccess && response.status === 'success') {
+          console.log('Step 2 submitted successfully:', response.message);
+          this.currentStep.update((step) => Math.min(this.totalSteps, step + 1));
+        } else {
+          this.handleError(response.message || 'Failed to submit business tax documents');
+        }
+      },
+      error: (error) => {
+        this.handleError(error?.error?.message || 'An error occurred while submitting business tax documents');
       },
     });
   }

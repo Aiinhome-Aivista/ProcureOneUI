@@ -37,8 +37,14 @@
     <div>
       <label class="font-bold text-[#0000008F]">Udyam / MSME Registration (if applicable)<span
           class="text-red-500">*</span></label>
-      <input type="text" class="mt-1 w-full h-10.5 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
+      <input formControlName="msmeUdyam" type="text" class="mt-1 w-full h-10.5 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
         placeholder="Confirms small/medium enterprise status" />
+
+      @if (form.get('msmeUdyam')?.touched && form.get('msmeUdyam')?.invalid) {
+      <div class="text-red-500 text-[8px]">
+        MSME/Udyam registration is required.
+      </div>
+      }
     </div>
 
     <div>

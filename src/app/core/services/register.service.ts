@@ -58,8 +58,8 @@ export class RegisterService {
     return this.http.post<BasicInfoResponse>(ApiEndpoints.AUTH.BASIC_INFO, body);
   }
 
-  postBusinessTax(body: BusinessTaxInfo): Observable<BusinessTaxResponse> {
-    return this.http.post<BusinessTaxResponse>(ApiEndpoints.AUTH. POST_BUSINESS_TAX_DOC, body);
+  postBusinessTax(formData: FormData): Observable<BusinessTaxResponse> {
+    return this.http.post<BusinessTaxResponse>(ApiEndpoints.AUTH.POST_BUSINESS_TAX_DOC, formData);
   }
 
 }
