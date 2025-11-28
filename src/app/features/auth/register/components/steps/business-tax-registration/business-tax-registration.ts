@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { LegalProof } from '../../../../../../core/models';
+import { LegalProof, VendorTaxDocumentsResponse } from '../../../../../../core/models';
 import { RegisterService } from '../../../../../../core/services/register.service';
 import { SelectModule } from 'primeng/select';
 
@@ -16,6 +16,7 @@ export class BusinessTaxRegistration {
   dataChange = output<any>();
   selectedFileName: string | null = null;
   incorporationTypes: LegalProof[] = [];
+  existingDocuments: string[] = [];
 
   form: FormGroup;
 
@@ -32,6 +33,7 @@ export class BusinessTaxRegistration {
 
   ngOnInit() {
     this.incorporationCertificate();
+    this.getBusinessTaxDocs();
   }
 
   //handles normal file browse upload
@@ -73,6 +75,43 @@ export class BusinessTaxRegistration {
       error: (err) => {
         console.error('Error fetching incorporation certificate list', err);
       }
+    });
+  }
+
+
+  getBusinessTaxDocs(): void {
+    const vendorId = sessionStorage.getItem('vendorId');
+    if (!vendorId) {
+      return;
+    }
+
+    this.certificateService.getBusinessTaxDocs().subscribe({
+      next: (response: VendorTaxDocumentsResponse) => {
+        if (response.isSuccess && response.data?.length) {
+          const taxEntry = response.data[0];
+          const taxDocs = taxEntry.tax_documents;
+
+          const certificateId = taxDocs?.certificate_of_incorporation_number
+            ? Number(taxDocs.certificate_of_incorporation_number)
+            : '';
+
+          this.form.patchValue(
+            {
+              pan: taxDocs?.pan_number || '',
+              gst: taxDocs?.gst_vat_number || '',
+              msmeUdyam: taxDocs?.msme_udyam_number || '',
+              incorp: certificateId,
+              tradeLicense: taxDocs?.legal_authorization_type || '',
+            },
+            { emitEvent: false }
+          );
+
+          this.existingDocuments = (taxEntry.tax_document_files || []).map((file) => file.document_url);
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching business tax documents:', err);
+      },
     });
   }
 

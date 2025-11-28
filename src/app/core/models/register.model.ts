@@ -103,3 +103,47 @@ export interface BusinessTaxResponse {
   statusCode: number;
   vendor_id: string;
 }
+
+export interface VendorTaxDocumentsResponse {
+  data: VendorTaxDocumentData[];
+  isSuccess: boolean;
+  message: string;
+  statusCode: number;
+}
+
+export interface VendorTaxDocumentData {
+  tax_document_files: TaxDocumentFile[];
+  tax_documents: TaxDocuments;
+  vendor_id: number;
+}
+
+export interface TaxDocumentFile {
+  document_url: string;
+  vendor_id: number;
+}
+
+export interface TaxDocuments {
+  certificate_of_incorporation_number: string;
+  gst_vat_number: string;
+  legal_authorization_type: string;
+  msme_udyam_number: string;
+  pan_number: string;
+  vendor_id: number;
+}
+
+
+export interface BankVerificationResponse {
+  current_step: string;
+  isSuccess: boolean;
+  message: string;
+  status: string;
+  statusCode: number;
+  vendor_id: string;
+}
+
+export interface BankVerificationPayload {
+  vendor_id: string;
+  cancelled_cheque_doc_url: string;
+  bank_statement_doc_url: string;
+  bank_verification_letter_doc_url: string;
+}

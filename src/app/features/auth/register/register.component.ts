@@ -108,6 +108,8 @@ export class RegisterComponent {
     } else if (currentStepNumber === 2) {
       // Submit step 2 data
       this.submitStep2Data();
+    } else if (currentStepNumber === 3) {
+      this.submitStep3Data();
     } else {
       this.currentStep.update((step) => Math.min(this.totalSteps, step + 1));
     }
@@ -282,6 +284,47 @@ export class RegisterComponent {
       },
       error: (error) => {
         this.handleError(error?.error?.message || 'An error occurred while submitting business tax documents');
+      },
+    });
+  }
+
+  private submitStep3Data(): void {
+    const component = this.bankIdentityVerificationComponent();
+    if (!component) {
+      return;
+    }
+
+    const vendorId = sessionStorage.getItem('vendorId');
+    if (!vendorId) {
+      this.handleError('Vendor ID not found. Please complete previous steps first.');
+      return;
+    }
+
+    const formDataPayload = new FormData();
+    formDataPayload.append('vendor_id', vendorId);
+
+    const files = component.uploadedFiles;
+    if (files?.cancelCheque instanceof File) {
+      formDataPayload.append('cancelled_cheque_doc_url', files.cancelCheque, files.cancelCheque.name);
+    }
+    if (files?.bankStatement instanceof File) {
+      formDataPayload.append('bank_statement_doc_url', files.bankStatement, files.bankStatement.name);
+    }
+    if (files?.verifyLetter instanceof File) {
+      formDataPayload.append('bank_verification_letter_doc_url', files.verifyLetter, files.verifyLetter.name);
+    }
+
+    this.registerService.postBankDetails(formDataPayload).subscribe({
+      next: (response) => {
+        if (response.isSuccess && response.status === 'success') {
+          console.log('Step 3 submitted successfully:', response.message);
+          this.currentStep.update((step) => Math.min(this.totalSteps, step + 1));
+        } else {
+          this.handleError(response.message || 'Failed to submit bank verification documents');
+        }
+      },
+      error: (error) => {
+        this.handleError(error?.error?.message || 'An error occurred while submitting bank verification documents');
       },
     });
   }

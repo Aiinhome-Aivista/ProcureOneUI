@@ -128,5 +128,19 @@
       Document required (PDF max 10MB)
     </div>
     }
+
+    @if (existingDocuments.length) {
+    <div class="mt-3">
+      <p class="text-[11px] font-semibold text-[#0000008F]">Existing Documents</p>
+      <ul class="mt-1 space-y-1 text-[10px] text-primary-600 max-h-32 overflow-auto">
+        @for (doc of existingDocuments; track doc) {
+        <li class="flex items-center gap-1 truncate">
+          <span class="material-symbols-outlined text-[12px]">description</span>
+          <span class="truncate" [title]="doc">{{ doc }}</span>
+        </li>
+        }
+      </ul>
+    </div>
+    }
   </div>
 </div>

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiEndpoints } from '../config/api-endpoints';
-import { BasicInfo, BasicInfoResponse, BusinessTaxInfo, BusinessTaxResponse, DropdownModel, VendorInfoResponse } from '../models';
+import { BankVerificationResponse, BasicInfo, BasicInfoResponse, BusinessTaxInfo, BusinessTaxResponse, DropdownModel, VendorInfoResponse, VendorTaxDocumentsResponse } from '../models';
 import { LegalProofResponse } from '../models';
 
 @Injectable({
@@ -42,6 +42,14 @@ export class RegisterService {
     return this.http.get<VendorInfoResponse>(url);
   }
 
+  getBusinessTaxDocs(): Observable<VendorTaxDocumentsResponse> {
+    const vendorId = sessionStorage.getItem('vendorId');
+    const url = vendorId
+      ? `${ApiEndpoints.AUTH.GET_BUSINESS_TAX_DOCS}?vendor_id=${vendorId}`
+      : ApiEndpoints.AUTH.GET_BUSINESS_TAX_DOCS;
+    return this.http.get<VendorTaxDocumentsResponse>(url);
+  }
+
 
 
 
@@ -61,5 +69,10 @@ export class RegisterService {
   postBusinessTax(formData: FormData): Observable<BusinessTaxResponse> {
     return this.http.post<BusinessTaxResponse>(ApiEndpoints.AUTH.POST_BUSINESS_TAX_DOC, formData);
   }
+
+  postBankDetails(formData: FormData): Observable<BankVerificationResponse> {
+    return this.http.post<BankVerificationResponse>(ApiEndpoints.AUTH.POST_BANK_DETAILS, formData);
+  }
+
 
 }

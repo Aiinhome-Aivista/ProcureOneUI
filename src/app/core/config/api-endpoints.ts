@@ -22,6 +22,9 @@ export class ApiEndpoints {
     BASIC_INFO: `${ApiEndpoints.BASE_URL}/VendorMicroservices/basic-info`,
     GET_BASIC_INFO: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-basic-info`,
     POST_BUSINESS_TAX_DOC: `${ApiEndpoints.BASE_URL}/VendorMicroservices/registration-tax-docs`,
+    GET_BUSINESS_TAX_DOCS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-registration-tax-docs`,
+    POST_BANK_DETAILS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/bank-verification`,
+
   } as const;
 
   // Vendor endpoints
