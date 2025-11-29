@@ -147,3 +147,25 @@ export interface BankVerificationPayload {
   bank_statement_doc_url: string;
   bank_verification_letter_doc_url: string;
 }
+
+
+export interface BankVerificationFetchResponse {
+  data: BankVerificationData[];
+  isSuccess: boolean;
+  message: string;
+  statusCode: number;
+}
+
+export interface BankVerificationData {
+  bank_verification: BankVerification;
+  vendor_id: string;
+}
+
+export interface BankVerification {
+  CreatedAt: string;
+  UpdatedAt: string;
+  bank_statement_doc_url: string;
+  bank_verification_letter_doc_url: string;
+  cancelled_cheque_doc_url: string;
+  vendor_id: string;
+}

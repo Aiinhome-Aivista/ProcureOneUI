@@ -44,6 +44,15 @@
                 <button (click)="removeFile('cancelCheque')" class="text-red-500 text-[12px] font-bold">X</button>
             </div>
             }
+
+            @if (!uploadedFiles.cancelCheque && existingDocs.cancelCheque) {
+            <div class="mt-2 text-[10px] text-primary-600 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[12px]">description</span>
+                <a [href]="existingDocs.cancelCheque" target="_blank" rel="noopener" class="underline truncate" [title]="existingDocs.cancelCheque">
+                    Existing document
+                </a>
+            </div>
+            }
         </div>
 
         <!-- Bank Statement -->
@@ -75,6 +84,15 @@
             <div class="mt-2 text-[10px] text-green-600 flex items-center gap-2">
                 {{ uploadedFiles.bankStatement.name }}
                 <button (click)="removeFile('bankStatement')" class="text-red-500 text-[12px] font-bold">X</button>
+            </div>
+            }
+
+            @if (!uploadedFiles.bankStatement && existingDocs.bankStatement) {
+            <div class="mt-2 text-[10px] text-primary-600 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[12px]">description</span>
+                <a [href]="existingDocs.bankStatement" target="_blank" rel="noopener" class="underline truncate" [title]="existingDocs.bankStatement">
+                    Existing document
+                </a>
             </div>
             }
         </div>
@@ -109,6 +127,15 @@
             <div class="mt-2 text-[10px] text-green-600 flex items-center gap-2">
                 {{ uploadedFiles.verifyLetter.name }}
                 <button (click)="removeFile('verifyLetter')" class="text-red-500 text-[12px] font-bold">X</button>
+            </div>
+            }
+
+            @if (!uploadedFiles.verifyLetter && existingDocs.verifyLetter) {
+            <div class="mt-2 text-[10px] text-primary-600 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[12px]">description</span>
+                <a [href]="existingDocs.verifyLetter" target="_blank" rel="noopener" class="underline truncate" [title]="existingDocs.verifyLetter">
+                    Existing document
+                </a>
             </div>
             }
         </div>

@@ -6,42 +6,42 @@
   </div>
 
   <!-- 2 column fields -->
-  <div class="grid grid-cols-2 gap-4 text-[11px]">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label class="font-bold text-[#0000008F]">PAN Card (or equivalent tax ID)<span
+      <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">PAN Card (or equivalent tax ID)<span
           class="text-red-500">*</span></label>
       <input formControlName="pan" type="text"
-        class="mt-1 w-full h-10.5 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
+        class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-base  text-[#7C6FA2]"
         placeholder="Confirms tax registration and identity" />
 
       @if (form.get('pan')?.touched && form.get('pan')?.invalid) {
-      <div class="text-red-500 text-[8px]">
+      <div class="text-red-500 text-[11px] mt-1">
         PAN is required.
       </div>
       }
     </div>
 
     <div>
-      <label class="font-bold text-[#0000008F]">GST / VAT Registration Certificate<span
+      <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">GST / VAT Registration Certificate<span
           class="text-red-500">*</span></label>
       <input formControlName="gst" type="text"
-        class="mt-1 w-full h-10.5 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
+        class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-base  text-[#7C6FA2]"
         placeholder="Validates indirect tax compliance" />
 
       @if (form.get('gst')?.touched && form.get('gst')?.invalid) {
-      <div class="text-red-500 text-[8px]">
+      <div class="text-red-500 text-[11px] mt-1">
         GST is required.
       </div>
       }
     </div>
     <div>
-      <label class="font-bold text-[#0000008F]">Udyam / MSME Registration (if applicable)<span
+      <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Udyam / MSME Registration (if applicable)<span
           class="text-red-500">*</span></label>
-      <input formControlName="msmeUdyam" type="text" class="mt-1 w-full h-10.5 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
+      <input formControlName="msmeUdyam" type="text" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-base  text-[#7C6FA2]"
         placeholder="Confirms small/medium enterprise status" />
 
       @if (form.get('msmeUdyam')?.touched && form.get('msmeUdyam')?.invalid) {
-      <div class="text-red-500 text-[8px]">
+      <div class="text-red-500 text-[11px] mt-1">
         MSME/Udyam registration is required.
       </div>
       }
@@ -70,7 +70,7 @@
       </p-select>
 
       @if (incorp?.touched && incorp?.invalid) {
-      <div class="text-red-500 text-[10px]">
+      <div class="text-red-500 text-[11px] mt-1">
         Certificate type is required.
       </div>
       }
@@ -79,23 +79,23 @@
   </div>
 
   <!-- full width field -->
-  <div>
-    <label class="text-[11px] font-semibold text-[#0000008F]">Business License / Trade License<span
+  <div class="mt-6">
+    <label class="block text-[12px] font-semibold text-[#0000008F] mb-1">Business License / Trade License<span
         class="text-red-500">*</span></label>
     <input formControlName="tradeLicense" type="text"
-      class="mt-1 w-full h-10.5 border border-[#4319C245] rounded-lg px-3 text-[10px] text-[#7C6FA2]"
+      class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:border-primary-500 text-base  text-[#7C6FA2]"
       placeholder="Confirms legal authorization to operate" />
 
     @if (form.get('tradeLicense')?.touched && form.get('tradeLicense')?.invalid) {
-    <div class="text-red-500 text-[8px]">
+    <div class="text-red-500 text-[11px] mt-1">
       License is required.
     </div>
     }
   </div>
 
   <!-- drag drop -->
-  <div>
-    <label class="text-[11px] font-bold text-[#0000008F]">Supported Document
+  <div class="mt-6">
+    <label class="block text-[12px] font-semibold text-[#0000008F]">Supported Document
       <span class="text-red-500">*</span>
     </label>
 
@@ -103,7 +103,7 @@
       (change)="onFileChange('supportedDocument', $event)" />
 
     <div
-      class="mt-2 w-full h-[190px] border border-dashed border-[#4319C245] rounded-xl flex items-center justify-center text-center cursor-pointer"
+      class="mt-2 w-full h-[190px] border border-dashed border-[#4319C245] rounded-xl flex items-center justify-center text-center cursor-pointer bg-[#FBF9FF]"
       (click)="fileInput.click()" (drop)="handleDrop($event)" (dragover)="allowDrop($event)">
       <div class="text-[#7C6FA2]">
         <div class="">
@@ -118,13 +118,13 @@
 
     <!-- filename -->
     @if (selectedFileName) {
-    <div class="text-[8px] text-[#7C6FA2] mt-2">
+    <div class="text-[11px] text-[#7C6FA2] mt-2">
       Selected: {{ selectedFileName }}
     </div>
     }
 
     @if (form.get('supportedDocument')?.touched && form.get('supportedDocument')?.invalid) {
-    <div class="text-[8px] text-red-500 mt-1">
+    <div class="text-[11px] text-red-500 mt-1">
       Document required (PDF max 10MB)
     </div>
     }

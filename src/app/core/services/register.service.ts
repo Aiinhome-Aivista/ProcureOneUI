@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiEndpoints } from '../config/api-endpoints';
-import { BankVerificationResponse, BasicInfo, BasicInfoResponse, BusinessTaxInfo, BusinessTaxResponse, DropdownModel, VendorInfoResponse, VendorTaxDocumentsResponse } from '../models';
+import { BankVerificationFetchResponse, BankVerificationResponse, BasicInfo, BasicInfoResponse, BusinessTaxInfo, BusinessTaxResponse, DropdownModel, VendorInfoResponse, VendorTaxDocumentsResponse } from '../models';
 import { LegalProofResponse } from '../models';
 
 @Injectable({
@@ -48,6 +48,14 @@ export class RegisterService {
       ? `${ApiEndpoints.AUTH.GET_BUSINESS_TAX_DOCS}?vendor_id=${vendorId}`
       : ApiEndpoints.AUTH.GET_BUSINESS_TAX_DOCS;
     return this.http.get<VendorTaxDocumentsResponse>(url);
+  }
+
+   getBankDetails(): Observable<BankVerificationFetchResponse> {
+    const vendorId = sessionStorage.getItem('vendorId');
+    const url = vendorId
+      ? `${ApiEndpoints.AUTH.GET_BANK_DETAILS}?vendor_id=${vendorId}`
+      : ApiEndpoints.AUTH.GET_BANK_DETAILS;
+    return this.http.get<BankVerificationFetchResponse>(url);
   }
 
 

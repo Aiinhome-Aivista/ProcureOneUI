@@ -13,6 +13,7 @@ import { FinalSubmission } from './components/steps/final-submission/final-submi
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { RegisterService } from '../../../core/services';
+import { FinancialDocuments } from "./components/steps/financial-documents/financial-documents";
 
 @Component({
   selector: 'app-register',
@@ -23,12 +24,12 @@ import { RegisterService } from '../../../core/services';
     IdentityDetails,
     BusinessTaxRegistration,
     BankIdentityVerification,
-
     StepIndicatorComponent,
     FinalSubmission,
     DialogModule,
     ButtonModule,
-  ],
+    FinancialDocuments
+],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
@@ -305,13 +306,13 @@ export class RegisterComponent {
 
     const files = component.uploadedFiles;
     if (files?.cancelCheque instanceof File) {
-      formDataPayload.append('cancelled_cheque_doc_url', files.cancelCheque, files.cancelCheque.name);
+      formDataPayload.append('cancelled_cheque', files.cancelCheque, files.cancelCheque.name);
     }
     if (files?.bankStatement instanceof File) {
-      formDataPayload.append('bank_statement_doc_url', files.bankStatement, files.bankStatement.name);
+      formDataPayload.append('bank_statement', files.bankStatement, files.bankStatement.name);
     }
     if (files?.verifyLetter instanceof File) {
-      formDataPayload.append('bank_verification_letter_doc_url', files.verifyLetter, files.verifyLetter.name);
+      formDataPayload.append('verification_letter', files.verifyLetter, files.verifyLetter.name);
     }
 
     this.registerService.postBankDetails(formDataPayload).subscribe({
