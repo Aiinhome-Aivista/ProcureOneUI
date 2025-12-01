@@ -169,3 +169,18 @@ export interface BankVerification {
   cancelled_cheque_doc_url: string;
   vendor_id: string;
 }
+
+export interface VendorRegistrationTrackerResponse {
+  data: VendorRegistrationTrackerStep[];
+  isSuccess: boolean;
+  message: string;
+  statusCode: number;
+}
+
+export interface VendorRegistrationTrackerStep {
+  status: string;
+  step_code: string;
+  step_description: string;
+  step_name: string;
+  vendor_id: string;
+}

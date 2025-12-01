@@ -14,6 +14,7 @@ import {
   VendorOtpRequest,
   VendorOtpResponse,
   VendorTaxDocumentsResponse,
+  VendorRegistrationTrackerResponse,
   VerifyVendorOtpRequest,
   VerifyVendorOtpResponse,
 } from '../models';
@@ -97,5 +98,10 @@ export class RegisterService {
 
   verifyVendorOtp(body: VerifyVendorOtpRequest): Observable<VerifyVendorOtpResponse> {
     return this.http.post<VerifyVendorOtpResponse>(ApiEndpoints.AUTH.VERIFY_VENDOR_OTP, body);
+  }
+
+  getVendorRegistrationTracker(vendorId: string): Observable<VendorRegistrationTrackerResponse> {
+    const url = `${ApiEndpoints.AUTH.GET_VENDOR_REGISTRATION_TRACKER}?vendor_id=${vendorId}`;
+    return this.http.get<VendorRegistrationTrackerResponse>(url);
   }
 }

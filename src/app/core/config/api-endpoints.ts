@@ -27,6 +27,7 @@ export class ApiEndpoints {
     GET_BANK_DETAILS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-bank-verification`,
     SEND_VENDOR_OTP: `${ApiEndpoints.BASE_URL}/VendorMicroservices/send-otp`,
     VERIFY_VENDOR_OTP: `${ApiEndpoints.BASE_URL}/VendorMicroservices/verify-otp`,
+    GET_VENDOR_REGISTRATION_TRACKER: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-registration-tracker`,
   } as const;
 
   // Vendor endpoints
