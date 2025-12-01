@@ -2,7 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiEndpoints } from '../config/api-endpoints';
-import { BankVerificationFetchResponse, BankVerificationResponse, BasicInfo, BasicInfoResponse, BusinessTaxInfo, BusinessTaxResponse, DropdownModel, VendorInfoResponse, VendorTaxDocumentsResponse } from '../models';
+import {
+  BankVerificationFetchResponse,
+  BankVerificationResponse,
+  BasicInfo,
+  BasicInfoResponse,
+  BusinessTaxInfo,
+  BusinessTaxResponse,
+  DropdownModel,
+  VendorInfoResponse,
+  VendorOtpRequest,
+  VendorOtpResponse,
+  VendorTaxDocumentsResponse,
+  VerifyVendorOtpRequest,
+  VerifyVendorOtpResponse,
+} from '../models';
 import { LegalProofResponse } from '../models';
 
 @Injectable({
@@ -11,8 +25,7 @@ import { LegalProofResponse } from '../models';
 export class RegisterService {
   // jobSubscribe = new Subject();
 
-  constructor(private http: HttpClient) { }
-
+  constructor(private http: HttpClient) {}
 
   businessTypes(): Observable<DropdownModel> {
     return this.http.get<DropdownModel>(ApiEndpoints.AUTH.BUSINESS_TYPES);
@@ -31,7 +44,7 @@ export class RegisterService {
   }
 
   certificateIncorporation(): Observable<LegalProofResponse> {
-    return this.http.get<LegalProofResponse>(ApiEndpoints.AUTH.CERTIFICATE_iNCORPORATION)
+    return this.http.get<LegalProofResponse>(ApiEndpoints.AUTH.CERTIFICATE_iNCORPORATION);
   }
 
   getBasicInfo(): Observable<VendorInfoResponse> {
@@ -50,17 +63,13 @@ export class RegisterService {
     return this.http.get<VendorTaxDocumentsResponse>(url);
   }
 
-   getBankDetails(): Observable<BankVerificationFetchResponse> {
+  getBankDetails(): Observable<BankVerificationFetchResponse> {
     const vendorId = sessionStorage.getItem('vendorId');
     const url = vendorId
       ? `${ApiEndpoints.AUTH.GET_BANK_DETAILS}?vendor_id=${vendorId}`
       : ApiEndpoints.AUTH.GET_BANK_DETAILS;
     return this.http.get<BankVerificationFetchResponse>(url);
   }
-
-
-
-
 
   states(body: any): Observable<DropdownModel> {
     return this.http.post<DropdownModel>(ApiEndpoints.AUTH.STATES, body);
@@ -82,5 +91,11 @@ export class RegisterService {
     return this.http.post<BankVerificationResponse>(ApiEndpoints.AUTH.POST_BANK_DETAILS, formData);
   }
 
+  sendVendorOtp(body: VendorOtpRequest): Observable<VendorOtpResponse> {
+    return this.http.post<VendorOtpResponse>(ApiEndpoints.AUTH.SEND_VENDOR_OTP, body);
+  }
 
+  verifyVendorOtp(body: VerifyVendorOtpRequest): Observable<VerifyVendorOtpResponse> {
+    return this.http.post<VerifyVendorOtpResponse>(ApiEndpoints.AUTH.VERIFY_VENDOR_OTP, body);
+  }
 }

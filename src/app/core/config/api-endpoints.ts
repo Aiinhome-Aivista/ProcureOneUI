@@ -25,6 +25,8 @@ export class ApiEndpoints {
     GET_BUSINESS_TAX_DOCS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-registration-tax-docs`,
     POST_BANK_DETAILS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/bank-verification`,
     GET_BANK_DETAILS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-bank-verification`,
+    SEND_VENDOR_OTP: `${ApiEndpoints.BASE_URL}/VendorMicroservices/send-otp`,
+    VERIFY_VENDOR_OTP: `${ApiEndpoints.BASE_URL}/VendorMicroservices/verify-otp`,
   } as const;
 
   // Vendor endpoints
@@ -33,7 +35,7 @@ export class ApiEndpoints {
     PRODUCTS: `${ApiEndpoints.BASE_URL}/vendor/products`,
     ORDERS: `${ApiEndpoints.BASE_URL}/vendor/orders`,
     ANALYTICS: `${ApiEndpoints.BASE_URL}/vendor/analytics`,
-    PROFILE: `${ApiEndpoints.BASE_URL}/vendor/profile`
+    PROFILE: `${ApiEndpoints.BASE_URL}/vendor/profile`,
   } as const;
 
   // Department endpoints
@@ -42,13 +44,13 @@ export class ApiEndpoints {
     REQUESTS: `${ApiEndpoints.BASE_URL}/department/requests`,
     APPROVALS: `${ApiEndpoints.BASE_URL}/department/approvals`,
     REPORTS: `${ApiEndpoints.BASE_URL}/department/reports`,
-    PROFILE: `${ApiEndpoints.BASE_URL}/department/profile`
+    PROFILE: `${ApiEndpoints.BASE_URL}/department/profile`,
   } as const;
 
   // User endpoints
   static readonly USER = {
     GET_PROFILE: `${ApiEndpoints.BASE_URL}/user/profile`,
     UPDATE_PROFILE: `${ApiEndpoints.BASE_URL}/user/profile`,
-    CHANGE_PASSWORD: `${ApiEndpoints.BASE_URL}/user/change-password`
+    CHANGE_PASSWORD: `${ApiEndpoints.BASE_URL}/user/change-password`,
   } as const;
 }

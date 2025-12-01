@@ -26,6 +26,6 @@ interface StatCard {
 })
 export class VendorDashboardComponent {
 
-  public isRequestionVisible : boolean = true;
+  public isRequestionVisible : boolean = false;
  
 }

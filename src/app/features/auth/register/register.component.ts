@@ -1,7 +1,6 @@
-import { Component, computed, signal, viewChild } from '@angular/core';
+import { Component, OnInit, computed, signal, viewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { inject } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import { Sidebar } from './components/sidebar/sidebar';
 import { IdentityDetails } from './components/steps/identity-details/identity-details';
@@ -13,7 +12,7 @@ import { FinalSubmission } from './components/steps/final-submission/final-submi
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { RegisterService } from '../../../core/services';
-import { FinancialDocuments } from "./components/steps/financial-documents/financial-documents";
+import { FinancialDocuments } from './components/steps/financial-documents/financial-documents';
 
 @Component({
   selector: 'app-register',
@@ -28,17 +27,21 @@ import { FinancialDocuments } from "./components/steps/financial-documents/finan
     FinalSubmission,
     DialogModule,
     ButtonModule,
-    FinancialDocuments
-],
+    FinancialDocuments,
+  ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   private readonly registerService = inject(RegisterService);
+  private readonly route = inject(ActivatedRoute);
 
   private readonly identityDetailsComponent = viewChild<IdentityDetails>('identityDetails');
-  private readonly businessTaxRegistrationComponent = viewChild<BusinessTaxRegistration>('businessTaxRegistration');
-  private readonly bankIdentityVerificationComponent = viewChild<BankIdentityVerification>('bankIdentityVerification');
+  private readonly businessTaxRegistrationComponent =
+    viewChild<BusinessTaxRegistration>('businessTaxRegistration');
+  private readonly bankIdentityVerificationComponent = viewChild<BankIdentityVerification>(
+    'bankIdentityVerification'
+  );
 
   // Current step signal - connected to sidebar
   readonly currentStep = signal<number>(1);
@@ -50,20 +53,30 @@ export class RegisterComponent {
   step1Address: any = {};
   step2Data: any = {};
 
-
   public showDialog = false; // control dialog visibility
 
   companyData = {
-
-
     headerdescription: `This is the final step in completing your company's basic registration process. Before submitting, please carefully review all the information you have entered in the sections including Company Profile, Business Address, Legal Structure, and Contact Details.`,
-    footertitle: "Notable information:",
-    footerdescription: "At the time of initial entry, the system automatically generates a unique Initial Registration ID (IRID) for your company. This ID allows you to pause and resume your registration at any point, ensuring that your progress is securely saved. You can use this ID to log back in, upload pending documents, or communicate with the procurement team regarding your registration status."
+    footertitle: 'Notable information:',
+    footerdescription:
+      'At the time of initial entry, the system automatically generates a unique Initial Registration ID (IRID) for your company. This ID allows you to pause and resume your registration at any point, ensuring that your progress is securely saved. You can use this ID to log back in, upload pending documents, or communicate with the procurement team regarding your registration status.',
   };
 
   // Method to handle step changes from sidebar
   onStepChange(step: number): void {
     this.currentStep.set(step);
+  }
+
+  ngOnInit(): void {
+    const storedStep = this.parseStep(sessionStorage.getItem('currentStep'));
+    if (storedStep) {
+      this.currentStep.set(storedStep);
+    }
+
+    const queryStep = this.parseStep(this.route.snapshot.queryParamMap.get('step'));
+    if (queryStep) {
+      this.currentStep.set(queryStep);
+    }
   }
 
   openDialog(): void {
@@ -166,8 +179,6 @@ export class RegisterComponent {
     return component.isValid();
   }
 
-
-
   previousStep(): void {
     if (this.isFirstStep()) {
       return;
@@ -196,6 +207,24 @@ export class RegisterComponent {
     if (step === 3) {
       this.bankIdentityVerificationComponent()?.resetForm();
     }
+  }
+
+  private parseStep(stepValue: string | null): number | null {
+    if (!stepValue) {
+      return null;
+    }
+
+    const parsed = Number(stepValue);
+    if (Number.isNaN(parsed)) {
+      return null;
+    }
+
+    const normalized = Math.trunc(parsed);
+    if (normalized < 1 || normalized > this.totalSteps) {
+      return null;
+    }
+
+    return normalized;
   }
 
   private submitStep1Data(): void {
@@ -241,7 +270,9 @@ export class RegisterComponent {
         }
       },
       error: (error) => {
-        this.handleError(error?.error?.message || 'An error occurred while submitting basic information');
+        this.handleError(
+          error?.error?.message || 'An error occurred while submitting basic information'
+        );
       },
     });
   }
@@ -268,10 +299,14 @@ export class RegisterComponent {
     formDataPayload.append('msme_udyam_number', formData.msmeUdyam || '');
     formDataPayload.append('certificate_of_incorporation_number', formData.incorp || '');
     formDataPayload.append('legal_authorization_type', formData.tradeLicense || '');
-    
+
     // Append the actual file if exists
     if (formData.supportedDocument && formData.supportedDocument instanceof File) {
-      formDataPayload.append('documents', formData.supportedDocument, formData.supportedDocument.name);
+      formDataPayload.append(
+        'documents',
+        formData.supportedDocument,
+        formData.supportedDocument.name
+      );
     }
 
     this.registerService.postBusinessTax(formDataPayload).subscribe({
@@ -284,7 +319,9 @@ export class RegisterComponent {
         }
       },
       error: (error) => {
-        this.handleError(error?.error?.message || 'An error occurred while submitting business tax documents');
+        this.handleError(
+          error?.error?.message || 'An error occurred while submitting business tax documents'
+        );
       },
     });
   }
@@ -325,7 +362,9 @@ export class RegisterComponent {
         }
       },
       error: (error) => {
-        this.handleError(error?.error?.message || 'An error occurred while submitting bank verification documents');
+        this.handleError(
+          error?.error?.message || 'An error occurred while submitting bank verification documents'
+        );
       },
     });
   }
