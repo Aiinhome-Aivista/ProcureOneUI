@@ -205,8 +205,9 @@
                   type="button"
                   aria-label="Send OTP"
                   (click)="sendOnboardingOtp()"
-                  class="ml-3 inline-flex items-center gap-2 text-sm font-semibold text-primary-600"
-                  [disabled]="isOtpSending()"
+                  class="ml-3 inline-flex items-center gap-2 text-sm font-semibold "
+                  [disabled]="!initialId.trim() || isOtpSending()"
+                 
                 >
                   @if (isOtpSending()) {
                   <svg
@@ -231,8 +232,12 @@
                   </svg>
                   <span>Sending...</span>
                   } @else {
-                  <img src="assets/icons/arrow_circle_down.svg" alt="Send OTP" class="h-6 w-6" />
-                  <span>Send OTP</span>
+                  <img
+                    src="assets/icons/arrow_circle_down.svg"
+                    alt="Send OTP"
+                    class="h-6 w-6 transition-opacity"
+                  />
+                  <!-- <span>Send OTP</span> -->
                   }
                 </button>
               </div>
@@ -257,15 +262,21 @@
                   [length]="otpLength"
                   [integerOnly]="true"
                   [disabled]="isOtpVerifying()"
-                  class="w-full onboarding-otp "
+                  class="w-full onboarding-otp"
                 >
                 </p-inputotp>
 
                 <button
                   type="button"
                   (click)="verifyOnboardingOtp()"
-                  class="w-full py-2 text-sm font-semibold rounded-lg text-white bg-primary-600 hover:bg-primary-700 transition disabled:opacity-70 disabled:cursor-not-allowed"
+                  class="w-full py-2 text-sm font-semibold rounded-lg transition-colors duration-300 flex items-center justify-center"
                   [disabled]="!isOtpReady || isOtpVerifying()"
+                  [ngClass]="{
+                    'bg-primary-600 text-white hover:bg-primary-700 cursor-pointer':
+                      isOtpReady && !isOtpVerifying(),
+                    'bg-[#D9D9D9] text-[#4319C245] cursor-not-allowed':
+                      !isOtpReady || isOtpVerifying()
+                  }"
                 >
                   @if (isOtpVerifying()) {
                   <svg
@@ -290,7 +301,7 @@
                   </svg>
                   <span>Verifying...</span>
                   } @else {
-                  <span>Verify & Continue</span>
+                  <span>Verify and Continue</span>
                   }
                 </button>
               </div>
