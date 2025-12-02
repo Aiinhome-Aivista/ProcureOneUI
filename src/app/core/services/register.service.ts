@@ -11,6 +11,7 @@ import {
   BusinessTaxResponse,
   FinancialDocumentsResponse,
   VendorFinancialDocumentsResponse,
+  VendorRegistrationDetailsResponse,
   DropdownModel,
   VendorInfoResponse,
   VendorOtpRequest,
@@ -121,5 +122,12 @@ export class RegisterService {
       : ApiEndpoints.AUTH.GET_FINANCIAL_DOCS;
 
     return this.http.get<VendorFinancialDocumentsResponse>(url);
+  }
+
+  getVendorRegistrationDetails(
+    vendorId: string
+  ): Observable<VendorRegistrationDetailsResponse> {
+    const url = `${ApiEndpoints.AUTH.GET_VENDOR_REGISTRATION_DETAILS}?vendor_id=${vendorId}`;
+    return this.http.get<VendorRegistrationDetailsResponse>(url);
   }
 }

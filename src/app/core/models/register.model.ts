@@ -203,3 +203,40 @@ export interface VendorRegistrationTrackerStep {
   step_name: string;
   vendor_id: string;
 }
+
+export interface VendorRegistrationDetailsResponse {
+  data: VendorRegistrationDetails[];
+  isSuccess: boolean;
+  message: string;
+  statusCode: number;
+}
+
+export interface VendorRegistrationDetails {
+  CreatedAt?: string;
+  CreatedBy?: string | null;
+  UpdatedAt?: string;
+  UpdatedBy?: string | null;
+  alternate_contact: string | null;
+  bank_verification: BankVerification | null;
+  business_type: string | null;
+  city: string | null;
+  company_name: string;
+  contact_person: string;
+  country: string | null;
+  current_step: string;
+  date_of_incorporation: string | null;
+  designation_role: string | null;
+  email_official: string;
+  financial_performance: VendorFinancialDocumentEntry | null;
+  industry_category: string | null;
+  nature_of_business: string | null;
+  operational_address: string | null;
+  phone_number_official: string;
+  pin: string | null;
+  registered_address: string | null;
+  registration_number: string | null;
+  state: string | null;
+  tax_document_files: TaxDocumentFile[];
+  tax_documents: TaxDocuments | null;
+  vendor_id: string;
+}
