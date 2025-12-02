@@ -48,10 +48,9 @@
         } @if (currentStep() === 3) {
         <app-bank-identity-verification #bankIdentityVerification />
         } @if (currentStep() === 4) {
-
-        <!-- <app-final-submission /> -->
         <app-financial-documents #financialDocuments />
-
+        } @if (currentStep() === 5) {
+        <app-preview-steps [summary]="registrationSummary" />
         }
       </div>
 

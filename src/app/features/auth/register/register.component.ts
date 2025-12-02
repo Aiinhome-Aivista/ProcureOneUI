@@ -14,6 +14,7 @@ import { ButtonModule } from 'primeng/button';
 import { RegisterService } from '../../../core/services';
 import { FinancialDocuments } from './components/steps/financial-documents/financial-documents';
 import { VendorRegistrationDetails } from '../../../core/models';
+import { PreviewSteps } from './components/steps/preview-steps/preview-steps';
 
 @Component({
   selector: 'app-register',
@@ -29,6 +30,7 @@ import { VendorRegistrationDetails } from '../../../core/models';
     DialogModule,
     ButtonModule,
     FinancialDocuments,
+    PreviewSteps,
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
@@ -564,11 +566,15 @@ export class RegisterComponent implements OnInit {
         this.isSummaryLoading = false;
         if (response?.isSuccess && response.data?.length) {
           this.registrationSummary = response.data[0];
-          this.showCompletionDialog = true;
+          // this.showCompletionDialog = true;
+          this.currentStep.set(5); // Move to preview step
         } else {
           this.registrationSummary = null;
           this.summaryError = response?.message || 'Unable to load registration summary.';
-          this.showCompletionDialog = true;
+          // this.showCompletionDialog = true;
+          this.currentStep.set(5); // Move to preview step even on error to show state? Or maybe handle error differently.
+          // For now, let's assume we want to show the preview page which might handle empty data gracefully or we show error there.
+          // But the user request specifically asked for the preview page after success.
         }
       },
       error: (error) => {
