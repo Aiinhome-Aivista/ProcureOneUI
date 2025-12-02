@@ -4,9 +4,14 @@
     <div class="px-6 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <a routerLink="/login" class="text-gray-600 hover:text-gray-900 flex items-center">
+          <button
+            type="button"
+            class="text-gray-600 hover:text-gray-900 flex items-center"
+            (click)="openBackConfirm()"
+            aria-label="Go back to login"
+          >
             <span class="material-symbols-outlined">arrow_back</span>
-          </a>
+          </button>
           <div>
             <img src="assets/icons/Aiinhome _ PO.svg" alt="Aiinhome PO Logo" />
           </div>
@@ -215,6 +220,53 @@
             <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
           </p-button>
         </div>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog
+    [(visible)]="showBackConfirm"
+    [modal]="true"
+    [style]="{ width: '90vw', maxWidth: '440px' }"
+    [draggable]="false"
+    [resizable]="false"
+    header="Leave Registration?"
+  >
+    <ng-template pTemplate="header">
+      <div class="bg-black p-4 w-full rounded-t-lg flex justify-between items-center">
+        <span class="text-white font-semibold text-sm">Leave Registration?</span>
+        <span
+          class="material-symbols-outlined text-white cursor-pointer"
+          (click)="closeBackConfirm()"
+        >
+          close
+        </span>
+      </div>
+    </ng-template>
+
+    <div class="p-4 text-sm text-[#0000008F]">
+      <p>
+        You are about to exit the registration flow and return to the login page. Any unsaved changes
+        for the current step will be lost. Do you want to continue?
+      </p>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="flex justify-end gap-3 w-full">
+        <button
+          type="button"
+          class="rounded-full border border-gray-300 px-5 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
+          (click)="closeBackConfirm()"
+        >
+          No
+        </button>
+        <button
+          type="button"
+          class="rounded-full bg-primary-600 px-6 py-2 text-sm font-semibold text-white hover:bg-primary-500"
+          (click)="confirmBackNavigation()"
+        >
+          Yes
+        </button>
       </div>
     </ng-template>
   </p-dialog>

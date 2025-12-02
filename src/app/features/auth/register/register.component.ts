@@ -1,6 +1,6 @@
 import { Component, OnInit, computed, signal, viewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 import { Sidebar } from './components/sidebar/sidebar';
 import { IdentityDetails } from './components/steps/identity-details/identity-details';
@@ -35,6 +35,7 @@ import { FinancialDocuments } from './components/steps/financial-documents/finan
 export class RegisterComponent implements OnInit {
   private readonly registerService = inject(RegisterService);
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
 
   private readonly identityDetailsComponent = viewChild<IdentityDetails>('identityDetails');
   private readonly businessTaxRegistrationComponent =
@@ -54,6 +55,7 @@ export class RegisterComponent implements OnInit {
   step2Data: any = {};
 
   public showDialog = false; // control dialog visibility
+  public showBackConfirm = false;
 
   companyData = {
     headerdescription: `This is the final step in completing your company's basic registration process. Before submitting, please carefully review all the information you have entered in the sections including Company Profile, Business Address, Legal Structure, and Contact Details.`,
@@ -81,6 +83,19 @@ export class RegisterComponent implements OnInit {
 
   openDialog(): void {
     this.showDialog = true;
+  }
+
+  openBackConfirm(): void {
+    this.showBackConfirm = true;
+  }
+
+  closeBackConfirm(): void {
+    this.showBackConfirm = false;
+  }
+
+  confirmBackNavigation(): void {
+    this.showBackConfirm = false;
+    this.router.navigate(['/login']);
   }
 
   confirmAndNext(): void {
@@ -351,6 +366,7 @@ export class RegisterComponent implements OnInit {
     if (files?.verifyLetter instanceof File) {
       formDataPayload.append('verification_letter', files.verifyLetter, files.verifyLetter.name);
     }
+    
 
     this.registerService.postBankDetails(formDataPayload).subscribe({
       next: (response) => {
