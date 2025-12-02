@@ -50,8 +50,7 @@
         } @if (currentStep() === 4) {
 
         <!-- <app-final-submission /> -->
-        <app-financial-documents />
-    
+        <app-financial-documents #financialDocuments />
 
         }
       </div>
@@ -81,7 +80,7 @@
             type="button"
             class="inline-flex items-center gap-2 rounded-lg bg-primary-600 p-2 text-sm font-semibold text-white transition hover:bg-primary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:bg-primary-300"
             (click)="nextStep()"
-            [disabled]="isLastStep()"
+            [disabled]="isNextDisabled()"
           >
             Next <span class="material-symbols-outlined"> arrow_forward </span>
           </button>
@@ -246,8 +245,8 @@
 
     <div class="p-4 text-sm text-[#0000008F]">
       <p>
-        You are about to exit the registration flow and return to the login page. Any unsaved changes
-        for the current step will be lost. Do you want to continue?
+        You are about to exit the registration flow and return to the login page. Any unsaved
+        changes for the current step will be lost. Do you want to continue?
       </p>
     </div>
 

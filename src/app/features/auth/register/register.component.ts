@@ -43,6 +43,7 @@ export class RegisterComponent implements OnInit {
   private readonly bankIdentityVerificationComponent = viewChild<BankIdentityVerification>(
     'bankIdentityVerification'
   );
+  private readonly financialDocumentsComponent = viewChild<FinancialDocuments>('financialDocuments');
 
   // Current step signal - connected to sidebar
   readonly currentStep = signal<number>(1);
@@ -103,10 +104,13 @@ export class RegisterComponent implements OnInit {
   }
 
   nextStep(): void {
-    if (this.isLastStep()) return;
-
     // Validate the current step before proceeding
     const currentStepNumber = this.currentStep();
+
+    if (currentStepNumber === this.totalSteps) {
+      this.submitStep4Data();
+      return;
+    }
     let isValid = false;
 
     switch (currentStepNumber) {
@@ -221,6 +225,11 @@ export class RegisterComponent implements OnInit {
 
     if (step === 3) {
       this.bankIdentityVerificationComponent()?.resetForm();
+      return;
+    }
+
+    if (step === 4) {
+      this.financialDocumentsComponent()?.resetFiles();
     }
   }
 
@@ -366,7 +375,6 @@ export class RegisterComponent implements OnInit {
     if (files?.verifyLetter instanceof File) {
       formDataPayload.append('verification_letter', files.verifyLetter, files.verifyLetter.name);
     }
-    
 
     this.registerService.postBankDetails(formDataPayload).subscribe({
       next: (response) => {
@@ -389,5 +397,49 @@ export class RegisterComponent implements OnInit {
     console.error('API Error:', message);
     // TODO: Show toast/notification to user
     // alert(message);
+  }
+
+  private submitStep4Data(): void {
+    const component = this.financialDocumentsComponent();
+    if (!component) {
+      this.handleError('Financial documents component not available.');
+      return;
+    }
+
+    const submission$ = component.submitFinancialDocs();
+    if (!submission$) {
+      return;
+    }
+
+    submission$.subscribe({
+      next: (response) => {
+        const isSuccess =
+          typeof response?.isSuccess === 'string'
+            ? response.isSuccess.toLowerCase() === 'true'
+            : !!response?.isSuccess;
+
+        if (isSuccess || response?.status?.toLowerCase() === 'success') {
+          console.log('Financial documents submitted successfully.');
+        }
+      },
+      error: (error) => {
+        this.handleError(error?.error?.message || 'Unable to submit financial documents.');
+      },
+    });
+  }
+
+  isNextDisabled(): boolean {
+    if (this.currentStep() === this.totalSteps) {
+      const component = this.financialDocumentsComponent();
+      if (!component) {
+        return true;
+      }
+      if (component.isSubmitting()) {
+        return true;
+      }
+      return !component.canSubmitDocuments();
+    }
+
+    return false;
   }
 }

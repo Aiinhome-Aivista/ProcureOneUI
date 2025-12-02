@@ -19,7 +19,6 @@ export interface DropdownModel {
   statusCode: number;
 }
 
-
 export interface BasicInfo {
   company_name: string;
   registration_number: string;
@@ -81,8 +80,6 @@ export interface VendorInfo {
   vendor_id: string;
 }
 
-
-
 export interface BusinessTaxInfo {
   vendor_id: string;
   pan_number: string;
@@ -90,9 +87,8 @@ export interface BusinessTaxInfo {
   msme_udyam_number: string;
   certificate_of_incorporation_number: string;
   legal_authorization_type: string;
-  documents: string[];  // array of file names
+  documents: string[]; // array of file names
 }
-
 
 export interface BusinessTaxResponse {
   current_step: 'TAX_DOCS' | string;
@@ -131,7 +127,6 @@ export interface TaxDocuments {
   vendor_id: number;
 }
 
-
 export interface BankVerificationResponse {
   current_step: string;
   isSuccess: boolean;
@@ -147,7 +142,6 @@ export interface BankVerificationPayload {
   bank_statement_doc_url: string;
   bank_verification_letter_doc_url: string;
 }
-
 
 export interface BankVerificationFetchResponse {
   data: BankVerificationData[];
@@ -167,6 +161,15 @@ export interface BankVerification {
   bank_statement_doc_url: string;
   bank_verification_letter_doc_url: string;
   cancelled_cheque_doc_url: string;
+  vendor_id: string;
+}
+
+export interface FinancialDocumentsResponse {
+  current_step: string;
+  isSuccess: boolean | string;
+  message: string;
+  status?: string;
+  statusCode: number;
   vendor_id: string;
 }
 

@@ -9,6 +9,7 @@ import {
   BasicInfoResponse,
   BusinessTaxInfo,
   BusinessTaxResponse,
+  FinancialDocumentsResponse,
   DropdownModel,
   VendorInfoResponse,
   VendorOtpRequest,
@@ -103,5 +104,12 @@ export class RegisterService {
   getVendorRegistrationTracker(vendorId: string): Observable<VendorRegistrationTrackerResponse> {
     const url = `${ApiEndpoints.AUTH.GET_VENDOR_REGISTRATION_TRACKER}?vendor_id=${vendorId}`;
     return this.http.get<VendorRegistrationTrackerResponse>(url);
+  }
+
+  postFinancialDocuments(formData: FormData): Observable<FinancialDocumentsResponse> {
+    return this.http.post<FinancialDocumentsResponse>(
+      ApiEndpoints.AUTH.POST_FINANCIAL_DOCS,
+      formData
+    );
   }
 }
