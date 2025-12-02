@@ -26,7 +26,7 @@ import { PreviewSteps } from './components/steps/preview-steps/preview-steps';
     BusinessTaxRegistration,
     BankIdentityVerification,
     StepIndicatorComponent,
-    FinalSubmission,
+    // FinalSubmission,
     DialogModule,
     ButtonModule,
     FinancialDocuments,
