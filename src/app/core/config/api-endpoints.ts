@@ -29,6 +29,7 @@ export class ApiEndpoints {
     VERIFY_VENDOR_OTP: `${ApiEndpoints.BASE_URL}/VendorMicroservices/verify-otp`,
     GET_VENDOR_REGISTRATION_TRACKER: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-registration-tracker`,
     POST_FINANCIAL_DOCS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/financial-docs`,
+    GET_FINANCIAL_DOCS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-financial-performance`,
   } as const;
 
   // Vendor endpoints

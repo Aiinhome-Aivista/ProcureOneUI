@@ -173,6 +173,22 @@ export interface FinancialDocumentsResponse {
   vendor_id: string;
 }
 
+export interface VendorFinancialDocumentsResponse {
+  data: VendorFinancialDocumentEntry[];
+  isSuccess: boolean;
+  message: string;
+  statusCode: number;
+}
+
+export interface VendorFinancialDocumentEntry {
+  audited_balance_sheet_doc_url: string;
+  profit_loss_statement_doc_url: string;
+  income_tax_return_doc_url: string;
+  turnover_declaration_doc_url: string;
+  current_step?: string;
+  vendor_id: string;
+}
+
 export interface VendorRegistrationTrackerResponse {
   data: VendorRegistrationTrackerStep[];
   isSuccess: boolean;

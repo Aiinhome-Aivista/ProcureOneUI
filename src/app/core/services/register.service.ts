@@ -10,6 +10,7 @@ import {
   BusinessTaxInfo,
   BusinessTaxResponse,
   FinancialDocumentsResponse,
+  VendorFinancialDocumentsResponse,
   DropdownModel,
   VendorInfoResponse,
   VendorOtpRequest,
@@ -111,5 +112,14 @@ export class RegisterService {
       ApiEndpoints.AUTH.POST_FINANCIAL_DOCS,
       formData
     );
+  }
+
+  getFinancialDocuments(): Observable<VendorFinancialDocumentsResponse> {
+    const vendorId = sessionStorage.getItem('vendorId');
+    const url = vendorId
+      ? `${ApiEndpoints.AUTH.GET_FINANCIAL_DOCS}?vendor_id=${vendorId}`
+      : ApiEndpoints.AUTH.GET_FINANCIAL_DOCS;
+
+    return this.http.get<VendorFinancialDocumentsResponse>(url);
   }
 }

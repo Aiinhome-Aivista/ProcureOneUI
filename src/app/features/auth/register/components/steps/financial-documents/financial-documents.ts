@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { Observable, catchError, finalize, of, tap, throwError } from 'rxjs';
 import { RegisterService } from '../../../../../../core/services';
 import { FinancialDocumentsResponse } from '../../../../../../core/models';
 
@@ -16,19 +16,53 @@ type FinancialDocKey =
   templateUrl: './financial-documents.html',
   styleUrl: './financial-documents.css',
 })
-export class FinancialDocuments {
+export class FinancialDocuments implements OnInit {
   private readonly registerService = inject(RegisterService);
 
   readonly isSubmitting = signal(false);
   readonly successMessage = signal<string | null>(null);
   readonly errorMessage = signal<string | null>(null);
+  readonly isLoadingExisting = signal(false);
 
-  uploadedFiles: Record<FinancialDocKey, File | null> = {
-    auditedBalanceSheet: null,
-    profitLossStatement: null,
-    incomeTaxReturn: null,
-    turnoverDeclaration: null,
-  };
+  uploadedFiles: Record<FinancialDocKey, File | null> = this.createEmptyFileState();
+  existingDocuments: Record<FinancialDocKey, string | null> = this.createEmptyDocumentState();
+
+  ngOnInit(): void {
+    this.fetchExistingDocuments();
+  }
+
+  private fetchExistingDocuments(): void {
+    const vendorId = sessionStorage.getItem('vendorId');
+    if (!vendorId) {
+      this.clearExistingDocuments();
+      return;
+    }
+
+    this.isLoadingExisting.set(true);
+
+    this.registerService
+      .getFinancialDocuments()
+      .pipe(finalize(() => this.isLoadingExisting.set(false)))
+      .subscribe({
+        next: (response) => {
+          if (response?.isSuccess && response.data?.length) {
+            const documents = response.data[0];
+            this.existingDocuments = {
+              auditedBalanceSheet: documents?.audited_balance_sheet_doc_url || null,
+              profitLossStatement: documents?.profit_loss_statement_doc_url || null,
+              incomeTaxReturn: documents?.income_tax_return_doc_url || null,
+              turnoverDeclaration: documents?.turnover_declaration_doc_url || null,
+            };
+          } else {
+            this.clearExistingDocuments();
+          }
+        },
+        error: (error) => {
+          console.error('Failed to fetch financial documents:', error);
+          this.clearExistingDocuments();
+        },
+      });
+  }
 
   onFileChange(field: FinancialDocKey, event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -61,14 +95,26 @@ export class FinancialDocuments {
   }
 
   submitFinancialDocs(): Observable<FinancialDocumentsResponse> | null {
-    if (!this.hasAllDocuments()) {
-      this.setError('Please upload all mandatory documents before submitting.');
-      return null;
-    }
-
     const vendorId = sessionStorage.getItem('vendorId');
     if (!vendorId) {
       this.setError('Vendor ID not found. Please complete previous steps first.');
+      return null;
+    }
+
+    if (!this.hasAllDocuments()) {
+      if (this.hasExistingDocuments()) {
+        this.successMessage.set('Financial documents are already uploaded.');
+        return of({
+          current_step: 'FINANCIAL_PERF',
+          isSuccess: true,
+          message: 'Financial documents already uploaded.',
+          status: 'success',
+          statusCode: 200,
+          vendor_id: vendorId,
+        });
+      }
+
+      this.setError('Please upload all mandatory documents before submitting.');
       return null;
     }
 
@@ -104,6 +150,8 @@ export class FinancialDocuments {
         if (this.isSuccess(response)) {
           this.successMessage.set(response.message || 'Documents uploaded successfully.');
           sessionStorage.setItem('currentStep', '4');
+          this.uploadedFiles = this.createEmptyFileState();
+          this.fetchExistingDocuments();
         } else {
           this.setError(response.message || 'Failed to upload documents. Please try again.');
         }
@@ -118,21 +166,95 @@ export class FinancialDocuments {
   }
 
   canSubmitDocuments(): boolean {
-    return this.hasAllDocuments();
+    return this.hasAllDocuments() || this.hasExistingDocuments();
   }
 
   resetFiles(): void {
-    this.uploadedFiles = {
-      auditedBalanceSheet: null,
-      profitLossStatement: null,
-      incomeTaxReturn: null,
-      turnoverDeclaration: null,
-    };
+    this.uploadedFiles = this.createEmptyFileState();
     this.clearMessages();
   }
 
   private hasAllDocuments(): boolean {
     return Object.values(this.uploadedFiles).every((file) => file instanceof File);
+  }
+
+  private hasExistingDocuments(): boolean {
+    return Object.values(this.existingDocuments).every(
+      (url) => typeof url === 'string' && url.length > 0
+    );
+  }
+
+  private createEmptyFileState(): Record<FinancialDocKey, File | null> {
+    return {
+      auditedBalanceSheet: null,
+      profitLossStatement: null,
+      incomeTaxReturn: null,
+      turnoverDeclaration: null,
+    };
+  }
+
+  private createEmptyDocumentState(): Record<FinancialDocKey, string | null> {
+    return {
+      auditedBalanceSheet: null,
+      profitLossStatement: null,
+      incomeTaxReturn: null,
+      turnoverDeclaration: null,
+    };
+  }
+
+  private clearExistingDocuments(): void {
+    this.existingDocuments = this.createEmptyDocumentState();
+  }
+
+  formatExistingDocumentLabel(url: string | null): string {
+    if (!url) {
+      return '';
+    }
+
+    const decoded = this.decodeUrl(url);
+    const path = this.extractPath(decoded);
+    const segments = path.split('/').filter(Boolean);
+    if (!segments.length) {
+      return path;
+    }
+
+    const fileName = segments.pop() as string;
+    const cleanedFile = this.removePrefixFromFileName(fileName);
+    const folderPath = segments.join('/');
+    return folderPath ? `${folderPath}/${cleanedFile}` : cleanedFile;
+  }
+
+  private decodeUrl(value: string): string {
+    try {
+      return decodeURIComponent(value);
+    } catch {
+      return value;
+    }
+  }
+
+  private extractPath(value: string): string {
+    const trimmed = value.replace(/^\/+/, '');
+    if (/^https?:\/\//i.test(trimmed)) {
+      try {
+        const parsed = new URL(trimmed);
+        return parsed.pathname.replace(/^\//, '');
+      } catch {
+        return trimmed;
+      }
+    }
+
+    const hashIndex = trimmed.indexOf('://');
+    if (hashIndex > -1) {
+      const pathStart = trimmed.indexOf('/', hashIndex + 3);
+      return pathStart > -1 ? trimmed.slice(pathStart + 1) : '';
+    }
+
+    return trimmed;
+  }
+
+  private removePrefixFromFileName(fileName: string): string {
+    const separatorIndex = fileName.indexOf('_');
+    return separatorIndex > -1 ? fileName.slice(separatorIndex + 1) : fileName;
   }
 
   private isSuccess(response: FinancialDocumentsResponse): boolean {

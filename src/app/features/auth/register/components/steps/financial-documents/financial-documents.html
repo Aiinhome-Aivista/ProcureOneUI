@@ -52,6 +52,16 @@
           X
         </button>
       </div>
+      } @if (existingDocuments.auditedBalanceSheet) {
+      <div class="mt-2 text-[10px] text-primary-600">
+        <p class="font-semibold text-[#0000008F]">Existing Documents</p>
+        <div class="flex items-center gap-2 truncate">
+          <span class="material-symbols-outlined text-[12px]">description</span>
+          <span class="truncate" [title]="existingDocuments.auditedBalanceSheet">
+            {{ formatExistingDocumentLabel(existingDocuments.auditedBalanceSheet) }}
+          </span>
+        </div>
+      </div>
       }
     </div>
 
@@ -96,6 +106,16 @@
         >
           X
         </button>
+      </div>
+      } @if (existingDocuments.profitLossStatement) {
+      <div class="mt-2 text-[10px] text-primary-600">
+        <p class="font-semibold text-[#0000008F]">Existing Documents</p>
+        <div class="flex items-center gap-2 truncate">
+          <span class="material-symbols-outlined text-[12px]">description</span>
+          <span class="truncate" [title]="existingDocuments.profitLossStatement">
+            {{ formatExistingDocumentLabel(existingDocuments.profitLossStatement) }}
+          </span>
+        </div>
       </div>
       }
     </div>
@@ -142,6 +162,16 @@
           X
         </button>
       </div>
+      } @if (existingDocuments.incomeTaxReturn) {
+      <div class="mt-2 text-[10px] text-primary-600">
+        <p class="font-semibold text-[#0000008F]">Existing Documents</p>
+        <div class="flex items-center gap-2 truncate">
+          <span class="material-symbols-outlined text-[12px]">description</span>
+          <span class="truncate" [title]="existingDocuments.incomeTaxReturn">
+            {{ formatExistingDocumentLabel(existingDocuments.incomeTaxReturn) }}
+          </span>
+        </div>
+      </div>
       }
     </div>
 
@@ -186,6 +216,16 @@
         >
           X
         </button>
+      </div>
+      } @if (existingDocuments.turnoverDeclaration) {
+      <div class="mt-2 text-[10px] text-primary-600">
+        <p class="font-semibold text-[#0000008F]">Existing Documents</p>
+        <div class="flex items-center gap-2 truncate">
+          <span class="material-symbols-outlined text-[12px]">description</span>
+          <span class="truncate" [title]="existingDocuments.turnoverDeclaration">
+            {{ formatExistingDocumentLabel(existingDocuments.turnoverDeclaration) }}
+          </span>
+        </div>
       </div>
       }
     </div>
