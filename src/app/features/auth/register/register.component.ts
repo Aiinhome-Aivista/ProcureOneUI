@@ -13,6 +13,8 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { RegisterService } from '../../../core/services';
 import { FinancialDocuments } from './components/steps/financial-documents/financial-documents';
+import { VendorRegistrationDetails } from '../../../core/models';
+import { PreviewSteps } from './components/steps/preview-steps/preview-steps';
 
 @Component({
   selector: 'app-register',
@@ -24,10 +26,11 @@ import { FinancialDocuments } from './components/steps/financial-documents/finan
     BusinessTaxRegistration,
     BankIdentityVerification,
     StepIndicatorComponent,
-    FinalSubmission,
+    // FinalSubmission,
     DialogModule,
     ButtonModule,
     FinancialDocuments,
+    PreviewSteps,
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
@@ -57,6 +60,10 @@ export class RegisterComponent implements OnInit {
 
   public showDialog = false; // control dialog visibility
   public showBackConfirm = false;
+  public showCompletionDialog = false;
+  public registrationSummary: VendorRegistrationDetails | null = null;
+  public isSummaryLoading = false;
+  public summaryError: string | null = null;
 
   companyData = {
     headerdescription: `This is the final step in completing your company's basic registration process. Before submitting, please carefully review all the information you have entered in the sections including Company Profile, Business Address, Legal Structure, and Contact Details.`,
@@ -64,6 +71,27 @@ export class RegisterComponent implements OnInit {
     footerdescription:
       'At the time of initial entry, the system automatically generates a unique Initial Registration ID (IRID) for your company. This ID allows you to pause and resume your registration at any point, ensuring that your progress is securely saved. You can use this ID to log back in, upload pending documents, or communicate with the procurement team regarding your registration status.',
   };
+
+  readonly bankDocumentFields = [
+    { key: 'cancelled_cheque_doc_url', label: 'Cancelled Cheque' },
+    { key: 'bank_statement_doc_url', label: 'Bank Statement' },
+    { key: 'bank_verification_letter_doc_url', label: 'Verification Letter' },
+  ] as const;
+
+  readonly financialDocumentFields = [
+    { key: 'audited_balance_sheet_doc_url', label: 'Audited Balance Sheet' },
+    { key: 'profit_loss_statement_doc_url', label: 'Profit & Loss Statement' },
+    { key: 'income_tax_return_doc_url', label: 'Income Tax Return' },
+    { key: 'turnover_declaration_doc_url', label: 'Turnover Declaration' },
+  ] as const;
+
+  readonly taxDocumentFields = [
+    { key: 'pan_number', label: 'PAN / Tax ID' },
+    { key: 'gst_vat_number', label: 'GST / VAT Number' },
+    { key: 'msme_udyam_number', label: 'MSME / UDYAM' },
+    { key: 'certificate_of_incorporation_number', label: 'Certificate of Incorporation' },
+    { key: 'legal_authorization_type', label: 'Legal Authorization Type' },
+  ] as const;
 
   // Method to handle step changes from sidebar
   onStepChange(step: number): void {
@@ -420,6 +448,7 @@ export class RegisterComponent implements OnInit {
 
         if (isSuccess || response?.status?.toLowerCase() === 'success') {
           console.log('Financial documents submitted successfully.');
+          this.fetchVendorRegistrationSummary();
         }
       },
       error: (error) => {
@@ -441,5 +470,119 @@ export class RegisterComponent implements OnInit {
     }
 
     return false;
+  }
+
+  closeCompletionDialog(): void {
+    this.showCompletionDialog = false;
+  }
+
+  displayValue(value: string | null | undefined): string {
+    if (!value) {
+      return '-';
+    }
+    return value;
+  }
+
+  formatDate(value: string | null): string {
+    if (!value) {
+      return '-';
+    }
+
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) {
+      return value;
+    }
+
+    return parsed.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+  }
+
+  formatDocumentLabel(url: string | null | undefined): string {
+    if (!url) {
+      return '';
+    }
+
+    const decoded = this.decodeUrl(url);
+    const path = this.extractPath(decoded);
+    const segments = path.split('/').filter(Boolean);
+    if (!segments.length) {
+      return path;
+    }
+
+    const fileName = segments.pop() as string;
+    const cleanedFile = this.removePrefixFromFileName(fileName);
+    const folderPath = segments.join('/');
+    return folderPath ? `${folderPath}/${cleanedFile}` : cleanedFile;
+  }
+
+  private decodeUrl(value: string): string {
+    try {
+      return decodeURIComponent(value);
+    } catch {
+      return value;
+    }
+  }
+
+  private extractPath(value: string): string {
+    const trimmed = value.replace(/^\/+/, '');
+    if (/^https?:\/\//i.test(trimmed)) {
+      try {
+        const parsed = new URL(trimmed);
+        return parsed.pathname.replace(/^\//, '');
+      } catch {
+        return trimmed;
+      }
+    }
+
+    const schemeIndex = trimmed.indexOf('://');
+    if (schemeIndex > -1) {
+      const pathStart = trimmed.indexOf('/', schemeIndex + 3);
+      return pathStart > -1 ? trimmed.slice(pathStart + 1) : '';
+    }
+
+    return trimmed;
+  }
+
+  private removePrefixFromFileName(fileName: string): string {
+    const separatorIndex = fileName.indexOf('_');
+    return separatorIndex > -1 ? fileName.slice(separatorIndex + 1) : fileName;
+  }
+
+  private fetchVendorRegistrationSummary(): void {
+    const vendorId = sessionStorage.getItem('vendorId');
+    if (!vendorId) {
+      this.handleError('Vendor ID not found. Please complete previous steps first.');
+      return;
+    }
+
+    this.isSummaryLoading = true;
+    this.summaryError = null;
+
+    this.registerService.getVendorRegistrationDetails(vendorId).subscribe({
+      next: (response) => {
+        this.isSummaryLoading = false;
+        if (response?.isSuccess && response.data?.length) {
+          this.registrationSummary = response.data[0];
+          // this.showCompletionDialog = true;
+          this.currentStep.set(5); // Move to preview step
+        } else {
+          this.registrationSummary = null;
+          this.summaryError = response?.message || 'Unable to load registration summary.';
+          // this.showCompletionDialog = true;
+          this.currentStep.set(5); // Move to preview step even on error to show state? Or maybe handle error differently.
+          // For now, let's assume we want to show the preview page which might handle empty data gracefully or we show error there.
+          // But the user request specifically asked for the preview page after success.
+        }
+      },
+      error: (error) => {
+        this.isSummaryLoading = false;
+        this.registrationSummary = null;
+        this.summaryError = error?.error?.message || 'Unable to load registration summary.';
+        this.showCompletionDialog = true;
+      },
+    });
   }
 }

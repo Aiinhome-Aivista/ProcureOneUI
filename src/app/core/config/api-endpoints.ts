@@ -30,6 +30,7 @@ export class ApiEndpoints {
     GET_VENDOR_REGISTRATION_TRACKER: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-registration-tracker`,
     POST_FINANCIAL_DOCS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/financial-docs`,
     GET_FINANCIAL_DOCS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-financial-performance`,
+    GET_VENDOR_REGISTRATION_DETAILS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-registration-details`,
   } as const;
 
   // Vendor endpoints
