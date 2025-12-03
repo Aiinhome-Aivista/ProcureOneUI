@@ -4,12 +4,8 @@
     <div class="px-6 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <button
-            type="button"
-            class="text-gray-600 hover:text-gray-900 flex items-center"
-            (click)="openBackConfirm()"
-            aria-label="Go back to login"
-          >
+          <button type="button" class="text-gray-600 hover:text-gray-900 flex items-center" (click)="openBackConfirm()"
+            aria-label="Go back to login">
             <span class="material-symbols-outlined">arrow_back</span>
           </button>
           <div>
@@ -49,66 +45,79 @@
         <app-bank-identity-verification #bankIdentityVerification />
         } @if (currentStep() === 4) {
         <app-financial-documents #financialDocuments />
-        } @if (currentStep() === 5) {
+        }
+        @if (currentStep() === 5) {
         <app-preview-steps [summary]="registrationSummary" />
         }
-      </div>
+        @if (currentStep() === 6) {
+        <app-final-submission [summary]="fullRegistrationData"></app-final-submission>
+        }
 
-      <div
-        class="flex items-center border-t border-gray-200 py-3"
-        [ngClass]="currentStep() !== 5 ? 'justify-between' : 'justify-end'"
-      >
+        <!-- @if (currentStep() === 5) {
+        <ng-container *ngIf="!showFinalSubmission; else finalView">
+          <app-preview-steps [summary]="registrationSummary" />
+        </ng-container>
+
+        <ng-template #finalView>
+          <app-final-submission [summary]="fullRegistrationData"></app-final-submission>
+        </ng-template>
+        } -->
+
+      </div>
+@if (currentStep() !== 6){
+      <div class="flex items-center border-t border-gray-200 py-3"
+        [ngClass]="currentStep() !== 5 ? 'justify-between' : 'justify-end'">
         @if(currentStep() !== 5){
-        <button
-          type="button"
+        <button type="button"
           class="inline-flex items-center gap-2 rounded-lg border border-gray-300 p-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
-          (click)="resetSteps()"
-        >
+          (click)="resetSteps()">
           Reset
-          <span class="material-symbols-outlined text-base">autorenew</span></button
-        >}
+          <span class="material-symbols-outlined text-base">autorenew</span></button>}
 
         <div class="flex items-center gap-3">
-          <button
-            type="button"
+          <button type="button"
             class="inline-flex items-center gap-2 rounded-lg border border-gray-300 p-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
-            (click)="previousStep()"
-            [disabled]="isFirstStep()"
-          >
+            (click)="previousStep()" [disabled]="isFirstStep()">
             <span class="material-symbols-outlined"> arrow_back </span>
             Previous
           </button>
 
-          <button
-            type="button"
+          <button type="button"
             class="inline-flex items-center gap-2 rounded-lg bg-primary-600 p-2 text-sm font-semibold text-white transition hover:bg-primary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:bg-primary-300"
-            (click)="nextStep()"
-            [disabled]="isNextDisabled()"
-          >
+            (click)="nextStep()" [disabled]="isNextDisabled()">
             {{ currentStep() == 5 ? 'submit' : 'Next' }}
             <span class="material-symbols-outlined"> arrow_forward </span>
           </button>
         </div>
+
+        <!-- <div *ngIf="!showFinalSubmission" class="flex items-center gap-3">
+          <button type="button"
+            class="inline-flex items-center gap-2 rounded-lg border border-gray-300 p-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
+            (click)="previousStep()" [disabled]="isFirstStep()">
+            <span class="material-symbols-outlined"> arrow_back </span>
+            Previous
+          </button>
+
+          <button type="button"
+            class="inline-flex items-center gap-2 rounded-lg bg-primary-600 p-2 text-sm font-semibold text-white transition hover:bg-primary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:bg-primary-300"
+            (click)="nextStep()" [disabled]="isNextDisabled()">
+            {{ currentStep() == 5 ? 'submit' : 'Next' }}
+            <span class="material-symbols-outlined"> arrow_forward </span>
+          </button>
+        </div> -->
+
       </div>
+    }
     </div>
   </div>
 
   <!-- Confirmation Dialog -->
 
-  <p-dialog
-    [(visible)]="showDialog"
-    [modal]="true"
-    [style]="{ width: '90vw', maxWidth: '1100px' }"
-    [draggable]="false"
-    [resizable]="false"
-    header="Basic Information – Final Submission & Review"
-  >
+  <p-dialog [(visible)]="showDialog" [modal]="true" [style]="{ width: '90vw', maxWidth: '1100px' }" [draggable]="false"
+    [resizable]="false" header="Basic Information – Final Submission & Review">
     <ng-template pTemplate="header">
       <div class="bg-black p-4 w-full rounded-t-lg flex justify-end">
-        <span
-          class="material-symbols-outlined text-white cursor-pointer"
-          (click)="showDialog = false"
-        >
+        <span class="material-symbols-outlined text-white cursor-pointer" (click)="showDialog = false">
           close
         </span>
       </div>
@@ -215,10 +224,8 @@
         </div>
 
         <div class="flex items-center w-1/4 justify-center">
-          <p-button
-            (click)="confirmAndNext()"
-            styleClass="!bg-gray-300 hover:!bg-gray-400 !text-black !font-semibold !rounded-full !px-4 !py-2 !flex !items-center !gap-2 !border-0 !shadow-none"
-          >
+          <p-button (click)="confirmAndNext()"
+            styleClass="!bg-gray-300 hover:!bg-gray-400 !text-black !font-semibold !rounded-full !px-4 !py-2 !flex !items-center !gap-2 !border-0 !shadow-none">
             <span>Submit</span>
             <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
           </p-button>
@@ -227,21 +234,12 @@
     </ng-template>
   </p-dialog>
 
-  <p-dialog
-    [(visible)]="showBackConfirm"
-    [modal]="true"
-    [style]="{ width: '90vw', maxWidth: '440px' }"
-    [draggable]="false"
-    [resizable]="false"
-    header="Leave Registration?"
-  >
+  <p-dialog [(visible)]="showBackConfirm" [modal]="true" [style]="{ width: '90vw', maxWidth: '440px' }"
+    [draggable]="false" [resizable]="false" header="Leave Registration?">
     <ng-template pTemplate="header">
       <div class="bg-black p-4 w-full rounded-t-lg flex justify-between items-center">
         <span class="text-white font-semibold text-sm">Leave Registration?</span>
-        <span
-          class="material-symbols-outlined text-white cursor-pointer"
-          (click)="closeBackConfirm()"
-        >
+        <span class="material-symbols-outlined text-white cursor-pointer" (click)="closeBackConfirm()">
           close
         </span>
       </div>
@@ -256,18 +254,14 @@
 
     <ng-template pTemplate="footer">
       <div class="flex justify-end gap-3 w-full">
-        <button
-          type="button"
+        <button type="button"
           class="rounded-full border border-gray-300 px-5 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
-          (click)="closeBackConfirm()"
-        >
+          (click)="closeBackConfirm()">
           No
         </button>
-        <button
-          type="button"
+        <button type="button"
           class="rounded-full bg-primary-600 px-6 py-2 text-sm font-semibold text-white hover:bg-primary-500"
-          (click)="confirmBackNavigation()"
-        >
+          (click)="confirmBackNavigation()">
           Yes
         </button>
       </div>
@@ -289,7 +283,8 @@
     </ng-template>
 
     <div class="p-6 text-sm text-[#0000008F] whitespace-pre-line">
-      {{ successMessage }}
+      <!-- {{ successMessage }} -->
+      <p>Vendor registration submitted successfully.</p>     
     </div>
 
     <ng-template pTemplate="footer">
@@ -299,9 +294,9 @@
           class="rounded-full bg-primary-600 px-6 py-2 text-sm font-semibold text-white hover:bg-primary-500"
           (click)="closeSuccessDialog()"
         >
-          OK
+          Yes
         </button>
       </div>
     </ng-template>
   </p-dialog>
-</div>
+

@@ -254,3 +254,129 @@ export interface VendorRegistrationSubmitResponse {
 }
 
 
+
+
+
+
+
+
+
+
+// AI ASSESSMENT
+
+export interface AiAssessment {
+  capability_reason: string;
+  capability_score: number;
+  created_at: string;
+  document_issues: string;
+  final_message: string;
+  financial_reason: string;
+  financial_verification_score: number;
+  full_ai_json: string;
+  risk_factor_score: number;
+  risk_reason: string;
+  updated_at: string;
+  vendor_id: string;
+}
+
+
+// BANK VERIFICATION
+
+export interface BankVerificationFull {
+  bank_statement_doc_url: string | null;
+  bank_verification_letter_doc_url: string | null;
+  cancelled_cheque_doc_url: string | null;
+  vendor_id: string;
+}
+
+
+// BASIC INFO (Matches your existing pattern)
+
+export interface BasicInfoFull {
+  CreatedAt?: string;
+  CreatedBy?: string | null;
+  UpdatedAt?: string;
+  UpdatedBy?: string | null;
+  alternate_contact: string | null;
+  business_type: string | null;
+  city: string | null;
+  contact_person: string;
+  country: string | null;
+  date_of_incorporation: string | null;
+  designation_role: string | null;
+  email_official: string;
+  industry_category: string | null;
+  nature_of_business: string | null;
+  operational_address: string | null;
+  phone_number_official: string;
+  pin: string | null;
+  registered_address: string | null;
+  state: string | null;
+  vendor_id: string;
+}
+
+
+// FINANCIAL PERFORMANCE
+
+export interface VendorFinancialPerformance {
+  audited_balance_sheet_doc_url: string | null;
+  income_tax_return_doc_url: string | null;
+  profit_loss_statement_doc_url: string | null;
+  turnover_declaration_doc_url: string | null;
+  vendor_id: string;
+}
+
+
+// REGISTRATION
+
+export interface VendorRegistration {
+  company_name: string;
+  current_step: string;
+  registration_number: string | null;
+  status: string;
+  vendor_id: string;
+}
+
+
+// TAX DOCUMENTS (files)
+
+export interface TaxDocumentFileFull {
+  document_url: string;
+  vendor_id: number | string;
+}
+
+
+// TAX INFO
+
+export interface TaxInformation {
+  certificate_of_incorporation_number: string | null;
+  gst_vat_number: string | null;
+  legal_authorization_type: string | null;
+  msme_udyam_number: string | null;
+  pan_number: string | null;
+  vendor_id: number | string;
+}
+
+
+// WRAP EVERYTHING IN MAIN INTERFACE
+
+export interface VendorRegistrationFullData {
+  ai_assessment: AiAssessment | null;
+  bank_verification: BankVerificationFull | null;
+  basic_info: BasicInfoFull | null;
+  financial_performance: VendorFinancialPerformance | null;
+  registration: VendorRegistration | null;
+  tax_files: TaxDocumentFileFull[];
+  tax_info: TaxInformation | null;
+}
+
+
+// FINAL API RESPONSE
+
+export interface VendorFullAssessmentResponse {
+  data: VendorRegistrationFullData;
+  isSuccess: boolean;
+  message: string;
+  statusCode: number;
+}
+

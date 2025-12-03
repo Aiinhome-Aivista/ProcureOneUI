@@ -45,12 +45,15 @@
             </div>
             }
 
-            @if (!uploadedFiles.cancelCheque && existingDocs.cancelCheque) {
-            <div class="mt-2 text-[10px] text-primary-600 flex items-center gap-1">
-                <span class="material-symbols-outlined text-[12px]">description</span>
-                <a [href]="existingDocs.cancelCheque" target="_blank" rel="noopener" class="underline truncate" [title]="existingDocs.cancelCheque">
-                    Existing document
-                </a>
+            @if (existingDocuments.cancelCheque) {
+            <div class="mt-2 text-[10px] text-primary-600">
+                <p class="font-semibold text-[#0000008F]">Existing Documents</p>
+                <div class="flex items-center gap-2 truncate">
+                    <span class="material-symbols-outlined text-[12px]">description</span>
+                    <span class="truncate" [title]="existingDocuments.cancelCheque">
+                        {{ formatExistingDocumentLabel(existingDocuments.cancelCheque) }}
+                    </span>
+                </div>
             </div>
             }
         </div>
@@ -87,12 +90,15 @@
             </div>
             }
 
-            @if (!uploadedFiles.bankStatement && existingDocs.bankStatement) {
-            <div class="mt-2 text-[10px] text-primary-600 flex items-center gap-1">
-                <span class="material-symbols-outlined text-[12px]">description</span>
-                <a [href]="existingDocs.bankStatement" target="_blank" rel="noopener" class="underline truncate" [title]="existingDocs.bankStatement">
-                    Existing document
-                </a>
+            @if (existingDocuments.bankStatement) {
+            <div class="mt-2 text-[10px] text-primary-600">
+                <p class="font-semibold text-[#0000008F]">Existing Documents</p>
+                <div class="flex items-center gap-2 truncate">
+                    <span class="material-symbols-outlined text-[12px]">description</span>
+                    <span class="truncate" [title]="existingDocuments.bankStatement">
+                        {{ formatExistingDocumentLabel(existingDocuments.bankStatement) }}
+                    </span>
+                </div>
             </div>
             }
         </div>
@@ -130,12 +136,15 @@
             </div>
             }
 
-            @if (!uploadedFiles.verifyLetter && existingDocs.verifyLetter) {
-            <div class="mt-2 text-[10px] text-primary-600 flex items-center gap-1">
-                <span class="material-symbols-outlined text-[12px]">description</span>
-                <a [href]="existingDocs.verifyLetter" target="_blank" rel="noopener" class="underline truncate" [title]="existingDocs.verifyLetter">
-                    Existing document
-                </a>
+            @if (existingDocuments.verifyLetter) {
+            <div class="mt-2 text-[10px] text-primary-600">
+                <p class="font-semibold text-[#0000008F]">Existing Documents</p>
+                <div class="flex items-center gap-2 truncate">
+                    <span class="material-symbols-outlined text-[12px]">description</span>
+                    <span class="truncate" [title]="existingDocuments.verifyLetter">
+                        {{ formatExistingDocumentLabel(existingDocuments.verifyLetter) }}
+                    </span>
+                </div>
             </div>
             }
         </div>

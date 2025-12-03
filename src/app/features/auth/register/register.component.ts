@@ -6,7 +6,6 @@ import { Sidebar } from './components/sidebar/sidebar';
 import { IdentityDetails } from './components/steps/identity-details/identity-details';
 import { BusinessTaxRegistration } from './components/steps/business-tax-registration/business-tax-registration';
 import { BankIdentityVerification } from './components/steps/bank-identity-verification/bank-identity-verification';
-// import { FinancialDocuments } from './components/steps/financial-documents/financial-documents';
 import { StepIndicatorComponent } from './components/step-indicator/step-indicator.component';
 import { FinalSubmission } from './components/steps/final-submission/final-submission';
 import { DialogModule } from 'primeng/dialog';
@@ -14,6 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { RegisterService } from '../../../core/services';
 import { FinancialDocuments } from './components/steps/financial-documents/financial-documents';
 import { VendorRegistrationDetails, VendorRegistrationSubmitResponse } from '../../../core/models';
+import { VendorRegistrationFullData } from '../../../core/models';
 import { PreviewSteps } from './components/steps/preview-steps/preview-steps';
 
 @Component({
@@ -26,7 +26,7 @@ import { PreviewSteps } from './components/steps/preview-steps/preview-steps';
     BusinessTaxRegistration,
     BankIdentityVerification,
     StepIndicatorComponent,
-    // FinalSubmission,
+    FinalSubmission,
     DialogModule,
     ButtonModule,
     FinancialDocuments,
@@ -61,7 +61,9 @@ export class RegisterComponent implements OnInit {
   public showDialog = false; // control dialog visibility
   public showBackConfirm = false;
   public showCompletionDialog = false;
+  public showFinalSubmission = false;
   public registrationSummary: VendorRegistrationDetails | null = null;
+  public fullRegistrationData: VendorRegistrationFullData| null = null;
   public isSummaryLoading = false;
   public summaryError: string | null = null;
   public showSuccessDialog = false;
@@ -141,6 +143,11 @@ export class RegisterComponent implements OnInit {
       this.submitFinalRegistration();
       return;
     }
+    // if (currentStepNumber === 5) {
+    //   this.showFinalSubmission = true;
+    //   this.currentStep.set(5);
+    //   return;
+    // }
 
     if (currentStepNumber === this.totalSteps) {
       this.submitStep4Data();
@@ -575,6 +582,10 @@ export class RegisterComponent implements OnInit {
           this.registrationSummary = response.data[0];
           // this.showCompletionDialog = true;
           this.currentStep.set(5); // Move to preview step
+
+          // this.fetchVendorFullRegistrationData();
+
+          
         } else {
           this.registrationSummary = null;
           this.summaryError = response?.message || 'Unable to load registration summary.';
@@ -628,12 +639,26 @@ export class RegisterComponent implements OnInit {
       console.error("❌ Final Registration API Error:", error);
     }
   });
-}
+  }
+private fetchVendorFullRegistrationData(): void {
+    const vendorId = sessionStorage.getItem('vendorId');
+
+    this.registerService.getVendorRegistrationFullData(vendorId!).subscribe({
+      next: (response) => {
+        this.fullRegistrationData = response.data;
+      },
+      error: (err) => {
+        console.error('API Error:', err);
+      }
+    });
+  }
 
 public closeSuccessDialog(): void {
   this.showSuccessDialog = false;
+  this.fetchVendorFullRegistrationData();
+  this.currentStep.set(6);
 }
-  
+
 }
 
 
