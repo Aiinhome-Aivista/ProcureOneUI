@@ -104,13 +104,24 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     const storedStep = this.parseStep(sessionStorage.getItem('currentStep'));
+    console.log("storedStep",storedStep);
     if (storedStep) {
       this.currentStep.set(storedStep);
     }
 
     const queryStep = this.parseStep(this.route.snapshot.queryParamMap.get('step'));
+    console.log("uuuuuuuuuu",queryStep);
     if (queryStep) {
       this.currentStep.set(queryStep);
+      console.log(this.currentStep());
+    }
+
+    // Fetch data based on the resolved step
+    const current = this.currentStep();
+    if (current === 5) {
+      this.fetchVendorRegistrationSummary();
+    } else if (current === 6) {
+      this.fetchVendorFullRegistrationData();
     }
   }
 
@@ -286,7 +297,7 @@ export class RegisterComponent implements OnInit {
     }
 
     const normalized = Math.trunc(parsed);
-    if (normalized < 1 || normalized > this.totalSteps) {
+    if (normalized < 1 || normalized > 6) {
       return null;
     }
 

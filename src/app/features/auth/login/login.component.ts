@@ -235,9 +235,11 @@ export class LoginComponent {
       BANK_DOCS: 3,
       FINANCIAL_PERF: 4,
       FINAL_SUBMISSION: 4,
+      PREVIEW: 5,
+      SUBMITTED: 6,
     };
 
-    return mapping[normalized] ?? 1;
+    return mapping[normalized] ;
   }
 
   private fetchTrackerAndNavigate(vendorId: string, fallbackStepCode?: string | null): void {
@@ -257,6 +259,20 @@ export class LoginComponent {
       return null;
     }
 
+    // 1. Check if SUBMITTED exists
+    const submittedStep = steps.find((s) => s.step_code === 'SUBMITTED' && s.status?.toLowerCase() === 'in progress');
+    if (submittedStep) {
+      return 'SUBMITTED';
+    }
+
+    // 2. Check if all 4 main sections are Completed
+ 
+ const previewStep = steps.find((s) => s.step_code === 'PREVIEW' && s.status?.toLowerCase() === 'in progress');
+    if (previewStep) {
+      return 'PREVIEW';
+    }
+
+    // 3. Fallback to existing logic (find first In Progress or Completed)
     const prioritizedStatuses = ['in progress', 'completed'];
 
     for (const status of prioritizedStatuses) {
