@@ -273,4 +273,35 @@
       </div>
     </ng-template>
   </p-dialog>
+
+  <p-dialog
+    [(visible)]="showSuccessDialog"
+    [modal]="true"
+    [style]="{ width: '90vw', maxWidth: '500px' }"
+    [draggable]="false"
+    [resizable]="false"
+    [closable]="false"
+  >
+    <ng-template pTemplate="header">
+      <div class="bg-black p-4 w-full rounded-t-lg flex justify-between items-center">
+        <span class="text-white font-semibold text-sm">Registration Submitted</span>
+      </div>
+    </ng-template>
+
+    <div class="p-6 text-sm text-[#0000008F] whitespace-pre-line">
+      {{ successMessage }}
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="flex justify-end w-full">
+        <button
+          type="button"
+          class="rounded-full bg-primary-600 px-6 py-2 text-sm font-semibold text-white hover:bg-primary-500"
+          (click)="closeSuccessDialog()"
+        >
+          OK
+        </button>
+      </div>
+    </ng-template>
+  </p-dialog>
 </div>

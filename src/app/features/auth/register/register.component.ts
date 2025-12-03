@@ -13,7 +13,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { RegisterService } from '../../../core/services';
 import { FinancialDocuments } from './components/steps/financial-documents/financial-documents';
-import { VendorRegistrationDetails } from '../../../core/models';
+import { VendorRegistrationDetails, VendorRegistrationSubmitResponse } from '../../../core/models';
 import { PreviewSteps } from './components/steps/preview-steps/preview-steps';
 
 @Component({
@@ -64,6 +64,8 @@ export class RegisterComponent implements OnInit {
   public registrationSummary: VendorRegistrationDetails | null = null;
   public isSummaryLoading = false;
   public summaryError: string | null = null;
+  public showSuccessDialog = false;
+  public successMessage? = '';
 
   companyData = {
     headerdescription: `This is the final step in completing your company's basic registration process. Before submitting, please carefully review all the information you have entered in the sections including Company Profile, Business Address, Legal Structure, and Contact Details.`,
@@ -134,6 +136,11 @@ export class RegisterComponent implements OnInit {
   nextStep(): void {
     // Validate the current step before proceeding
     const currentStepNumber = this.currentStep();
+
+    if (currentStepNumber === 5) {
+      this.submitFinalRegistration();
+      return;
+    }
 
     if (currentStepNumber === this.totalSteps) {
       this.submitStep4Data();
@@ -585,4 +592,48 @@ export class RegisterComponent implements OnInit {
       },
     });
   }
+ private submitFinalRegistration(): void {
+  const vendorId = sessionStorage.getItem('vendorId');
+
+  if (!vendorId) {
+    this.handleError('Vendor ID not found.');
+    return;
+  }
+
+  this.registerService.submitRegistration(vendorId).subscribe({
+    next: (response) => {
+
+      // 🔹 Console log the full API response (ADD HERE)
+      console.log("Final Registration API Response:", response);
+
+      if (response.isSuccess) {
+        this.successMessage = response.data?.final_message || response.message;
+        this.showSuccessDialog = true;
+
+        // 🔹 Additional console message after success
+        console.log("✔ Final registration completed successfully!");
+      } else {
+        this.handleError(response.message || 'Submission failed.');
+
+        // 🔹 Optional: error log
+        console.warn("✖ Final registration failed:", response);
+      }
+    },
+
+    error: (error) => {
+      const msg = error?.error?.message || 'An error occurred during final submission.';
+      this.handleError(msg);
+
+      // 🔹 Error console log
+      console.error("❌ Final Registration API Error:", error);
+    }
+  });
 }
+
+public closeSuccessDialog(): void {
+  this.showSuccessDialog = false;
+}
+  
+}
+
+
