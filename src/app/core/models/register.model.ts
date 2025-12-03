@@ -241,6 +241,19 @@ export interface VendorRegistrationDetails {
   vendor_id: string;
 }
 
+export interface VendorRegistrationSubmitResponse {
+  data: {
+    final_message?: string;
+    [key: string]: any;
+  };
+  isSuccess?: boolean | string;
+  message?: string;
+  status?: string;
+  statusCode?: number;
+  vendor_id?: string;
+}
+
+
 
 
 

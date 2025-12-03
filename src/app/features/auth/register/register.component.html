@@ -49,6 +49,10 @@
         @if (currentStep() === 5) {
         <app-preview-steps [summary]="registrationSummary" />
         }
+        @if (currentStep() === 6) {
+        <app-final-submission [summary]="fullRegistrationData"></app-final-submission>
+        }
+
         <!-- @if (currentStep() === 5) {
         <ng-container *ngIf="!showFinalSubmission; else finalView">
           <app-preview-steps [summary]="registrationSummary" />
@@ -60,7 +64,7 @@
         } -->
 
       </div>
-
+@if (currentStep() !== 6){
       <div class="flex items-center border-t border-gray-200 py-3"
         [ngClass]="currentStep() !== 5 ? 'justify-between' : 'justify-end'">
         @if(currentStep() !== 5){
@@ -103,6 +107,7 @@
         </div> -->
 
       </div>
+    }
     </div>
   </div>
 
@@ -262,4 +267,36 @@
       </div>
     </ng-template>
   </p-dialog>
-</div>
+
+  <p-dialog
+    [(visible)]="showSuccessDialog"
+    [modal]="true"
+    [style]="{ width: '90vw', maxWidth: '500px' }"
+    [draggable]="false"
+    [resizable]="false"
+    [closable]="false"
+  >
+    <ng-template pTemplate="header">
+      <div class="bg-black p-4 w-full rounded-t-lg flex justify-between items-center">
+        <span class="text-white font-semibold text-sm">Registration Submitted</span>
+      </div>
+    </ng-template>
+
+    <div class="p-6 text-sm text-[#0000008F] whitespace-pre-line">
+      <!-- {{ successMessage }} -->
+      <p>Vendor registration submitted successfully.</p>     
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="flex justify-end w-full">
+        <button
+          type="button"
+          class="rounded-full bg-primary-600 px-6 py-2 text-sm font-semibold text-white hover:bg-primary-500"
+          (click)="closeSuccessDialog()"
+        >
+          Yes
+        </button>
+      </div>
+    </ng-template>
+  </p-dialog>
+

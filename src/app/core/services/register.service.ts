@@ -20,6 +20,7 @@ import {
   VendorRegistrationTrackerResponse,
   VerifyVendorOtpRequest,
   VerifyVendorOtpResponse,
+  VendorRegistrationSubmitResponse,
   VendorFullAssessmentResponse,
 } from '../models';
 import { LegalProofResponse } from '../models';
@@ -130,6 +131,14 @@ export class RegisterService {
   ): Observable<VendorRegistrationDetailsResponse> {
     const url = `${ApiEndpoints.AUTH.GET_VENDOR_REGISTRATION_DETAILS}?vendor_id=${vendorId}`;
     return this.http.get<VendorRegistrationDetailsResponse>(url);
+  }
+  submitRegistration(vendorId: string): Observable<VendorRegistrationSubmitResponse> {
+    const formData = new FormData();
+    formData.append('vendor_id', vendorId);
+    return this.http.post<VendorRegistrationSubmitResponse>(
+      ApiEndpoints.AUTH.SUBMIT_REGISTRATION,
+      formData
+    );
   }
 
   getVendorRegistrationFullData(
