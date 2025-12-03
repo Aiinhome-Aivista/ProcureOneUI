@@ -36,12 +36,16 @@
 
   <!-- Submitted Basic Info -->
   <div class="">
-    <h3 class="text-xl font-bold text-black">Submitted Basic Information</h3>
-    <div class="mb-4">
-      <p class="text-[12px] text-[#0000008F]">This is the final step in completing your company's basic registration
-        process. Before submitting, please carefully review all the information you have entered in the sections
-        including Company Profile, Business Address, Legal Structure, and Contact Details.</p>
+    <h3 class="text-xl font-bold text-black">
+      {{ summary?.basic_info?.step_name }}
+    </h3>
+
+    <div class="mb-4" *ngIf="summary?.basic_info">
+      <p class="text-[12px] text-[#0000008F]">
+        {{ summary.basic_info.step_definition }}
+      </p>
     </div>
+
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <!-- Column 1: Company -->
@@ -123,10 +127,14 @@
 
   <!-- Business & Tax Registration Documents -->
   <div class="mt-10">
-    <h3 class="text-xl font-bold text-black">Business & Tax Registration Documents</h3>
-    <div class="mb-4">
-      <p class="text-[12px] text-[#0000008F]">Review the documents your company has submitted for business legality and
-        tax compliance verification.</p>
+    <h3 class="text-xl font-bold text-black">
+      {{ summary?.tax_info?.step_name }}
+    </h3>
+
+    <div class="mb-4" *ngIf="summary?.basic_info">
+      <p class="text-[12px] text-[#0000008F]">
+        {{ summary.tax_info.step_definition }}
+      </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -170,10 +178,14 @@
 
   <!-- Bank & Financial Identity Verification -->
   <div class="mt-10">
-    <h3 class="text-xl font-bold text-black">Bank & Financial Identity Verification</h3>
-    <div class="mb-4">
-      <p class="text-[12px] text-[#0000008F]">These documents ensure financial authenticity and validate your banking
-        details.</p>
+    <h3 class="text-xl font-bold text-black">
+      {{ summary?.bank_verification?.step_name }}
+    </h3>
+
+    <div class="mb-4" *ngIf="summary?.basic_info">
+      <p class="text-[12px] text-[#0000008F]">
+        {{ summary.bank_verification.step_definition }}
+      </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -201,10 +213,14 @@
 
   <!-- Financial Performance Documents -->
   <div class="mt-10">
-    <h3 class="text-xl font-bold text-black">Financial Performance Documents</h3>
-    <div class="mb-4">
-      <p class="text-[10px] text-[#0000008F]">These documents help evaluate your organization’s financial stability and
-        operational capacity.</p>
+    <h3 class="text-xl font-bold text-black">
+      {{ summary?.financial_performance?.step_name }}
+    </h3>
+
+    <div class="mb-4" *ngIf="summary?.basic_info">
+      <p class="text-[12px] text-[#0000008F]">
+        {{ summary.financial_performance.step_definition }}
+      </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
