@@ -20,6 +20,7 @@ import {
   VendorRegistrationTrackerResponse,
   VerifyVendorOtpRequest,
   VerifyVendorOtpResponse,
+  VendorFullAssessmentResponse,
 } from '../models';
 import { LegalProofResponse } from '../models';
 
@@ -29,7 +30,7 @@ import { LegalProofResponse } from '../models';
 export class RegisterService {
   // jobSubscribe = new Subject();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   businessTypes(): Observable<DropdownModel> {
     return this.http.get<DropdownModel>(ApiEndpoints.AUTH.BUSINESS_TYPES);
@@ -130,4 +131,12 @@ export class RegisterService {
     const url = `${ApiEndpoints.AUTH.GET_VENDOR_REGISTRATION_DETAILS}?vendor_id=${vendorId}`;
     return this.http.get<VendorRegistrationDetailsResponse>(url);
   }
+
+  getVendorRegistrationFullData(
+    vendorId: string
+  ): Observable<VendorFullAssessmentResponse> {
+    const url = `${ApiEndpoints.AUTH.GET_VENDOR_REGISTRATION_FULL_DATA}?vendor_id=${vendorId}`;
+    return this.http.get<VendorFullAssessmentResponse>(url);
+  }
+
 }

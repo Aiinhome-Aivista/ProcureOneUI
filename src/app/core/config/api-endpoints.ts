@@ -31,6 +31,7 @@ export class ApiEndpoints {
     POST_FINANCIAL_DOCS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/financial-docs`,
     GET_FINANCIAL_DOCS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-financial-performance`,
     GET_VENDOR_REGISTRATION_DETAILS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-registration-details`,
+    GET_VENDOR_REGISTRATION_FULL_DATA: `${ApiEndpoints.BASE_URL}/VendorMicroservices/vendor-registration-full-data`,
   } as const;
 
   // Vendor endpoints

@@ -1,77 +1,249 @@
-<div class="w-full">
+<div class="w-full" *ngIf="summary as s">
   <!-- Top Review Box -->
   <div class="relative rounded-xl p-8 mb-4 bg-[#F5F5F5] overflow-hidden">
     <!-- Background SVG Pattern -->
-    <img
-      src="assets/icons/bg-art.svg"
-      alt="Background Art"
+    <img src="assets/icons/bg-art.svg" alt="Background Art"
       class="absolute top-2 right-0 -mr-140 w-full h-full opacity-30 pointer-events-none select-none z-0"
-      style="object-fit: cover;"
-    />
+      style="object-fit: cover;" />
 
-    <div class="relative z-10">
+    <div class="relative z-10" *ngIf="finalMessageParagraphs.length">
+
+      <!-- Title -->
       <div class="mb-2">
-        <h2 class="text-lg font-bold text-black">{{ submissionData.header.title }}</h2>
+        <h2 class="text-lg font-bold text-black">
+          {{ finalMessageParagraphs[0] }}
+        </h2>
       </div>
 
-      <div>
-        <p class="text-xs text-[#0000008F] font-bold">{{ submissionData.header.congratsText }}</p>
+      <!-- Subtitle -->
+      <div *ngIf="finalMessageParagraphs.length > 1">
+        <p class="text-xs text-[#0000008F] font-bold">
+          {{ finalMessageParagraphs[1] }}
+        </p>
       </div>
 
-      @for (description of submissionData.header.descriptions; track description) {
-      <div class="mb-3">
-        <p class="text-xs text-[#0000008F]">{{ description }}</p>
+      <!-- Rest of the final message -->
+      <div class="mb-3" *ngIf="finalMessageParagraphs.length > 2">
+        <p *ngFor="let para of finalMessageParagraphs.slice(2)" class="text-xs text-[#0000008F]"
+          style="white-space: pre-wrap;">
+          {{ para }}
+        </p>
       </div>
-      }
+
     </div>
+
   </div>
 
   <!-- Submitted Basic Info -->
   <div class="">
-    <h3 class="text-xl font-bold text-black">{{ submissionData.basicInfo.title }}</h3>
+    <h3 class="text-xl font-bold text-black">Submitted Basic Information</h3>
     <div class="mb-4">
-      <p class="text-[10px] text-[#0000008F]">{{ submissionData.basicInfo.description }}</p>
+      <p class="text-[12px] text-[#0000008F]">This is the final step in completing your company's basic registration
+        process. Before submitting, please carefully review all the information you have entered in the sections
+        including Company Profile, Business Address, Legal Structure, and Contact Details.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Column 1: Company -->
+      <div class="space-y-5">
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.registration.company_name }}</p>
+          <p class="text-[#0000008F] text-sm">Company Name (Legal)</p>
+        </div>
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.registration.registration_number }}</p>
+          <p class="text-[#0000008F] text-sm">Registration No / CIN</p>
+        </div>
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.basic_info.business_type }}</p>
+          <p class="text-[#0000008F] text-sm">Business Type</p>
+        </div>
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.basic_info.industry_category }}</p>
+          <p class="text-[#0000008F] text-sm">Industry Category</p>
+        </div>
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.basic_info.date_of_incorporation }}</p>
+          <p class="text-[#0000008F] text-sm">Date of Incorporation</p>
+        </div>
+      </div>
+
+      <!-- Column 2: Addresses -->
+      <div class="space-y-5">
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.basic_info.registered_address }}</p>
+          <p class="text-[#0000008F] text-sm">Registered Address</p>
+        </div>
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.basic_info.operational_address }}</p>
+          <p class="text-[#0000008F] text-sm">Operational Address</p>
+        </div>
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.basic_info.country }}, {{ s.basic_info.state }}, {{
+            s.basic_info.city }}</p>
+          <p class="text-[#0000008F] text-sm">Country / State / City</p>
+        </div>
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.basic_info.pin }}</p>
+          <p class="text-[#0000008F] text-sm">PIN</p>
+        </div>
+        <div>
+          <p class="font-bold text-black text-justify leading-5 text-sm">{{ s.basic_info.nature_of_business }}</p>
+          <p class="text-[#0000008F] mt-1 text-sm">Nature of business</p>
+        </div>
+      </div>
+
+      <!-- Column 3: Contacts -->
+      <div class="space-y-5">
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.basic_info.contact_person }}</p>
+          <p class="text-[#0000008F] text-sm">Contact Person</p>
+        </div>
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.basic_info.designation_role }}</p>
+          <p class="text-[#0000008F] text-sm">Designation</p>
+        </div>
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.basic_info.email_official }}</p>
+          <p class="text-[#0000008F] text-sm">Official Email</p>
+        </div>
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.basic_info.phone_number_official }}</p>
+          <p class="text-[#0000008F] text-sm">Phone Number</p>
+        </div>
+        <div *ngIf="s.alternate_contact">
+          <p class="font-bold text-black text-sm">{{ s.basic_info.alternate_contact }}</p>
+          <p class="text-[#0000008F] text-sm">Alternate Contact</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Business & Tax Registration Documents -->
+  <div class="mt-10">
+    <h3 class="text-xl font-bold text-black">Business & Tax Registration Documents</h3>
+    <div class="mb-4">
+      <p class="text-[12px] text-[#0000008F]">Review the documents your company has submitted for business legality and
+        tax compliance verification.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <!-- Column 1 -->
       <div class="space-y-5">
-        @for (item of submissionData.basicInfo.columns.column1; track $index) {
         <div>
-          <p class="font-bold text-black text-xs">{{ item.value }}</p>
-          <p class="text-xs text-[#0000008F]">{{ item.label }}</p>
+          <p class="font-bold text-black text-sm">{{ s.tax_info?.pan_number || '-' }}</p>
+          <p class="text-sm text-[#0000008F]">PAN Card</p>
         </div>
-        }
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.tax_info?.gst_vat_number || '-' }}</p>
+          <p class="text-sm text-[#0000008F]">GST/ VAT Registration Certificate</p>
+        </div>
       </div>
 
       <!-- Column 2 -->
       <div class="space-y-5">
-        @for (item of submissionData.basicInfo.columns.column2; track $index) {
         <div>
-          <p class="font-bold text-black text-xs">{{ item.value }}</p>
-          <p class="text-xs text-[#0000008F]">{{ item.label }}</p>
+          <p class="font-bold text-black text-sm">{{ s.tax_info?.msme_udyam_number || '-' }}</p>
+          <p class="text-sm text-[#0000008F]">Udyam / MSME Registration</p>
         </div>
-        }
+        <div>
+          <p class="font-bold text-black text-sm">{{ s.tax_info?.certificate_of_incorporation_name || '-' }}</p>
+          <p class="text-sm text-[#0000008F]">Certificate of Incorporation</p>
+        </div>
       </div>
 
       <!-- Column 3 -->
       <div class="space-y-5">
-        @for (item of submissionData.basicInfo.columns.column3; track $index) {
         <div>
-          <p class="font-bold text-black text-xs">{{ item.value }}</p>
-          <p class="text-xs text-[#0000008F]">{{ item.label }}</p>
+          <p class="font-bold text-black text-sm">{{ s.tax_info?.legal_authorization_type || '-' }}</p>
+          <p class="text-sm text-[#0000008F]">Business License / Trade License</p>
         </div>
-        }
+        <div *ngFor="let doc of s.tax_document_files">
+          <p class="font-bold text-black text-sm">{{ doc.document_url }}</p>
+          <p class="text-sm text-[#0000008F]">Supported Document</p>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Bank & Financial Identity Verification -->
+  <div class="mt-10">
+    <h3 class="text-xl font-bold text-black">Bank & Financial Identity Verification</h3>
+    <div class="mb-4">
+      <p class="text-[12px] text-[#0000008F]">These documents ensure financial authenticity and validate your banking
+        details.</p>
     </div>
 
-    <!-- Footer Note -->
-    <div class="mt-6 pt-6">
-      <div class="flex items-center gap-2 text-[#0000008F]">
-        <span class="material-symbols-outlined text-[#0000008F]">error</span>
-        <span class="font-bold text-[#0000008F] text-xs">{{ submissionData.footer.title }}</span>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Column 1 -->
+      <div class="space-y-5">
+        <div>
+          <p class="font-bold text-black text-xs">{{ s.bank_verification?.cancelled_cheque_doc_url }}</p>
+          <p class="text-sm text-[#0000008F]">Cancelled Cheque / Bank Account Proof</p>
+        </div>
+        <div>
+          <p class="font-bold text-black text-xs">{{ s.bank_verification?.bank_statement_doc_url }}</p>
+          <p class="text-sm text-[#0000008F]">Bank Statement (Last 6-12 Months)</p>
+        </div>
       </div>
-      <p class="text-xs text-[#0000008F]">{{ submissionData.footer.description }}</p>
+
+      <!-- Column 2 -->
+      <div class="space-y-5 mx-12">
+        <div>
+          <p class="font-bold text-black text-xs">{{ s.bank_verification?.bank_verification_letter_doc_url }}</p>
+          <p class="text-sm text-[#0000008F]">Bank Verification Letter</p>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Financial Performance Documents -->
+  <div class="mt-10">
+    <h3 class="text-xl font-bold text-black">Financial Performance Documents</h3>
+    <div class="mb-4">
+      <p class="text-[10px] text-[#0000008F]">These documents help evaluate your organization’s financial stability and
+        operational capacity.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Column 1 -->
+      <div class="space-y-5">
+        <div>
+          <p class="font-bold text-black text-xs">{{ s.financial_performance.audited_balance_sheet_doc_url }}</p>
+          <p class="text-sm text-[#0000008F]">Audited Balance Sheet (Last 2–3 Years)</p>
+        </div>
+        <div>
+          <p class="font-bold text-black text-xs">{{ s.financial_performance.profit_loss_statement_doc_url }}</p>
+          <p class="text-sm text-[#0000008F]">Profit &amp; Loss Statement</p>
+        </div>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="space-y-5 mx-12">
+        <div>
+          <p class="font-bold text-black text-xs">{{ s.financial_performance.income_tax_return_doc_url }}</p>
+          <p class="text-sm text-[#0000008F]">Income Tax Return (ITR)</p>
+        </div>
+        <div>
+          <p class="font-bold text-black text-xs">{{ s.financial_performance.turnover_declaration_doc_url }}</p>
+          <p class="text-sm text-[#0000008F]">Turnover Declaration (signed by CA)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer Note -->
+  <div class="mt-6 pt-6">
+    <div class="flex items-center gap-2 text-[#0000008F]">
+      <span class="material-symbols-outlined text-[#0000008F]">error</span>
+      <span class="font-bold text-[#0000008F] text-xs">Notable information:</span>
+    </div>
+    <p class="text-xs text-[#0000008F]">At the time of initial entry, the system automatically generates a unique
+      Initial Registration ID (IRID) for your company. This ID allows you to pause and resume your registration at any
+      point, ensuring that your progress is securely saved. You can use this ID to log back in, upload pending
+      documents, or communicate with the procurement team regarding your registration status.</p>
   </div>
 </div>
