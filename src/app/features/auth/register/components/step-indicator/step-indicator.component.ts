@@ -1,5 +1,6 @@
-import { Component, input } from '@angular/core';
+import { Component, input, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RegisterService } from '../../../../../core/services';
 
 @Component({
   selector: 'app-step-indicator',
@@ -7,16 +8,42 @@ import { CommonModule } from '@angular/common';
   templateUrl: './step-indicator.component.html',
   styleUrls: ['./step-indicator.component.css'],
 })
-export class StepIndicatorComponent {
+export class StepIndicatorComponent implements OnInit {
+  private registerService = inject(RegisterService);
   currentStep = input<number>(2);
 
-  steps = [
+  steps = signal([
     { number: 1, label: 'Basic information', icon: 'description', percent: 50 },
-    { number: 2, label: 'Financial Verification', icon: 'monitoring', percent: 100 },
-    { number: 3, label: 'Risk Factor', icon: 'shield', percent: 40 },
-    { number: 4, label: 'Capability', icon: 'business_center', percent: 72 },
+    { number: 2, label: 'Financial Verification', icon: 'monitoring',   },
+    { number: 3, label: 'Risk Factor', icon: 'shield',  },
+    { number: 4, label: 'Capability', icon: 'business_center',  },
     { number: 5, label: 'Approved', icon: 'verified' }
-  ];
+  ]);
+
+  ngOnInit() {
+    this.fetchRegistrationData();
+  }
+
+  fetchRegistrationData() {
+    const vendorId = sessionStorage.getItem('vendorId');
+    if (!vendorId) return;
+
+    this.registerService.getVendorRegistrationFullData(vendorId).subscribe({
+      next: (res) => {
+        if (res.isSuccess && res.data?.ai_assessment) {
+          const ai = res.data.ai_assessment;
+          
+          this.steps.update(steps => steps.map(step => {
+            if (step.number === 2) return { ...step, percent: ai.financial_verification_score };
+            if (step.number === 3) return { ...step, percent: ai.risk_factor_score };
+            if (step.number === 4) return { ...step, percent: ai.capability_score };
+            return step;
+          }));
+        }
+      },
+      error: (err) => console.error('Error fetching registration data:', err)
+    });
+  }
 
   getStepStateClass(stepNumber: number): string {
     const current = this.currentStep();
