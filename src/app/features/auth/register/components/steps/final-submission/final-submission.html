@@ -160,8 +160,8 @@
           <p class="font-bold text-black text-sm">{{ s.tax_info?.legal_authorization_type || '-' }}</p>
           <p class="text-sm text-[#0000008F]">Business License / Trade License</p>
         </div>
-        <div *ngFor="let doc of s.tax_document_files">
-          <p class="font-bold text-black text-sm">{{ doc.document_url }}</p>
+        <div *ngFor="let doc of s.tax_files">
+          <p class="font-bold text-black text-xs">{{ doc.document_url }}</p>
           <p class="text-sm text-[#0000008F]">Supported Document</p>
         </div>
       </div>
