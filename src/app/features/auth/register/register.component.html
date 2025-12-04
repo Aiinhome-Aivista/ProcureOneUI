@@ -53,59 +53,27 @@
         <app-final-submission [summary]="fullRegistrationData"></app-final-submission>
         }
 
-        <!-- @if (currentStep() === 5) {
-        <ng-container *ngIf="!showFinalSubmission; else finalView">
-          <app-preview-steps [summary]="registrationSummary" />
-        </ng-container>
-
-        <ng-template #finalView>
-          <app-final-submission [summary]="fullRegistrationData"></app-final-submission>
-        </ng-template>
-        } -->
-
       </div>
 @if (currentStep() !== 6){
       <div class="flex items-center border-t border-gray-200 pt-3"
         [ngClass]="currentStep() !== 5 ? 'justify-between' : 'justify-end'">
         @if(currentStep() !== 5){
-        <button type="button"
-          class="inline-flex items-center gap-2 rounded-lg border border-gray-300 p-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
-          (click)="resetSteps()">
-          Reset
-          <span class="material-symbols-outlined text-base">autorenew</span></button>}
-
+        <app-global-button (click)="resetSteps()"  variant="outlined">
+            Reset
+            <span class="material-symbols-outlined text-base">autorenew</span>
+          </app-global-button>
+        }
         <div class="flex items-center gap-3">
-          <button type="button"
-            class="inline-flex items-center gap-2 rounded-lg border border-gray-300 p-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
-            (click)="previousStep()" [disabled]="isFirstStep()">
-            <span class="material-symbols-outlined"> arrow_back </span>
+          <app-global-button (click)="previousStep()" [disabled]="isFirstStep()">
+            <span class="material-symbols-outlined">arrow_back</span>
             Previous
-          </button>
+          </app-global-button>     
 
-          <button type="button"
-            class="inline-flex items-center gap-2 rounded-lg bg-primary-600 p-2 text-sm font-semibold text-white transition hover:bg-primary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:bg-primary-300"
-            (click)="nextStep()" [disabled]="isNextDisabled()">
+          <app-global-button (click)="nextStep()" [disabled]="isNextDisabled()">
             {{ currentStep() == 5 ? 'submit' : 'Next' }}
-            <span class="material-symbols-outlined"> arrow_forward </span>
-          </button>
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </app-global-button>
         </div>
-
-        <!-- <div *ngIf="!showFinalSubmission" class="flex items-center gap-3">
-          <button type="button"
-            class="inline-flex items-center gap-2 rounded-lg border border-gray-300 p-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
-            (click)="previousStep()" [disabled]="isFirstStep()">
-            <span class="material-symbols-outlined"> arrow_back </span>
-            Previous
-          </button>
-
-          <button type="button"
-            class="inline-flex items-center gap-2 rounded-lg bg-primary-600 p-2 text-sm font-semibold text-white transition hover:bg-primary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:bg-primary-300"
-            (click)="nextStep()" [disabled]="isNextDisabled()">
-            {{ currentStep() == 5 ? 'submit' : 'Next' }}
-            <span class="material-symbols-outlined"> arrow_forward </span>
-          </button>
-        </div> -->
-
       </div>
     }
     </div>
@@ -113,20 +81,15 @@
 
   <!-- Confirmation Dialog -->
 
-  <p-dialog [(visible)]="showDialog" [modal]="true" [style]="{ width: '90vw', maxWidth: '1100px' }" [draggable]="false"
-    [resizable]="false" header="Basic Information – Final Submission & Review">
-    <ng-template pTemplate="header">
-      <div class="bg-black p-4 w-full rounded-t-lg flex justify-end">
-        <span class="material-symbols-outlined text-white cursor-pointer" (click)="showDialog = false">
-          close
-        </span>
-      </div>
-    </ng-template>
-    <div class="mb-5">
-      <h2 class="text-lg font-bold">Basic Information - Final Submission & Review</h2>
-      <p class="text-xs text-[#0000008F]">{{ companyData.headerdescription }}</p>
-    </div>
-
+  <app-global-dialog
+    [(visible)]="showDialog"
+    headerTitle="Basic Information – Final Submission & Review"
+    [headerDescription]="companyData.headerdescription"
+    width="90vw"
+    maxWidth="1100px"
+    [closable]="true"
+    (onClose)="showDialog = false"
+  >
     <div class="grid grid-cols-3 gap-6 text-sm text-gray-700">
       <!-- Left Column -->
       <div class="space-y-4">
@@ -213,90 +176,73 @@
       </div>
     </div>
 
-    <ng-template pTemplate="footer">
-      <div class="flex justify-between border-[#00000040] border-t-2 w-full">
-        <div class="flex flex-col gap-2 pt-4 pl-5 w-3/4">
-          <div class="flex items-center gap-2 text-[#0000008F]">
-            <span class="material-symbols-outlined text-[#0000008F]">error</span>
-            <span class="font-bold text-[#0000008F] text-xs">{{ companyData.footertitle }}</span>
-          </div>
-          <p class="text-xs text-[#0000008F]">{{ companyData.footerdescription }}</p>
+    <div footer class="flex justify-between border-[#00000040] border-t-2 w-full">
+      <div class="flex flex-col gap-2 pt-4 pl-5 w-3/4">
+        <div class="flex items-center gap-2 text-[#0000008F]">
+          <span class="material-symbols-outlined text-[#0000008F]">error</span>
+          <span class="font-bold text-[#0000008F] text-xs">{{ companyData.footertitle }}</span>
         </div>
-
-        <div class="flex items-center w-1/4 justify-center">
-          <p-button (click)="confirmAndNext()"
-            styleClass="!bg-gray-300 hover:!bg-gray-400 !text-black !font-semibold !rounded-full !px-4 !py-2 !flex !items-center !gap-2 !border-0 !shadow-none">
-            <span>Submit</span>
-            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-          </p-button>
-        </div>
+        <p class="text-xs text-[#0000008F]">{{ companyData.footerdescription }}</p>
       </div>
-    </ng-template>
-  </p-dialog>
 
-  <p-dialog [(visible)]="showBackConfirm" [modal]="true" [style]="{ width: '90vw', maxWidth: '440px' }"
-    [draggable]="false" [resizable]="false" header="Leave Registration?">
-    <ng-template pTemplate="header">
-      <div class="bg-black p-4 w-full rounded-t-lg flex justify-between items-center">
-        <span class="text-white font-semibold text-sm">Leave Registration?</span>
-        <span class="material-symbols-outlined text-white cursor-pointer" (click)="closeBackConfirm()">
-          close
-        </span>
+      <div class="flex items-center w-1/4 justify-center">
+        <app-global-button
+          variant="filled"
+          (onClick)="confirmAndNext()"
+          icon="arrow_forward"
+          iconPos="right"
+        >
+          Submit
+        </app-global-button>
       </div>
-    </ng-template>
-
-    <div class="p-4 text-sm text-[#0000008F]">
-      <p>
-        You are about to exit the registration flow and return to the login page. Any unsaved
-        changes for the current step will be lost. Do you want to continue?
-      </p>
     </div>
+  </app-global-dialog>
 
-    <ng-template pTemplate="footer">
-      <div class="flex justify-end gap-3 w-full">
-        <button type="button"
-          class="rounded-full border border-gray-300 px-5 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
-          (click)="closeBackConfirm()">
-          No
-        </button>
-        <button type="button"
-          class="rounded-full bg-primary-600 px-6 py-2 text-sm font-semibold text-white hover:bg-primary-500"
-          (click)="confirmBackNavigation()">
-          Yes
-        </button>
-      </div>
-    </ng-template>
-  </p-dialog>
+  <app-global-dialog
+    [(visible)]="showBackConfirm"
+    headerTitle="Leave Registration"
+    width="90vw"
+    maxWidth="440px"
+    [closable]="true"
+    (onClose)="closeBackConfirm()"
+  >
+    <p>
+      You are about to exit the registration flow and return to the login page. Any unsaved
+      changes for the current step will be lost. Do you want to continue
+    </p>
 
-  <p-dialog
+    <div footer class="flex justify-end gap-3 w-full mr-4">
+      <app-global-button
+        variant="outlined"
+        (onClick)="closeBackConfirm()"
+      >
+        No
+      </app-global-button>
+      <app-global-button
+        variant="filled"
+        (onClick)="confirmBackNavigation()"
+      >
+        Yes
+      </app-global-button>
+    </div>
+  </app-global-dialog>
+
+  <app-global-dialog
     [(visible)]="showSuccessDialog"
-    [modal]="true"
-    [style]="{ width: '90vw', maxWidth: '500px' }"
-    [draggable]="false"
-    [resizable]="false"
+    headerTitle="Registration Submitted"
+    width="90vw"
+    maxWidth="500px"
     [closable]="false"
   >
-    <ng-template pTemplate="header">
-      <div class="bg-black p-4 w-full rounded-t-lg flex justify-between items-center">
-        <span class="text-white font-semibold text-sm">Registration Submitted</span>
-      </div>
-    </ng-template>
+    <p>Vendor registration submitted successfully.</p>
 
-    <div class="p-6 text-sm text-[#0000008F] whitespace-pre-line">
-      <!-- {{ successMessage }} -->
-      <p>Vendor registration submitted successfully.</p>     
+    <div footer class="flex justify-end w-full mr-4">
+      <app-global-button
+        variant="filled"
+        (onClick)="closeSuccessDialog()"
+      >
+        Yes
+      </app-global-button>
     </div>
-
-    <ng-template pTemplate="footer">
-      <div class="flex justify-end w-full">
-        <button
-          type="button"
-          class="rounded-full bg-primary-600 px-6 py-2 text-sm font-semibold text-white hover:bg-primary-500"
-          (click)="closeSuccessDialog()"
-        >
-          Yes
-        </button>
-      </div>
-    </ng-template>
-  </p-dialog>
+  </app-global-dialog>
 
