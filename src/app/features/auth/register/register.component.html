@@ -53,16 +53,6 @@
         <app-final-submission [summary]="fullRegistrationData"></app-final-submission>
         }
 
-        <!-- @if (currentStep() === 5) {
-        <ng-container *ngIf="!showFinalSubmission; else finalView">
-          <app-preview-steps [summary]="registrationSummary" />
-        </ng-container>
-
-        <ng-template #finalView>
-          <app-final-submission [summary]="fullRegistrationData"></app-final-submission>
-        </ng-template>
-        } -->
-
       </div>
 @if (currentStep() !== 6){
       <div class="flex items-center border-t border-gray-200 py-3"
@@ -73,12 +63,6 @@
             <span class="material-symbols-outlined text-base">autorenew</span>
           </app-global-button>
         }
-        <!-- <button type="button"
-          class="inline-flex items-center gap-2 rounded-lg border border-gray-300 p-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
-          (click)="resetSteps()">
-          Reset
-          <span class="material-symbols-outlined text-base">autorenew</span></button>} -->
-
         <div class="flex items-center gap-3">
           <app-global-button (click)="previousStep()" [disabled]="isFirstStep()">
             <span class="material-symbols-outlined">arrow_back</span>
