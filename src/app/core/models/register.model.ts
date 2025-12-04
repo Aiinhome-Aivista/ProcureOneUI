@@ -380,3 +380,14 @@ export interface VendorFullAssessmentResponse {
   statusCode: number;
 }
 
+export interface VendorProgressResponse {
+  basic_info_progress: number;
+  capability_progress: number;
+  current_step: string;
+  financial_verification_progress: number;
+  isSuccess: boolean | string | number;       
+  message: string;
+  risk_factor_progress: number;
+  statusCode: number;
+  vendor_id: string | number;
+}

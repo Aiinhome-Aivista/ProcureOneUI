@@ -13,33 +13,31 @@ export class StepIndicatorComponent implements OnInit {
   currentStep = input<number>(2);
 
   steps = signal([
-    { number: 1, label: 'Basic information', icon: 'description', percent: 50 },
+    { number: 1, label: 'Basic information', icon: 'description', percent: 0 },
     { number: 2, label: 'Financial Verification', icon: 'monitoring',   },
     { number: 3, label: 'Risk Factor', icon: 'shield',  },
     { number: 4, label: 'Capability', icon: 'business_center',  },
-    { number: 5, label: 'Approved', icon: 'verified' }
+    { number: 5, label: 'Approved', icon: 'verified', }
   ]);
 
   ngOnInit() {
-    this.fetchRegistrationData();
+    this.fetchVendorProgress();
   }
 
-  fetchRegistrationData() {
+  fetchVendorProgress() {
     const vendorId = sessionStorage.getItem('vendorId');
     if (!vendorId) return;
 
-    this.registerService.getVendorRegistrationFullData(vendorId).subscribe({
+    this.registerService.getVendorProgress(vendorId).subscribe({
       next: (res) => {
-        if (res.isSuccess && res.data?.ai_assessment) {
-          const ai = res.data.ai_assessment;
-          
-          this.steps.update(steps => steps.map(step => {
-            if (step.number === 2) return { ...step, percent: ai.financial_verification_score };
-            if (step.number === 3) return { ...step, percent: ai.risk_factor_score };
-            if (step.number === 4) return { ...step, percent: ai.capability_score };
-            return step;
-          }));
-        }
+        console.log(res);
+        this.steps.update(steps => steps.map(step => {
+          if (step.number === 1) return { ...step, percent: res.basic_info_progress };
+          if (step.number === 2) return { ...step, percent: res.financial_verification_progress };
+          if (step.number === 3) return { ...step, percent: res.risk_factor_progress };
+          if (step.number === 4) return { ...step, percent: res.capability_progress };
+          return step;
+        }));
       },
       error: (err) => console.error('Error fetching registration data:', err)
     });

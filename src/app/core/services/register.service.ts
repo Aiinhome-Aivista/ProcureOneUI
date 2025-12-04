@@ -22,6 +22,7 @@ import {
   VerifyVendorOtpResponse,
   VendorRegistrationSubmitResponse,
   VendorFullAssessmentResponse,
+  VendorProgressResponse,
 } from '../models';
 import { LegalProofResponse } from '../models';
 
@@ -148,4 +149,8 @@ export class RegisterService {
     return this.http.get<VendorFullAssessmentResponse>(url);
   }
 
+  getVendorProgress(vendorId: string): Observable<VendorProgressResponse> {
+    const url = `${ApiEndpoints.AUTH.GET_VENDOR_PROGRESS}?vendor_id=${vendorId}`;
+    return this.http.get<VendorProgressResponse>(url);
+  }
 }

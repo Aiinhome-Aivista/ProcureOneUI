@@ -51,6 +51,7 @@ export class RegisterComponent implements OnInit {
     'bankIdentityVerification'
   );
   private readonly financialDocumentsComponent = viewChild<FinancialDocuments>('financialDocuments');
+  private readonly stepIndicator = viewChild<StepIndicatorComponent>(StepIndicatorComponent);
 
   // Current step signal - connected to sidebar
   readonly currentStep = signal<number>(1);
@@ -345,6 +346,7 @@ export class RegisterComponent implements OnInit {
           sessionStorage.setItem('vendorId', this.vendorId);
           console.log('Step 1 submitted successfully. Vendor ID:', this.vendorId);
           this.showDialog = false;
+          this.stepIndicator()?.fetchVendorProgress();
           this.currentStep.update((step) => Math.min(this.totalSteps, step + 1));
         } else {
           this.handleError(response.message || 'Failed to submit basic information');
@@ -394,6 +396,7 @@ export class RegisterComponent implements OnInit {
       next: (response) => {
         if (response.isSuccess && response.status === 'success') {
           console.log('Step 2 submitted successfully:', response.message);
+          this.stepIndicator()?.fetchVendorProgress();
           this.currentStep.update((step) => Math.min(this.totalSteps, step + 1));
         } else {
           this.handleError(response.message || 'Failed to submit business tax documents');
@@ -437,6 +440,7 @@ export class RegisterComponent implements OnInit {
       next: (response) => {
         if (response.isSuccess && response.status === 'success') {
           console.log('Step 3 submitted successfully:', response.message);
+          this.stepIndicator()?.fetchVendorProgress();
           this.currentStep.update((step) => Math.min(this.totalSteps, step + 1));
         } else {
           this.handleError(response.message || 'Failed to submit bank verification documents');
@@ -477,6 +481,7 @@ export class RegisterComponent implements OnInit {
 
         if (isSuccess || response?.status?.toLowerCase() === 'success') {
           console.log('Financial documents submitted successfully.');
+          this.stepIndicator()?.fetchVendorProgress();
           this.fetchVendorRegistrationSummary();
         }
       },
@@ -636,8 +641,11 @@ export class RegisterComponent implements OnInit {
         this.successMessage = response.data?.final_message || response.message;
         this.showSuccessDialog = true;
 
+        this.showSuccessDialog = true;
+
         // 🔹 Additional console message after success
         console.log("✔ Final registration completed successfully!");
+        this.stepIndicator()?.fetchVendorProgress();
       } else {
         this.handleError(response.message || 'Submission failed.');
 
