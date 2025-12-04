@@ -9,8 +9,28 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./final-submission.css'],
 })
 export class FinalSubmission {
-  @Input() summary: any; 
+  @Input() summary: any;
 
+  scrollToSection(step: number): void {
+    const sectionId = `step-${step}`;
+    const element = document.getElementById(sectionId);
+
+    if (!element) {
+      console.log('scrollToSection: element not found', sectionId);
+      return;
+    }
+
+    console.log('scrollToSection: scrolling to', sectionId);
+
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
+  }
+
+
+  // 2) Your existing getter – keep as‑is
   get finalMessageParagraphs(): string[] {
     const msg = this.summary?.ai_assessment?.final_message;
     if (!msg) return [];
