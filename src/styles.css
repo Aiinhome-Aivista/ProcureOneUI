@@ -146,3 +146,26 @@ article > * + * {
   font-size: 12px !important;
   padding-top: 12px !important;
 }
+
+.p-select:not(.ng-invalid):not(.ng-dirty):hover {
+  border-color: var(--color-primary-600) !important;
+}
+
+.p-select:not(.ng-invalid).p-focus {
+  border-color: var(--color-primary-600) !important;
+  box-shadow: 0 0 0 1px var(--color-primary-600) !important;
+}
+
+.p-select-option.p-select-option-selected {
+  background-color: var(--color-primary-50) !important;
+  color: var(--color-primary-700) !important;
+}
+
+.p-select-option.p-select-option-selected.p-focus {
+  background-color: var(--color-primary-100) !important;
+}
+
+.p-select-filter:focus {
+  border-color: var(--color-primary-600) !important;
+  box-shadow: 0 0 0 1px var(--color-primary-600) !important;
+}
