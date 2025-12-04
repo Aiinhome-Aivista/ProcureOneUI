@@ -218,13 +218,14 @@
       </div>
 
       <div class="flex items-center w-1/4 justify-center">
-        <p-button
-          (click)="confirmAndNext()"
-          styleClass="!bg-gray-300 hover:!bg-gray-400 !text-black !font-semibold !rounded-full !px-4 !py-2 !flex !items-center !gap-2 !border-0 !shadow-none"
+        <app-global-button
+          variant="filled"
+          (onClick)="confirmAndNext()"
+          icon="arrow_forward"
+          iconPos="right"
         >
-          <span>Submit</span>
-          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-        </p-button>
+          Submit
+        </app-global-button>
       </div>
     </div>
   </app-global-dialog>
@@ -243,20 +244,18 @@
     </p>
 
     <div footer class="flex justify-end gap-3 w-full">
-      <button
-        type="button"
-        class="rounded-full border border-gray-300 px-5 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
-        (click)="closeBackConfirm()"
+      <app-global-button
+        variant="outlined"
+        (onClick)="closeBackConfirm()"
       >
         No
-      </button>
-      <button
-        type="button"
-        class="rounded-full bg-primary-600 px-6 py-2 text-sm font-semibold text-white hover:bg-primary-500"
-        (click)="confirmBackNavigation()"
+      </app-global-button>
+      <app-global-button
+        variant="filled"
+        (onClick)="confirmBackNavigation()"
       >
         Yes
-      </button>
+      </app-global-button>
     </div>
   </app-global-dialog>
 
@@ -270,13 +269,12 @@
     <p>Vendor registration submitted successfully.</p>
 
     <div footer class="flex justify-end w-full">
-      <button
-        type="button"
-        class="rounded-full bg-primary-600 px-6 py-2 text-sm font-semibold text-white hover:bg-primary-500"
-        (click)="closeSuccessDialog()"
+      <app-global-button
+        variant="filled"
+        (onClick)="closeSuccessDialog()"
       >
         Yes
-      </button>
+      </app-global-button>
     </div>
   </app-global-dialog>
 

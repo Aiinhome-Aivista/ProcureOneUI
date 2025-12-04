@@ -16,6 +16,7 @@ import { VendorRegistrationDetails, VendorRegistrationSubmitResponse } from '../
 import { VendorRegistrationFullData } from '../../../core/models';
 import { PreviewSteps } from './components/steps/preview-steps/preview-steps';
 import { GlobalDialogComponent } from '../../../shared/components/global-dialog/global-dialog.component';
+import { GlobalButtonComponent } from '../../../shared/components/global-button/global-button.component';
 
 @Component({
   selector: 'app-register',
@@ -33,6 +34,7 @@ import { GlobalDialogComponent } from '../../../shared/components/global-dialog/
     FinancialDocuments,
     PreviewSteps,
     GlobalDialogComponent,
+    GlobalButtonComponent,
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
