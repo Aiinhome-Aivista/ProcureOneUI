@@ -325,4 +325,10 @@ export class LoginComponent {
 
     return fallback;
   }
+
+
+  onRegister(): void {
+    sessionStorage.clear();
+    this.router.navigate(['/register']);
+  }
 }
