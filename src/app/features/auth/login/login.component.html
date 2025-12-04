@@ -17,7 +17,7 @@
       </div>
 
       <div class="max-w-md w-full mx-auto z-10">
-        <h1 class="text-3xl font-bold text-primary-600 mb-2 justify-center text-center">Log in</h1>
+        <h1 class="text-3xl font-extrabold text-primary-600 mb-2 justify-center text-center">Log in</h1>
 
         <!-- Login Form -->
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5 z-10">
@@ -26,7 +26,7 @@
             <label for="vendorId" class="text-primary-600 font-medium text-sm mb-2 block"
               >Vendor ID</label
             >
-            <div class="relative">
+            <div class="relative mb-2">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <span class="material-symbols-outlined text-[#4319C245]">id_card</span>
               </span>
@@ -132,13 +132,13 @@
             </svg>
             <span>Authenticating...</span>
             } @else {
-            <span>Authenticate</span>
+            <span>Authorise</span>
             }
           </button>
         </form>
         <!-- Register Link -->
         <div class="mt-6 text-center">
-          <p class="text-sm text-[#4319C280] font-medium">
+          <p class="text-sm text-[#7C6FA2] font-medium">
             Don't have an account?
             <a
               (click)="onRegister()"
