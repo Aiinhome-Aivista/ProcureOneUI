@@ -68,44 +68,28 @@
       <div class="flex items-center border-t border-gray-200 py-3"
         [ngClass]="currentStep() !== 5 ? 'justify-between' : 'justify-end'">
         @if(currentStep() !== 5){
-        <button type="button"
+        <app-global-button (click)="resetSteps()"  variant="outlined">
+            Reset
+            <span class="material-symbols-outlined text-base">autorenew</span>
+          </app-global-button>
+        }
+        <!-- <button type="button"
           class="inline-flex items-center gap-2 rounded-lg border border-gray-300 p-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
           (click)="resetSteps()">
           Reset
-          <span class="material-symbols-outlined text-base">autorenew</span></button>}
+          <span class="material-symbols-outlined text-base">autorenew</span></button>} -->
 
         <div class="flex items-center gap-3">
-          <button type="button"
-            class="inline-flex items-center gap-2 rounded-lg border border-gray-300 p-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
-            (click)="previousStep()" [disabled]="isFirstStep()">
-            <span class="material-symbols-outlined"> arrow_back </span>
+          <app-global-button (click)="previousStep()" [disabled]="isFirstStep()">
+            <span class="material-symbols-outlined">arrow_back</span>
             Previous
-          </button>
+          </app-global-button>     
 
-          <button type="button"
-            class="inline-flex items-center gap-2 rounded-lg bg-primary-600 p-2 text-sm font-semibold text-white transition hover:bg-primary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:bg-primary-300"
-            (click)="nextStep()" [disabled]="isNextDisabled()">
+          <app-global-button (click)="nextStep()" [disabled]="isNextDisabled()">
             {{ currentStep() == 5 ? 'submit' : 'Next' }}
-            <span class="material-symbols-outlined"> arrow_forward </span>
-          </button>
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </app-global-button>
         </div>
-
-        <!-- <div *ngIf="!showFinalSubmission" class="flex items-center gap-3">
-          <button type="button"
-            class="inline-flex items-center gap-2 rounded-lg border border-gray-300 p-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
-            (click)="previousStep()" [disabled]="isFirstStep()">
-            <span class="material-symbols-outlined"> arrow_back </span>
-            Previous
-          </button>
-
-          <button type="button"
-            class="inline-flex items-center gap-2 rounded-lg bg-primary-600 p-2 text-sm font-semibold text-white transition hover:bg-primary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 disabled:cursor-not-allowed disabled:bg-primary-300"
-            (click)="nextStep()" [disabled]="isNextDisabled()">
-            {{ currentStep() == 5 ? 'submit' : 'Next' }}
-            <span class="material-symbols-outlined"> arrow_forward </span>
-          </button>
-        </div> -->
-
       </div>
     }
     </div>
