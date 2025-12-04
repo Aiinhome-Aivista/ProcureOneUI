@@ -1,0 +1,33 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: width, maxWidth: maxWidth }"
+  [draggable]="draggable"
+  [resizable]="resizable"
+  [closable]="false"
+  (onHide)="onHide()"
+>
+  <ng-template pTemplate="header">
+    <div class="bg-black p-4 w-full rounded-t-lg flex justify-between items-center">
+      <span class="text-white font-semibold text-sm">{{ headerTitle }}</span>
+      <span
+        *ngIf="closable"
+        class="material-symbols-outlined text-white cursor-pointer"
+        (click)="closeDialog()"
+      >
+        close
+      </span>
+    </div>
+  </ng-template>
+
+  <div class="p-4 text-sm text-[#0000008F]">
+    <div *ngIf="headerDescription" class="mb-5">
+      <p class="text-xs text-[#0000008F]">{{ headerDescription }}</p>
+    </div>
+    <ng-content></ng-content>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <ng-content select="[footer]"></ng-content>
+  </ng-template>
+</p-dialog>

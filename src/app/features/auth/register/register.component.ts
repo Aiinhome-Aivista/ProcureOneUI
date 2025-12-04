@@ -15,6 +15,7 @@ import { FinancialDocuments } from './components/steps/financial-documents/finan
 import { VendorRegistrationDetails, VendorRegistrationSubmitResponse } from '../../../core/models';
 import { VendorRegistrationFullData } from '../../../core/models';
 import { PreviewSteps } from './components/steps/preview-steps/preview-steps';
+import { GlobalDialogComponent } from '../../../shared/components/global-dialog/global-dialog.component';
 
 @Component({
   selector: 'app-register',
@@ -31,6 +32,7 @@ import { PreviewSteps } from './components/steps/preview-steps/preview-steps';
     ButtonModule,
     FinancialDocuments,
     PreviewSteps,
+    GlobalDialogComponent,
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
