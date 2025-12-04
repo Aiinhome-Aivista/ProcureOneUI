@@ -140,3 +140,9 @@ article > * + * {
   width: 0.5vw; /* Increase the width */
   height: 1.6vh;
 }
+
+
+.p-placeholder.p-select-label {
+  font-size: 12px !important;
+  padding-top: 12px !important;
+}
