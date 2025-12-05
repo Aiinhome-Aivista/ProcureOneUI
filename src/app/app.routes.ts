@@ -60,6 +60,26 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'manager',
+    component: LayoutComponent,
+    canActivate: [authGuard, roleGuard(['manager'])],
+    children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./features/manager/dashboard/manager-dashboard').then(m => m.ManagerDashboardComponent)
+      },
+      {
+        path: 'profile',
+        loadComponent: () => import('./shared/components/profile/profile.component').then(m => m.ProfileComponent)
+      }
+    ]
+  },
+  {
     path: 'unauthorized',
     loadComponent: () => import('./shared/components/unauthorized/unauthorized.component').then(m => m.UnauthorizedComponent)
   },

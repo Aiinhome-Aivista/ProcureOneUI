@@ -1,5 +1,5 @@
 export interface authinterface {}
-export type UserRole = 'vendor' | 'department';
+export type UserRole = 'vendor' | 'department' | 'manager';
 
 export interface User {
   id: string;
