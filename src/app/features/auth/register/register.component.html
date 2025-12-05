@@ -22,7 +22,7 @@
 
   <div class="grid grid-cols-4 flex-1 h-[calc(100vh-5rem)]">
     <div class="col-span-1 h-full">
-      <app-sidebar [currentStep]="currentStep()" (stepChange)="onStepChange($event)" />
+      <app-sidebar [currentStep]="sidebarStep()" (stepChange)="onStepChange($event)" />
     </div>
 
     <div class="col-span-3 p-4 pl-3 overflow-y-auto h-full flex flex-col gap-2">

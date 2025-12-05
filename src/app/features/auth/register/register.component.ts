@@ -52,9 +52,21 @@ export class RegisterComponent implements OnInit {
   );
   private readonly financialDocumentsComponent = viewChild<FinancialDocuments>('financialDocuments');
   private readonly stepIndicator = viewChild<StepIndicatorComponent>(StepIndicatorComponent);
+  private readonly previewStepsComponent = viewChild<PreviewSteps>(PreviewSteps);
 
   // Current step signal - connected to sidebar
   readonly currentStep = signal<number>(1);
+  // Signal to track which step is highlighted in the sidebar during preview (Step 5)
+  readonly previewActiveStep = signal<number | null>(null);
+  
+  // Computed signal for sidebar binding
+  readonly sidebarStep = computed(() => {
+    if (this.currentStep() === 5 && this.previewActiveStep()) {
+      return this.previewActiveStep()!;
+    }
+    return this.currentStep();
+  });
+
   private vendorId: string | null = null;
   private readonly totalSteps = 4;
   readonly isFirstStep = computed(() => this.currentStep() === 1);
@@ -104,7 +116,13 @@ export class RegisterComponent implements OnInit {
 
   // Method to handle step changes from sidebar
   onStepChange(step: number): void {
+    if (this.currentStep() === 5) {
+      this.previewActiveStep.set(step);
+      this.previewStepsComponent()?.scrollToSection(step);
+      return;
+    }
     this.currentStep.set(step);
+    this.previewActiveStep.set(null); // Reset when leaving preview or changing normal steps
   }
 
   ngOnInit(): void {

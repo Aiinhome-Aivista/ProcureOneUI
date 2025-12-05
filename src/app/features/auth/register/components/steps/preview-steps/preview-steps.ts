@@ -9,4 +9,12 @@ import { CommonModule } from '@angular/common';
 })
 export class PreviewSteps {
   @Input() summary: any;
+
+  scrollToSection(step: number): void {
+    const elementId = `step-${step}`;
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 }
