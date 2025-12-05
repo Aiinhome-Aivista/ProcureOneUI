@@ -1,7 +1,9 @@
 <div class="h-screen grid lg:grid-cols-2 grid-cols-1 bg-white">
   <!-- Left Section - Login Form -->
-  <div class=" col-span-1 flex items-center justify-center p-6 md:p-8 pb-1 md:pb-1">
-    <div class="absolute -top-[24%] md:-top-[95%] -left-[40%] w-[90%] opacity-30 pointer-events-none">
+  <div class="col-span-1 flex items-center justify-center p-6 md:p-8 pb-1 md:pb-1">
+    <div
+      class="absolute -top-[24%] md:-top-[95%] -left-[40%] w-[90%] opacity-30 pointer-events-none"
+    >
       <img src="assets/icons/bg-art.svg" alt="" />
     </div>
 
@@ -11,28 +13,37 @@
           A<span class="text-primary-600">ii</span>nhome<span class="font-bold px-1">|</span>
           <span class="font-bold">PO</span>
         </h3> -->
-        <img src="assets/icons/Aiinhome _ PO.svg" alt="">
+        <img src="assets/icons/Aiinhome _ PO.svg" alt="" />
       </div>
 
       <div class="max-w-md w-full mx-auto z-10">
-        <h1 class="text-3xl font-bold text-primary-600 mb-2 justify-center text-center">Log in</h1>
+        <h1 class="text-3xl font-extrabold text-primary-600 mb-2 justify-center text-center">Log in</h1>
 
         <!-- Login Form -->
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5 z-10">
           <!-- Vendor ID Field -->
           <div>
-            <label for="vendorId" class="text-primary-600 font-medium text-sm mb-2 block">Vendor ID</label>
-            <div class="relative">
+            <label for="vendorId" class="text-primary-600 font-medium text-sm mb-2 block"
+              >Vendor ID</label
+            >
+            <div class="relative mb-2">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <span class="material-symbols-outlined text-[#4319C245]">id_card</span>
               </span>
-              <input id="vendorId" type="text" formControlName="vendorId" autocomplete="username"
-                placeholder="Enter your Vendor ID" [class]="
+              <input
+                id="vendorId"
+                type="text"
+                formControlName="vendorId"
+                autocomplete="username"
+                class="rounded-lg"
+                placeholder="Enter your Vendor ID"
+                [class]="
                   'input-style-po pl-11 ' +
                   (loginForm.get('vendorId')?.touched && loginForm.get('vendorId')?.invalid
                     ? 'border-red-300'
                     : 'border-gray-300')
-                " />
+                "
+              />
               <!-- <img src="assets/icons/id_card.svg" class="absolute left-3 top-1/2 h-7 w-7" /> -->
             </div>
 
@@ -50,21 +61,33 @@
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <span class="material-symbols-outlined text-[#4319C245]">encrypted</span>
               </span>
-              <input id="password" [type]="showPassword() ? 'text' : 'password'" formControlName="password"
-                autocomplete="current-password" placeholder="Enter your password" [class]="
+              <input
+                id="password"
+                [type]="showPassword() ? 'text' : 'password'"
+                formControlName="password"
+                class="rounded-lg"
+                autocomplete="current-password"
+                placeholder="Enter your password"
+                [class]="
                   'input-style-po pl-11 pr-10 ' +
                   (loginForm.get('password')?.touched && loginForm.get('password')?.invalid
                     ? 'border-red-300'
                     : 'border-gray-300')
-                " />
+                "
+              />
 
               <!-- Left Lock Icon -->
               <!-- <img src="assets/icons/encrypted.svg" alt="" class="absolute left-3 top-1/2  h-7 w-7" /> -->
 
               <!-- Keep Material Icon Eye Toggle -->
-              <button type="button" (click)="togglePasswordVisibility()"
-                class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                <span class="material-symbols-outlined text-primary-200 text-sm hover:text-primary-600">
+              <button
+                type="button"
+                (click)="togglePasswordVisibility()"
+                class="absolute inset-y-0 right-0 pr-3 flex items-center"
+              >
+                <span
+                  class="material-symbols-outlined text-primary-200 text-sm hover:text-primary-600"
+                >
                   {{ showPassword() ? 'visibility_off' : 'visibility' }}
                 </span>
               </button>
@@ -76,52 +99,86 @@
           </div>
 
           <!-- Submit Button -->
-          <button type="submit" [disabled]="loginForm.invalid || isSubmitting()"
+          <button
+            type="submit"
+            [disabled]="loginForm.invalid || isSubmitting()"
             class="w-full flex justify-center items-center py-3 px-4 border border-transparent text-sm font-semibold rounded-lg mt-8 transition-colors duration-300"
             [ngClass]="{
               'bg-primary-600 text-white cursor-pointer hover:bg-primary-700': loginForm.valid,
               'bg-[#D9D9D9] text-[#4319C245] cursor-not-allowed':
                 loginForm.invalid || isSubmitting()
-            }">
+            }"
+          >
             @if (isSubmitting()) {
-            <svg class="animate-spin h-5 w-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
-              viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-              </path>
+            <svg
+              class="animate-spin h-5 w-5 text-white mr-2"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
             </svg>
             <span>Authenticating...</span>
             } @else {
-            <span>Authenticate</span>
+            <span>Authorise</span>
             }
           </button>
         </form>
         <!-- Register Link -->
         <div class="mt-6 text-center">
-          <p class="text-sm text-[#4319C280] font-medium">
+          <p class="text-sm text-[#7C6FA2] font-medium">
             Don't have an account?
-            <a routerLink="/register" class="font-semibold text-primary-600 hover:text-primary-700 transition-colors">
+            <a
+              (click)="onRegister()"
+              class="font-semibold text-primary-600 hover:text-primary-700 transition-colors cursor-pointer"
+            >
               Register here
             </a>
           </p>
         </div>
       </div>
 
-
       <div class="mt-8 max-w-md w-full mx-auto bottom-0">
-        <div class="card-style-po rounded-2xl px-6 py-3 w-full">
+        <div class="card-style-po rounded-t-2xl px-6 py-3 w-full">
           <!-- Header -->
-          <div class="flex items-center justify-between cursor-pointer" (click)="toggleExpand()" role="button"
-            aria-expanded="{{ isExpanded }}" tabindex="0">
+          <div
+            class="flex items-center justify-between cursor-pointer"
+            (click)="toggleExpand()"
+            role="button"
+            aria-expanded="{{ isExpanded }}"
+            tabindex="0"
+          >
             <span class="text-primary-600 font-semibold text-sm">
               Know your Onboarding status
             </span>
 
-            <button type="button" (click)="toggleExpand($event)" class="p-1 rounded-md focus:outline-none z-30"
-              aria-label="Toggle onboarding status panel">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary-600 transition-transform duration-300"
-                [class.rotate-180]="isExpanded" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <button
+              type="button"
+              (click)="toggleExpand($event)"
+              class="p-1 rounded-md focus:outline-none z-30"
+              aria-label="Toggle onboarding status panel"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6 text-primary-600 transition-transform duration-300"
+                [class.rotate-180]="isExpanded"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
               </svg>
             </button>
@@ -129,20 +186,127 @@
 
           <!-- Expandable section -->
           @if (isExpanded) {
-          <div class="transition-all duration-500 overflow-hidden mt-3 max-h-40">
+          <div class="transition-all duration-500 overflow-hidden mt-3 max-h-[32rem]">
             <!-- Vendor ID input box -->
-            <div class="flex items-center border border-[#C4B5FD] rounded-lg px-3 mb-3">
-                  <span class="material-symbols-outlined text-[#4319C245]">id_card</span>
+            <div class="flex flex-col gap-3">
+              <div class="flex items-center border border-[#C4B5FD] rounded-lg px-3 py-1">
+                <span class="material-symbols-outlined text-[#4319C245]">id_card</span>
 
-              <input type="text" class="flex-1 ml-3 py-2 text-sm placeholder-[#A78BFA] focus:outline-none"
-                placeholder="Enter your initial ID" />
+                <input
+                  type="text"
+                  name="initialId"
+                  class="flex-1 ml-3 py-2 text-sm placeholder-primary-300 focus:outline-none"
+                  placeholder="Enter your initial ID"
+                  [(ngModel)]="initialId"
+                  (input)="handleInitialIdInput()"
+                />
 
-              <button aria-label="Submit initial id">
-                <img src="assets/icons/arrow_circle_down.svg" alt="" class="h-6 w-6" />
-              </button>
+                <button
+                  type="button"
+                  aria-label="Send OTP"
+                  (click)="sendOnboardingOtp()"
+                  class="ml-3 inline-flex items-center gap-2 text-sm font-semibold "
+                  [disabled]="!initialId.trim() || isOtpSending()"
+                 
+                >
+                  @if (isOtpSending()) {
+                  <svg
+                    class="animate-spin h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    ></circle>
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  <span>Sending...</span>
+                  } @else {
+                  <img
+                    src="assets/icons/arrow_circle_down.svg"
+                    alt="Send OTP"
+                    class="h-6 w-6 transition-opacity"
+                  />
+                  <!-- <span>Send OTP</span> -->
+                  }
+                </button>
+              </div>
+
+              @if (otpError()) {
+              <p class="text-xs text-red-600">{{ otpError() }}</p>
+              } @if (otpMessage() && !otpError()) {
+              <p class="text-xs text-green-600">{{ otpMessage() }}</p>
+              } @if (hasRequestedOtp()) {
+              <div
+                class="border border-dashed border-[#C4B5FD] rounded-lg px-4 py-3 flex flex-col gap-3"
+              >
+                <div class="flex flex-col">
+                  <span class="text-xs font-semibold text-primary-600">Enter OTP</span>
+                  <span class="text-[11px] text-[#4319C280]"
+                    >Check your registered email inbox</span
+                  >
+                </div>
+
+                <p-inputotp
+                  [(ngModel)]="otpValue"
+                  [length]="otpLength"
+                  [integerOnly]="true"
+                  [disabled]="isOtpVerifying()"
+                  class="w-full onboarding-otp"
+                >
+                </p-inputotp>
+
+                <button
+                  type="button"
+                  (click)="verifyOnboardingOtp()"
+                  class="w-full py-2 text-sm font-semibold rounded-lg transition-colors duration-300 flex items-center justify-center"
+                  [disabled]="!isOtpReady || isOtpVerifying()"
+                  [ngClass]="{
+                    'bg-primary-600 text-white hover:bg-primary-700 cursor-pointer':
+                      isOtpReady && !isOtpVerifying(),
+                    'bg-[#D9D9D9] text-[#4319C245] cursor-not-allowed':
+                      !isOtpReady || isOtpVerifying()
+                  }"
+                >
+                  @if (isOtpVerifying()) {
+                  <svg
+                    class="animate-spin h-4 w-4 inline-block mr-2"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    ></circle>
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  <span>Verifying...</span>
+                  } @else {
+                  <span>Verify and Continue</span>
+                  }
+                </button>
+              </div>
+              }
             </div>
-
-            <!-- Demo Buttons -->
           </div>
           }
         </div>
@@ -153,37 +317,35 @@
   <!-- Right Section - Dashboard Preview -->
   <div class="hidden lg:flex col-span-1 p-4 w-full">
     <div
-      class="bg-linear-to-b from-primary-600 to-primary-900 rounded-3xl w-full h-full p-8 pl-14 pr-0 flex items-center justify-end relative overflow-hidden">
+      class="bg-linear-to-b from-primary-600 to-primary-900 rounded-3xl w-full h-full p-8 pl-14 pr-0 flex items-center justify-end relative overflow-hidden"
+    >
       <div class="max-w-4xl w-full flex flex-col gap-3">
         <!-- Header Text -->
         <div class="mb-8 text-white">
           <h1 class="mb-5">
-            <span class="font-extrabold font-inter text-3xl text-white">Procure</span><span
-              class="text-white font-extralight font-inter text-3xl">One</span>
+            <span class="font-extrabold font-inter text-3xl text-white">Procure</span
+            ><span class="text-white font-extralight font-inter text-3xl">One</span>
           </h1>
           <p class="text-sm font-inter text-[#D9D9D9]">
             “One Unified Procurement Ecosystem.”
             <span>
-              <p>
-                Represents a single integrated solution for all procurement types.
-              </p>
+              <p>Represents a single integrated solution for all procurement types.</p>
             </span>
           </p>
         </div>
 
         <!-- Dashboard Preview Card -->
         <div class="flex mt-4">
-          <div class="                     
-                           rounded-t-3xl rounded-bl-3xl rounded-tl-3xl md:rounded-4xl
-                            border-l-[6px] border-t-[6px] border-b-[6px]
-                            md:border-l-8 md:border-t-8 md:border-b-8
-                            border-[#D9D9D9] card-style-po -mr-5 
-                            ">
-            <img src="assets/images/Vendor Dashboard.svg" alt="Dashboard Preview" class="rounded-3xl" />
+          <div
+            class="rounded-t-3xl rounded-bl-3xl rounded-tl-3xl md:rounded-4xl border-l-[6px] border-t-[6px] border-b-[6px] md:border-l-8 md:border-t-8 md:border-b-8 border-[#D9D9D9] card-style-po -mr-5"
+          >
+            <img
+              src="assets/images/Vendor Dashboard.svg"
+              alt="Dashboard Preview"
+              class="rounded-3xl"
+            />
           </div>
         </div>
-
-
       </div>
     </div>
   </div>

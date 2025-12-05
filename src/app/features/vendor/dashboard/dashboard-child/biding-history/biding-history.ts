@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 
 interface BiddingHistoryItem {
   id: string;
-  description: string;
+  vendorName: string;
+  category: string;
   submissionDate: string;
-  bidValue: number;
-  status: 'Awarded' | 'Pending' | 'Lost';
+  riskScore: 'Low' | 'Medium' | 'High';
+  progress: number;
+  assignedTo: string;
 }
 
 @Component({
@@ -19,49 +21,86 @@ interface BiddingHistoryItem {
 })
 export class BidingHistory {
   // --- State Signals ---
-  readonly requisitionIdFilter = signal('');
+  readonly vendorNameFilter = signal('');
   readonly submissionDateFilter = signal('');
-  readonly bidValueFilter = signal<number | null>(null);
-  readonly statusFilter = signal('Status');
+  readonly riskScoreFilter = signal('');
+  readonly statusFilter = signal('');
+  readonly assignedToFilter = signal('');
 
   private readonly biddingHistory = signal<BiddingHistoryItem[]>([
-    { id: 'All-REQ-00125-2025', description: 'Office Supplies', submissionDate: '12-09-2025', bidValue: 25623, status: 'Awarded' },
-    { id: 'All-REQ-00225-2025', description: 'IT Equipment', submissionDate: '23-08-2025', bidValue: 15623, status: 'Pending' },
-    { id: 'All-REQ-0015-2025', description: 'Janitorial Service', submissionDate: '12-08-2025', bidValue: 8000, status: 'Lost' },
-    { id: 'All-REQ-0077-2025', description: 'Office Supplies', submissionDate: '07-07-2025', bidValue: 35253, status: 'Awarded' },
+    { 
+      id: '1',
+      vendorName: 'Innovatech Solutions Ltd.', 
+      category: 'Office Supplies', 
+      submissionDate: '26-10-2025', 
+      riskScore: 'Low',
+      progress: 65,
+      assignedTo: 'Compliance Team'
+    },
+    { 
+      id: '2',
+      vendorName: 'Quantum Supplies', 
+      category: 'Office Supplies', 
+      submissionDate: '20-10-2025', 
+      riskScore: 'High',
+      progress: 80,
+      assignedTo: 'Procurement'
+    },
+    { 
+      id: '3',
+      vendorName: 'Global Logistics Inc.', 
+      category: 'Office Supplies', 
+      submissionDate: '24-10-2025', 
+      riskScore: 'Medium',
+      progress: 45,
+      assignedTo: 'Compliance Team'
+    },
+    { 
+      id: '4',
+      vendorName: 'Starlight Tech', 
+      category: 'Office Supplies', 
+      submissionDate: '12-11-2025', 
+      riskScore: 'Low',
+      progress: 10,
+      assignedTo: 'Compliance Team'
+    },
   ]);
 
   // --- Derived State ---
   readonly filteredBiddingHistory = computed(() => {
-    const requisitionId = this.requisitionIdFilter().toLowerCase();
+    const vendorName = this.vendorNameFilter().toLowerCase();
     const submissionDate = this.submissionDateFilter();
-    const bidValue = this.bidValueFilter();
+    const riskScore = this.riskScoreFilter();
     const status = this.statusFilter();
+    const assignedTo = this.assignedToFilter();
 
     return this.biddingHistory().filter(item => {
-      const matchesRequisitionId = requisitionId === '' || item.id.toLowerCase().includes(requisitionId);
+      const matchesVendorName = vendorName === '' || item.vendorName.toLowerCase().includes(vendorName);
       const matchesSubmissionDate = submissionDate === '' || item.submissionDate.includes(submissionDate);
-      const matchesBidValue = bidValue === null || item.bidValue >= bidValue;
-      const matchesStatus = status === 'Status' || item.status === status;
+      const matchesRiskScore = riskScore === '' || item.riskScore === riskScore;
+      const matchesStatus = status === '' || item.riskScore === status;
+      const matchesAssignedTo = assignedTo === '' || item.assignedTo === assignedTo;
 
-      return matchesRequisitionId && matchesSubmissionDate && matchesBidValue && matchesStatus;
+      return matchesVendorName && matchesSubmissionDate && matchesRiskScore && matchesStatus && matchesAssignedTo;
     });
   });
 
   // --- Template Helpers ---
-  
-  // Helper to handle the string input from the template for the bid value
-  onBidValueChange(value: string): void {
-    const parsedValue = parseFloat(value);
-    this.bidValueFilter.set(isNaN(parsedValue) ? null : parsedValue);
+  getRiskScoreClass(riskScore: BiddingHistoryItem['riskScore']): string {
+    const riskClasses = {
+      'Low': 'bg-green-100 text-green-700',
+      'Medium': 'bg-orange-100 text-orange-700',
+      'High': 'bg-red-100 text-red-700'
+    };
+    return riskClasses[riskScore];
   }
 
-  getStatusClass(status: BiddingHistoryItem['status']): string {
-    const statusClasses = {
-      'Awarded': 'bg-[#49C50636] text-[#49C506]',
-      'Pending': 'bg-[#C5C50636] text-[#C5C506]',
-      'Lost': 'bg-[#C2191921] text-[#C21919]'
+  getProgressBarClass(riskScore: BiddingHistoryItem['riskScore']): string {
+    const progressClasses = {
+      'Low': 'bg-[#4319C2]',
+      'Medium': 'bg-[#4319C2]',
+      'High': 'bg-[#4319C2]'
     };
-    return statusClasses[status];
+    return progressClasses[riskScore];
   }
 }

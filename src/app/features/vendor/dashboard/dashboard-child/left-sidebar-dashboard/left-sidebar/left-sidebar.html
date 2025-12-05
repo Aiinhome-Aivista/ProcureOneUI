@@ -39,27 +39,28 @@
 
   <!-- Scrollable Container -->
   <div
-    class="space-y-3 sm:space-y-4 max-h-[calc(100vh-300px)] sm:max-h-115 overflow-y-auto pr-1 sm:pr-2 hide-scrollbar">
-    @for (card of bidCards; track card.id; let i = $index) {
-      <div (click)="selectCard(i)" [class]="(selectedCard === i ? 'bg-[#4319C221] border-2 border-primary-600' : 'bg-[#F5F5F5]') + ' rounded-2xl sm:rounded-2xl p-3 sm:p-4 cursor-pointer'">
-        <div class="flex justify-between items-start gap-2">
-          <div class="flex-1 min-w-0">
-            <div class="mb-1.5 sm:mb-2">
-              <p class="text-[11px] sm:text-xs font-bold text-[#000000CC] truncate">
-                {{ card.id }}
-              </p>
-            </div>
-            <div class="mb-1.5 sm:mb-2">
-              <p class="font-bold text-xs sm:text-sm text-[#000000CC] truncate">
-                {{ card.title }}
-              </p>
-            </div>
-            <div>
-              <p class="text-[11px] sm:text-xs text-[#000000CC]">
-                Closing Date:
-                <span class="font-bold text-[#000000CC]">{{ card.date }}</span>
-              </p>
-            </div>
+    class="space-y-3 sm:space-y-4 max-h-[calc(100vh-100px) overflow-y-auto  hide-scrollbar">
+    <div *ngFor="let card of bidCards; let i = index" (click)="selectCard(i)" [ngClass]="{
+        'bg-[#4319C221] border-2 border-primary-600': selectedCard === i,
+        'bg-[#F5F5F5]': selectedCard !== i
+      }" class="rounded-2xl sm:rounded-2xl p-3 sm:p-4 cursor-pointer">
+      <div class="flex justify-between items-start gap-2">
+        <div class="flex-1 min-w-0">
+          <div class="mb-1.5 sm:mb-2">
+            <p class="text-[11px] sm:text-xs font-bold text-[#000000CC] truncate">
+              {{ card.id }}
+            </p>
+          </div>
+          <div class="mb-1.5 sm:mb-2">
+            <p class="font-bold text-xs sm:text-sm text-[#000000CC] truncate">
+              {{ card.title }}
+            </p>
+          </div>
+          <div>
+            <p class="text-[11px] sm:text-xs text-[#000000CC]">
+              Closing Date:
+              <span class="font-bold text-[#000000CC]">{{ card.date }}</span>
+            </p>
           </div>
           <span [class]="(selectedCard === i ? 'text-primary-600 border-2 border-primary-600 bg-[#4319C221]' : 'border border-[#2C2E42] text-[#000000]') + ' px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-md whitespace-nowrap'">
             Open
@@ -70,6 +71,6 @@
           View & Bid
         </button>
       </div>
-    }
+    
   </div>
 </div>

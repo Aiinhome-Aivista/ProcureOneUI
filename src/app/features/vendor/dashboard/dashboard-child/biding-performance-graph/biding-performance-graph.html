@@ -1,29 +1,21 @@
-<!-- <div class="bg-[#F5F5F5] rounded-2xl p-3 sm:p-4 sm:mt-7 h-48 sm:h-60"> -->
-<div class="bg-[#F5F5F5] rounded-2xl p-3 sm:p-4 sm:mt-7 h-65 sm:h-70" role="region">
-  <!-- Header -->
+<div class="bg-[#F5F5F5] rounded-2xl p-3 sm:p-4 h-55 sm:h-65" role="region">
   <div class="flex justify-between items-start mb-2 sm:mb-3">
     <div>
-      <p class="text-sm text-[#000000] font-semibold">
-        Bidding Performance Over Time
-      </p>
-      <p class="text-xl font-extralight text-black">
-        ${{ totalValue() | number }}
-      </p>
+      <p class="text-sm text-[#000000] font-semibold">Bidding Performance Over Time</p>
+      <p class="text-xl font-extralight text-black">${{ totalValue() | number }}</p>
     </div>
 
-    <div class="relative">
-      <select
-        class="border border-[#4319C245] text-[#4319C2] bg-white rounded-xl px-3 py-1 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
-        aria-label="Select performance period">
-        <option>Quarterly</option>
-        <option>Monthly</option>
-        <option>Yearly</option>
-      </select>
-    </div>
+    <select
+      (change)="handlePeriodChange($event)"
+      class="border border-[#4319C245] text-[#4319C2] bg-white rounded-xl px-3 py-1 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-[#4319C2]"
+    >
+      <option value="quarterly">Quarterly</option>
+      <option value="halfyear">Half Year</option>
+      <option value="yearly">Yearly</option>
+    </select>
   </div>
 
-  <!-- Chart -->
   <div class="relative w-full h-30 sm:h-40">
-    <canvas #biddingChart class="w-full h-full" aria-hidden="true"></canvas>
+    <canvas #biddingChart class="w-full h-full"></canvas>
   </div>
 </div>

@@ -4,9 +4,10 @@
     <div class="px-6 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <a routerLink="/login" class="text-gray-600 hover:text-gray-900 flex items-center">
+          <button type="button" class="text-gray-600 hover:text-gray-900 flex items-center" (click)="openBackConfirm()"
+            aria-label="Go back to login">
             <span class="material-symbols-outlined">arrow_back</span>
-          </a>
+          </button>
           <div>
             <img src="assets/icons/Aiinhome _ PO.svg" alt="Aiinhome PO Logo" />
           </div>
@@ -19,40 +20,229 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-4 flex-1 h-[calc(100vh-4.8rem)]">
+  <div class="grid grid-cols-4 flex-1 h-[calc(100vh-5rem)]">
     <div class="col-span-1 h-full">
       <app-sidebar [currentStep]="currentStep()" (stepChange)="onStepChange($event)" />
     </div>
-    <div class="col-span-3 p-6 pl-3 overflow-y-auto h-full">
+
+    <div class="col-span-3 p-4 pl-3 overflow-y-auto h-full flex flex-col gap-2">
       <!-- Step Indicator (Static for UI only) -->
-      <div class="mb-8">
+      <div class="">
         <app-step-indicator />
       </div>
 
       <!-- Main Content Area -->
-      <div class="">
+      <div class="flex-1 overflow-y-auto">
         <!-- Step 1: Identity Details -->
         @if (currentStep() === 1) {
-          <app-identity-details />
+        <app-identity-details #identityDetails />
         }
 
         <!-- Step 2: Business Tax Registration -->
         @if (currentStep() === 2) {
-          <app-business-tax-registration />
+        <app-business-tax-registration #businessTaxRegistration />
+        } @if (currentStep() === 3) {
+        <app-bank-identity-verification #bankIdentityVerification />
+        } @if (currentStep() === 4) {
+        <app-financial-documents #financialDocuments />
+        }
+        @if (currentStep() === 5) {
+        <app-preview-steps [summary]="registrationSummary" />
+        }
+        @if (currentStep() === 6) {
+        <app-final-submission [summary]="fullRegistrationData"></app-final-submission>
         }
 
-        <!-- Step 3: Bank Identity Verification -->
-        @if (currentStep() === 3) {
-          <app-bank-identity-verification />
-        }
-
-        <!-- Step 4: Financial Documents -->
-        @if (currentStep() === 4) {
-          <!-- <app-financial-documents /> -->
-           <app-final-submission />
-          
-        }
       </div>
+@if (currentStep() !== 6){
+      <div class="flex items-center border-t border-gray-200 pt-3"
+        [ngClass]="currentStep() !== 5 ? 'justify-between' : 'justify-end'">
+        @if(currentStep() !== 5){
+        <app-global-button (click)="resetSteps()"  variant="outlined">
+            Reset
+            <span class="material-symbols-outlined text-base">autorenew</span>
+          </app-global-button>
+        }
+        <div class="flex items-center gap-3">
+          <app-global-button (click)="previousStep()" [disabled]="isFirstStep()">
+            <span class="material-symbols-outlined">arrow_back</span>
+            Previous
+          </app-global-button>     
+
+          <app-global-button (click)="nextStep()" [disabled]="isNextDisabled()">
+            {{ currentStep() == 5 ? 'submit' : 'Next' }}
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </app-global-button>
+        </div>
+      </div>
+    }
     </div>
   </div>
-</div>
+
+  <!-- Confirmation Dialog -->
+
+  <app-global-dialog
+    [(visible)]="showDialog"
+    headerTitle="Basic Information – Final Submission & Review"
+    [headerDescription]="companyData.headerdescription"
+    width="90vw"
+    maxWidth="1100px"
+    [closable]="true"
+    (onClose)="showDialog = false"
+  >
+    <div class="grid grid-cols-3 gap-6 text-sm text-gray-700">
+      <!-- Left Column -->
+      <div class="space-y-4">
+        <div>
+          <p class="font-semibold">{{ step1Identity.companyName }}</p>
+          <p>Company Name (Legal)</p>
+        </div>
+
+        <div>
+          <p>{{ step1Identity.businessType }}</p>
+          <p class="text-gray-500">Business Type</p>
+        </div>
+
+        <div>
+          <p>{{ step1Identity.registrationNumber }}</p>
+          <p class="text-gray-500">Registration No / CIN</p>
+        </div>
+
+        <div>
+          <p>{{ step1Identity.dateOfIncorporation }}</p>
+          <p class="text-gray-500">Date of Incorporation</p>
+        </div>
+
+        <div>
+          <p>{{ step1Identity.industryCategory }}</p>
+          <p class="text-gray-500">Industry Category</p>
+        </div>
+      </div>
+
+      <!-- Middle Column -->
+      <div class="space-y-4">
+        <div>
+          <p class="font-semibold">Registered Address</p>
+          <p>{{ step1Address.registeredAddress }}</p>
+        </div>
+
+        <div>
+          <p class="font-semibold">Operational Address</p>
+          <p>{{ step1Address.operationalAddress }}</p>
+        </div>
+
+        <div>
+          <p class="font-semibold">Country / State / City</p>
+          <p>{{ step1Address.country }}, {{ step1Address.state }}, {{ step1Address.city }}</p>
+        </div>
+
+        <div>
+          <p class="font-semibold">PIN</p>
+          <p>{{ step1Address.pin }}</p>
+        </div>
+
+        <div>
+          <p class="text-justify leading-5">{{ step1Identity.natureOfBusiness }}</p>
+          <p class="text-gray-500 mt-1">Nature of business</p>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-4">
+        <div>
+          <p class="font-semibold">{{ step1Address.contactPerson }}</p>
+          <p>Contact Person</p>
+        </div>
+
+        <div>
+          <p>{{ step1Address.designation }}</p>
+          <p class="text-gray-500">Designation</p>
+        </div>
+
+        <div>
+          <p>{{ step1Address.email }}</p>
+          <p class="text-gray-500">Official Email</p>
+        </div>
+
+        <div>
+          <p>{{ step1Address.phone }}</p>
+          <p class="text-gray-500">Phone Number</p>
+        </div>
+
+        <div *ngIf="step1Address.alternateContact">
+          <p>{{ step1Address.alternateContact }}</p>
+          <p class="text-gray-500">Alternate Contact</p>
+        </div>
+      </div>
+    </div>
+
+    <div footer class="flex justify-between border-[#00000040] border-t-2 w-full">
+      <div class="flex flex-col gap-2 pt-4 pl-5 w-3/4">
+        <div class="flex items-center gap-2 text-[#0000008F]">
+          <span class="material-symbols-outlined text-[#0000008F]">error</span>
+          <span class="font-bold text-[#0000008F] text-xs">{{ companyData.footertitle }}</span>
+        </div>
+        <p class="text-xs text-[#0000008F]">{{ companyData.footerdescription }}</p>
+      </div>
+
+      <div class="flex items-center w-1/4 justify-center">
+        <app-global-button
+          variant="outlined"
+          (onClick)="confirmAndNext()"
+          icon="arrow_forward"
+          iconPos="right"
+        >
+          Submit
+        </app-global-button>
+      </div>
+    </div>
+  </app-global-dialog>
+
+  <app-global-dialog
+    [(visible)]="showBackConfirm"
+    headerTitle="Leave Registration"
+    width="90vw"
+    maxWidth="440px"
+    [closable]="true"
+    (onClose)="closeBackConfirm()"
+  >
+    <p>
+      You are about to exit the registration flow and return to the login page. Any unsaved
+      changes for the current step will be lost. Do you want to continue
+    </p>
+
+    <div footer class="flex justify-end gap-3 w-full mr-4">
+      <app-global-button
+        variant="filled"
+        (onClick)="closeBackConfirm()"
+      >
+        No
+      </app-global-button>
+      <app-global-button
+        variant="outlined"
+        (onClick)="confirmBackNavigation()"
+      >
+        Yes
+      </app-global-button>
+    </div>
+  </app-global-dialog>
+
+  <app-global-dialog
+    [(visible)]="showSuccessDialog"
+    headerTitle="Registration Submitted"
+    width="90vw"
+    maxWidth="500px"
+    [closable]="false"
+  >
+    <p>Vendor registration submitted successfully.</p>
+
+    <div footer class="flex justify-end w-full mr-4">
+      <app-global-button
+        variant="filled"
+        (onClick)="closeSuccessDialog()"
+      >
+        Yes
+      </app-global-button>
+    </div>
+  </app-global-dialog>
+

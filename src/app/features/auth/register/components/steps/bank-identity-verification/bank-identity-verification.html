@@ -15,7 +15,7 @@
 
         <!-- Cancelled Cheque -->
         <div>
-            <label class="text-[11px] font-bold text-[#0000008F]">
+            <label class="text-[12px] font-bold text-[#0000008F]">
                 Cancelled Cheque / Bank Account Proof
                 <span class="text-red-500">*</span>
             </label>
@@ -31,7 +31,7 @@
                         <span class="material-symbols-outlined text-[#4319C245]"> cloud_upload </span>
                     </div>
 
-                    <p class="text-[11px] text-[#7C6FA2]">
+                    <p class="text-[12px] text-[#7C6FA2]">
                         <span class="font-semibold">Click to upload</span><span> or drag and drop</span><br>
                         <span class="text-[10px] text-[#7C6FA2]">PDF(MAX 5MB)</span>
                     </p>
@@ -44,11 +44,23 @@
                 <button (click)="removeFile('cancelCheque')" class="text-red-500 text-[12px] font-bold">X</button>
             </div>
             }
+
+            @if (existingDocuments.cancelCheque) {
+            <div class="mt-2 text-[10px] text-primary-600">
+                <p class="font-semibold text-[#0000008F]">Existing Documents</p>
+                <div class="flex items-center gap-2 truncate">
+                    <span class="material-symbols-outlined text-[12px]">description</span>
+                    <span class="truncate" [title]="existingDocuments.cancelCheque">
+                        {{ formatExistingDocumentLabel(existingDocuments.cancelCheque) }}
+                    </span>
+                </div>
+            </div>
+            }
         </div>
 
         <!-- Bank Statement -->
         <div>
-            <label class="text-[11px] font-bold text-[#0000008F]">
+            <label class="text-[12px] font-bold text-[#0000008F]">
                 Bank Statement (Last 6-12 Months)
                 <span class="text-red-500">*</span>
             </label>
@@ -64,7 +76,7 @@
                         <span class="material-symbols-outlined text-[#4319C245]"> cloud_upload </span>
                     </div>
 
-                    <p class="text-[11px] text-[#7C6FA2]">
+                    <p class="text-[12px] text-[#7C6FA2]">
                         <span class="font-semibold">Click to upload</span><span> or drag and drop</span><br>
                         <span class="text-[10px] text-[#7C6FA2]">PDF(MAX 5MB)</span>
                     </p>
@@ -77,6 +89,18 @@
                 <button (click)="removeFile('bankStatement')" class="text-red-500 text-[12px] font-bold">X</button>
             </div>
             }
+
+            @if (existingDocuments.bankStatement) {
+            <div class="mt-2 text-[10px] text-primary-600">
+                <p class="font-semibold text-[#0000008F]">Existing Documents</p>
+                <div class="flex items-center gap-2 truncate">
+                    <span class="material-symbols-outlined text-[12px]">description</span>
+                    <span class="truncate" [title]="existingDocuments.bankStatement">
+                        {{ formatExistingDocumentLabel(existingDocuments.bankStatement) }}
+                    </span>
+                </div>
+            </div>
+            }
         </div>
 
     </div>
@@ -84,7 +108,7 @@
     <!-- row 2 -->
     <div class="grid grid-cols-2 gap-6 mb-4">
         <div>
-            <label class="text-[11px] font-bold text-[#0000008F]">
+            <label class="text-[12px] font-bold text-[#0000008F]">
                 Bank Verification Letter (Optional)
             </label>
 
@@ -98,7 +122,7 @@
                     <div class="">
                         <span class="material-symbols-outlined text-[#4319C245]"> cloud_upload </span>
                     </div>
-                    <p class="text-[11px] text-[#7C6FA2]">
+                    <p class="text-[12px] text-[#7C6FA2]">
                         <span class="font-semibold">Click to upload</span><span> or drag and drop</span><br>
                         <span class="text-[10px] text-[#7C6FA2]">PDF(MAX 5MB)</span>
                     </p>
@@ -109,6 +133,18 @@
             <div class="mt-2 text-[10px] text-green-600 flex items-center gap-2">
                 {{ uploadedFiles.verifyLetter.name }}
                 <button (click)="removeFile('verifyLetter')" class="text-red-500 text-[12px] font-bold">X</button>
+            </div>
+            }
+
+            @if (existingDocuments.verifyLetter) {
+            <div class="mt-2 text-[10px] text-primary-600">
+                <p class="font-semibold text-[#0000008F]">Existing Documents</p>
+                <div class="flex items-center gap-2 truncate">
+                    <span class="material-symbols-outlined text-[12px]">description</span>
+                    <span class="truncate" [title]="existingDocuments.verifyLetter">
+                        {{ formatExistingDocumentLabel(existingDocuments.verifyLetter) }}
+                    </span>
+                </div>
             </div>
             }
         </div>

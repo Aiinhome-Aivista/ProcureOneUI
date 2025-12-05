@@ -31,18 +31,7 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./features/vendor/dashboard/vendor-dashboard.component').then(m => m.VendorDashboardComponent)
       },
-      {
-        path: 'products',
-        loadComponent: () => import('./features/vendor/products/products.component').then(m => m.ProductsComponent)
-      },
-      {
-        path: 'orders',
-        loadComponent: () => import('./features/vendor/orders/orders.component').then(m => m.OrdersComponent)
-      },
-      {
-        path: 'analytics',
-        loadComponent: () => import('./features/vendor/analytics/analytics.component').then(m => m.AnalyticsComponent)
-      },
+    
       {
         path: 'profile',
         loadComponent: () => import('./shared/components/profile/profile.component').then(m => m.ProfileComponent)
@@ -63,17 +52,26 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./features/department/dashboard/department-dashboard.component').then(m => m.DepartmentDashboardComponent)
       },
+     
       {
-        path: 'requests',
-        loadComponent: () => import('./features/department/requests/requests.component').then(m => m.RequestsComponent)
+        path: 'profile',
+        loadComponent: () => import('./shared/components/profile/profile.component').then(m => m.ProfileComponent)
+      }
+    ]
+  },
+  {
+    path: 'manager',
+    component: LayoutComponent,
+    canActivate: [authGuard, roleGuard(['manager'])],
+    children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
       },
       {
-        path: 'approvals',
-        loadComponent: () => import('./features/department/approvals/approvals.component').then(m => m.ApprovalsComponent)
-      },
-      {
-        path: 'reports',
-        loadComponent: () => import('./features/department/reports/reports.component').then(m => m.ReportsComponent)
+        path: 'dashboard',
+        loadComponent: () => import('./features/manager/dashboard/manager-dashboard').then(m => m.ManagerDashboardComponent)
       },
       {
         path: 'profile',

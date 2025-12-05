@@ -1,10 +1,10 @@
 .input-style-po {
   width: 100%;
   height: 45px;
-  border-radius: 0.75rem;
+  /* border-radius: 0.75rem; */
   border: 1px solid rgba(67, 25, 194, 0.27);
-  color: #4319C2;
-  background-color: #FFFEFE;
+  color: #4319c2;
+  background-color: #fffefe;
   font-size: 0.875rem; /* text-sm */
 }
 
@@ -15,12 +15,31 @@
 /* Focus styles */
 .input-style-po:focus {
   outline: none;
-  border-color: #4319C2;
- 
+  border-color: #4319c2;
 }
 .card-style-po {
   background: #ffffff;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
 }
 
+:host ::ng-deep .onboarding-otp .p-inputotp-input {
+  width: 2.5rem;
+  height: 3rem;
+  border: 1px solid rgba(67, 25, 194, 0.27);
+  border-radius: 0.5rem;
+  font-weight: 600;
+  color: #4319c2;
+  font-size: 1.125rem;
+}
+
+:host ::ng-deep .onboarding-otp .p-inputotp-input:focus {
+  border-color: #4319c2;
+  box-shadow: none;
+}
+
+::ng-deep .p-inputotp {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

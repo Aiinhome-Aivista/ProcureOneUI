@@ -1,5 +1,6 @@
-import { Component, input } from '@angular/core';
+import { Component, input, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RegisterService } from '../../../../../core/services';
 
 @Component({
   selector: 'app-step-indicator',
@@ -7,16 +8,40 @@ import { CommonModule } from '@angular/common';
   templateUrl: './step-indicator.component.html',
   styleUrls: ['./step-indicator.component.css'],
 })
-export class StepIndicatorComponent {
+export class StepIndicatorComponent implements OnInit {
+  private registerService = inject(RegisterService);
   currentStep = input<number>(2);
 
-  steps = [
-    { number: 1, label: 'Basic information', icon: 'description', percent: 50 },
-    { number: 2, label: 'Financial Verification', icon: 'monitoring', percent: 100 },
-    { number: 3, label: 'Risk Factor', icon: 'shield', percent: 40 },
-    { number: 4, label: 'Capability', icon: 'business_center', percent: 72 },
-    { number: 5, label: 'Approved', icon: 'verified' }
-  ];
+  steps = signal([
+    { number: 1, label: 'Basic information', icon: 'description', percent: 0 },
+    { number: 2, label: 'Financial Verification', icon: 'monitoring',   },
+    { number: 3, label: 'Risk Factor', icon: 'shield',  },
+    { number: 4, label: 'Capability', icon: 'business_center',  },
+    { number: 5, label: 'Approved', icon: 'verified', }
+  ]);
+
+  ngOnInit() {
+    this.fetchVendorProgress();
+  }
+
+  fetchVendorProgress() {
+    const vendorId = sessionStorage.getItem('vendorId');
+    if (!vendorId) return;
+
+    this.registerService.getVendorProgress(vendorId).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.steps.update(steps => steps.map(step => {
+          if (step.number === 1) return { ...step, percent: res.basic_info_progress };
+          if (step.number === 2) return { ...step, percent: res.financial_verification_progress };
+          if (step.number === 3) return { ...step, percent: res.risk_factor_progress };
+          if (step.number === 4) return { ...step, percent: res.capability_progress };
+          return step;
+        }));
+      },
+      error: (err) => console.error('Error fetching registration data:', err)
+    });
+  }
 
   getStepStateClass(stepNumber: number): string {
     const current = this.currentStep();

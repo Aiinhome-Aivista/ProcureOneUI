@@ -1,0 +1,91 @@
+<section class="flex justify-center px-4 py-8 text-[#101010]">
+  <article class="w-full max-w-2xl rounded-4xl bg-[#f7f6f4] p-6 sm:p-8 shadow-lg shadow-black/5 ring-1 ring-black/5">
+    <h1 class="text-2xl font-semibold text-[#1d1d1f]">Bid Participation</h1>
+
+    <form class="mt-6 space-y-6" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="bid-amount" class="block text-sm font-medium text-[#1d1d1f]">
+          Your Bid Amount($)<span class="text-red-600">*</span>
+        </label>
+        <input
+          type="text"
+          id="bid-amount"
+          [value]="bidAmount()"
+          (input)="bidAmount.set($any($event.target).value)"
+          placeholder="e.g., 245000"
+          required
+          class="mt-2 block w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-black/40 focus:border-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-600/20"
+        />
+      </div>
+
+      <div>
+        <label for="delivery-time" class="block text-sm font-medium text-[#1d1d1f]">
+          Proposed Delivery Time(Days)<span class="text-red-600">*</span>
+        </label>
+        <input
+          type="text"
+          id="delivery-time"
+          [value]="deliveryTime()"
+          (input)="deliveryTime.set($any($event.target).value)"
+          placeholder="e.g., 85"
+          required
+          class="mt-2 block w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-[#1d1d1f] placeholder:text-black/40 focus:border-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-600/20"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-[#1d1d1f]">
+          Upload Quote & Documents<span class="text-red-600">*</span>
+        </label>
+        <div class="mt-2 rounded-2xl border-2 border-dashed border-black/20 bg-white px-6 py-12 text-center transition hover:border-primary-600/40">
+          <input
+            type="file"
+            id="file-upload"
+            accept="application/pdf"
+            (change)="onFileSelected($event)"
+            class="sr-only"
+          />
+          <label
+            for="file-upload"
+            class="flex cursor-pointer flex-col items-center gap-3"
+          >
+            <span
+              class="flex h-14 w-14 items-center justify-center rounded-full bg-primary-100 text-primary-600"
+            >
+              <span class="material-symbols-outlined text-3xl" aria-hidden="true">cloud_upload</span>
+            </span>
+            @if (selectedFile()) {
+              <p class="text-sm font-medium text-[#1d1d1f]">{{ selectedFile()?.name }}</p>
+            } @else {
+              <p class="text-sm text-black/60">
+                Click to upload or drag and drop<br />
+                <span class="text-xs text-black/45">PDF (MAX 10MB)</span>
+              </p>
+            }
+          </label>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-3">
+        <input
+          type="checkbox"
+          id="terms"
+          [checked]="acceptedTerms()"
+          (change)="acceptedTerms.set($any($event.target).checked)"
+          class="mt-0.5 h-4 w-4 rounded border-black/30 text-primary-600 focus:ring-2 focus:ring-primary-600 focus:ring-offset-2"
+        />
+        <label for="terms" class="text-sm leading-relaxed text-black/70">
+          I declare that all information provided is accurate and I agree to the terms and conditions.
+        </label>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="!acceptedTerms()"
+        class="w-full rounded-2xl bg-primary-600 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-black/10 disabled:text-black/30"
+      >
+        Submit Bid
+      </button>
+    </form>
+  </article>
+</section>
