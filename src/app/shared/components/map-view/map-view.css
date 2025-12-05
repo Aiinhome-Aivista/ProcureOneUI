@@ -1,0 +1,33 @@
+@import 'leaflet/dist/leaflet.css';
+
+#map {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ensure map controls are visible and styled */
+.leaflet-control-zoom {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+  color: #4319c2;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: #4319c2;
+  color: white;
+}
+
+/* Custom popup styling */
+.leaflet-popup-content-wrapper {
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+}
+
+.leaflet-popup-content {
+  margin: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
