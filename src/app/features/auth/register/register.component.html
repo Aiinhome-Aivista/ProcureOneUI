@@ -23,7 +23,7 @@
   <div class="grid grid-cols-4 flex-1 h-[calc(100vh-5rem)]">
     <div class="col-span-1 h-full">
       <!-- <app-sidebar [currentStep]="sidebarStep()" (stepChange)="onStepChange($event)" /> -->
-        <app-sidebar [currentStep]="currentStep() === 6 ? finalSidebarStep() : currentStep()"
+        <app-sidebar [currentStep]="currentStep() === 6 ? finalSidebarStep() : sidebarStep()"
         (stepChange)="currentStep() === 6 ? onFinalSidebarClick($event) : onStepChange($event)" />
 
     </div>
