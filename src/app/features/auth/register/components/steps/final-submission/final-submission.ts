@@ -1,14 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { submissionData } from '../../../../../../data/data';
 
 @Component({
   selector: 'app-final-submission',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './final-submission.html',
-  styleUrl: './final-submission.css',
+  styleUrls: ['./final-submission.css'],
 })
 export class FinalSubmission {
-  readonly submissionData = submissionData;
+  @Input() summary: any; 
+
+  get finalMessageParagraphs(): string[] {
+    const msg = this.summary?.ai_assessment?.final_message;
+    if (!msg) return [];
+
+    const normalized = msg.replace(/\r\n/g, '\n');
+
+    return normalized
+      .split(/\n{2,}/)
+      .map((p: string) => p.trim())
+      .filter(Boolean);
+  }
 }

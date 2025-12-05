@@ -17,6 +17,8 @@ import {
   VendorOtpResponse,
   VerifyVendorOtpRequest,
   VerifyVendorOtpResponse,
+  VendorRegistrationTrackerResponse,
+  VendorRegistrationTrackerStep,
 } from '../../../core/models';
 
 @Component({
@@ -190,9 +192,7 @@ export class LoginComponent {
           this.otpMessage.set(response.message || 'OTP verified successfully.');
           const resolvedVendorId = response.vendor_id || vendorId;
           sessionStorage.setItem('vendorId', resolvedVendorId);
-          const stepNumber = this.resolveStepNumber(response.current_step);
-          sessionStorage.setItem('currentStep', stepNumber.toString());
-          this.router.navigate(['/register'], { queryParams: { step: stepNumber } });
+          this.fetchTrackerAndNavigate(resolvedVendorId, response.current_step);
         } else {
           this.otpError.set(response.message || 'OTP verification failed. Please try again.');
         }
@@ -231,11 +231,64 @@ export class LoginComponent {
       TAX_DOCS: 2,
       BUSINESS_TAX: 2,
       BANK_VERIFICATION: 3,
+      BANK_VERIF: 3,
       BANK_DOCS: 3,
+      FINANCIAL_PERF: 4,
       FINAL_SUBMISSION: 4,
+      PREVIEW: 5,
+      SUBMITTED: 6,
     };
 
-    return mapping[normalized] ?? 1;
+    return mapping[normalized] ;
+  }
+
+  private fetchTrackerAndNavigate(vendorId: string, fallbackStepCode?: string | null): void {
+    this.registerService.getVendorRegistrationTracker(vendorId).subscribe({
+      next: (trackerResponse: VendorRegistrationTrackerResponse) => {
+        const activeStepCode = this.findActiveStepCode(trackerResponse.data) || fallbackStepCode;
+        this.navigateToRegistrationStep(activeStepCode);
+      },
+      error: () => {
+        this.navigateToRegistrationStep(fallbackStepCode);
+      },
+    });
+  }
+
+  private findActiveStepCode(steps?: VendorRegistrationTrackerStep[]): string | null {
+    if (!steps || steps.length === 0) {
+      return null;
+    }
+
+    // 1. Check if SUBMITTED exists
+    const submittedStep = steps.find((s) => s.step_code === 'SUBMITTED' && s.status?.toLowerCase() === 'in progress');
+    if (submittedStep) {
+      return 'SUBMITTED';
+    }
+
+    // 2. Check if all 4 main sections are Completed
+ 
+ const previewStep = steps.find((s) => s.step_code === 'PREVIEW' && s.status?.toLowerCase() === 'in progress');
+    if (previewStep) {
+      return 'PREVIEW';
+    }
+
+    // 3. Fallback to existing logic (find first In Progress or Completed)
+    const prioritizedStatuses = ['in progress', 'completed'];
+
+    for (const status of prioritizedStatuses) {
+      const match = steps.find((step) => step.status?.toLowerCase() === status);
+      if (match?.step_code) {
+        return match.step_code;
+      }
+    }
+
+    return steps[0].step_code || null;
+  }
+
+  private navigateToRegistrationStep(stepCode?: string | null): void {
+    const stepNumber = this.resolveStepNumber(stepCode);
+    sessionStorage.setItem('currentStep', stepNumber.toString());
+    this.router.navigate(['/register'], { queryParams: { step: stepNumber } });
   }
 
   private isApiSuccess(response: { isSuccess?: boolean | string; status?: string }): boolean {
@@ -271,5 +324,11 @@ export class LoginComponent {
     }
 
     return fallback;
+  }
+
+
+  onRegister(): void {
+    sessionStorage.clear();
+    this.router.navigate(['/register']);
   }
 }

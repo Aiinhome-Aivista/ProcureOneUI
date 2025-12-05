@@ -1,5 +1,5 @@
 <div class="flex items-center justify-between w-full p-4 bg-gray-100 rounded-md">
-  @for (step of steps; track step.number; let last = $last) {
+  @for (step of steps(); track step.number; let last = $last) {
   <div class="flex items-center" [class.flex-1]="!last">
     <div class="flex flex-col items-center">
       <!-- Outer ring via background -->
@@ -28,7 +28,7 @@
       </div>
 
       <div class="mt-2 text-center">
-        <p class="text-xs font-medium text-gray-900">{{ step.label }}</p>
+        <p class="text-sm font-semibold text-gray-900">{{ step.label }}</p>
       </div>
     </div>
 
@@ -36,7 +36,7 @@
     <div
       class="flex-1 h-0.5 mx-3 border-t-3 border-dashed"
       [ngClass]="
-        step.number < currentStep()
+        step.number < currentStep() || (step.percent ?? 0) > 0
           ? 'border-primary-600'
           : step.number === currentStep()
           ? 'border-primary-300'

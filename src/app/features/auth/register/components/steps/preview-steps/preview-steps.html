@@ -1,0 +1,275 @@
+<div class="w-full" *ngIf="summary as s">
+
+  <!-- Top Review Box -->
+  <div class="relative rounded-xl p-4 mb-6 bg-[#F5F5F5] overflow-hidden">
+
+    <!-- Background Image FIXED -->
+    <img
+      src="assets/icons/bg-art.svg"
+      alt="Background Art"
+      class="absolute top-2 right-0 -mr-140 w-full h-full opacity-30 pointer-events-none select-none z-0"
+      style="object-fit: cover"
+    />
+
+    <div class="relative z-10 space-y-3">
+      <h2 class="text-lg font-bold text-black">Vendor Registration Preview</h2>
+      <p class="text-[10px] text-[#0000008F] leading-4">
+        Thank you for submitting your vendor registration. Below is a consolidated summary of all
+        the details and documents you have provided.
+      </p>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="space-y-8">
+
+    <!-- Basic Information -->
+    <div>
+      <h3 class="text-xl font-bold text-black">Basic Information</h3>
+      <p class="text-[10px] text-[#0000008F] leading-4">
+        This section verifies the vendor’s identity, registration, ownership and communication details.
+      </p>
+
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+
+        <!-- Column 1 -->
+        <div class="space-y-4">
+          <div>
+            <p class="font-semibold text-black">{{ s.company_name }}</p>
+            <p class="text-[#0000008F]">Company Name (Legal)</p>
+          </div>
+          <div>
+            <p class="font-semibold text-black">{{ s.registration_number }}</p>
+            <p class="text-[#0000008F]">Registration No / CIN</p>
+          </div>
+          <div>
+            <p class="font-semibold text-black">{{ s.business_type }}</p>
+            <p class="text-[#0000008F]">Business Type</p>
+          </div>
+          <div>
+            <p class="font-semibold text-black">{{ s.industry_category }}</p>
+            <p class="text-[#0000008F]">Industry Category</p>
+          </div>
+          <div>
+            <p class="font-semibold text-black">{{ s.date_of_incorporation }}</p>
+            <p class="text-[#0000008F]">Date of Incorporation</p>
+          </div>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="space-y-4">
+          <div>
+            <p class="font-semibold text-black">{{ s.registered_address }}</p>
+            <p class="text-[#0000008F]">Registered Address</p>
+          </div>
+          <div>
+            <p class="font-semibold text-black">{{ s.operational_address }}</p>
+            <p class="text-[#0000008F]">Operational Address</p>
+          </div>
+          <div>
+            <p class="font-semibold text-black">{{ s.country }}, {{ s.state }}, {{ s.city }}</p>
+            <p class="text-[#0000008F]">Country / State / City</p>
+          </div>
+          <div>
+            <p class="font-semibold text-black">{{ s.pin }}</p>
+            <p class="text-[#0000008F]">PIN</p>
+          </div>
+          <div>
+            <p class="font-semibold text-black leading-5">{{ s.nature_of_business }}</p>
+            <p class="text-[#0000008F]">Nature of Business</p>
+          </div>
+        </div>
+
+        <!-- Column 3 -->
+        <div class="space-y-4">
+          <div>
+            <p class="font-semibold text-black">{{ s.contact_person }}</p>
+            <p class="text-[#0000008F]">Contact Person</p>
+          </div>
+          <div>
+            <p class="font-semibold text-black">{{ s.designation_role }}</p>
+            <p class="text-[#0000008F]">Designation</p>
+          </div>
+          <div>
+            <p class="font-semibold text-black">{{ s.email_official }}</p>
+            <p class="text-[#0000008F]">Official Email</p>
+          </div>
+          <div>
+            <p class="font-semibold text-black">{{ s.phone_number_official }}</p>
+            <p class="text-[#0000008F]">Phone Number</p>
+          </div>
+          <div *ngIf="s.alternate_contact">
+            <p class="font-semibold text-black">{{ s.alternate_contact }}</p>
+            <p class="text-[#0000008F]">Alternate Contact</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Business & Tax Information -->
+    <div>
+      <h3 class="text-base font-semibold text-black mb-2">Business & Tax Information</h3>
+      <p class="text-[10px] text-[#0000008F]">Legal & taxation details</p>
+
+      <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs">
+        <div>
+          <p class="font-semibold text-black">{{ s.tax_documents?.pan_number || '-' }}</p>
+          <p class="text-[#0000008F]">PAN / Tax ID</p>
+        </div>
+
+        <div>
+          <p class="font-semibold text-black">{{ s.tax_documents?.gst_vat_number || '-' }}</p>
+          <p class="text-[#0000008F]">GST / VAT Number</p>
+        </div>
+
+        <div>
+          <p class="font-semibold text-black">{{ s.tax_documents?.msme_udyam_number || '-' }}</p>
+          <p class="text-[#0000008F]">MSME / UDYAM</p>
+        </div>
+
+        <div>
+          <p class="font-semibold text-black">
+            {{ s.tax_documents?.certificate_of_incorporation_name || '-' }}
+          </p>
+          <p class="text-[#0000008F]">Certificate of Incorporation</p>
+        </div>
+
+        <div>
+          <p class="font-semibold text-black">{{ s.tax_documents?.legal_authorization_type || '-' }}</p>
+          <p class="text-[#0000008F]">Legal Authorization Type</p>
+        </div>
+      </div>
+
+      <!-- Uploaded Docs -->
+        <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+   <div *ngIf="s.tax_document_files?.length" class="mt-3">
+
+  <div class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+    <p class="text-[11px] font-semibold text-black mb-1">Uploaded Tax Documents</p>
+
+    <div class="space-y-2">
+      <div 
+        *ngFor="let doc of s.tax_document_files" 
+        class="flex items-start gap-2 text-[11px] text-primary-600 break-all"
+      >
+        <span class="material-symbols-outlined text-[12px] mt-[2px]">description</span>
+        {{ doc.document_url }}
+      </div>
+    </div>
+
+  </div>
+
+</div>
+        </div>
+
+    </div>
+
+    <!-- Bank Verification -->
+<div>
+  <h3 class="text-base font-semibold text-[#000000] mb-2">Bank Verification</h3>
+  <p class="text-[10px] text-[#0000008F]">
+    Used to confirm ownership, transaction capability, and financial soundness.
+  </p>
+
+  <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+
+    <!-- Card -->
+    <div class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <p class="text-[11px] font-semibold text-black mb-1">Cancelled Cheque</p>
+      <div class="text-[11px] text-primary-600 flex items-start gap-2 break-all">
+        <span class="material-symbols-outlined text-[12px] mt-[2px]">description</span>
+        {{ s.bank_verification?.cancelled_cheque_doc_url }}
+      </div>
+    </div>
+
+    <!-- Card -->
+    <div class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <p class="text-[11px] font-semibold text-black mb-1">Bank Statement</p>
+      <div class="text-[11px] text-primary-600 flex items-start gap-2 break-all">
+        <span class="material-symbols-outlined text-[12px] mt-[2px]">description</span>
+        {{ s.bank_verification?.bank_statement_doc_url }}
+      </div>
+    </div>
+
+    <!-- Card -->
+    <div class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <p class="text-[11px] font-semibold text-black mb-1">Verification Letter</p>
+      <div class="text-[11px] text-primary-600 flex items-start gap-2 break-all">
+        <span class="material-symbols-outlined text-[12px] mt-[2px]">description</span>
+        {{ s.bank_verification?.bank_verification_letter_doc_url }}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+    <!-- Financial Performance -->
+<div>
+  <h3 class="text-base font-semibold text-[#000000] mb-2">
+    Financial Performance Documents
+  </h3>
+  <p class="text-[10px] text-[#0000008F]">
+    Used to assess solvency, working capital, and risk factor.
+  </p>
+
+  <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+
+    <!-- Card -->
+    <div class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <p class="text-[11px] font-semibold text-black mb-1">Audited Balance Sheet</p>
+      <div class="text-[11px] text-primary-600 flex items-start gap-2 break-all">
+        <span class="material-symbols-outlined text-[12px] mt-[2px]">description</span>
+        {{ s.financial_performance.audited_balance_sheet_doc_url }}
+      </div>
+    </div>
+
+    <!-- Card -->
+    <div class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <p class="text-[11px] font-semibold text-black mb-1">Profit & Loss Statement</p>
+      <div class="text-[11px] text-primary-600 flex items-start gap-2 break-all">
+        <span class="material-symbols-outlined text-[12px] mt-[2px]">description</span>
+        {{ s.financial_performance.profit_loss_statement_doc_url }}
+      </div>
+    </div>
+
+    <!-- Card -->
+    <div class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <p class="text-[11px] font-semibold text-black mb-1">Income Tax Return</p>
+      <div class="text-[11px] text-primary-600 flex items-start gap-2 break-all">
+        <span class="material-symbols-outlined text-[12px] mt-[2px]">description</span>
+        {{ s.financial_performance.income_tax_return_doc_url }}
+      </div>
+    </div>
+
+    <!-- Card -->
+    <div class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <p class="text-[11px] font-semibold text-black mb-1">Turnover Declaration</p>
+      <div class="text-[11px] text-primary-600 flex items-start gap-2 break-all">
+        <span class="material-symbols-outlined text-[12px] mt-[2px]">description</span>
+        {{ s.financial_performance.turnover_declaration_doc_url }}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+    <!-- Footer -->
+    <div class="border-t border-[#00000020] pt-4">
+      <div class="flex items-center gap-2 text-[#0000008F] mb-1">
+        <span class="material-symbols-outlined">error</span>
+        <span class="font-bold text-xs">Important</span>
+      </div>
+      <p class="text-xs text-[#0000008F] leading-4">
+        You can refer to this summary for your records. To update any information, please reach out
+        to the procurement team with your registered details.
+      </p>
+      <br>
+    </div>
+
+  </div>
+</div>

@@ -9,13 +9,20 @@ import {
   BasicInfoResponse,
   BusinessTaxInfo,
   BusinessTaxResponse,
+  FinancialDocumentsResponse,
+  VendorFinancialDocumentsResponse,
+  VendorRegistrationDetailsResponse,
   DropdownModel,
   VendorInfoResponse,
   VendorOtpRequest,
   VendorOtpResponse,
   VendorTaxDocumentsResponse,
+  VendorRegistrationTrackerResponse,
   VerifyVendorOtpRequest,
   VerifyVendorOtpResponse,
+  VendorRegistrationSubmitResponse,
+  VendorFullAssessmentResponse,
+  VendorProgressResponse,
 } from '../models';
 import { LegalProofResponse } from '../models';
 
@@ -25,7 +32,7 @@ import { LegalProofResponse } from '../models';
 export class RegisterService {
   // jobSubscribe = new Subject();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   businessTypes(): Observable<DropdownModel> {
     return this.http.get<DropdownModel>(ApiEndpoints.AUTH.BUSINESS_TYPES);
@@ -97,5 +104,53 @@ export class RegisterService {
 
   verifyVendorOtp(body: VerifyVendorOtpRequest): Observable<VerifyVendorOtpResponse> {
     return this.http.post<VerifyVendorOtpResponse>(ApiEndpoints.AUTH.VERIFY_VENDOR_OTP, body);
+  }
+
+  getVendorRegistrationTracker(vendorId: string): Observable<VendorRegistrationTrackerResponse> {
+    const url = `${ApiEndpoints.AUTH.GET_VENDOR_REGISTRATION_TRACKER}?vendor_id=${vendorId}`;
+    return this.http.get<VendorRegistrationTrackerResponse>(url);
+  }
+
+  postFinancialDocuments(formData: FormData): Observable<FinancialDocumentsResponse> {
+    return this.http.post<FinancialDocumentsResponse>(
+      ApiEndpoints.AUTH.POST_FINANCIAL_DOCS,
+      formData
+    );
+  }
+
+  getFinancialDocuments(): Observable<VendorFinancialDocumentsResponse> {
+    const vendorId = sessionStorage.getItem('vendorId');
+    const url = vendorId
+      ? `${ApiEndpoints.AUTH.GET_FINANCIAL_DOCS}?vendor_id=${vendorId}`
+      : ApiEndpoints.AUTH.GET_FINANCIAL_DOCS;
+
+    return this.http.get<VendorFinancialDocumentsResponse>(url);
+  }
+
+  getVendorRegistrationDetails(
+    vendorId: string
+  ): Observable<VendorRegistrationDetailsResponse> {
+    const url = `${ApiEndpoints.AUTH.GET_VENDOR_REGISTRATION_DETAILS}?vendor_id=${vendorId}`;
+    return this.http.get<VendorRegistrationDetailsResponse>(url);
+  }
+  submitRegistration(vendorId: string): Observable<VendorRegistrationSubmitResponse> {
+    const formData = new FormData();
+    formData.append('vendor_id', vendorId);
+    return this.http.post<VendorRegistrationSubmitResponse>(
+      ApiEndpoints.AUTH.SUBMIT_REGISTRATION,
+      formData
+    );
+  }
+
+  getVendorRegistrationFullData(
+    vendorId: string
+  ): Observable<VendorFullAssessmentResponse> {
+    const url = `${ApiEndpoints.AUTH.GET_VENDOR_REGISTRATION_FULL_DATA}?vendor_id=${vendorId}`;
+    return this.http.get<VendorFullAssessmentResponse>(url);
+  }
+
+  getVendorProgress(vendorId: string): Observable<VendorProgressResponse> {
+    const url = `${ApiEndpoints.AUTH.GET_VENDOR_PROGRESS}?vendor_id=${vendorId}`;
+    return this.http.get<VendorProgressResponse>(url);
   }
 }
