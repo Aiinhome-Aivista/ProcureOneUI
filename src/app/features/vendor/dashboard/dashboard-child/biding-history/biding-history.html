@@ -17,10 +17,10 @@
                 placeholder="Vendor Name"
                 [ngModel]="vendorNameFilter()"
                 (ngModelChange)="vendorNameFilter.set($event)"
-                class="w-full h-10 border border-[#4319C2]/20 bg-white rounded-lg pl-3 pr-10 text-sm text-[#4319C2] placeholder-[#4319C2]/50 focus:outline-none focus:border-[#4319C2] focus:ring-1 focus:ring-[#4319C2]"
+                class="w-full h-10 border border-primary-600/20 bg-white rounded-lg pl-3 pr-10 text-sm text-primary-600 placeholder-primary-600/50 focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
               />
               <span
-                class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[#4319C2]/40 text-xl"
+                class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary-600/40 text-xl"
               >
                 search
               </span>
@@ -35,10 +35,10 @@
                 placeholder="Submission Date"
                 [ngModel]="submissionDateFilter()"
                 (ngModelChange)="submissionDateFilter.set($event)"
-                class="w-full h-10 border border-[#4319C2]/20 bg-white rounded-lg pl-3 pr-10 text-sm text-[#4319C2] placeholder-[#4319C2]/50 focus:outline-none focus:border-[#4319C2] focus:ring-1 focus:ring-[#4319C2]"
+                class="w-full h-10 border border-primary-600/20 bg-white rounded-lg pl-3 pr-10 text-sm text-primary-600 placeholder-primary-600/50 focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
               />
               <span
-                class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[#4319C2]/40 text-xl"
+                class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary-600/40 text-xl"
               >
                 calendar_month
               </span>
@@ -51,7 +51,7 @@
               <select
                 [ngModel]="statusFilter()"
                 (ngModelChange)="statusFilter.set($event)"
-                class="w-full h-10 border border-[#4319C2]/20 bg-white rounded-lg pl-3 pr-10 text-sm text-[#4319C2] focus:outline-none focus:border-[#4319C2] focus:ring-1 focus:ring-[#4319C2] appearance-none cursor-pointer"
+                class="w-full h-10 border border-primary-600/20 bg-white rounded-lg pl-3 pr-10 text-sm text-primary-600 focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600 appearance-none cursor-pointer"
               >
                 <option value="">Status</option>
                 <option value="Low">Low</option>
@@ -59,7 +59,7 @@
                 <option value="High">High</option>
               </select>
               <span
-                class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[#4319C2]/40 text-xl"
+                class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary-600/40 text-xl"
               >
                 warning
               </span>
@@ -74,10 +74,10 @@
                 placeholder="Risk Score"
                 [ngModel]="riskScoreFilter()"
                 (ngModelChange)="riskScoreFilter.set($event)"
-                class="w-full h-10 border border-[#4319C2]/20 bg-white rounded-lg pl-3 pr-10 text-sm text-[#4319C2] placeholder-[#4319C2]/50 focus:outline-none focus:border-[#4319C2] focus:ring-1 focus:ring-[#4319C2]"
+                class="w-full h-10 border border-primary-600/20 bg-white rounded-lg pl-3 pr-10 text-sm text-primary-600 placeholder-primary-600/50 focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600"
               />
               <span
-                class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[#4319C2]/40 text-xl pointer-events-none"
+                class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary-600/40 text-xl pointer-events-none"
               >
                 percent
               </span>
@@ -90,14 +90,14 @@
               <select
                 [ngModel]="assignedToFilter()"
                 (ngModelChange)="assignedToFilter.set($event)"
-                class="w-full h-10 border border-[#4319C2]/20 bg-white rounded-lg pl-3 pr-10 text-sm text-[#4319C2] focus:outline-none focus:border-[#4319C2] focus:ring-1 focus:ring-[#4319C2] appearance-none cursor-pointer"
+                class="w-full h-10 border border-primary-600/20 bg-white rounded-lg pl-3 pr-10 text-sm text-primary-600 focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600 appearance-none cursor-pointer"
               >
                 <option value="">Assigned To</option>
                 <option value="Compliance Team">Compliance Team</option>
                 <option value="Procurement">Procurement</option>
               </select>
               <span
-                class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[#4319C2]/40 text-xl pointer-events-none"
+                class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary-600/40 text-xl pointer-events-none"
               >
                 expand_more
               </span>
@@ -109,7 +109,7 @@
             <div class="relative">
               <button
                 type="button"
-                class="w-full h-10 border border-[#4319C2]/20 bg-white rounded-lg px-3 text-sm text-[#4319C2] hover:bg-[#4319C2]/5 focus:outline-none focus:border-[#4319C2] focus:ring-1 focus:ring-[#4319C2] transition-colors"
+                class="w-full h-10 border border-primary-600/20 bg-white rounded-lg px-3 text-sm text-primary-600 hover:bg-primary-600/5 focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600 transition-colors"
               >
                 Actions
               </button>
@@ -163,10 +163,10 @@
             </td>
 
             <!-- Action Button -->
-            <td class="py-4 pl-3 text-right">
+            <td class="p-3 text-right rounded-r-lg">
               <button
                 type="button"
-                class="text-[#4319C2] text-sm font-medium hover:underline focus:outline-none"
+                class="text-primary-600 text-sm font-medium hover:underline focus:outline-none text-nowrap"
               >
                 Review Details
               </button>
