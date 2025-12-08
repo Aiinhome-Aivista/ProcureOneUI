@@ -1,1 +1,53 @@
-<p>map-view works!</p>
+<!-- Google Maps Container -->
+<div class="w-full rounded-xl overflow-hidden shadow-xl border border-slate-200 bg-white">
+  <!-- Map Section -->
+  <div class="relative h-[calc(100vh-7rem)]">
+    <google-map
+      [options]="mapOptions()"
+      [center]="center()"
+      [zoom]="zoom()"
+      class="w-full h-full"
+      role="region"
+      aria-label="Interactive map showing Victoria Memorial in Kolkata"
+    >
+      <map-marker
+        [position]="markerPosition()"
+        [options]="markerOptions()"
+        aria-label="Marker for Victoria Memorial, Kolkata"
+      />
+    </google-map>
+
+    <!-- Overlay Info Badge -->
+
+    <!-- <div
+      class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg px-4 py-3 border border-slate-200 z-10"
+    >
+      <div class="flex items-start gap-3">
+        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center shrink-0">
+          <svg
+            class="w-5 h-5 text-white"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </div>
+        <div class="min-w-0">
+          <h3 class="text-sm font-bold text-slate-900">Victoria Memorial</h3>
+          <p class="text-xs text-slate-600 mt-1">Kolkata, West Bengal, India</p>
+          <p class="text-xs text-slate-500 mt-1 font-mono">
+            {{ center().lat }}, {{ center().lng }}
+          </p>
+        </div>
+      </div>
+    </div> -->
+  </div>
+
+
+</div>
