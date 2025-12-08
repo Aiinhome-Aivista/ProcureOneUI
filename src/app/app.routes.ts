@@ -31,7 +31,7 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./features/vendor/dashboard/vendor-dashboard.component').then(m => m.VendorDashboardComponent)
       },
-    
+
       {
         path: 'profile',
         loadComponent: () => import('./shared/components/profile/profile.component').then(m => m.ProfileComponent)
@@ -52,7 +52,15 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./features/department/dashboard/department-dashboard.component').then(m => m.DepartmentDashboardComponent)
       },
-     
+      {
+        path: 'manager-dashboard',
+        loadComponent: () => import('./features/manager/dashboard/manager-dashboard').then(m => m.ManagerDashboardComponent)
+      },
+      {
+        path: 'reg-review',
+        loadComponent: () => import('./features/manager/vendor-reg-review/vendor-reg-review').then(m => m.VendorRegReview)
+      },
+
       {
         path: 'profile',
         loadComponent: () => import('./shared/components/profile/profile.component').then(m => m.ProfileComponent)

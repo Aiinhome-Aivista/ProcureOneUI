@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 interface BiddingHistoryItem {
   id: string;
@@ -21,6 +22,8 @@ interface BiddingHistoryItem {
 })
 export class BidingHistory {
   // --- State Signals ---
+
+  private readonly router = inject(Router);
   readonly vendorNameFilter = signal('');
   readonly submissionDateFilter = signal('');
   readonly riskScoreFilter = signal('');
@@ -84,6 +87,10 @@ export class BidingHistory {
       return matchesVendorName && matchesSubmissionDate && matchesRiskScore && matchesStatus && matchesAssignedTo;
     });
   });
+
+  public openRegReview(): void {
+    this.router.navigateByUrl('/department/reg-review');
+  }
 
   // --- Template Helpers ---
   getRiskScoreClass(riskScore: BiddingHistoryItem['riskScore']): string {

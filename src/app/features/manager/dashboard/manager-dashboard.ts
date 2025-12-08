@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { TopCard } from "../../vendor/dashboard/dashboard-child/top-card/top-card";
 import { BidingHistory } from "../../vendor/dashboard/dashboard-child/biding-history/biding-history";
 import { MapView } from "../../../shared/components/map-view/map-view";
+import { GlobalButtonComponent } from "../../../shared/components/global-button/global-button.component";
 
 @Component({
   selector: 'app-manager-dashboard',
-  imports: [CommonModule, TopCard, BidingHistory, MapView],
+  imports: [CommonModule, TopCard, BidingHistory, MapView, GlobalButtonComponent],
   templateUrl: './manager-dashboard.html',
   styleUrl: './manager-dashboard.css'
 })

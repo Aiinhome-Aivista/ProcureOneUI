@@ -6,9 +6,10 @@ import { TopCard } from "../../vendor/dashboard/dashboard-child/top-card/top-car
 import { BidingStatus } from "../../vendor/dashboard/dashboard-child/biding-status/biding-status";
 import { BidingPerformanceGraph } from "../../vendor/dashboard/dashboard-child/biding-performance-graph/biding-performance-graph";
 import { HitMapLeftside } from "../hit-map-leftside/hit-map-leftside";
+import { VendorOnboarding } from "../vendor-onboarding/vendor-onboarding";
 @Component({
   selector: 'app-department-dashboard',
-  imports: [CommonModule, TopCard, BidingStatus, BidingPerformanceGraph, HitMapLeftside],
+  imports: [CommonModule, TopCard, BidingStatus, BidingPerformanceGraph, HitMapLeftside, VendorOnboarding],
   templateUrl: './department-dashboard.component.html',
   styleUrls: ['./department-dashboard.component.css']
 })
