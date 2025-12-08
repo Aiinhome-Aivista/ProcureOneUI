@@ -102,8 +102,6 @@ export class AuthService {
       'vendor': 'vendor',
       'Department': 'department',
       'department': 'department',
-      'Manager': 'department',
-      'manager': 'department',
       'Admin': 'department',
       'admin': 'department'
     };
