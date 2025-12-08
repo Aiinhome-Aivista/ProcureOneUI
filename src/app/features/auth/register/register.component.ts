@@ -52,25 +52,9 @@ export class RegisterComponent implements OnInit {
   );
   private readonly financialDocumentsComponent = viewChild<FinancialDocuments>('financialDocuments');
   private readonly stepIndicator = viewChild<StepIndicatorComponent>(StepIndicatorComponent);
-  private readonly previewStepsComponent = viewChild<PreviewSteps>(PreviewSteps);
-  private readonly finalSubmissionComponent = viewChild<FinalSubmission>('finalSubmissionRef');
-
 
   // Current step signal - connected to sidebar
-
-  readonly finalSidebarStep = signal<number>(1);
   readonly currentStep = signal<number>(1);
-  // Signal to track which step is highlighted in the sidebar during preview (Step 5)
-  readonly previewActiveStep = signal<number | null>(null);
-  
-  // Computed signal for sidebar binding
-  readonly sidebarStep = computed(() => {
-    if (this.currentStep() === 5 && this.previewActiveStep()) {
-      return this.previewActiveStep()!;
-    }
-    return this.currentStep();
-  });
-
   private vendorId: string | null = null;
   private readonly totalSteps = 4;
   readonly isFirstStep = computed(() => this.currentStep() === 1);
@@ -84,7 +68,7 @@ export class RegisterComponent implements OnInit {
   public showCompletionDialog = false;
   public showFinalSubmission = false;
   public registrationSummary: VendorRegistrationDetails | null = null;
-  public fullRegistrationData: VendorRegistrationFullData | null = null;
+  public fullRegistrationData: VendorRegistrationFullData| null = null;
   public isSummaryLoading = false;
   public summaryError: string | null = null;
   public showSuccessDialog = false;
@@ -120,41 +104,18 @@ export class RegisterComponent implements OnInit {
 
   // Method to handle step changes from sidebar
   onStepChange(step: number): void {
-    if (this.currentStep() === 5 ) {
-      this.previewActiveStep.set(step);
-      this.previewStepsComponent()?.scrollToSection(step);
-      return;
-    }
-  
     this.currentStep.set(step);
-    this.previewActiveStep.set(null); // Reset when leaving preview or changing normal steps
   }
-
- onFinalSidebarClick(step: number): void {
-    // Only handle specially when we are on final submission page
-    if (this.currentStep() !== 6) {
-      return;
-    }
-
-    // Update highlight on sidebar
-    this.finalSidebarStep.set(step);
-
-    // Scroll inside final-submission page
-    setTimeout(() => {
-      this.finalSubmissionComponent()?.scrollToSection(step);
-    }, 100);
-  }
-
 
   ngOnInit(): void {
     const storedStep = this.parseStep(sessionStorage.getItem('currentStep'));
-    console.log("storedStep", storedStep);
+    console.log("storedStep",storedStep);
     if (storedStep) {
       this.currentStep.set(storedStep);
     }
 
     const queryStep = this.parseStep(this.route.snapshot.queryParamMap.get('step'));
-    console.log("uuuuuuuuuu", queryStep);
+    console.log("uuuuuuuuuu",queryStep);
     if (queryStep) {
       this.currentStep.set(queryStep);
       console.log(this.currentStep());
@@ -644,7 +605,7 @@ export class RegisterComponent implements OnInit {
 
           // this.fetchVendorFullRegistrationData();
 
-
+          
         } else {
           this.registrationSummary = null;
           this.summaryError = response?.message || 'Unable to load registration summary.';
@@ -662,47 +623,47 @@ export class RegisterComponent implements OnInit {
       },
     });
   }
-  private submitFinalRegistration(): void {
-    const vendorId = sessionStorage.getItem('vendorId');
+ private submitFinalRegistration(): void {
+  const vendorId = sessionStorage.getItem('vendorId');
 
-    if (!vendorId) {
-      this.handleError('Vendor ID not found.');
-      return;
-    }
-
-    this.registerService.submitRegistration(vendorId).subscribe({
-      next: (response) => {
-
-        // 🔹 Console log the full API response (ADD HERE)
-        console.log("Final Registration API Response:", response);
-
-        if (response.isSuccess) {
-          this.successMessage = response.data?.final_message || response.message;
-          this.showSuccessDialog = true;
-
-          this.showSuccessDialog = true;
-
-          // 🔹 Additional console message after success
-          console.log("✔ Final registration completed successfully!");
-          this.stepIndicator()?.fetchVendorProgress();
-        } else {
-          this.handleError(response.message || 'Submission failed.');
-
-          // 🔹 Optional: error log
-          console.warn("✖ Final registration failed:", response);
-        }
-      },
-
-      error: (error) => {
-        const msg = error?.error?.message || 'An error occurred during final submission.';
-        this.handleError(msg);
-
-        // 🔹 Error console log
-        console.error("❌ Final Registration API Error:", error);
-      }
-    });
+  if (!vendorId) {
+    this.handleError('Vendor ID not found.');
+    return;
   }
-  private fetchVendorFullRegistrationData(): void {
+
+  this.registerService.submitRegistration(vendorId).subscribe({
+    next: (response) => {
+
+      // 🔹 Console log the full API response (ADD HERE)
+      console.log("Final Registration API Response:", response);
+
+      if (response.isSuccess) {
+        this.successMessage = response.data?.final_message || response.message;
+        this.showSuccessDialog = true;
+
+        this.showSuccessDialog = true;
+
+        // 🔹 Additional console message after success
+        console.log("✔ Final registration completed successfully!");
+        this.stepIndicator()?.fetchVendorProgress();
+      } else {
+        this.handleError(response.message || 'Submission failed.');
+
+        // 🔹 Optional: error log
+        console.warn("✖ Final registration failed:", response);
+      }
+    },
+
+    error: (error) => {
+      const msg = error?.error?.message || 'An error occurred during final submission.';
+      this.handleError(msg);
+
+      // 🔹 Error console log
+      console.error("❌ Final Registration API Error:", error);
+    }
+  });
+  }
+private fetchVendorFullRegistrationData(): void {
     const vendorId = sessionStorage.getItem('vendorId');
 
     this.registerService.getVendorRegistrationFullData(vendorId!).subscribe({
@@ -715,11 +676,11 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  public closeSuccessDialog(): void {
-    this.showSuccessDialog = false;
-    this.fetchVendorFullRegistrationData();
-    this.currentStep.set(6);
-  }
+public closeSuccessDialog(): void {
+  this.showSuccessDialog = false;
+  this.fetchVendorFullRegistrationData();
+  this.currentStep.set(6);
+}
 
 }
 
