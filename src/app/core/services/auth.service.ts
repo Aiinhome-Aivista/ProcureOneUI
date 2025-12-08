@@ -102,10 +102,10 @@ export class AuthService {
       'vendor': 'vendor',
       'Department': 'department',
       'department': 'department',
-      'Manager': 'manager',
-      'manager': 'manager',
-      'Admin': 'manager',
-      'admin': 'manager'
+      'Manager': 'department',
+      'manager': 'department',
+      'Admin': 'department',
+      'admin': 'department'
     };
 
     const role = roleMapping[data.role];
@@ -229,8 +229,7 @@ export class AuthService {
   redirectToDefaultPage(role: UserRole): void {
     const defaultPages: Record<UserRole, string> = {
       vendor: '/vendor/dashboard',
-      department: '/department/dashboard',
-      manager: '/manager/dashboard'
+      department: '/department/dashboard'
     };
 
     const targetPage = defaultPages[role];
