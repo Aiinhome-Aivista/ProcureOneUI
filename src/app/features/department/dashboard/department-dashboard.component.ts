@@ -5,9 +5,10 @@ import { AuthService } from '../../../core/services/auth.service';
 import { TopCard } from "../../vendor/dashboard/dashboard-child/top-card/top-card";
 import { BidingStatus } from "../../vendor/dashboard/dashboard-child/biding-status/biding-status";
 import { BidingPerformanceGraph } from "../../vendor/dashboard/dashboard-child/biding-performance-graph/biding-performance-graph";
+import { HitMapLeftside } from "../hit-map-leftside/hit-map-leftside";
 @Component({
   selector: 'app-department-dashboard',
-  imports: [CommonModule, TopCard, BidingStatus, BidingPerformanceGraph],
+  imports: [CommonModule, TopCard, BidingStatus, BidingPerformanceGraph, HitMapLeftside],
   templateUrl: './department-dashboard.component.html',
   styleUrls: ['./department-dashboard.component.css']
 })

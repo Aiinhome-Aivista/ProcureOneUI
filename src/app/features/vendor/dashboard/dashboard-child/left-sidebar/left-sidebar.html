@@ -1,4 +1,4 @@
-<div class="col-span-12 sm:col-span-6 lg:col-span-3 space-y-3 sm:space-y-4">
+<div class="w-full space-y-3 sm:space-y-4">
   <div class="px-2 sm:px-0">
     <h3 class="font-semibold text-lg sm:text-xl">Requisition Bidding</h3>
     <p class="text-xs sm:text-xs text-[#0000008F]">
@@ -6,7 +6,7 @@
     </p>
   </div>
 
-  <div class="mt-3 sm:mt-4 bg-[#F5F5F5] rounded-2xl sm:rounded-2xl sm:p-3 mb-4 sm:mb-5">
+  <div class="mt-3 sm:mt-4 bg-stepper-bg rounded-2xl sm:rounded-2xl sm:p-3 mb-4 sm:mb-5">
     <!-- Search Input -->
     <div class="relative">
       <span class="absolute inset-y-0 left-0 pl-2 sm:pl-3 flex items-center pointer-events-none">
@@ -42,7 +42,7 @@
     class="space-y-3 sm:space-y-4 max-h-[calc(100vh-100px) overflow-y-auto  hide-scrollbar">
     <div *ngFor="let card of bidCards; let i = index" (click)="selectCard(i)" [ngClass]="{
         'bg-[#4319C221] border-2 border-primary-600': selectedCard === i,
-        'bg-[#F5F5F5]': selectedCard !== i
+        'bg-stepper-bg': selectedCard !== i
       }" class="rounded-2xl sm:rounded-2xl p-3 sm:p-4 cursor-pointer">
       <div class="flex justify-between items-start gap-2">
         <div class="flex-1 min-w-0">

@@ -1,0 +1,84 @@
+<div class="flex flex-col h-full w-full gap-4">
+  <div class="px-2 sm:px-0">
+    <h3 class="font-semibold text-lg sm:text-xl">Requisition Bidding</h3>
+    <p class="text-xs sm:text-xs text-[#0000008F]">
+      View and bid on open requisition that match your category
+    </p>
+
+    <app-global-button variant="filled" iconPos="left" customClass="w-full bg-primary-600 hover:bg-primary-700 text-white mt-4">
+      <span class="material-symbols-outlined text-base">add</span>
+      Create New Requisition
+    </app-global-button>
+  </div>
+
+  <div class=" bg-stepper-bg rounded-2xl sm:rounded-2xl sm:p-3">
+    <!-- Search Input -->
+    <div class="relative">
+      <span class="absolute inset-y-0 left-0 pl-2 sm:pl-3 flex items-center pointer-events-none">
+        <span class="material-symbols-outlined text-[#4319C245] text-lg sm:text-xl">search</span>
+      </span>
+      <input
+        type="text"
+        placeholder="Search notification"
+        class="w-full border border-[#4319C245] bg-[#FFFEFE] rounded-lg sm:rounded-2xl px-8 sm:px-10 py-2 sm:py-3 text-[11px] sm:text-xs placeholder-[#4319C245] focus:outline-none focus:ring-1 focus:ring-primary-600"
+      />
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="mt-2 sm:mt-3 flex flex-wrap gap-2 sm:gap-3 text-[11px] sm:text-xs font-medium">
+      <button
+        class="px-3 sm:px-4 py-1 sm:py-1.5 rounded bg-[#D9D9D9] text-[#0000008F] hover:text-primary-600 transition-colors"
+      >
+        All
+      </button>
+      <button
+        class="px-3 sm:px-4 py-1 sm:py-1.5 rounded bg-[#D9D9D9] text-[#0000008F] hover:text-primary-600 transition-colors"
+      >
+        Ongoing
+      </button>
+      <button
+        class="px-3 sm:px-4 py-1 sm:py-1.5 rounded bg-[#D9D9D9] text-[#0000008F] hover:text-primary-600 transition-colors"
+      >
+        On Review
+      </button>
+    </div>
+  </div>
+
+  <!-- Expenditure Hit Map -->
+  <div class="bg-white rounded-2xl">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="font-semibold text-sm">Expenditure Hit Map ($M)</h3>
+      <div class="flex items-center gap-2 text-xs">
+        <span class="text-gray-500">Low</span>
+        <div class="flex gap-1">
+          <div class="w-3 h-3 rounded bg-primary-100"></div>
+          <div class="w-3 h-3 rounded bg-primary-200"></div>
+          <div class="w-3 h-3 rounded bg-primary-300"></div>
+          <div class="w-3 h-3 rounded bg-primary-400"></div>
+          <div class="w-3 h-3 rounded bg-primary-600"></div>
+        </div>
+        <span class="text-gray-500">High</span>
+      </div>
+    </div>
+
+    <!-- Heat Map Grid -->
+    <div class="space-y-2">
+      @for (row of heatMapData(); track $index) {
+        <div class="grid grid-cols-6 gap-2">
+          @for (cell of row; track $index) {
+            <div
+              [class]="
+                'flex items-center justify-center rounded-xl h-10  font-semibold text-sm transition-all hover:scale-105 cursor-pointer ' +
+                getColorClass(cell.value) + ' ' + getTextColor(cell.value)
+              "
+            >
+              {{ cell.label }}
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+</div>

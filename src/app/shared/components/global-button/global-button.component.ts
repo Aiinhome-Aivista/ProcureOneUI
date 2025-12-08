@@ -16,6 +16,7 @@ export class GlobalButtonComponent {
   @Input() customClass = '';
   @Input() icon = '';
   @Input() iconPos: 'left' | 'right' = 'left';
+ 
 
   @Output() onClick = new EventEmitter<Event>();
 
