@@ -1,0 +1,56 @@
+<div class="rounded-lg border border-gray-200 bg-stepper-bg ">
+  <!-- Executive Summary Card -->
+  <div class="p-4">
+    <h2 class="text-base font-bold text-gray-900 mb-4">AI Evaluation Report</h2>
+
+    <!-- Executive Summary -->
+    <div class="mb-5">
+      <h3 class="text-sm font-bold text-gray-900 mb-2">Executive Summary</h3>
+      <p class="text-sm text-gray-600 leading-relaxed">
+        {{ evaluationData().executiveSummary }}
+      </p>
+    </div>
+
+    <!-- Strengths -->
+    <div class="mb-5">
+      <h3 class="text-sm font-bold text-gray-900 mb-2">Strengths:</h3>
+      <ul class="list-disc list-outside ml-5 space-y-1">
+        @for (strength of evaluationData().strengths; track $index) {
+        <li class="text-sm text-gray-600 leading-relaxed">
+          {{ strength }}
+        </li>
+        }
+      </ul>
+    </div>
+
+    <!-- Potential Risks -->
+    <div>
+      <h3 class="text-sm font-bold text-gray-900 mb-2">Potential Risks:</h3>
+      <ul class="list-disc list-outside ml-5 space-y-1">
+        @for (risk of evaluationData().potentialRisks; track $index) {
+        <li class="text-sm text-gray-600 leading-relaxed">
+          {{ risk }}
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <!-- AI Recommendation Score Card -->
+  <div class="  p-4 border-t border-gray-300">
+    <div class="flex items-start justify-between">
+      <div class="flex-1">
+        <h3 class="text-sm font-bold text-gray-900 mb-2">AI Recommendation Score:</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          {{ evaluationData().scoreBreakdown }}
+        </p>
+      </div>
+      <div class="flex items-baseline ml-6">
+        <span [class]="'text-5xl font-bold ' + getScoreColor()">
+          {{ evaluationData().recommendationScore }}
+        </span>
+        <span class="text-2xl font-medium text-gray-400 ml-1"> /100 </span>
+      </div>
+    </div>
+  </div>
+</div>

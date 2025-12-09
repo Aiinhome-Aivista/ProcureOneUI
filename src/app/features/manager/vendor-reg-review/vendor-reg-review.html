@@ -1,28 +1,19 @@
 <div class="grid grid-cols-4 gap-4 h-full">
   <!-- Left Sidebar -->
   <div class="col-span-1 flex flex-col gap-4 h-full">
-    <div class="">
-      <h3 class="font-semibold text-lg sm:text-xl">Vendor Onboarding Rquest</h3>
-      <p class="text-xs sm:text-xs text-[#0000008F]">
-        Monitor and mange pending vendor onboarding requests.
-      </p>
-
-      <app-global-button
-        variant="filled"
-        iconPos="left"
-        customClass="w-full bg-primary-600 hover:bg-primary-700 text-white mt-4"
-      >
-        <span class="material-symbols-outlined text-base">add</span>
-        Create New Vendor
-      </app-global-button>
-    </div>
-    <div class="flex-1">
-      
-    </div>
+    <app-vendor-details></app-vendor-details>
   </div>
 
   <!-- Right Main Section -->
   <div class="col-span-3 flex flex-col gap-4">
-  hihoi
+  <app-step-indicator/>
+  <app-status-curds></app-status-curds>
+  <div class="grid grid-cols-3 gap-4">
+    <div class="col-span-2">
+      <app-ai-review></app-ai-review>
+    </div>
+    <div class="col-span-1">
+      <app-gm-review></app-gm-review>
+  </div>
   </div>
 </div>

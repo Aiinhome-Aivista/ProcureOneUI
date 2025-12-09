@@ -1,6 +1,7 @@
 import { Component, input, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegisterService } from '../../../../../core/services';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-step-indicator',
@@ -14,18 +15,26 @@ export class StepIndicatorComponent implements OnInit {
 
   steps = signal([
     { number: 1, label: 'Basic information', icon: 'description', percent: 0 },
-    { number: 2, label: 'Financial Verification', icon: 'monitoring',   },
-    { number: 3, label: 'Risk Factor', icon: 'shield',  },
-    { number: 4, label: 'Capability', icon: 'business_center',  },
+    { number: 2, label: 'Financial Verification', icon: 'monitoring', },
+    { number: 3, label: 'Risk Factor', icon: 'shield', },
+    { number: 4, label: 'Capability', icon: 'business_center', },
     { number: 5, label: 'Approved', icon: 'verified', }
   ]);
+  private readonly route = inject(ActivatedRoute);
+  private vendorId: string = '';
 
-  ngOnInit() {
-    this.fetchVendorProgress();
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.vendorId = params['vendorId'];
+      console.log('Vendor ID from params:', this.vendorId);
+      this.fetchVendorProgress(this.vendorId);
+    });
   }
 
-  fetchVendorProgress() {
-    const vendorId = sessionStorage.getItem('vendorId');
+
+
+  fetchVendorProgress(vendor_id?: string): void {
+    const vendorId = sessionStorage.getItem('vendorId') || vendor_id || this.vendorId;
     if (!vendorId) return;
 
     this.registerService.getVendorProgress(vendorId).subscribe({

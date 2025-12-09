@@ -89,7 +89,10 @@ export class BidingHistory {
   });
 
   public openRegReview(): void {
-    this.router.navigateByUrl('/department/reg-review');
+    const vendorId = '120290';
+    this.router.navigate(['/department/reg-review'], {
+      queryParams: { vendorId }
+    });
   }
 
   // --- Template Helpers ---

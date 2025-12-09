@@ -1,0 +1,84 @@
+<div class="bg-white p-4 w-full">
+  <!-- Header -->
+  <div class="mb-6">
+    <h2 class="text-xl font-bold text-gray-900 mb-1">
+      {{ vendorInfo().companyName }}
+    </h2>
+    <p class="text-sm text-gray-500">Application ID: {{ vendorInfo().applicationId }}</p>
+  </div>
+
+  <!-- Vendor Details Section -->
+  <div class="p-3 rounded-lg border border-gray-200 shadow-sm">
+    <h3 class="text-sm font-bold text-gray-900 mb-3">Vendor Details</h3>
+
+    <!-- Basic Information -->
+    <div class="mb-4">
+      <h4 class="text-xs font-semibold text-gray-500 uppercase mb-2">Basic Information</h4>
+      <div class="space-y-1 text-sm">
+        <p class="text-gray-600">
+          <span class="text-gray-500">Legal Name:</span>
+          <span class="text-gray-900 ml-1">{{ vendorInfo().legalName }}</span>
+        </p>
+        <p class="text-gray-600">
+          <span class="text-gray-500">Address:</span>
+          <span class="text-gray-900 ml-1">{{ vendorInfo().address }}</span>
+        </p>
+        <p class="text-gray-600">
+          <span class="text-gray-500">Website:</span>
+          <a href="#" class="text-primary-600 hover:text-primary-700 ml-1 underline">
+            {{ vendorInfo().website }}
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Financial Information -->
+    <div class="mb-4">
+      <h4 class="text-xs font-semibold text-gray-500 uppercase mb-2">Financial Information</h4>
+      <div class="space-y-1 text-sm">
+        <p class="text-gray-600">
+          <span class="text-gray-500">Credit Score:</span>
+          <span class="text-gray-900 ml-1">{{ vendorInfo().creditScore }}</span>
+        </p>
+        <p class="text-gray-600">
+          <span class="text-gray-500">Annual Revenue:</span>
+          <span class="text-gray-900 ml-1">{{ vendorInfo().annualRevenue }}</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Uploaded Documents -->
+    <div>
+      <h4
+        class="text-xs font-semibold text-primary-600 uppercase mb-4 border-b border-gray-200 pb-1"
+      >
+        Uploaded Documents
+      </h4>
+      
+      <div class="space-y-2">
+        @for (doc of documents(); track doc.id) {
+        <div
+          class="flex items-center justify-between bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors"
+        >
+          <div class="flex items-center gap-3 flex-1">
+            <span class="material-symbols-outlined text-gray-600 text-2xl">
+              {{ doc.icon }}
+            </span>
+            <span class="text-sm text-gray-700">
+              {{ doc.name }}
+            </span>
+          </div>
+          <button
+            type="button"
+            (click)="downloadDocument(doc)"
+            class="text-gray-500 hover:text-primary-600 transition-colors"
+            aria-label="Download document"
+          >
+            <span class="material-symbols-outlined text-xl"> download </span>
+          </button>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
