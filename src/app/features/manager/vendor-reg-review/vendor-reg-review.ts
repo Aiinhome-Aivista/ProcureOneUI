@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GlobalButtonComponent } from "../../../shared/components/global-button/global-button.component";
+
 
 import { StepIndicatorComponent } from "../../auth/register/components/step-indicator/step-indicator.component";
 import { StatusCurds } from "../status-curds/status-curds";
@@ -10,7 +10,7 @@ import { GmReview } from "../gm-review/gm-review";
 
 @Component({
   selector: 'app-vendor-reg-review',
-  imports: [GlobalButtonComponent, StepIndicatorComponent, StatusCurds, VendorDetails, AiReview, GmReview],
+  imports: [StepIndicatorComponent, StatusCurds, VendorDetails, AiReview, GmReview],
   templateUrl: './vendor-reg-review.html',
   styleUrl: './vendor-reg-review.css',
 })

@@ -84,17 +84,18 @@
             </div>
           </th>
 
-          <!-- Assigned To Filter -->
+          <!-- Application Status Filter -->
           <th class="px-3 text-center">
             <div class="relative">
               <select
-                [ngModel]="assignedToFilter()"
-                (ngModelChange)="assignedToFilter.set($event)"
+                [ngModel]="applicationStatusFilter()"
+                (ngModelChange)="applicationStatusFilter.set($event)"
                 class="w-full h-10 border border-primary-600/20 bg-white rounded-lg pl-3 pr-10 text-sm text-primary-600 focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600 appearance-none cursor-pointer"
               >
-                <option value="">Assigned To</option>
-                <option value="Compliance Team">Compliance Team</option>
-                <option value="Procurement">Procurement</option>
+                <option value="">Application Status</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Pending Review">Pending Review</option>
               </select>
               <span
                 class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary-600/40 text-xl pointer-events-none"
@@ -118,7 +119,7 @@
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-100">
-        @for (item of filteredBiddingHistory(); track item.id) {
+        @for (item of filteredBiddingHistory(); track item.vendorId) {
           <tr class="bg-[#F8F8F8] hover:bg-gray-200 transition-colors rounded-xl ">
             <!-- Vendor Info -->
             <td class="p-3 rounded-l-lg">
@@ -157,16 +158,21 @@
               </div>
             </td>
 
-            <!-- Assigned To -->
+            <!-- Application Status -->
             <td class="p-3 text-center">
-              <p class="text-sm text-gray-600">{{ item.assignedTo }}</p>
+              <span
+                class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium"
+                [class]="getApplicationStatusClass(item.applicationStatus)"
+              >
+                {{ item.applicationStatus }}
+              </span>
             </td>
 
             <!-- Action Button -->
             <td class="p-3 text-right rounded-r-lg">
               <button
                 type="button"
-                class="text-primary-600 text-sm font-medium hover:underline focus:outline-none text-nowrap" (click)="openRegReview()"
+                class="text-primary-600 text-sm font-medium hover:underline focus:outline-none text-nowrap" (click)="openRegReview(item.vendorId)"
               >
                 Review Details
               </button>

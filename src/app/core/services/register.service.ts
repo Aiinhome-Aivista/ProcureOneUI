@@ -23,8 +23,9 @@ import {
   VendorRegistrationSubmitResponse,
   VendorFullAssessmentResponse,
   VendorProgressResponse,
+  LegalProofResponse
 } from '../models';
-import { LegalProofResponse } from '../models';
+
 
 @Injectable({
   providedIn: 'root',
@@ -78,45 +79,6 @@ export class RegisterService {
     return this.http.get<BankVerificationFetchResponse>(url);
   }
 
-  states(body: any): Observable<DropdownModel> {
-    return this.http.post<DropdownModel>(ApiEndpoints.AUTH.STATES, body);
-  }
-
-  cities(body: any): Observable<DropdownModel> {
-    return this.http.post<DropdownModel>(ApiEndpoints.AUTH.CITIES, body);
-  }
-
-  postBasicInfo(body: BasicInfo): Observable<BasicInfoResponse> {
-    return this.http.post<BasicInfoResponse>(ApiEndpoints.AUTH.BASIC_INFO, body);
-  }
-
-  postBusinessTax(formData: FormData): Observable<BusinessTaxResponse> {
-    return this.http.post<BusinessTaxResponse>(ApiEndpoints.AUTH.POST_BUSINESS_TAX_DOC, formData);
-  }
-
-  postBankDetails(formData: FormData): Observable<BankVerificationResponse> {
-    return this.http.post<BankVerificationResponse>(ApiEndpoints.AUTH.POST_BANK_DETAILS, formData);
-  }
-
-  sendVendorOtp(body: VendorOtpRequest): Observable<VendorOtpResponse> {
-    return this.http.post<VendorOtpResponse>(ApiEndpoints.AUTH.SEND_VENDOR_OTP, body);
-  }
-
-  verifyVendorOtp(body: VerifyVendorOtpRequest): Observable<VerifyVendorOtpResponse> {
-    return this.http.post<VerifyVendorOtpResponse>(ApiEndpoints.AUTH.VERIFY_VENDOR_OTP, body);
-  }
-
-  getVendorRegistrationTracker(vendorId: string): Observable<VendorRegistrationTrackerResponse> {
-    const url = `${ApiEndpoints.AUTH.GET_VENDOR_REGISTRATION_TRACKER}?vendor_id=${vendorId}`;
-    return this.http.get<VendorRegistrationTrackerResponse>(url);
-  }
-
-  postFinancialDocuments(formData: FormData): Observable<FinancialDocumentsResponse> {
-    return this.http.post<FinancialDocumentsResponse>(
-      ApiEndpoints.AUTH.POST_FINANCIAL_DOCS,
-      formData
-    );
-  }
 
   getFinancialDocuments(): Observable<VendorFinancialDocumentsResponse> {
     const vendorId = sessionStorage.getItem('vendorId');
@@ -153,4 +115,51 @@ export class RegisterService {
     const url = `${ApiEndpoints.AUTH.GET_VENDOR_PROGRESS}?vendor_id=${vendorId}`;
     return this.http.get<VendorProgressResponse>(url);
   }
+
+
+  getVendorRegistrationTracker(vendorId: string): Observable<VendorRegistrationTrackerResponse> {
+    const url = `${ApiEndpoints.AUTH.GET_VENDOR_REGISTRATION_TRACKER}?vendor_id=${vendorId}`;
+    return this.http.get<VendorRegistrationTrackerResponse>(url);
+  }
+
+
+
+
+
+  postFinancialDocuments(formData: FormData): Observable<FinancialDocumentsResponse> {
+    return this.http.post<FinancialDocumentsResponse>(
+      ApiEndpoints.AUTH.POST_FINANCIAL_DOCS,
+      formData
+    );
+  }
+  states(body: any): Observable<DropdownModel> {
+    return this.http.post<DropdownModel>(ApiEndpoints.AUTH.STATES, body);
+  }
+
+  cities(body: any): Observable<DropdownModel> {
+    return this.http.post<DropdownModel>(ApiEndpoints.AUTH.CITIES, body);
+  }
+
+  postBasicInfo(body: BasicInfo): Observable<BasicInfoResponse> {
+    return this.http.post<BasicInfoResponse>(ApiEndpoints.AUTH.BASIC_INFO, body);
+  }
+
+  postBusinessTax(formData: FormData): Observable<BusinessTaxResponse> {
+    return this.http.post<BusinessTaxResponse>(ApiEndpoints.AUTH.POST_BUSINESS_TAX_DOC, formData);
+  }
+
+  postBankDetails(formData: FormData): Observable<BankVerificationResponse> {
+    return this.http.post<BankVerificationResponse>(ApiEndpoints.AUTH.POST_BANK_DETAILS, formData);
+  }
+
+  sendVendorOtp(body: VendorOtpRequest): Observable<VendorOtpResponse> {
+    return this.http.post<VendorOtpResponse>(ApiEndpoints.AUTH.SEND_VENDOR_OTP, body);
+  }
+
+  verifyVendorOtp(body: VerifyVendorOtpRequest): Observable<VerifyVendorOtpResponse> {
+    return this.http.post<VerifyVendorOtpResponse>(ApiEndpoints.AUTH.VERIFY_VENDOR_OTP, body);
+  }
+
+
+
 }

@@ -3,3 +3,5 @@ export * from './register.service';
 export * from './error-notification.service';
 export * from './loader.service';
 
+export * from './department.service';
+

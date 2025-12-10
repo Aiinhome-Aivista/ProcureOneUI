@@ -36,22 +36,25 @@ export class ApiEndpoints {
     GET_VENDOR_PROGRESS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-progress`,
   } as const;
 
+
+  // MANAGER endpoints
+  static readonly MANAGER = {
+    VENDOR_HISTORY: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-history`,
+
+  } as const;
+
+
+
   // Vendor endpoints
   static readonly VENDOR = {
     DASHBOARD: `${ApiEndpoints.BASE_URL}/vendor/dashboard`,
-    PRODUCTS: `${ApiEndpoints.BASE_URL}/vendor/products`,
-    ORDERS: `${ApiEndpoints.BASE_URL}/vendor/orders`,
-    ANALYTICS: `${ApiEndpoints.BASE_URL}/vendor/analytics`,
-    PROFILE: `${ApiEndpoints.BASE_URL}/vendor/profile`,
+
   } as const;
 
   // Department endpoints
   static readonly DEPARTMENT = {
     DASHBOARD: `${ApiEndpoints.BASE_URL}/department/dashboard`,
-    REQUESTS: `${ApiEndpoints.BASE_URL}/department/requests`,
-    APPROVALS: `${ApiEndpoints.BASE_URL}/department/approvals`,
-    REPORTS: `${ApiEndpoints.BASE_URL}/department/reports`,
-    PROFILE: `${ApiEndpoints.BASE_URL}/department/profile`,
+
   } as const;
 
   // User endpoints

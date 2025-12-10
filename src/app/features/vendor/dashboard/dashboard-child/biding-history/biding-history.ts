@@ -1,16 +1,19 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
+import { DepartmentService } from '../../../../../core/services';
+
 interface BiddingHistoryItem {
-  id: string;
+  vendorId: string;
   vendorName: string;
   category: string;
   submissionDate: string;
   riskScore: 'Low' | 'Medium' | 'High';
   progress: number;
   assignedTo: string;
+  applicationStatus: 'Approved' | 'Rejected' | 'Pending Review';
 }
 
 @Component({
@@ -20,52 +23,60 @@ interface BiddingHistoryItem {
   styleUrl: './biding-history.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BidingHistory {
-  // --- State Signals ---
+export class BidingHistory implements OnInit {
+
+  @Input() userType: 'vendor' | 'manager' | 'department' = 'manager';
 
   private readonly router = inject(Router);
+  private readonly departmentService = inject(DepartmentService);
+
+
   readonly vendorNameFilter = signal('');
   readonly submissionDateFilter = signal('');
   readonly riskScoreFilter = signal('');
   readonly statusFilter = signal('');
-  readonly assignedToFilter = signal('');
+  readonly applicationStatusFilter = signal('');
 
   private readonly biddingHistory = signal<BiddingHistoryItem[]>([
-    { 
-      id: '1',
-      vendorName: 'Innovatech Solutions Ltd.', 
-      category: 'Office Supplies', 
-      submissionDate: '26-10-2025', 
+    {
+      vendorId: '1',
+      vendorName: 'Innovatech Solutions Ltd.',
+      category: 'Office Supplies',
+      submissionDate: '26-10-2025',
       riskScore: 'Low',
       progress: 65,
-      assignedTo: 'Compliance Team'
+      assignedTo: 'Compliance Team',
+      applicationStatus: 'Approved'
     },
-    { 
-      id: '2',
-      vendorName: 'Quantum Supplies', 
-      category: 'Office Supplies', 
-      submissionDate: '20-10-2025', 
+    {
+      vendorId: '2',
+      vendorName: 'Quantum Supplies',
+      category: 'Office Supplies',
+      submissionDate: '20-10-2025',
       riskScore: 'High',
       progress: 80,
-      assignedTo: 'Procurement'
+      assignedTo: 'Procurement',
+      applicationStatus: 'Pending Review'
     },
-    { 
-      id: '3',
-      vendorName: 'Global Logistics Inc.', 
-      category: 'Office Supplies', 
-      submissionDate: '24-10-2025', 
+    {
+      vendorId: '3',
+      vendorName: 'Global Logistics Inc.',
+      category: 'Office Supplies',
+      submissionDate: '24-10-2025',
       riskScore: 'Medium',
       progress: 45,
-      assignedTo: 'Compliance Team'
+      assignedTo: 'Compliance Team',
+      applicationStatus: 'Rejected'
     },
-    { 
-      id: '4',
-      vendorName: 'Starlight Tech', 
-      category: 'Office Supplies', 
-      submissionDate: '12-11-2025', 
+    {
+      vendorId: '4',
+      vendorName: 'Starlight Tech',
+      category: 'Office Supplies',
+      submissionDate: '12-11-2025',
       riskScore: 'Low',
       progress: 10,
-      assignedTo: 'Compliance Team'
+      assignedTo: 'Compliance Team',
+      applicationStatus: 'Pending Review'
     },
   ]);
 
@@ -75,24 +86,82 @@ export class BidingHistory {
     const submissionDate = this.submissionDateFilter();
     const riskScore = this.riskScoreFilter();
     const status = this.statusFilter();
-    const assignedTo = this.assignedToFilter();
+    const applicationStatus = this.applicationStatusFilter();
 
     return this.biddingHistory().filter(item => {
       const matchesVendorName = vendorName === '' || item.vendorName.toLowerCase().includes(vendorName);
       const matchesSubmissionDate = submissionDate === '' || item.submissionDate.includes(submissionDate);
       const matchesRiskScore = riskScore === '' || item.riskScore === riskScore;
       const matchesStatus = status === '' || item.riskScore === status;
-      const matchesAssignedTo = assignedTo === '' || item.assignedTo === assignedTo;
+      const matchesApplicationStatus = applicationStatus === '' || item.applicationStatus === applicationStatus;
 
-      return matchesVendorName && matchesSubmissionDate && matchesRiskScore && matchesStatus && matchesAssignedTo;
+      return matchesVendorName && matchesSubmissionDate && matchesRiskScore && matchesStatus && matchesApplicationStatus;
     });
   });
 
-  public openRegReview(): void {
-    const vendorId = '120290';
-    this.router.navigate(['/department/reg-review'], {
-      queryParams: { vendorId }
+  ngOnInit(): void {
+    switch (this.userType) {
+      case 'vendor':
+        console.log('Vendor view initialized');
+        break;
+      case 'manager':
+       
+        this.getVendorHistory();
+        break;
+      case 'department':
+        console.log('Department view initialized');
+        break;
+    }
+  }
+
+
+
+  getVendorHistory(): void {
+    this.departmentService.vendorHistory().subscribe({
+      next: (response) => {
+        if (response.isSuccess && response.data) {
+          const mappedData: BiddingHistoryItem[] = response.data.map((vendor) => ({
+            vendorId: vendor.vendor_id,
+            vendorName: vendor.company_name,
+            category: vendor.nature_of_business,
+            submissionDate: vendor.submission_date,
+            riskScore: this.mapRiskStatus(vendor.risk_status),
+            progress: vendor.risk_factor_score,
+            assignedTo: 'Compliance Team', // Default value as API doesn't provide this
+            applicationStatus: this.mapApplicationStatus(vendor.status)
+          }));
+          this.biddingHistory.set(mappedData);
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching vendor history:', err);
+      }
     });
+  }
+
+  private mapRiskStatus(status: string): 'Low' | 'Medium' | 'High' {
+    switch (status.toLowerCase()) {
+      case 'low':
+        return 'Low';
+      case 'medium':
+        return 'Medium';
+      case 'high':
+        return 'High';
+      default:
+        return 'Low';
+    }
+  }
+
+  private mapApplicationStatus(status: string): 'Approved' | 'Rejected' | 'Pending Review' {
+    switch (status) {
+      case 'APPROVED':
+        return 'Approved';
+      case 'REJECTED':
+        return 'Rejected';
+      case 'PENDING_REVIEW':
+      default:
+        return 'Pending Review';
+    }
   }
 
   // --- Template Helpers ---
@@ -105,6 +174,15 @@ export class BidingHistory {
     return riskClasses[riskScore];
   }
 
+  getApplicationStatusClass(status: BiddingHistoryItem['applicationStatus']): string {
+    const statusClasses = {
+      'Approved': 'bg-green-100 text-green-700',
+      'Rejected': 'bg-red-100 text-red-700',
+      'Pending Review': 'bg-yellow-100 text-yellow-700'
+    };
+    return statusClasses[status];
+  }
+
   getProgressBarClass(riskScore: BiddingHistoryItem['riskScore']): string {
     const progressClasses = {
       'Low': 'bg-[#4319C2]',
@@ -112,5 +190,14 @@ export class BidingHistory {
       'High': 'bg-[#4319C2]'
     };
     return progressClasses[riskScore];
+  }
+
+
+
+    public openRegReview(vendorId:string): void {
+    
+    this.router.navigate(['/department/reg-review'], {
+      queryParams: { vendorId }
+    });
   }
 }
