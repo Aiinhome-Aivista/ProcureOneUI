@@ -1,23 +1,23 @@
 <div class="flex flex-col h-full gap-4">
-  <div class="grid grid-cols-4 gap-4">
+  <div class="grid grid-cols-4 gap-4 h-full">
     <!-- Left Sidebar -->
-    <div class="col-span-1 space-y-4">
+    <div class="col-span-1 space-y-4 h-full">
       <app-hit-map-leftside></app-hit-map-leftside>
     </div>
 
     <!-- Right Main Section -->
-    <div class="col-span-3 flex flex-col gap-4">
-      <app-top-card></app-top-card>
+    <div class="col-span-3 flex flex-col gap-4 h-full">
+      <app-top-card [userType]="'department'"></app-top-card>
 
       <!-- Bottom Row -->
-      <div class="grid md:grid-cols-3 gap-4">
+      <div class="grid md:grid-cols-3 gap-4 h-full">
         <!-- Bidding Status -->
-        <div>
+        <div class="h-full">
           <app-biding-status></app-biding-status>
         </div>
 
         <!-- Bidding History-->
-        <div class="col-span-2">
+        <div class="col-span-2 h-full">
           <!-- Bidding Performance graph -->
           <app-biding-performance-graph></app-biding-performance-graph>
         </div>
