@@ -40,6 +40,8 @@ export class ApiEndpoints {
   // MANAGER endpoints
   static readonly MANAGER = {
     VENDOR_HISTORY: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-history`,
+    VENDOR_REG_COUNT: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-registration-count`,
+    VENDOR_DETAILS: `${ApiEndpoints.BASE_URL}/VendorMicroservices/get-vendor-details`,
 
   } as const;
 

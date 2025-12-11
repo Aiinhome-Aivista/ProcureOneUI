@@ -24,25 +24,27 @@
           <span class="text-gray-900 ml-1">{{ vendorInfo().address }}</span>
         </p>
         <p class="text-gray-600">
-          <span class="text-gray-500">Website:</span>
-          <a href="#" class="text-primary-600 hover:text-primary-700 ml-1 underline">
-            {{ vendorInfo().website }}
-          </a>
+          <span class="text-gray-500">Registration Number:</span>
+          <span class="text-gray-900 ml-1">{{ vendorInfo().registrationNumber }}</span>
         </p>
       </div>
     </div>
 
-    <!-- Financial Information -->
+    <!-- Registration Information -->
     <div class="mb-4">
-      <h4 class="text-xs font-semibold text-gray-500 uppercase mb-2">Financial Information</h4>
+      <h4 class="text-xs font-semibold text-gray-500 uppercase mb-2">Registration Information</h4>
       <div class="space-y-1 text-sm">
         <p class="text-gray-600">
-          <span class="text-gray-500">Credit Score:</span>
-          <span class="text-gray-900 ml-1">{{ vendorInfo().creditScore }}</span>
+          <span class="text-gray-500">GST/VAT Number:</span>
+          <span class="text-gray-900 ml-1">{{ vendorInfo().gstNumber }}</span>
         </p>
         <p class="text-gray-600">
-          <span class="text-gray-500">Annual Revenue:</span>
-          <span class="text-gray-900 ml-1">{{ vendorInfo().annualRevenue }}</span>
+          <span class="text-gray-500">PAN Number:</span>
+          <span class="text-gray-900 ml-1">{{ vendorInfo().panNumber }}</span>
+        </p>
+        <p class="text-gray-600">
+          <span class="text-gray-500">MSME/Udyam Number:</span>
+          <span class="text-gray-900 ml-1">{{ vendorInfo().msmeNumber }}</span>
         </p>
       </div>
     </div>
